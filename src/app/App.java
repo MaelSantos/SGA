@@ -1,6 +1,5 @@
 package app;
 
-<<<<<<< HEAD
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,8 +23,5 @@ public class App extends Application{
 		
 		launch(args);
 	}
-=======
-public class App {
->>>>>>> e40025d39f25a69d746aa10876772b3dc47e6cfd
 
 }
