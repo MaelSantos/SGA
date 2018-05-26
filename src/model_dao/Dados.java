@@ -1,4 +1,4 @@
-package mode_dao;
+package model_dao;
 
 import java.util.ArrayList;
 
@@ -34,13 +34,24 @@ public class Dados {
 		if(add)
 		{
 			usuarios.add(usuario);
-			System.out.println("Salvo");
 			return true;
 		}
 		
 		return false;
 	}
 
+	public boolean entrarSistema(String login, String senha) {
+		
+		for(Usuario u : usuarios)
+		{
+			if(u.getLogin().equalsIgnoreCase(login) && u.getSenha().equals(senha))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public ArrayList<Usuario> getUsuarios() {
 		return usuarios;
 	}

@@ -8,7 +8,7 @@ public class Usuario {
 	private String email;
 	private String login, senha;
 
-	private BufferedImage foto;
+	private BufferedImage imagem;
 	
 	public Usuario(String nome, String sobrenome, String email, String login, String senha) {
 		this.nome = nome;
@@ -47,7 +47,21 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	
 
+	public String getNome() {
+		return nome;
+	}
+
+	public String getSobrenome() {
+		return sobrenome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public BufferedImage getImagem() {
+		return imagem;
+	}
+	
 }
