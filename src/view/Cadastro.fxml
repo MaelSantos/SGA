@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="controle.ControleCadastroUsuario">
+   <children>
+      <TextField fx:id="tfdNome" layoutX="449.0" layoutY="135.0" promptText="Nome" />
+      <TextField fx:id="tfdSobrenome" layoutX="449.0" layoutY="186.0" promptText="Sobrenome" />
+      <Button fx:id="btnCriar" layoutX="472.0" layoutY="430.0" mnemonicParsing="false" onAction="#actionButton" prefHeight="35.0" prefWidth="103.0" text="Criar Conta" />
+      <TextField fx:id="tfdEmail" layoutX="449.0" layoutY="240.0" promptText="Email" />
+      <PasswordField fx:id="tfdSenha" layoutX="449.0" layoutY="300.0" promptText="Senha" />
+      <PasswordField fx:id="tfdConfirmar" layoutX="449.0" layoutY="363.0" promptText="Confirmar Senha" />
+      <TextField fx:id="tfdLogin" layoutX="449.0" layoutY="82.0" promptText="Login" />
+   </children>
+</AnchorPane>

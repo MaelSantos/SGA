@@ -5,17 +5,40 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model_vo.Tela;
 
 public class App extends Application{
 	
+	static Stage stage;
+	
+	static Scene loginScene;
+	static Scene cadastroScene;
+	
 	@Override
 	public void start(Stage stage) throws Exception {
-	
-		Pane pane = FXMLLoader.load(getClass().getClassLoader().getResource("Cadastro.fxml"));
-
-		Scene scene = new Scene(pane, 700, 600);
-		stage.setScene(scene);
+		this.stage = stage;
+		
+		Pane login = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
+		Pane cadastro = FXMLLoader.load(getClass().getResource("../view/Cadastro.fxml"));
+		
+		cadastroScene = new Scene(cadastro, 700, 600);
+		loginScene = new Scene(login);		
+		
+		stage.setScene(loginScene);
 		stage.show();
+		
+	}
+	
+	public static void changeStage(Tela tela)
+	{
+		switch (tela) {
+		case cadastro:
+			stage.setScene(cadastroScene);
+			break;
+
+		default:
+			break;
+		}
 		
 	}
 	
