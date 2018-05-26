@@ -6,12 +6,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import model_dao.Dados;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import model_dao.Dados;
 import model_vo.Usuario;
 import view.Alerta;
 
@@ -40,7 +39,9 @@ public class ControleCadastroUsuario implements Initializable {
 	
 	@FXML
     private void actionButton(ActionEvent event) {
-
+		
+		
+		
 		//verifico se tem algum campo vazio
 		if(! (tfdNome.getText().trim().equals("") ||
 				tfdSobrenome.getText().trim().equals("") ||

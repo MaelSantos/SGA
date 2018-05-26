@@ -16,6 +16,7 @@ public class App extends Application{
 	static Scene loginScene;
 	static Scene cadastroScene;
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception {
 		this.stage = stage;
