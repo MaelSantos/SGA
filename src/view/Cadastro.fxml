@@ -28,14 +28,14 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </opaqueInsets>
       </FlowPane>
-      <BorderPane layoutX="48.0" layoutY="94.0" prefHeight="245.0" prefWidth="280.0">
+      <BorderPane layoutX="90.0" layoutY="77.0" prefHeight="162.0" prefWidth="200.0" style="-fx-border-color: ddd;">
          <center>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
          </center>
          <bottom>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: ddd; -fx-background-color: ddd;" BorderPane.alignment="CENTER">
                <buttons>
-                  <MenuButton mnemonicParsing="false" text="Opções">
+                  <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Opções">
                     <items>
                       <MenuItem fx:id="mniAdicionar" mnemonicParsing="false" onAction="#actionButton" text="Adicionar Imagem" />
                       <MenuItem fx:id="mniRemover" mnemonicParsing="false" onAction="#actionButton" text="Remover Imagem" />

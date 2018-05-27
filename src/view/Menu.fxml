@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Avatar?>
+<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="21.0" prefWidth="700.0">
+        <menus>
+          <Menu mnemonicParsing="false">
+               <graphic>
+                  <MenuButton mnemonicParsing="false" text="Nome">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Perfil" />
+                        <MenuItem mnemonicParsing="false" text="Configurações" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                      <MenuItem mnemonicParsing="false" text="Sair" />
+                    </items>
+                     <graphic>
+                        <Avatar />
+                     </graphic>
+                  </MenuButton>
+               </graphic>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Pesquisa">
+               <graphic>
+                  <TextField alignment="CENTER_RIGHT" />
+               </graphic>
+          </Menu>
+        </menus>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </MenuBar>
+      <FlowPane hgap="10.0" layoutY="52.0" prefHeight="408.0" prefWidth="200.0" vgap="10.0">
+         <children>
+            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionEvent" prefHeight="25.0" prefWidth="200.0" text="Área De Trabalho">
+               <graphic>
+                  <Icon content="HELP_OUTLINE" />
+               </graphic>
+            </Button>
+            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Agenda">
+               <graphic>
+                  <Icon content="HELP_OUTLINE" />
+               </graphic>
+            </Button>
+            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Clientes">
+               <graphic>
+                  <Icon content="HELP_OUTLINE" />
+               </graphic>
+            </Button>
+            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="200.0" text="Contatos">
+               <graphic>
+                  <Icon content="HELP_OUTLINE" />
+               </graphic>
+            </Button>
+            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Processos e Casos">
+               <graphic>
+                  <Icon content="HELP_OUTLINE" />
+               </graphic>
+            </Button>
+            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Documentos">
+               <graphic>
+                  <Icon content="HELP_OUTLINE" />
+               </graphic>
+            </Button>
+            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Financeiro">
+               <graphic>
+                  <Icon content="HELP_OUTLINE" />
+               </graphic>
+            </Button>
+            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Estatisticas">
+               <graphic>
+                  <Icon content="HELP_OUTLINE" />
+               </graphic>
+            </Button>
+            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Alertas">
+               <graphic>
+                  <Icon content="HELP_OUTLINE" />
+               </graphic>
+            </Button>
+         </children>
+      </FlowPane>
+   </children>
+</AnchorPane>

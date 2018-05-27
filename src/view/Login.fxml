@@ -5,12 +5,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleLogin">
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleLogin">
    <children>
-      <ImageView fitHeight="150.0" fitWidth="315.0" layoutX="93.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnEntrar" layoutX="196.0" layoutY="362.0" mnemonicParsing="false" onAction="#actionButton" prefHeight="32.0" prefWidth="111.0" text="Entrar" />
-      <TextField fx:id="tfdLogin" layoutX="174.0" layoutY="217.0" promptText="Login" />
-      <PasswordField fx:id="tfdSenha" layoutX="176.0" layoutY="293.0" promptText="Senha" />
+      <FlowPane alignment="CENTER" hgap="50.0" layoutX="118.0" layoutY="40.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="342.0" prefWidth="265.0" prefWrapLength="200.0" vgap="50.0">
+         <children>
+            <ImageView fitHeight="151.0" fitWidth="248.0" pickOnBounds="true" preserveRatio="true" />
+            <TextField fx:id="tfdLogin" promptText="Login" />
+            <PasswordField fx:id="tfdSenha" promptText="Senha" />
+            <Button fx:id="btnEntrar" mnemonicParsing="false" onAction="#actionButton" prefHeight="32.0" prefWidth="111.0" text="Entrar" />
+         </children>
+      </FlowPane>
    </children>
 </AnchorPane>
