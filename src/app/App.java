@@ -31,6 +31,8 @@ public class App extends Application{
 		stage.show();
 		
 		Dados.getInstance().addUsuario(new Usuario("Mael", "Santos", "maelsantos777@gmail.com", "Mael_Santos7", "0708"));
+		Dados.getInstance().addUsuario(new Usuario("Wanderson", "Pereira", "exemple@gmail.com", "wanderson100v", "1234"));
+		
 		
 	}
 	
