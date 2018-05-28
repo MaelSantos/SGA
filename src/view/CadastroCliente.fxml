@@ -2,59 +2,55 @@
 
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField layoutX="58.0" layoutY="91.0" promptText="Nome" />
-      <TextField layoutX="143.0" layoutY="366.0" promptText="Telefone" />
-      <TextField layoutX="278.0" layoutY="91.0" promptText="CPF" />
-      <TextField layoutX="59.0" layoutY="493.0" promptText="Rua" />
-      <Separator layoutY="298.0" prefHeight="4.0" prefWidth="704.0" />
-      <TextField layoutX="59.0" layoutY="554.0" promptText="Bairro" />
-      <TextField layoutX="279.0" layoutY="493.0" promptText="Numero" />
-      <TextField layoutX="278.0" layoutY="173.0" promptText="Data De Nascimento" />
-      <TextField layoutX="478.0" layoutY="493.0" promptText="Cidade" />
-      <TextField layoutX="478.0" layoutY="430.0" promptText="Email" />
-      <ComboBox layoutX="58.0" layoutY="430.0" prefWidth="150.0" promptText="Estado" />
-      <ComboBox layoutX="477.0" layoutY="173.0" prefWidth="150.0" promptText="Gênero" />
-      <TextField layoutX="478.0" layoutY="554.0" promptText="Complemento" />
-      <TextField layoutX="279.0" layoutY="430.0" promptText="CEP" />
-      <TextField layoutX="443.0" layoutY="366.0" promptText="Telefone Segundario" />
-      <TextField layoutX="477.0" layoutY="91.0" promptText="RG" />
-      <TextField layoutX="279.0" layoutY="554.0" promptText="País" />
-      <ComboBox layoutX="68.0" layoutY="366.0" prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
-      <ComboBox layoutX="370.0" layoutY="366.0" prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
-      <ComboBox layoutX="134.0" layoutY="319.0" prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
-      <Label layoutX="59.0" layoutY="320.0" prefHeight="4.0" prefWidth="110.0" text="Endereço" textAlignment="CENTER">
-         <font>
-            <Font name="Calibri Light" size="18.0" />
-         </font>
-      </Label>
-      <MenuBar layoutX="58.0" layoutY="42.0" prefHeight="25.0" prefWidth="523.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Informações Gerais">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Informações Complementares">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Documenção Complementar">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
+      <TabPane prefHeight="699.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Informações Gerais">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField promptText="Nome" />
+                        <TextField promptText="Telefone" />
+                        <TextField promptText="CPF" />
+                        <TextField promptText="Rua" />
+                        <Separator prefHeight="4.0" prefWidth="704.0" />
+                        <TextField promptText="Bairro" />
+                        <TextField promptText="Numero" />
+                        <TextField promptText="Data De Nascimento" />
+                        <TextField promptText="Cidade" />
+                        <TextField promptText="Email" />
+                        <ComboBox prefWidth="150.0" promptText="Estado" />
+                        <ComboBox prefWidth="150.0" promptText="Gênero" />
+                        <TextField promptText="Complemento" />
+                        <TextField promptText="CEP" />
+                        <TextField promptText="Telefone Segundario" />
+                        <TextField promptText="RG" />
+                        <TextField layoutX="142.0" layoutY="93.0" promptText="País" />
+                        <ComboBox prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
+                        <ComboBox prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
+                        <ComboBox layoutX="257.0" layoutY="159.0" prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
+                        <Label layoutX="87.0" layoutY="160.0" prefHeight="4.0" prefWidth="110.0" text="Endereço" textAlignment="CENTER">
+                           <font>
+                              <Font name="Calibri Light" size="18.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Informações Complementares">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

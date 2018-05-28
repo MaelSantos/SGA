@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Avatar?>
-<?import com.gluonhq.charm.glisten.control.Icon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="620.0" prefWidth="900.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleMenu">
    <children>
-      <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="21.0" prefWidth="700.0">
+      <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="20.0" prefWidth="900.0">
         <menus>
           <Menu mnemonicParsing="false">
                <graphic>
-                  <MenuButton mnemonicParsing="false" text="Nome">
+                  <MenuButton fx:id="mnbNome" mnemonicParsing="false" text="Nome">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Perfil" />
-                        <MenuItem mnemonicParsing="false" text="Configurações" />
+                      <MenuItem fx:id="btnPerfil" mnemonicParsing="false" onAction="#actionButton" text="Perfil" />
+                        <MenuItem fx:id="btnConfiguracoes" mnemonicParsing="false" onAction="#actionButton" text="Configurações" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                      <MenuItem mnemonicParsing="false" text="Sair" />
+                      <MenuItem fx:id="btnSair" mnemonicParsing="false" onAction="#actionButton" text="Sair" />
                     </items>
-                     <graphic>
-                        <Avatar />
-                     </graphic>
                   </MenuButton>
                </graphic>
           </Menu>
@@ -42,54 +40,31 @@
             <Insets />
          </opaqueInsets>
       </MenuBar>
-      <FlowPane hgap="10.0" layoutY="52.0" prefHeight="408.0" prefWidth="200.0" vgap="10.0">
+      <FlowPane hgap="10.0" layoutY="33.0" prefHeight="536.0" prefWidth="200.0" vgap="10.0">
          <children>
-            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionEvent" prefHeight="25.0" prefWidth="200.0" text="Área De Trabalho">
-               <graphic>
-                  <Icon content="HELP_OUTLINE" />
-               </graphic>
-            </Button>
-            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Agenda">
-               <graphic>
-                  <Icon content="HELP_OUTLINE" />
-               </graphic>
-            </Button>
-            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Clientes">
-               <graphic>
-                  <Icon content="HELP_OUTLINE" />
-               </graphic>
-            </Button>
-            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="200.0" text="Contatos">
-               <graphic>
-                  <Icon content="HELP_OUTLINE" />
-               </graphic>
-            </Button>
-            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Processos e Casos">
-               <graphic>
-                  <Icon content="HELP_OUTLINE" />
-               </graphic>
-            </Button>
-            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Documentos">
-               <graphic>
-                  <Icon content="HELP_OUTLINE" />
-               </graphic>
-            </Button>
-            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Financeiro">
-               <graphic>
-                  <Icon content="HELP_OUTLINE" />
-               </graphic>
-            </Button>
-            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Estatisticas">
-               <graphic>
-                  <Icon content="HELP_OUTLINE" />
-               </graphic>
-            </Button>
-            <Button alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" text="Alertas">
-               <graphic>
-                  <Icon content="HELP_OUTLINE" />
-               </graphic>
-            </Button>
+            <Button fx:id="btnArea" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Área De Trabalho" />
+            <Button fx:id="btnAgenda" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Agenda" />
+            <Button fx:id="btnClientes" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Clientes" />
+            <Button fx:id="btnContatos" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="17.0" prefWidth="200.0" text="Contatos" />
+            <Button fx:id="btnProcessos" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Processos e Casos" />
+            <Button fx:id="btnDocumentos" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Documentos" />
+            <Button fx:id="btnFinanceiro" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Financeiro" />
+            <Button fx:id="btnEstatisticas" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Estatisticas" />
+            <Button fx:id="btnHistorico" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Historico" />
+            <Button fx:id="btnAlertas" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Alertas" />
          </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </FlowPane>
+      <Separator layoutX="200.0" layoutY="33.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="9.0" />
+      <ImageView fitHeight="559.0" fitWidth="622.0" layoutX="245.0" layoutY="35.0" opacity="0.5" pickOnBounds="true">
+         <image>
+            <Image url="@../../res/SGA - Nome.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="pane" layoutX="206.0" layoutY="33.0" prefHeight="600.0" prefWidth="692.0" />
+      <Button fx:id="btnInformacoes" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" layoutY="576.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Informações">
+      </Button>
    </children>
 </AnchorPane>

@@ -8,10 +8,12 @@ public class Dados {
 
 	private static Dados dados;
 	private ArrayList<Usuario> usuarios;
+	private Usuario usuarioLogado;
 	
 	private Dados() {
 		
 		usuarios = new ArrayList<>();
+		usuarioLogado = new Usuario("Vazio", "Vazio", "Vazio", "Vazio", "Vazio");
 	}
 
 	public static Dados getInstance()
@@ -46,6 +48,7 @@ public class Dados {
 		{
 			if(u.getLogin().equalsIgnoreCase(login) && u.getSenha().equals(senha))
 			{
+				usuarioLogado = u;
 				return true;
 			}
 		}
@@ -54,6 +57,10 @@ public class Dados {
 	
 	public ArrayList<Usuario> getUsuarios() {
 		return usuarios;
+	}
+
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
 	}
 	
 }

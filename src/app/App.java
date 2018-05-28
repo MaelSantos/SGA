@@ -14,7 +14,9 @@ public class App extends Application{
 	static Stage stage;
 	
 	static Scene loginScene;
-	static Scene cadastroScene;
+	public static Scene cadastroScene;
+	static Scene menuScene;
+	static Scene informacoesScene;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -23,24 +25,34 @@ public class App extends Application{
 		
 		Pane login = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
 		Pane cadastro = FXMLLoader.load(getClass().getResource("../view/Cadastro.fxml"));
+		Pane menu = FXMLLoader.load(getClass().getResource("../view/Menu.fxml"));
+		Pane informacoes = FXMLLoader.load(getClass().getResource("../view/Informacoes.fxml"));
 		
 		cadastroScene = new Scene(cadastro, 700, 600);
-		loginScene = new Scene(login);		
+		loginScene = new Scene(login,500,500);
+		menuScene = new Scene(menu, 900, 620);
+		informacoesScene = new Scene(informacoes, 700, 600);
 		
 		stage.setScene(loginScene);
+		stage.setTitle("SGA - Sistema De Gerenciamento Advocativo");
+		stage.centerOnScreen();
 		stage.show();
 		
 		Dados.getInstance().addUsuario(new Usuario("Mael", "Santos", "maelsantos777@gmail.com", "Mael_Santos7", "0708"));
 		Dados.getInstance().addUsuario(new Usuario("Wanderson", "Pereira", "exemple@gmail.com", "wanderson100v", "1234"));
-		
 		
 	}
 	
 	public static void changeStage(Tela tela)
 	{
 		switch (tela) {
+		case menu:
+			stage.setScene(menuScene);
+			stage.centerOnScreen();
+			break;
 		case cadastro:
 			stage.setScene(cadastroScene);
+			stage.centerOnScreen();
 			break;
 
 		default:
