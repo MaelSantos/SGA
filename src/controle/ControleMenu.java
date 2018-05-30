@@ -1,6 +1,8 @@
 package controle;
 
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 import app.App;
@@ -10,10 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import model_dao.Dados;
+import model_vo.Tela;
+import model_vo.Usuario;
 
-public class ControleMenu implements Initializable {
+@SuppressWarnings("deprecation")
+public class ControleMenu implements Initializable, Observer{
 
 	@FXML
 	private MenuItem btnPerfil;
@@ -55,7 +60,7 @@ public class ControleMenu implements Initializable {
 	private Button btnInformacoes;
 
 	@FXML
-	private AnchorPane pane;
+	private Pane pane;
 
 	@FXML
 	private Button btnContatos;
@@ -63,49 +68,58 @@ public class ControleMenu implements Initializable {
 	@FXML
     private MenuButton mnbNome;
 	
+	private Usuario usuario;
+	
 	@FXML
 	public void actionButton(ActionEvent e)
 	{
 		if(e.getSource() == btnArea)
-			System.out.println("Area");
+			atualizarTela(App.changePane(Tela.perfil));
 		if(e.getSource() == btnAgenda)
-			System.out.println("Agenda");
+			atualizarTela(App.changePane(Tela.agenda));
 		if(e.getSource() == btnClientes)
-			System.out.println("Cliente");
+			atualizarTela(App.changePane(Tela.clientes));
 		if(e.getSource() == btnContatos)
-			System.out.println("Contatos");
+			atualizarTela(App.changePane(Tela.contatos));
 		if(e.getSource() == btnProcessos)
-			System.out.println("Processos");
+			atualizarTela(App.changePane(Tela.processos));
 		if(e.getSource() == btnDocumentos)
-			System.out.println("Documentos");
+			atualizarTela(App.changePane(Tela.documentos));
 		if(e.getSource() == btnFinanceiro)
-			System.out.println("Financeiro");
+			atualizarTela(App.changePane(Tela.financeiro));
 		if(e.getSource() == btnEstatisticas)
-			System.out.println("Estatisticas");
+			atualizarTela(App.changePane(Tela.estatiticas));
 		if(e.getSource() == btnHistorico)
-			System.out.println("Historico");
+			atualizarTela(App.changePane(Tela.historico));
 		if(e.getSource() == btnAlertas)
-			System.out.println("Alertas");
+			atualizarTela(App.changePane(Tela.alertas));
 		if(e.getSource() == btnInformacoes)
-			System.out.println("Informaçoes");
+			atualizarTela(App.changePane(Tela.informacoes));
 		if(e.getSource() == btnPerfil)
-			System.out.println("Perfil");
+			atualizarTela(App.changePane(Tela.perfil));
 		if(e.getSource() == btnConfiguracoes)
-			System.out.println("Configuraçoes");
+			atualizarTela(App.changePane(Tela.configuracoes));
 		if(e.getSource() == btnSair)
-			System.exit(0);
+			App.changeStage(Tela.login);//muda a tela
 		
 	}
 	
-	public void atualizarUsuario()
+	public void atualizarTela(Pane arg1)
 	{
-		mnbNome.setText(Dados.getInstance().getUsuarioLogado().getNome());		
+		pane.getChildren().setAll(arg1);
 	}
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		atualizarUsuario();
+		Dados.getInstance().addObserver(this);
+	}
+
+	@Override
+	public void update(Observable observable, Object object) {
+
+		usuario = (Usuario) object;	
+		mnbNome.setText(usuario.getNome());
 	}
 
 }

@@ -3,6 +3,8 @@ package app;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model_dao.Dados;
@@ -14,19 +16,22 @@ public class App extends Application{
 	static Stage stage;
 	
 	static Scene loginScene;
-	public static Scene cadastroScene;
+	static Scene cadastroScene;
 	static Scene menuScene;
 	static Scene informacoesScene;
+	
+	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa;
 	
 	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception {
 		this.stage = stage;
 		
-		Pane login = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
-		Pane cadastro = FXMLLoader.load(getClass().getResource("../view/Cadastro.fxml"));
-		Pane menu = FXMLLoader.load(getClass().getResource("../view/Menu.fxml"));
-		Pane informacoes = FXMLLoader.load(getClass().getResource("../view/Informacoes.fxml"));
+		login = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
+		cadastro = FXMLLoader.load(getClass().getResource("../view/Cadastro.fxml"));
+		menu = FXMLLoader.load(getClass().getResource("../view/Menu.fxml"));
+		informacoes = FXMLLoader.load(getClass().getResource("../view/Informacoes.fxml"));
+		perfil = FXMLLoader.load(getClass().getResource("../view/Perfil.fxml"));
 		
 		cadastroScene = new Scene(cadastro, 700, 600);
 		loginScene = new Scene(login,500,500);
@@ -35,6 +40,8 @@ public class App extends Application{
 		
 		stage.setScene(loginScene);
 		stage.setTitle("SGA - Sistema De Gerenciamento Advocativo");
+		//adiciona um icone 
+		stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(("SGA.png"))));
 		stage.centerOnScreen();
 		stage.show();
 		
@@ -46,6 +53,11 @@ public class App extends Application{
 	public static void changeStage(Tela tela)
 	{
 		switch (tela) {
+		case login:
+			
+			stage.setScene(loginScene);
+			stage.centerOnScreen();
+			break;
 		case menu:
 			stage.setScene(menuScene);
 			stage.centerOnScreen();
@@ -61,9 +73,24 @@ public class App extends Application{
 		
 	}
 	
+	public static Pane changePane(Tela tela)
+	{
+		switch (tela) {
+		case informacoes:
+			return informacoes;
+		case cadastro:
+			return cadastro;
+		case perfil:
+			return perfil;
+		default:
+			break;
+		}
+		
+		return new AnchorPane();
+	}
+	
 	public static void main(String[] args) {
 		
 		launch(args);
 	}
-
 }
