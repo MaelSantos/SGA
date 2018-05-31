@@ -1,5 +1,8 @@
 package app;
 
+import java.util.ArrayList;
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,6 +35,7 @@ public class App extends Application{
 		menu = FXMLLoader.load(getClass().getResource("../view/Menu.fxml"));
 		informacoes = FXMLLoader.load(getClass().getResource("../view/Informacoes.fxml"));
 		perfil = FXMLLoader.load(getClass().getResource("../view/Perfil.fxml"));
+		editarPerfil = FXMLLoader.load(getClass().getResource("../view/EditarPerfil.fxml"));
 		
 		cadastroScene = new Scene(cadastro, 700, 600);
 		loginScene = new Scene(login,500,500);
@@ -82,15 +86,26 @@ public class App extends Application{
 			return cadastro;
 		case perfil:
 			return perfil;
+		case editar_perfil:
+			return editarPerfil;
 		default:
 			break;
 		}
 		
 		return new Pane();
 	}
+	public static ArrayList<Ouvinte> ouvintes = new ArrayList<>();
+
+	public static void notificarOuvintes(Tela tela) {
+		for(Ouvinte ouvinte : ouvintes) 
+			ouvinte.atualizar(tela);
+	}
 	
 	public static void main(String[] args) {
-		
 		launch(args);
+	}
+
+	public static void addOuvinte(Ouvinte ouvinte) {
+		ouvintes.add(ouvinte);
 	}
 }

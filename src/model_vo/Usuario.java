@@ -35,6 +35,23 @@ public class Usuario {
 	public String getLogin() {
 		return login;
 	}
+	
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setImagem(BufferedImage imagem) {
+		this.imagem = imagem;
+	}
 
 	public void setLogin(String login) {
 		this.login = login;
