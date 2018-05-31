@@ -114,7 +114,7 @@ public class ControleMenu implements Initializable{
 				}else if(tela == Tela.editar_perfil) {
 					atualizarTela(App.changePane(Tela.editar_perfil));
 				}
-//				if(!(mnbNome.getText().equalsIgnoreCase(usuario.getNome())))
+
 					mnbNome.setText(usuario.getNome());
 			}
 		});

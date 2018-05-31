@@ -17,7 +17,7 @@
 
 <AnchorPane prefHeight="620.0" prefWidth="900.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleMenu">
    <children>
-      <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="20.0" prefWidth="900.0">
+      <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="20.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false">
                <graphic>
@@ -41,7 +41,7 @@
             <Insets />
          </opaqueInsets>
       </MenuBar>
-      <FlowPane hgap="10.0" layoutY="33.0" prefHeight="536.0" prefWidth="200.0" vgap="10.0">
+      <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="10.0" layoutY="33.0" prefHeight="536.0" prefWidth="200.0" vgap="10.0" AnchorPane.bottomAnchor="64.0" AnchorPane.topAnchor="33.0">
          <children>
             <Button fx:id="btnArea" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Área De Trabalho" />
             <Button fx:id="btnAgenda" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Agenda" />
@@ -58,14 +58,14 @@
             <Insets top="10.0" />
          </padding>
       </FlowPane>
-      <Separator layoutX="200.0" layoutY="33.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="9.0" />
-      <ImageView fitHeight="559.0" fitWidth="622.0" layoutX="245.0" layoutY="35.0" opacity="0.5" pickOnBounds="true">
+      <Separator layoutX="200.0" layoutY="33.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="33.0" />
+      <ImageView fitHeight="559.0" fitWidth="622.0" layoutX="245.0" layoutY="35.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="35.0">
          <image>
             <Image url="@../../res/SGA - Nome.png" />
          </image>
       </ImageView>
-      <Pane fx:id="pane" layoutX="206.0" layoutY="33.0" prefHeight="600.0" prefWidth="693.0" />
-      <Button fx:id="btnInformacoes" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" layoutY="576.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Informações">
+      <Pane fx:id="pane" layoutX="206.0" layoutY="33.0" prefHeight="600.0" prefWidth="693.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="33.0" />
+      <Button fx:id="btnInformacoes" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" layoutY="576.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Informações" AnchorPane.topAnchor="576.0">
       </Button>
    </children>
 </AnchorPane>

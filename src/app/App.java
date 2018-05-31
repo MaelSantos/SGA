@@ -18,9 +18,7 @@ public class App extends Application{
 	static Stage stage;
 	
 	static Scene loginScene;
-	static Scene cadastroScene;
 	static Scene menuScene;
-	static Scene informacoesScene;
 	
 	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa;
 	
@@ -36,10 +34,8 @@ public class App extends Application{
 		perfil = FXMLLoader.load(getClass().getResource("../view/Perfil.fxml"));
 		editarPerfil = FXMLLoader.load(getClass().getResource("../view/EditarPerfil.fxml"));
 		
-		cadastroScene = new Scene(cadastro, 700, 600);
 		loginScene = new Scene(login,500,500);
 		menuScene = new Scene(menu, 900, 620);
-		informacoesScene = new Scene(informacoes, 700, 600);
 		
 		stage.setScene(loginScene);
 		stage.setTitle("SGA - Sistema De Gerenciamento Advocativo");

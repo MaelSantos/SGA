@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControlePerfil">
    <children>
-      <FlowPane alignment="TOP_CENTER" hgap="20.0" prefHeight="600.0" prefWidth="203.0" vgap="20.0">
+      <FlowPane alignment="TOP_CENTER" hgap="20.0" prefHeight="600.0" prefWidth="203.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: black;" />
             <Label fx:id="lblNome" text="Nome Sobrenome">
@@ -28,7 +28,7 @@
             <Insets top="20.0" />
          </padding>
       </FlowPane>
-      <TabPane layoutX="209.0" layoutY="6.0" prefHeight="590.0" prefWidth="485.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="209.0" layoutY="6.0" prefHeight="590.0" prefWidth="485.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
         <tabs>
           <Tab text="Agenda Diária">
                <content>
@@ -42,6 +42,6 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Separator layoutX="203.0" layoutY="-7.0" orientation="VERTICAL" prefHeight="600.0" />
+      <Separator layoutX="203.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
