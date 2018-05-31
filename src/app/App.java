@@ -86,7 +86,7 @@ public class App extends Application{
 			break;
 		}
 		
-		return new AnchorPane();
+		return new Pane();
 	}
 	
 	public static void main(String[] args) {

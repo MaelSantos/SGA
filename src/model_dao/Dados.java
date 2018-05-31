@@ -27,21 +27,16 @@ public class Dados extends Observable{
 	
 	public boolean addUsuario(Usuario usuario)
 	{
-		boolean add = true;
 		for(Usuario u : usuarios)
 		{
 			if(usuario.equals(u))
 			{
-				add = false;
+				return false;// se entrar sigifica que existe um usuario igual ja registrado 
 			}
 		}
-		if(add)
-		{
-			usuarios.add(usuario);
-			return true;
-		}
 		
-		return false;
+		usuarios.add(usuario);
+		return true;
 	}
 
 	public boolean entrarSistema(String login, String senha) {
