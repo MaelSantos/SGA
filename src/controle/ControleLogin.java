@@ -33,7 +33,8 @@ public class ControleLogin implements Initializable{
 		{
 			if(Dados.getInstance().entrarSistema(tfdLogin.getText(), tfdSenha.getText()))
 			{
-				App.changeStage(Tela.menu);						
+				App.changeStage(Tela.menu);
+				App.notificarOuvintes(Tela.menu, Dados.getInstance().getUsuarioLogado());
 			}
 			else
 			{

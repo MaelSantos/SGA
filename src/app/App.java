@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model_dao.Dados;
@@ -58,7 +57,6 @@ public class App extends Application{
 	{
 		switch (tela) {
 		case login:
-			
 			stage.setScene(loginScene);
 			stage.centerOnScreen();
 			break;
@@ -66,11 +64,6 @@ public class App extends Application{
 			stage.setScene(menuScene);
 			stage.centerOnScreen();
 			break;
-		case cadastro:
-			stage.setScene(cadastroScene);
-			stage.centerOnScreen();
-			break;
-
 		default:
 			break;
 		}
@@ -94,18 +87,19 @@ public class App extends Application{
 		
 		return new Pane();
 	}
-	public static ArrayList<Ouvinte> ouvintes = new ArrayList<>();
+	
+	private static ArrayList<Ouvinte> ouvintes = new ArrayList<>();
 
-	public static void notificarOuvintes(Tela tela) {
-		for(Ouvinte ouvinte : ouvintes) 
-			ouvinte.atualizar(tela);
+	public static void notificarOuvintes(Tela tela, Usuario usuario) {
+		for(Ouvinte ouvinte : ouvintes)
+			ouvinte.atualizar(tela, usuario);
+	}
+	
+	public static void addOuvinte(Ouvinte ouvinte) {
+		ouvintes.add(ouvinte);
 	}
 	
 	public static void main(String[] args) {
 		launch(args);
-	}
-
-	public static void addOuvinte(Ouvinte ouvinte) {
-		ouvintes.add(ouvinte);
 	}
 }

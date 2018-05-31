@@ -1,8 +1,6 @@
 package controle;
 
 import java.net.URL;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
 
 import app.App;
@@ -14,12 +12,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
-import model_dao.Dados;
 import model_vo.Tela;
 import model_vo.Usuario;
 
-@SuppressWarnings("deprecation")
-public class ControleMenu implements Initializable, Observer{
+public class ControleMenu implements Initializable{
 
 	@FXML
 	private MenuItem btnPerfil;
@@ -69,8 +65,6 @@ public class ControleMenu implements Initializable, Observer{
 	@FXML
     private MenuButton mnbNome;
 	
-	private Usuario usuario;
-	
 	@FXML
 	public void actionButton(ActionEvent e)
 	{
@@ -114,23 +108,17 @@ public class ControleMenu implements Initializable, Observer{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		App.addOuvinte(new Ouvinte() {
 			@Override
-			public void atualizar(Tela tela) {
+			public void atualizar(Tela tela, Usuario usuario) {
 				if(tela == Tela.perfil) {
 					atualizarTela(App.changePane(Tela.perfil));
 				}else if(tela == Tela.editar_perfil) {
 					atualizarTela(App.changePane(Tela.editar_perfil));
 				}
+//				if(!(mnbNome.getText().equalsIgnoreCase(usuario.getNome())))
+					mnbNome.setText(usuario.getNome());
 			}
 		});
 		
-		Dados.getInstance().addObserver(this);
-	}
-
-	@Override
-	public void update(Observable observable, Object object) {
-
-		usuario = (Usuario) object;	
-		mnbNome.setText(usuario.getNome());
 	}
 
 }

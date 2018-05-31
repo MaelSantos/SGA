@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControlePerfil">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControlePerfil">
    <children>
-      <Label layoutX="25.0" layoutY="37.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: black;" />
-      <Label layoutX="15.0" layoutY="187.0" text="NOME SOBRENOME">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Label>
+      <FlowPane alignment="TOP_CENTER" hgap="20.0" prefHeight="600.0" prefWidth="203.0" vgap="20.0">
+         <children>
+            <Label prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: black;" />
+            <Label fx:id="lblNome" text="Nome Sobrenome">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="190.0" />
+            <Button fx:id="editarPerfilButton" mnemonicParsing="false" onAction="#actionButton" text="EDITAR PERFIL" />
+         </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </FlowPane>
       <TabPane layoutX="209.0" layoutY="6.0" prefHeight="590.0" prefWidth="485.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Agenda Diária">
@@ -32,7 +43,5 @@
         </tabs>
       </TabPane>
       <Separator layoutX="203.0" layoutY="-7.0" orientation="VERTICAL" prefHeight="600.0" />
-      <Button fx:id="editarPerfilButton" layoutX="55.0" layoutY="238.0" mnemonicParsing="false" onAction="#actionButton" scaleX="1.5" text="EDITAR PERFIL" />
-      <Separator layoutX="6.0" layoutY="223.0" prefWidth="190.0" />
    </children>
 </AnchorPane>

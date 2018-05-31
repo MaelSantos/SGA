@@ -53,16 +53,16 @@ public class ControleEditarPerfil implements Initializable{
     @FXML
     private Button voltarButton;
 
+    private Usuario usuario;
 
     @FXML
     private void actionButton(ActionEvent event) {
     	if(event.getSource() == voltarButton) {
     		
-    		App.notificarOuvintes(Tela.perfil);
+    		App.notificarOuvintes(Tela.perfil, usuario);
     	}
     	else
     	{ 
-    		Usuario usuario = Dados.getInstance().getUsuarioLogado();
 	    	if(event.getSource() == atualizarPerfilButton) 
 	    		atualizarPerfil(usuario);
 	    	else if(event.getSource() == atualizarLoginButton)
@@ -81,9 +81,9 @@ public class ControleEditarPerfil implements Initializable{
   	public void initialize(URL location, ResourceBundle resources) {
   		App.addOuvinte(new Ouvinte() {
   			@Override
-  			public void atualizar(Tela tela) {
+  			public void atualizar(Tela tela, Usuario usuario) {
   				if(tela == Tela.editar_perfil) {
-  					Usuario usuario = Dados.getInstance().getUsuarioLogado();
+  					ControleEditarPerfil.this.usuario = usuario;
   					nomeField.setPromptText(usuario.getNome());
   					sobrenomeField.setPromptText(usuario.getSobrenome());
   					emailField.setPromptText(usuario.getEmail());
@@ -91,6 +91,7 @@ public class ControleEditarPerfil implements Initializable{
   				}
   			}
   		});
+  		
   	}
     
     private void atualizarSenha(Usuario usuario) {

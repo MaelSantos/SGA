@@ -1,12 +1,10 @@
 package model_dao;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 import model_vo.Usuario;
 
-@SuppressWarnings("deprecation")
-public class Dados extends Observable{
+public class Dados{
 
 	private static Dados dados;
 	private ArrayList<Usuario> usuarios;
@@ -46,8 +44,6 @@ public class Dados extends Observable{
 			if(u.getLogin().equalsIgnoreCase(login) && u.getSenha().equals(senha))
 			{
 				usuarioLogado = u;
-				setChanged();
-				notifyObservers(usuarioLogado);
 				return true;
 			}
 		}
