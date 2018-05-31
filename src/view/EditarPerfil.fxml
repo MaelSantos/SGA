@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleEditarPerfil">
    <children>
       <Label layoutX="37.0" layoutY="66.0" text="Editar informações de usuário" textFill="WHITE">
          <font>
@@ -50,12 +50,12 @@
             <Font name="Verdana" size="12.0" />
          </font>
       </Label>
-      <TextField layoutX="107.0" layoutY="173.0" />
-      <TextField layoutX="366.0" layoutY="173.0" />
-      <TextField layoutX="107.0" layoutY="204.0" />
-      <PasswordField layoutX="213.0" layoutY="393.0" />
-      <PasswordField layoutX="213.0" layoutY="431.0" />
-      <PasswordField layoutX="214.0" layoutY="466.0" />
+      <TextField fx:id="nomeField" layoutX="107.0" layoutY="173.0" />
+      <TextField fx:id="sobrenomeField" layoutX="366.0" layoutY="173.0" />
+      <TextField fx:id="emailField" layoutX="107.0" layoutY="204.0" />
+      <PasswordField fx:id="senhaAtualField" layoutX="213.0" layoutY="393.0" />
+      <PasswordField fx:id="novaSenhaField" layoutX="213.0" layoutY="431.0" />
+      <PasswordField fx:id="confirmarSenhaField" layoutX="214.0" layoutY="466.0" />
       <Label layoutX="37.0" layoutY="307.0" text="Dados de conta">
          <font>
             <Font name="Verdana Bold" size="15.0" />
@@ -66,23 +66,23 @@
             <Font name="Verdana Bold" size="15.0" />
          </font>
       </Label>
-      <TextField layoutX="213.0" layoutY="340.0" />
-      <Button layoutX="382.0" layoutY="340.0" mnemonicParsing="false" text="Atualizar longin">
+      <TextField fx:id="loginField" layoutX="213.0" layoutY="340.0" />
+      <Button fx:id="atualizarLoginButton" layoutX="382.0" layoutY="340.0" mnemonicParsing="false" onAction="#actionButton" text="Atualizar longin">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="411.0" layoutY="212.0" mnemonicParsing="false" text="Atualizar perfil">
+      <Button fx:id="atualizarPerfilButton" layoutX="411.0" layoutY="212.0" mnemonicParsing="false" onAction="#actionButton" text="Atualizar perfil">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="382.0" layoutY="466.0" mnemonicParsing="false" text="Atuallizar senha">
+      <Button fx:id="atualizarSenhaButton" layoutX="382.0" layoutY="466.0" mnemonicParsing="false" onAction="#actionButton" text="Atuallizar senha">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="596.0" layoutY="547.0" mnemonicParsing="false" scaleX="1.5" scaleY="1.5" text="Voltar">
+      <Button fx:id="voltarButton" layoutX="596.0" layoutY="547.0" mnemonicParsing="false" onAction="#actionButton" scaleX="1.5" scaleY="1.5" text="Voltar">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>

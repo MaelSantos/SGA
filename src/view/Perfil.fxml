@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControlePerfil">
    <children>
       <Label layoutX="25.0" layoutY="37.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: black;" />
       <Label layoutX="15.0" layoutY="187.0" text="NOME SOBRENOME">
@@ -32,7 +32,7 @@
         </tabs>
       </TabPane>
       <Separator layoutX="203.0" layoutY="-7.0" orientation="VERTICAL" prefHeight="600.0" />
-      <Button layoutX="55.0" layoutY="238.0" mnemonicParsing="false" scaleX="1.5" text="EDITAR PERFIL" />
+      <Button fx:id="editarPerfilButton" layoutX="55.0" layoutY="238.0" mnemonicParsing="false" onAction="#actionButton" scaleX="1.5" text="EDITAR PERFIL" />
       <Separator layoutX="6.0" layoutY="223.0" prefWidth="190.0" />
    </children>
 </AnchorPane>

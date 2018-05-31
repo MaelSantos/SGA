@@ -6,6 +6,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 
 import app.App;
+import app.Ouvinte;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -111,6 +112,16 @@ public class ControleMenu implements Initializable, Observer{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		App.addOuvinte(new Ouvinte() {
+			@Override
+			public void atualizar(Tela tela) {
+				if(tela == Tela.perfil) {
+					atualizarTela(App.changePane(Tela.perfil));
+				}else if(tela == Tela.editar_perfil) {
+					atualizarTela(App.changePane(Tela.editar_perfil));
+				}
+			}
+		});
 		
 		Dados.getInstance().addObserver(this);
 	}
