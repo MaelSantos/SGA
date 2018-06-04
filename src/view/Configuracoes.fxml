@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleConfiguracoes">
+   <children>
+      <SplitPane dividerPositions="0.5353535353535354" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+            <FlowPane alignment="TOP_CENTER" vgap="40.0">
+               <children>
+                  <Label fx:id="lblNome" text="Nome Sobrenome">
+                     <font>
+                        <Font name="Verdana" size="19.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets top="40.0" />
+               </padding>
+            </FlowPane>
+            <FlowPane alignment="TOP_CENTER" vgap="40.0">
+               <children>
+                  <Button fx:id="btnAddAdm" mnemonicParsing="false" onAction="#actionButton" text="Adicionar  Administrador" />
+               </children>
+               <padding>
+                  <Insets top="40.0" />
+               </padding>
+            </FlowPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

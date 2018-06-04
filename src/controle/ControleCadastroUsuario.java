@@ -3,6 +3,8 @@ package controle;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import app.App;
+import app.Ouvinte;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,10 +13,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model_dao.Dados;
+import model_vo.Tela;
 import model_vo.Usuario;
 import view.Alerta;
 
-public class ControleCadastroUsuario implements Initializable {
+public class ControleCadastroUsuario implements Initializable, Ouvinte {
 
 	@FXML
 	private TextField tfdNome;
@@ -36,6 +39,9 @@ public class ControleCadastroUsuario implements Initializable {
 
 	@FXML
 	private TextField tfdLogin;
+	
+	@FXML
+    private Button btnCancelar;
 	
 	@FXML
     private void actionButton(ActionEvent event) {
@@ -80,10 +86,21 @@ public class ControleCadastroUsuario implements Initializable {
 
 			Alerta.getInstance().setAlertType(AlertType.ERROR);
 		}
+		if(event.getSource() == btnCancelar)
+		{
+			App.notificarOuvintes(Tela.configuracoes, Dados.getInstance().getUsuarioLogado());
+		}
     }
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		App.addOuvinte(this);
+	}
+
+	@Override
+	public void atualizar(Tela tela, Usuario usuario) {
+		
+		
 		
 	}
 

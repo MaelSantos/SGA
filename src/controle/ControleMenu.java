@@ -11,12 +11,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import model_vo.Tela;
 import model_vo.Usuario;
 
 public class ControleMenu implements Initializable{
 
+	@FXML
+    private AnchorPane menu;
+	
 	@FXML
 	private MenuItem btnPerfil;
 
@@ -57,7 +61,7 @@ public class ControleMenu implements Initializable{
 	private Button btnInformacoes;
 
 	@FXML
-	private Pane pane;
+	private AnchorPane pane;
 
 	@FXML
 	private Button btnContatos;
@@ -96,12 +100,17 @@ public class ControleMenu implements Initializable{
 			atualizarTela(App.changePane(Tela.configuracoes));
 		if(e.getSource() == btnSair)
 			App.changeStage(Tela.login);//muda a tela
-		
 	}
 	
-	public void atualizarTela(Pane arg1)
-	{
-		pane.getChildren().setAll(arg1);
+	@SuppressWarnings("static-access")
+	public void atualizarTela(Pane paneNovo)
+	{	
+		pane.setBottomAnchor(paneNovo, 0.0);
+		pane.setTopAnchor(paneNovo, 0.0);
+		pane.setLeftAnchor(paneNovo, 0.0);
+		pane.setRightAnchor(paneNovo, 0.0);
+		
+		pane.getChildren().setAll(paneNovo);
 	}
 	
 	@Override
@@ -111,11 +120,16 @@ public class ControleMenu implements Initializable{
 			public void atualizar(Tela tela, Usuario usuario) {
 				if(tela == Tela.perfil) {
 					atualizarTela(App.changePane(Tela.perfil));
+				}
+				if(tela == Tela.cadastro) {
+					atualizarTela(App.changePane(Tela.cadastro));
+				}
+				if(tela == Tela.configuracoes) {
+					atualizarTela(App.changePane(Tela.configuracoes));
 				}else if(tela == Tela.editar_perfil) {
 					atualizarTela(App.changePane(Tela.editar_perfil));
 				}
-
-					mnbNome.setText(usuario.getNome());
+				mnbNome.setText(usuario.getNome());
 			}
 		});
 		

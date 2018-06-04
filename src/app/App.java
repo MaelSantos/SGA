@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model_dao.Dados;
 import model_vo.Tela;
 import model_vo.Usuario;
@@ -20,7 +21,7 @@ public class App extends Application{
 	static Scene loginScene;
 	static Scene menuScene;
 	
-	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa;
+	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -33,13 +34,13 @@ public class App extends Application{
 		informacoes = FXMLLoader.load(getClass().getResource("../view/Informacoes.fxml"));
 		perfil = FXMLLoader.load(getClass().getResource("../view/Perfil.fxml"));
 		editarPerfil = FXMLLoader.load(getClass().getResource("../view/EditarPerfil.fxml"));
+		configuracoes = FXMLLoader.load(getClass().getResource("../view/Configuracoes.fxml"));
 		
-		loginScene = new Scene(login,500,500);
-		menuScene = new Scene(menu, 900, 620);
+		loginScene = new Scene(login);
+		menuScene = new Scene(menu);
 		
 		stage.setScene(loginScene);
 		stage.setTitle("SGA - Sistema De Gerenciamento Advocativo");
-		//adiciona um icone 
 		stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(("SGA.png"))));
 		stage.centerOnScreen();
 		stage.show();
@@ -77,6 +78,8 @@ public class App extends Application{
 			return perfil;
 		case editar_perfil:
 			return editarPerfil;
+		case configuracoes:
+			return configuracoes;
 		default:
 			break;
 		}

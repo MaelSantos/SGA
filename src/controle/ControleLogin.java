@@ -22,6 +22,9 @@ public class ControleLogin implements Initializable{
 
     @FXML
     private Button btnEntrar;
+    
+    @FXML
+    private Button btnSair;
 
     @FXML
     private PasswordField tfdSenha;
@@ -40,6 +43,10 @@ public class ControleLogin implements Initializable{
 			{
 				Alerta.getInstance().showMensagem("Dados Incorretos", "Login/Email Ou Senha Incorretos", "Verifique Os Dados Informados E Tente Novamente");
 			}
+		}
+		if(e.getSource() == btnSair)
+		{
+			System.exit(0);
 		}
 	}
 	
