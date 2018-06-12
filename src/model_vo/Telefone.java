@@ -2,21 +2,31 @@ package model_vo;
 
 public class Telefone {
 
-	private int numero;
+	private String numero;
 	private String tipo;
+	private Cliente cliente;
 	
-	public Telefone(int numero, String tipo) {
+	public Telefone(String string, String tipo, int index, Cliente cliente) {
 		
-		this.numero = numero;
-		this.tipo = tipo;
+//		this.numero = numero;
+//		this.tipo = tipo;
+//		this.cliente = cliente;
+		
+		cliente.getTelefones()[index] = this;
+		cliente.getTelefones()[index].setNumero(string);
+		cliente.getTelefones()[index].setTipo(tipo);
 	}
 
+	public Telefone(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
 	//metodos de acesso
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -27,7 +37,5 @@ public class Telefone {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	
 	
 }

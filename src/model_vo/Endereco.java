@@ -10,18 +10,25 @@ public class Endereco {
 	private String pais;
 	private String complemento;
 	private String cep;
+	private Cliente cliente;
 	
-	public Endereco(String rua, String numero, String bairro, String cidade, String estado, 
-			String pais, String complemento, String cep) {
+	public Endereco(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	public Endereco(String rua, String numero, String bairro, String cidade, String estado, String pais,
+			String complemento, String cep, Cliente cliente) {
 
-		this.rua = rua;
-		this.numero = numero;
-		this.bairro = bairro;
-		this.cidade = cidade;
-		this.estado = estado;
-		this.pais = pais;
-		this.complemento = complemento;
-		this.cep = cep;
+		cliente.setEndereco(this);
+		cliente.getEndereco().setRua(rua);
+		cliente.getEndereco().setNumero(numero);
+		cliente.getEndereco().setBairro(bairro);
+		cliente.getEndereco().setCidade(cidade);
+		cliente.getEndereco().setEstado(estado);
+		cliente.getEndereco().setPais(pais);
+		cliente.getEndereco().setComplemento(complemento);
+		cliente.getEndereco().setCep(cep);
+		
 	}
 
 	public String getRua() {
