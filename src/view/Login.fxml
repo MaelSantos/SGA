@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleLogin">
    <children>
-      <BorderPane layoutX="73.0" layoutY="41.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="41.0">
+      <BorderPane layoutX="73.0" layoutY="21.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="21.0">
          <top>
             <ImageView fitHeight="217.0" fitWidth="354.0" pickOnBounds="true" BorderPane.alignment="CENTER">
                <image>
@@ -32,7 +32,7 @@
             </FlowPane>
          </center>
          <bottom>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="30.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="30.0" prefHeight="168.0" prefWidth="354.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnEntrar" mnemonicParsing="false" onAction="#actionButton" prefHeight="32.0" prefWidth="111.0" text="Entrar" />
                   <Button fx:id="btnSair" mnemonicParsing="false" onAction="#actionButton" prefHeight="32.0" prefWidth="111.0" text="Sair" />

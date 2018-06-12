@@ -13,6 +13,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="menu" prefHeight="620.0" prefWidth="900.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleMenu">
    <children>
@@ -42,16 +43,46 @@
       </MenuBar>
       <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="10.0" layoutY="33.0" prefHeight="536.0" prefWidth="200.0" vgap="10.0" AnchorPane.bottomAnchor="64.0" AnchorPane.topAnchor="33.0">
          <children>
-            <Button fx:id="btnArea" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Área De Trabalho" />
-            <Button fx:id="btnAgenda" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Agenda" />
-            <Button fx:id="btnClientes" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Clientes" />
-            <Button fx:id="btnContatos" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="17.0" prefWidth="200.0" text="Contatos" />
-            <Button fx:id="btnProcessos" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Processos e Casos" />
-            <Button fx:id="btnDocumentos" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Documentos" />
-            <Button fx:id="btnFinanceiro" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Financeiro" />
-            <Button fx:id="btnEstatisticas" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Estatisticas" />
-            <Button fx:id="btnHistorico" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Historico" />
-            <Button fx:id="btnAlertas" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Alertas" />
+            <Button fx:id="btnArea" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Área De Trabalho">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnAgenda" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Agenda">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnClientes" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Clientes">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnContatos" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="17.0" prefWidth="200.0" text="Contatos">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnProcessos" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Processos e Casos">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnDocumentos" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Documentos">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnFinanceiro" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Financeiro">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnEstatisticas" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Estatisticas">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnHistorico" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Historico">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnAlertas" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Alertas">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
          </children>
          <padding>
             <Insets top="10.0" />
@@ -65,6 +96,8 @@
       </ImageView>
       <AnchorPane fx:id="pane" layoutX="206.0" layoutY="33.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="33.0" />
       <Button fx:id="btnInformacoes" alignment="BOTTOM_LEFT" blendMode="COLOR_BURN" cache="true" layoutY="576.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" text="Informações" AnchorPane.topAnchor="576.0">
-      </Button>
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font></Button>
    </children>
 </AnchorPane>

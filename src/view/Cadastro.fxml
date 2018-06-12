@@ -8,28 +8,21 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleCadastroUsuario">
+
+<FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="100.0" nodeOrientation="RIGHT_TO_LEFT" orientation="VERTICAL" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" vgap="30.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleCadastroUsuario">
    <children>
-      <FlowPane alignment="CENTER" cache="true" hgap="10.0" layoutX="415.0" layoutY="48.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="442.0" prefWidth="244.0" vgap="30.0" AnchorPane.bottomAnchor="110.0" AnchorPane.topAnchor="48.0">
-         <children>
-            <TextField fx:id="tfdLogin" promptText="Login" />
-            <TextField fx:id="tfdNome" promptText="Nome" />
-            <TextField fx:id="tfdSobrenome" promptText="Sobrenome" />
-            <TextField fx:id="tfdEmail" promptText="Email" />
-            <PasswordField fx:id="tfdSenha" promptText="Senha" />
-            <PasswordField fx:id="tfdConfirmar" promptText="Confirmar Senha" />
-            <Button fx:id="btnCriar" mnemonicParsing="false" onAction="#actionButton" prefHeight="35.0" prefWidth="103.0" text="Criar Conta" />
-            <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#actionButton" prefHeight="35.0" prefWidth="103.0" text="Cancelar" />
-         </children>
-         <opaqueInsets>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </opaqueInsets>
-      </FlowPane>
-      <BorderPane layoutX="90.0" layoutY="77.0" prefHeight="162.0" prefWidth="200.0" style="-fx-border-color: ddd;" AnchorPane.bottomAnchor="331.0" AnchorPane.topAnchor="77.0">
+      <TextField fx:id="tfdLogin" promptText="Login" />
+      <TextField fx:id="tfdNome" promptText="Nome" />
+      <TextField fx:id="tfdSobrenome" promptText="Sobrenome" />
+      <TextField fx:id="tfdEmail" promptText="Email" />
+      <PasswordField fx:id="tfdSenha" promptText="Senha" />
+      <PasswordField fx:id="tfdConfirmar" promptText="Confirmar Senha" />
+      <Button fx:id="btnCriar" mnemonicParsing="false" onAction="#actionButton" prefHeight="35.0" prefWidth="103.0" text="Criar Conta" />
+      <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#actionButton" prefHeight="35.0" prefWidth="103.0" text="Cancelar" />
+      <BorderPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="179.0" prefWidth="202.0" style="-fx-border-color: ddd;">
          <center>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
          </center>
@@ -47,4 +40,7 @@
          </bottom>
       </BorderPane>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="100.0" />
+   </padding>
+</FlowPane>

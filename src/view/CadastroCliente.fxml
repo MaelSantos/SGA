@@ -11,38 +11,39 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TabPane prefHeight="699.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="699.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="Informações Gerais">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextField promptText="Nome" />
-                        <TextField promptText="Telefone" />
-                        <TextField promptText="CPF" />
-                        <TextField promptText="Rua" />
-                        <Separator prefHeight="4.0" prefWidth="704.0" />
-                        <TextField promptText="Bairro" />
-                        <TextField promptText="Numero" />
-                        <TextField promptText="Data De Nascimento" />
-                        <TextField promptText="Cidade" />
-                        <TextField promptText="Email" />
-                        <ComboBox prefWidth="150.0" promptText="Estado" />
-                        <ComboBox prefWidth="150.0" promptText="Gênero" />
-                        <TextField promptText="Complemento" />
-                        <TextField promptText="CEP" />
-                        <TextField promptText="Telefone Segundario" />
-                        <TextField promptText="RG" />
-                        <TextField layoutX="142.0" layoutY="93.0" promptText="País" />
-                        <ComboBox prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
-                        <ComboBox prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
-                        <ComboBox layoutX="257.0" layoutY="159.0" prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
-                        <Label layoutX="87.0" layoutY="160.0" prefHeight="4.0" prefWidth="110.0" text="Endereço" textAlignment="CENTER">
+                        <TextField layoutX="68.0" layoutY="69.0" promptText="Nome" />
+                        <TextField layoutX="68.0" layoutY="245.0" promptText="Telefone" />
+                        <TextField layoutX="276.0" layoutY="69.0" promptText="CPF/CNPJ" />
+                        <TextField layoutX="71.0" layoutY="382.0" promptText="Rua" />
+                        <Separator layoutY="296.0" prefHeight="14.0" prefWidth="700.0" />
+                        <TextField layoutX="71.0" layoutY="442.0" promptText="Bairro" />
+                        <TextField layoutX="281.0" layoutY="382.0" promptText="Numero" />
+                        <TextField layoutX="68.0" layoutY="130.0" promptText="Data De Nascimento" />
+                        <TextField layoutX="281.0" layoutY="442.0" promptText="Cidade" />
+                        <TextField layoutX="478.0" layoutY="130.0" promptText="Email" />
+                        <ComboBox layoutX="481.0" layoutY="382.0" prefWidth="150.0" promptText="Estado" />
+                        <ComboBox layoutX="275.0" layoutY="130.0" prefWidth="150.0" promptText="Gênero" />
+                        <TextField layoutX="482.0" layoutY="503.0" promptText="Complemento" />
+                        <TextField layoutX="482.0" layoutY="442.0" promptText="CEP" />
+                        <TextField layoutX="391.0" layoutY="245.0" promptText="Telefone Segundario" />
+                        <TextField layoutX="478.0" layoutY="69.0" promptText="RG" />
+                        <TextField layoutX="281.0" layoutY="503.0" promptText="País" />
+                        <ComboBox layoutX="540.0" layoutY="245.0" prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
+                        <ComboBox layoutX="216.0" layoutY="245.0" prefHeight="25.0" prefWidth="75.0" promptText="Tipo" />
+                        <Label layoutX="86.0" layoutY="325.0" prefHeight="4.0" prefWidth="110.0" text="Endereço" textAlignment="CENTER">
                            <font>
                               <Font name="Calibri Light" size="18.0" />
                            </font>
                         </Label>
-                     </children></AnchorPane>
+                        <ComboBox layoutX="478.0" layoutY="187.0" prefWidth="150.0" promptText="Estado Civil" />
+                     </children>
+                  </AnchorPane>
             </content>
           </Tab>
           <Tab text="Informações Complementares">

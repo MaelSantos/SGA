@@ -21,7 +21,8 @@ public class App extends Application{
 	static Scene loginScene;
 	static Scene menuScene;
 	
-	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes;
+	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
+	clientes, cadastroCliente;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -35,6 +36,8 @@ public class App extends Application{
 		perfil = FXMLLoader.load(getClass().getResource("../view/Perfil.fxml"));
 		editarPerfil = FXMLLoader.load(getClass().getResource("../view/EditarPerfil.fxml"));
 		configuracoes = FXMLLoader.load(getClass().getResource("../view/Configuracoes.fxml"));
+		clientes = FXMLLoader.load(getClass().getResource("../view/Clientes.fxml"));
+		cadastroCliente = FXMLLoader.load(getClass().getResource("../view/CadastroCliente.fxml"));
 		
 		loginScene = new Scene(login);
 		menuScene = new Scene(menu);
@@ -52,19 +55,24 @@ public class App extends Application{
 	
 	public static void changeStage(Tela tela)
 	{
+//		double w = stage.getWidth();
+//		double h = stage.getHeight();
 		switch (tela) {
 		case login:
 			stage.setScene(loginScene);
+//			stage.setWidth(w);
+//			stage.setHeight(h);
 			stage.centerOnScreen();
 			break;
 		case menu:
 			stage.setScene(menuScene);
+//			stage.setWidth(w);
+//			stage.setHeight(h);
 			stage.centerOnScreen();
 			break;
 		default:
 			break;
 		}
-		
 	}
 	
 	public static Pane changePane(Tela tela)
@@ -80,7 +88,12 @@ public class App extends Application{
 			return editarPerfil;
 		case configuracoes:
 			return configuracoes;
+		case clientes:
+			return clientes;
+		case cadastro_cliente:
+			return cadastroCliente;
 		default:
+			System.err.println("Valor Não Correspondente");
 			break;
 		}
 		
@@ -93,6 +106,9 @@ public class App extends Application{
 		for(Ouvinte ouvinte : ouvintes)
 			ouvinte.atualizar(tela, usuario);
 	}
+	public static void notificarOuvintes(Tela tela) {
+		notificarOuvintes(tela, Dados.getInstance().getUsuarioLogado());
+	}
 	
 	public static void addOuvinte(Ouvinte ouvinte) {
 		ouvintes.add(ouvinte);
@@ -101,4 +117,5 @@ public class App extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }

@@ -118,17 +118,19 @@ public class ControleMenu implements Initializable{
 		App.addOuvinte(new Ouvinte() {
 			@Override
 			public void atualizar(Tela tela, Usuario usuario) {
-				if(tela == Tela.perfil) {
-					atualizarTela(App.changePane(Tela.perfil));
-				}
-				if(tela == Tela.cadastro) {
-					atualizarTela(App.changePane(Tela.cadastro));
-				}
-				if(tela == Tela.configuracoes) {
-					atualizarTela(App.changePane(Tela.configuracoes));
-				}else if(tela == Tela.editar_perfil) {
-					atualizarTela(App.changePane(Tela.editar_perfil));
-				}
+//				if(tela == Tela.perfil) {
+//					atualizarTela(App.changePane(Tela.perfil));
+//				}
+//				if(tela == Tela.cadastro) {
+//					atualizarTela(App.changePane(Tela.cadastro));
+//				}
+//				if(tela == Tela.configuracoes) {
+//					atualizarTela(App.changePane(Tela.configuracoes));
+//				}else if(tela == Tela.editar_perfil) {
+//					atualizarTela(App.changePane(Tela.editar_perfil));
+//				}
+				
+				atualizarTela(App.changePane(tela));
 				mnbNome.setText(usuario.getNome());
 			}
 		});

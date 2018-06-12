@@ -13,7 +13,7 @@ public class Dados{
 	private Dados() {
 		
 		usuarios = new ArrayList<>();
-		usuarioLogado = new Usuario("Vazio", "Vazio", "Vazio", "Vazio", "Vazio");
+		
 	}
 
 	public static Dados getInstance()
