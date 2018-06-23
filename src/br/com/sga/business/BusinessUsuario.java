@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.exceptions.BusinessException;
+import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
 import br.com.sga.interfaces.IBusinessUsuario;
 import br.com.sga.interfaces.IDaoUsuario;
@@ -19,15 +20,15 @@ public class BusinessUsuario implements IBusinessUsuario {
 	}
 
 	@Override
-	public void salvarUsuario(Funcionario usuario) throws BusinessException {
-		
+	public void salvarUsuario(Funcionario usuario) throws BusinessException{
 		try {
-			
 			validarUsuario(usuario);
 			daoUsuario.salvar(usuario);
-			
-		} catch (Exception e) {
+		}catch (ValidacaoException e) {
 			throw new BusinessException("USUARIO JÁ EXISTE OU DADOS INFORMADOS ESTÃO INCORRETOS!!!");
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());	
 		}		
 	}
 
@@ -55,9 +56,28 @@ public class BusinessUsuario implements IBusinessUsuario {
 		return null;
 	}
 
-	private void validarUsuario(Funcionario usuario) throws ValidacaoException{
-		// TODO Stub de método gerado automaticamente
+	private void validarUsuario(Funcionario usuario) throws ValidacaoException, DaoException{
+		if(daoUsuario.buscarPorLogin(usuario.getLogin(),usuario.getSenha()) == null)
+			throw new ValidacaoException("Usuario já cadastrado na base");
 		
+	}
+
+	@Override
+	public Funcionario buscarPorLogin(String login, String senha) throws BusinessException {
+		try {
+			Funcionario f =  daoUsuario.buscarPorLogin(login, senha);
+			if(f == null)
+				throw new BusinessException("NÃO HÁ USUARIOS CADASTRADOS COM ESSES DADOS");
+			return f;
+				
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(" erro no banco ");
+			
+		}
+			
+		
+			
 	}
 	
 }

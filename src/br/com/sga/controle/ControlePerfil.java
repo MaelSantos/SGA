@@ -25,7 +25,7 @@ public class ControlePerfil implements Initializable{
     @FXML
     void actionButton(ActionEvent event) {
     	if(event.getSource() == editarPerfilButton) 
-    		App.notificarOuvintes(Tela.editar_perfil, DaoUsuario.getInstance().getUsuarioLogado());
+    		App.notificarOuvintes(Tela.editar_perfil, DaoUsuario.getUsuarioLogado());
     }	
 
 	@Override
@@ -35,7 +35,7 @@ public class ControlePerfil implements Initializable{
 			@Override
 			public void atualizar(Tela tela, Funcionario usuario) {
 				
-				lblNome.setText(usuario.getNome()+" "+usuario.getSobrenome());
+				lblNome.setText(usuario.getNome());
 				
 			}
 		});

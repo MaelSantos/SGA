@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.sga.business.BusinessUsuario;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.exceptions.BusinessException;
+import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IBusinessUsuario;
 
 public class Fachada implements IFachada {
@@ -26,28 +27,41 @@ public class Fachada implements IFachada {
     }
 
 	@Override
-	public void salvarOuEditarCurso(Funcionario usuario) throws BusinessException {
+	public Funcionario buscarPorLogin(String login, String senha) throws BusinessException {
+		return businessUsuario.buscarPorLogin(login, senha);
+	}
+
+	@Override
+	public void salvarUsuario(Funcionario usuario) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		
 	}
 
 	@Override
-	public Funcionario buscarCursoPorId(int id) throws BusinessException {
+	public void editarUsuario(Funcionario usuario) throws BusinessException {
+		// TODO Stub de método gerado automaticamente
+		
+	}
+
+	@Override
+	public Funcionario buscarUsuarioPorId(int id) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
 	@Override
-	public Funcionario buscarCursoPorCodigo(String codigo) throws BusinessException {
+	public Funcionario buscarUsuarioPorCodigo(String codigo) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
 	@Override
-	public List<Funcionario> buscarCursoPorBusca(String busca) throws BusinessException {
+	public List<Funcionario> buscarUsuarioPorBusca(String busca) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
+	
 
+	
 }

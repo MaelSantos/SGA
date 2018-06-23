@@ -7,6 +7,8 @@ import br.com.sga.exceptions.DaoException;
 
 public interface IDaoUsuario extends IDao<Funcionario>{
 
+	public Funcionario buscarPorLogin(String login,String senha)throws DaoException;
+	
 	public void salvar(Funcionario usuario) throws DaoException;
     public void editar(Funcionario usuario) throws DaoException;
     public Funcionario buscarPorId(int id) throws DaoException;

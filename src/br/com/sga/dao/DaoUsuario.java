@@ -2,6 +2,7 @@ package br.com.sga.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +17,24 @@ public class DaoUsuario implements IDaoUsuario{
 
 	private static DaoUsuario dados;
 	private ArrayList<Funcionario> usuarios;
-	private Funcionario usuarioLogado;
+	private static Funcionario usuarioLogado;
 	
 	private Connection conexao;
 	private PreparedStatement statement;
+	private ResultSet resultSet;
 	
 	public DaoUsuario() {
 		
 		usuarios = new ArrayList<>();
 		
 	}
+
+	
+
+	public static Funcionario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
 
 	public static DaoUsuario getInstance()
 	{
@@ -65,20 +74,16 @@ public class DaoUsuario implements IDaoUsuario{
 		return usuarios;
 	}
 
-	public Funcionario getUsuarioLogado() {
-		return usuarioLogado;
-	}
-
 	@Override
 	public void salvar(Funcionario usuario) throws DaoException {
 		try {
             this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-            this.statement = conexao.prepareStatement(SQLUtil.Curso.INSERT_ALL);
+            this.statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_ALL);
 
-            statement.setString(1, usuario.getLogin());
+            statement.setString(1, usuario.getNome());
             statement.setString(2, usuario.getSenha());
-            statement.setString(3, usuario.getNome());
-            statement.setString(4, usuario.getEmail());
+            statement.setString(3, usuario.getLogin());
+            statement.setString(4, usuario.getNumero_oab());
             statement.execute();
             this.conexao.close();
 
@@ -87,6 +92,48 @@ public class DaoUsuario implements IDaoUsuario{
             throw new DaoException("PROBLEMA AO SALVAR USUARIO - Contate o ADM");
         }
 		
+	}
+
+	@Override
+	public Funcionario buscarPorLogin(String login, String senha) throws DaoException {
+		try {
+            this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_LOGIN_SENHA);
+            statement.setString(1,login);
+            statement.setString(2,senha);
+            resultSet = statement.executeQuery();
+            
+            Funcionario f = null;
+            while(resultSet.next()) {
+            	usuarioLogado = f;
+            	f = new Funcionario(resultSet.getString("nome"), resultSet.getString("login"), resultSet.getString("senha"));
+            }
+          
+            this.conexao.close();
+            this.statement.close();
+            this.resultSet.close();
+            return f;	
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO SALVAR USUARIO - Contate o ADM");
+        }
+	}
+	public static void main(String[] args) {
+		/*try {
+			new DaoUsuario().salvar(new Funcionario("Wanderson","Wanderson100v@gmail.com","wanderson100v","1234","123123-31"));
+		} catch (DaoException e) {
+			// TODO Bloco catch gerado automaticamente
+			e.printStackTrace();
+		}*/
+		
+		
+		try {
+			System.out.println(new DaoUsuario().buscarPorLogin("wanderson100v","1234"));
+		} catch (DaoException e) {
+			// TODO Bloco catch gerado automaticamente
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -112,5 +159,6 @@ public class DaoUsuario implements IDaoUsuario{
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
+
 	
 }

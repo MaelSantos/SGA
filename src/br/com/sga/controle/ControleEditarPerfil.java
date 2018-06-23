@@ -84,7 +84,6 @@ public class ControleEditarPerfil implements Initializable{
   				if(tela == Tela.editar_perfil) {
   					ControleEditarPerfil.this.usuario = usuario;
   					nomeField.setPromptText(usuario.getNome());
-  					sobrenomeField.setPromptText(usuario.getSobrenome());
   					emailField.setPromptText(usuario.getEmail());
   					loginField.setPromptText(usuario.getLogin());
   				}
@@ -167,7 +166,7 @@ public class ControleEditarPerfil implements Initializable{
 				feedbak.append(" nome");
 				tamAtual = feedbak.length();
 			}
-			if(sobrenome.length() >0)  
+			/*if(sobrenome.length() >0)  
 			{
 				usuario.setSobrenome(sobrenome);
 				if(tamIni == tamAtual)
@@ -176,7 +175,7 @@ public class ControleEditarPerfil implements Initializable{
 					feedbak.append(", sobrenome");
 					tamAtual =feedbak.length();
 				}
-			}
+			}*/
 			if (email.length() >0) 
 			{
 				usuario.setEmail(email);
