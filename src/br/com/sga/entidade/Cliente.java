@@ -1,4 +1,4 @@
-package model_vo;
+package br.com.sga.entidade;
 
 import java.util.Date;
 

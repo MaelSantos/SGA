@@ -1,15 +1,15 @@
-package controle;
+package br.com.sga.controle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import app.App;
-import app.Ouvinte;
+import br.com.sga.app.App;
+import br.com.sga.entidade.Ouvinte;
+import br.com.sga.entidade.Tela;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import model_vo.Tela;
 
 public class ControleCliente implements Initializable{
 

@@ -1,8 +1,11 @@
-package app;
+package br.com.sga.app;
 
 import java.util.ArrayList;
 
-
+import br.com.sga.dao.Dados;
+import br.com.sga.entidade.Ouvinte;
+import br.com.sga.entidade.Tela;
+import br.com.sga.entidade.Usuario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,9 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model_dao.Dados;
-import model_vo.Tela;
-import model_vo.Usuario;
 
 public class App extends Application{
 	

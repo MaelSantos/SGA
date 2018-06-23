@@ -1,22 +1,21 @@
-package controle;
+package br.com.sga.controle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-import app.App;
-import app.Ouvinte;
+import br.com.sga.app.App;
+import br.com.sga.business.Verificar;
+import br.com.sga.dao.Dados;
+import br.com.sga.entidade.Ouvinte;
+import br.com.sga.entidade.Tela;
+import br.com.sga.entidade.Usuario;
+import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import model_bo.Verificar;
-import model_dao.Dados;
-import model_vo.Tela;
-import model_vo.Usuario;
-import view.Alerta;
 
 public class ControleEditarPerfil implements Initializable{
 

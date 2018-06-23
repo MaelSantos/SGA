@@ -1,18 +1,18 @@
-package controle;
+package br.com.sga.controle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import app.App;
-import app.Ouvinte;
+import br.com.sga.app.App;
+import br.com.sga.dao.Dados;
+import br.com.sga.entidade.Ouvinte;
+import br.com.sga.entidade.Tela;
+import br.com.sga.entidade.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import model_dao.Dados;
-import model_vo.Tela;
-import model_vo.Usuario;
 
 public class ControlePerfil implements Initializable{
 

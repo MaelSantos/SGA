@@ -1,4 +1,4 @@
-package view;
+package br.com.sga.view;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

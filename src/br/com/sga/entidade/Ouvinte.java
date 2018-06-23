@@ -1,7 +1,4 @@
-package app;
-
-import model_vo.Tela;
-import model_vo.Usuario;
+package br.com.sga.entidade;
 
 @FunctionalInterface
 public interface Ouvinte {

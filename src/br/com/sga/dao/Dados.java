@@ -1,8 +1,8 @@
-package model_dao;
+package br.com.sga.dao;
 
 import java.util.ArrayList;
 
-import model_vo.Usuario;
+import br.com.sga.entidade.Usuario;
 
 public class Dados{
 

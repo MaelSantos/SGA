@@ -1,7 +1,7 @@
-package model_bo;
+package br.com.sga.business;
 
-import model_dao.Dados;
-import model_vo.Usuario;
+import br.com.sga.dao.Dados;
+import br.com.sga.entidade.Usuario;
 
 public class Verificar {
 

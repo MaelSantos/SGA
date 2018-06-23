@@ -1,18 +1,18 @@
-package controle;
+package br.com.sga.controle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import app.App;
+import br.com.sga.app.App;
+import br.com.sga.dao.Dados;
+import br.com.sga.entidade.Tela;
+import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import model_dao.Dados;
-import model_vo.Tela;
-import view.Alerta;
 
 
 public class ControleLogin implements Initializable{
