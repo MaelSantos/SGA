@@ -7,7 +7,7 @@ import br.com.sga.app.App;
 import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Ouvinte;
 import br.com.sga.entidade.Tela;
-import br.com.sga.entidade.Usuario;
+import br.com.sga.entidade.Funcionario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,7 +33,7 @@ public class ControlePerfil implements Initializable{
 		App.addOuvinte(new Ouvinte() {
 			
 			@Override
-			public void atualizar(Tela tela, Usuario usuario) {
+			public void atualizar(Tela tela, Funcionario usuario) {
 				
 				lblNome.setText(usuario.getNome()+" "+usuario.getSobrenome());
 				

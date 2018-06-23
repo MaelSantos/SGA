@@ -3,7 +3,7 @@ package br.com.sga.business;
 import java.util.List;
 
 import br.com.sga.dao.DaoUsuario;
-import br.com.sga.entidade.Usuario;
+import br.com.sga.entidade.Funcionario;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.ValidacaoException;
 import br.com.sga.interfaces.IBusinessUsuario;
@@ -19,7 +19,7 @@ public class BusinessUsuario implements IBusinessUsuario {
 	}
 
 	@Override
-	public void salvarUsuario(Usuario usuario) throws BusinessException {
+	public void salvarUsuario(Funcionario usuario) throws BusinessException {
 		
 		try {
 			
@@ -32,30 +32,30 @@ public class BusinessUsuario implements IBusinessUsuario {
 	}
 
 	@Override
-	public void editarUsuario(Usuario usuario) throws BusinessException {
+	public void editarUsuario(Funcionario usuario) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		
 	}
 
 	@Override
-	public Usuario buscarUsuarioPorId(int id) throws BusinessException {
+	public Funcionario buscarUsuarioPorId(int id) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
 	@Override
-	public Usuario buscarUsuarioPorCodigo(String codigo) throws BusinessException {
+	public Funcionario buscarUsuarioPorCodigo(String codigo) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
 	@Override
-	public List<Usuario> buscarUsuarioPorBusca(String busca) throws BusinessException {
+	public List<Funcionario> buscarUsuarioPorBusca(String busca) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
-	private void validarUsuario(Usuario usuario) throws ValidacaoException{
+	private void validarUsuario(Funcionario usuario) throws ValidacaoException{
 		// TODO Stub de método gerado automaticamente
 		
 	}

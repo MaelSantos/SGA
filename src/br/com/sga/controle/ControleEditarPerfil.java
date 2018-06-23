@@ -8,7 +8,7 @@ import br.com.sga.business.Verificar;
 import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Ouvinte;
 import br.com.sga.entidade.Tela;
-import br.com.sga.entidade.Usuario;
+import br.com.sga.entidade.Funcionario;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,7 +52,7 @@ public class ControleEditarPerfil implements Initializable{
     @FXML
     private Button voltarButton;
 
-    private Usuario usuario;
+    private Funcionario usuario;
 
     @FXML
     private void actionButton(ActionEvent event) {
@@ -80,7 +80,7 @@ public class ControleEditarPerfil implements Initializable{
   	public void initialize(URL location, ResourceBundle resources) {
   		App.addOuvinte(new Ouvinte() {
   			@Override
-  			public void atualizar(Tela tela, Usuario usuario) {
+  			public void atualizar(Tela tela, Funcionario usuario) {
   				if(tela == Tela.editar_perfil) {
   					ControleEditarPerfil.this.usuario = usuario;
   					nomeField.setPromptText(usuario.getNome());
@@ -93,7 +93,7 @@ public class ControleEditarPerfil implements Initializable{
   		
   	}
     
-    private void atualizarSenha(Usuario usuario) {
+    private void atualizarSenha(Funcionario usuario) {
     	String senhaAtual,novaSenha,confirmarSenha;
     	senhaAtual = senhaAtualField.getText().trim();
     	novaSenha = novaSenhaField.getText().trim();
@@ -127,7 +127,7 @@ public class ControleEditarPerfil implements Initializable{
     	
     }
     
-    private void atualizarLogin(Usuario usuario) {
+    private void atualizarLogin(Funcionario usuario) {
     	String login = loginField.getText().trim();
     	if(login.length() >0) {
 			if(Verificar.validerLogin(login)) 
@@ -142,7 +142,7 @@ public class ControleEditarPerfil implements Initializable{
 			Alerta.getInstance().showMensagem("Erro","","Nada foi alterado, entrada de texto esta vazia");
     }
 	
-    private void atualizarPerfil(Usuario usuario) {
+    private void atualizarPerfil(Funcionario usuario) {
     	
     	String nome,email,sobrenome;
 		nome = nomeField.getText().trim();

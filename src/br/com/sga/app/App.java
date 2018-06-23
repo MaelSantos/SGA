@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Ouvinte;
 import br.com.sga.entidade.Tela;
-import br.com.sga.entidade.Usuario;
+import br.com.sga.entidade.Funcionario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -48,8 +48,8 @@ public class App extends Application{
 		stage.centerOnScreen();
 		stage.show();
 		
-		DaoUsuario.getInstance().addUsuario(new Usuario("Mael", "Santos", "maelsantos777@gmail.com", "Mael_Santos7", "0708"));
-		DaoUsuario.getInstance().addUsuario(new Usuario("Wanderson", "Pereira", "exemple@gmail.com", "wanderson100v", "1234"));
+		DaoUsuario.getInstance().addUsuario(new Funcionario("Mael", "Santos", "maelsantos777@gmail.com", "Mael_Santos7", "0708"));
+		DaoUsuario.getInstance().addUsuario(new Funcionario("Wanderson", "Pereira", "exemple@gmail.com", "wanderson100v", "1234"));
 		
 	}
 	
@@ -102,7 +102,7 @@ public class App extends Application{
 	
 	private static ArrayList<Ouvinte> ouvintes = new ArrayList<>();
 
-	public static void notificarOuvintes(Tela tela, Usuario usuario) {
+	public static void notificarOuvintes(Tela tela, Funcionario usuario) {
 		for(Ouvinte ouvinte : ouvintes)
 			ouvinte.atualizar(tela, usuario);
 	}

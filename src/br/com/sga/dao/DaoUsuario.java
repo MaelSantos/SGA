@@ -75,9 +75,10 @@ public class DaoUsuario implements IDaoUsuario{
             this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
             this.statement = conexao.prepareStatement(SQLUtil.Curso.INSERT_ALL);
 
-            statement.setString(1, usuario.getNome());
-//            statement.setString(2, usuario.getCodigo());
-//            statement.setInt(3, usuario.getCargaHoraria());
+            statement.setString(1, usuario.getLogin());
+            statement.setString(2, usuario.getSenha());
+            statement.setString(3, usuario.getNome());
+            statement.setString(4, usuario.getEmail());
             statement.execute();
             this.conexao.close();
 

@@ -2,17 +2,16 @@ package br.com.sga.entidade;
 
 import java.awt.image.BufferedImage;
 
-public class Usuario {
+public class Funcionario {
 
-	private String nome, sobrenome;
+	private String nome;
 	private String email;
 	private String login, senha;
 
 	private BufferedImage imagem;
 	
-	public Usuario(String nome, String sobrenome, String email, String login, String senha) {
+	public Funcionario(String nome, String email, String login, String senha) {
 		this.nome = nome;
-		this.sobrenome = sobrenome;
 		this.email = email;
 		this.login = login;
 		this.senha = senha;
@@ -21,9 +20,9 @@ public class Usuario {
 	@Override
 	public boolean equals(Object obj) {
 		
-		if (obj instanceof Usuario) {
+		if (obj instanceof Funcionario) {
 			
-			Usuario temp = (Usuario) obj;
+			Funcionario temp = (Funcionario) obj;
 			if(temp.getLogin().equalsIgnoreCase(getLogin()))
 				return true;
 		}
@@ -39,10 +38,6 @@ public class Usuario {
 	
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
 	}
 
 	public void setEmail(String email) {
@@ -67,10 +62,6 @@ public class Usuario {
 
 	public String getNome() {
 		return nome;
-	}
-
-	public String getSobrenome() {
-		return sobrenome;
 	}
 
 	public String getEmail() {
