@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.FlowPane?>
 
 
-<FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="100.0" nodeOrientation="RIGHT_TO_LEFT" orientation="VERTICAL" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" vgap="30.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleCadastroUsuario">
+<FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="100.0" nodeOrientation="RIGHT_TO_LEFT" orientation="VERTICAL" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" vgap="30.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroUsuario">
    <children>
       <TextField fx:id="tfdLogin" promptText="Login" />
       <TextField fx:id="tfdNome" promptText="Nome" />

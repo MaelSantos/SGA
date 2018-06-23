@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: teal;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.ControleCliente">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: teal;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCliente">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
