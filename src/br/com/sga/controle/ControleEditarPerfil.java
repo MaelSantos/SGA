@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
 import br.com.sga.business.Verificar;
-import br.com.sga.dao.Dados;
+import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Ouvinte;
 import br.com.sga.entidade.Tela;
 import br.com.sga.entidade.Usuario;

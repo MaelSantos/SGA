@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
-import br.com.sga.dao.Dados;
+import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Ouvinte;
 import br.com.sga.entidade.Tela;
 import br.com.sga.entidade.Usuario;
@@ -25,7 +25,7 @@ public class ControlePerfil implements Initializable{
     @FXML
     void actionButton(ActionEvent event) {
     	if(event.getSource() == editarPerfilButton) 
-    		App.notificarOuvintes(Tela.editar_perfil, Dados.getInstance().getUsuarioLogado());
+    		App.notificarOuvintes(Tela.editar_perfil, DaoUsuario.getInstance().getUsuarioLogado());
     }	
 
 	@Override

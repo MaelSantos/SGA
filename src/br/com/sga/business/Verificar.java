@@ -1,6 +1,6 @@
 package br.com.sga.business;
 
-import br.com.sga.dao.Dados;
+import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Usuario;
 
 public class Verificar {
@@ -8,14 +8,14 @@ public class Verificar {
 	public static String validarEmail(String email) {
 		if(email.matches("\\w+@\\w+.com|.com.br"))
 			return "Email informado invalido";
-		for(Usuario usuario : Dados.getInstance().getUsuarios()) 
+		for(Usuario usuario : DaoUsuario.getInstance().getUsuarios()) 
 			if(usuario.getEmail().equalsIgnoreCase(email)) 
 				return "Email informado já esta cadastrado";
 		return null;
 	}
 	
 	public static boolean validerLogin(String login) {
-		for(Usuario usuario : Dados.getInstance().getUsuarios()) 
+		for(Usuario usuario : DaoUsuario.getInstance().getUsuarios()) 
 			if(usuario.getLogin().equalsIgnoreCase(login)) 
 				return false;
 		return true;

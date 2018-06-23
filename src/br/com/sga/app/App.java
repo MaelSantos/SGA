@@ -2,7 +2,7 @@ package br.com.sga.app;
 
 import java.util.ArrayList;
 
-import br.com.sga.dao.Dados;
+import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Ouvinte;
 import br.com.sga.entidade.Tela;
 import br.com.sga.entidade.Usuario;
@@ -48,8 +48,8 @@ public class App extends Application{
 		stage.centerOnScreen();
 		stage.show();
 		
-		Dados.getInstance().addUsuario(new Usuario("Mael", "Santos", "maelsantos777@gmail.com", "Mael_Santos7", "0708"));
-		Dados.getInstance().addUsuario(new Usuario("Wanderson", "Pereira", "exemple@gmail.com", "wanderson100v", "1234"));
+		DaoUsuario.getInstance().addUsuario(new Usuario("Mael", "Santos", "maelsantos777@gmail.com", "Mael_Santos7", "0708"));
+		DaoUsuario.getInstance().addUsuario(new Usuario("Wanderson", "Pereira", "exemple@gmail.com", "wanderson100v", "1234"));
 		
 	}
 	
@@ -107,7 +107,7 @@ public class App extends Application{
 			ouvinte.atualizar(tela, usuario);
 	}
 	public static void notificarOuvintes(Tela tela) {
-		notificarOuvintes(tela, Dados.getInstance().getUsuarioLogado());
+		notificarOuvintes(tela, DaoUsuario.getInstance().getUsuarioLogado());
 	}
 	
 	public static void addOuvinte(Ouvinte ouvinte) {

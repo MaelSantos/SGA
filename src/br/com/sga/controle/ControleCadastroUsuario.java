@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
-import br.com.sga.dao.Dados;
+import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Ouvinte;
 import br.com.sga.entidade.Tela;
 import br.com.sga.entidade.Usuario;
@@ -59,7 +59,7 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 				if(tfdSenha.getText().equals(
 						tfdConfirmar.getText()) && tfdSenha.getText().length() >= 8 )
 				{
-					if(Dados.getInstance().addUsuario(new Usuario(
+					if(DaoUsuario.getInstance().addUsuario(new Usuario(
 							tfdNome.getText().trim(), //nome
 							tfdSobrenome.getText().trim(), //sobrenome
 							tfdEmail.getText().trim(), //email 
@@ -88,7 +88,7 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 		}
 		if(event.getSource() == btnCancelar)
 		{
-			App.notificarOuvintes(Tela.configuracoes, Dados.getInstance().getUsuarioLogado());
+			App.notificarOuvintes(Tela.configuracoes, DaoUsuario.getInstance().getUsuarioLogado());
 		}
     }
 	

@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
-import br.com.sga.dao.Dados;
+import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Tela;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
@@ -34,10 +34,10 @@ public class ControleLogin implements Initializable{
 	{		
 		if(e.getSource() == btnEntrar)
 		{
-			if(Dados.getInstance().entrarSistema(tfdLogin.getText(), tfdSenha.getText()))
+			if(DaoUsuario.getInstance().entrarSistema(tfdLogin.getText(), tfdSenha.getText()))
 			{
 				App.changeStage(Tela.menu);
-				App.notificarOuvintes(Tela.menu, Dados.getInstance().getUsuarioLogado());
+				App.notificarOuvintes(Tela.menu, DaoUsuario.getInstance().getUsuarioLogado());
 			}
 			else
 			{
