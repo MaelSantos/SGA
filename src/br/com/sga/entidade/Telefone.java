@@ -2,25 +2,19 @@ package br.com.sga.entidade;
 
 public class Telefone {
 
+	private Integer id;
+	
 	private String numero;
 	private String tipo;
-	private Cliente cliente;
-	
-	public Telefone(String string, String tipo, int index, Cliente cliente) {
-		
-//		this.numero = numero;
-//		this.tipo = tipo;
-//		this.cliente = cliente;
-		
-		cliente.getTelefones()[index] = this;
-		cliente.getTelefones()[index].setNumero(string);
-		cliente.getTelefones()[index].setTipo(tipo);
+	private Integer id_cliente;
+
+	public Telefone(Integer id, String numero, String tipo, Integer id_cliente) {
+		this.id = id;
+		this.numero = numero;
+		this.tipo = tipo;
+		this.id_cliente = id_cliente;
 	}
 
-	public Telefone(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	
 	//metodos de acesso
 	public String getNumero() {
 		return numero;
@@ -36,6 +30,22 @@ public class Telefone {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId_cliente() {
+		return id_cliente;
+	}
+
+	public void setId_cliente(Integer id_cliente) {
+		this.id_cliente = id_cliente;
 	}
 	
 }

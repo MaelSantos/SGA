@@ -3,8 +3,8 @@ package br.com.sga.app;
 import java.util.ArrayList;
 
 import br.com.sga.dao.DaoUsuario;
-import br.com.sga.entidade.Ouvinte;
 import br.com.sga.entidade.Tela;
+import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -48,8 +48,8 @@ public class App extends Application{
 		stage.centerOnScreen();
 		stage.show();
 		
-		DaoUsuario.getInstance().addUsuario(new Funcionario("Mael", "Santos", "maelsantos777@gmail.com", "Mael_Santos7", "0708"));
-		DaoUsuario.getInstance().addUsuario(new Funcionario("Wanderson", "Pereira", "exemple@gmail.com", "wanderson100v", "1234"));
+		DaoUsuario.getInstance().addUsuario(new Funcionario("Mael Santos", "maelsantos777@gmail.com", "Mael_Santos7", "0708"));
+		DaoUsuario.getInstance().addUsuario(new Funcionario("Wanderson Pereira" , "exemple@gmail.com", "wanderson100v", "1234"));
 		
 	}
 	

@@ -2,6 +2,8 @@ package br.com.sga.entidade;
 
 public class Endereco {
 
+	private Integer id;
+	
 	private String rua;
 	private String numero;
 	private String bairro;
@@ -10,25 +12,18 @@ public class Endereco {
 	private String pais;
 	private String complemento;
 	private String cep;
-	private Cliente cliente;
 	
-	public Endereco(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	
-	public Endereco(String rua, String numero, String bairro, String cidade, String estado, String pais,
-			String complemento, String cep, Cliente cliente) {
-
-		cliente.setEndereco(this);
-		cliente.getEndereco().setRua(rua);
-		cliente.getEndereco().setNumero(numero);
-		cliente.getEndereco().setBairro(bairro);
-		cliente.getEndereco().setCidade(cidade);
-		cliente.getEndereco().setEstado(estado);
-		cliente.getEndereco().setPais(pais);
-		cliente.getEndereco().setComplemento(complemento);
-		cliente.getEndereco().setCep(cep);
-		
+	public Endereco(Integer id, String rua, String numero, String bairro, String cidade, String estado, String pais,
+			String complemento, String cep) {
+		this.id = id;
+		this.rua = rua;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.pais = pais;
+		this.complemento = complemento;
+		this.cep = cep;
 	}
 
 	public String getRua() {
@@ -93,5 +88,13 @@ public class Endereco {
 
 	public void setPais(String pais) {
 		this.pais = pais;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}	
 }

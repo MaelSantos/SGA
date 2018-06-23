@@ -1,4 +1,7 @@
-package br.com.sga.entidade;
+package br.com.sga.interfaces;
+
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Tela;
 
 @FunctionalInterface
 public interface Ouvinte {
