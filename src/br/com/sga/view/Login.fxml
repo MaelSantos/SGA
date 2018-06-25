@@ -16,7 +16,7 @@
          <top>
             <ImageView fitHeight="217.0" fitWidth="354.0" pickOnBounds="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../../res/SGA - Nome.png" />
+                  <Image url="@../../../../../res/SGA.png" />
                </image>
             </ImageView>
          </top>

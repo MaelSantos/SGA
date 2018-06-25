@@ -91,7 +91,7 @@
       <Separator layoutX="200.0" layoutY="33.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="33.0" />
       <ImageView fitHeight="559.0" fitWidth="622.0" layoutX="245.0" layoutY="35.0" opacity="0.5" pickOnBounds="true" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="35.0">
          <image>
-            <Image url="@../../res/SGA - Nome.png" />
+            <Image url="@../../../../../res/SGA.png" />
          </image>
       </ImageView>
       <AnchorPane fx:id="pane" layoutX="206.0" layoutY="33.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="33.0" />

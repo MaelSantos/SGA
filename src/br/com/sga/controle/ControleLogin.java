@@ -11,6 +11,7 @@ import br.com.sga.entidade.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
+import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,7 +35,7 @@ public class ControleLogin implements Initializable{
     @FXML
     private PasswordField tfdSenha;
 	
-    private Fachada fachada = Fachada.getInstance();
+    private IFachada fachada;
    
 	@FXML
 	private void actionButton(ActionEvent e)
@@ -70,8 +71,7 @@ public class ControleLogin implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Stub de método gerado automaticamente
-		
+		fachada = Fachada.getInstance();
 	}
 
 }
