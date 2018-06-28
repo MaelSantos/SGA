@@ -25,7 +25,7 @@ public class BusinessUsuario implements IBusinessUsuario {
 			validarUsuario(usuario);
 			daoUsuario.salvar(usuario);
 		}catch (ValidacaoException e) {
-			throw new BusinessException("USUARIO JÁ EXISTE OU DADOS INFORMADOS ESTÃO INCORRETOS!!!");
+			throw new BusinessException(e.getMessage());
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());	
@@ -57,9 +57,12 @@ public class BusinessUsuario implements IBusinessUsuario {
 	}
 
 	private void validarUsuario(Funcionario usuario) throws ValidacaoException, DaoException{
+		if(usuario.getLogin().trim().equals("") || usuario.getSenha().trim().equals(""))
+			throw new ValidacaoException("DADOS EM BRANCO!!!");
+		if(usuario.getSenha().trim().length() >= 8)
+			throw new ValidacaoException("SENHA MUITO CURTA!!!");
 		if(daoUsuario.buscarPorLogin(usuario.getLogin(),usuario.getSenha()) == null)
-			throw new ValidacaoException("Usuario já cadastrado na base");
-		
+			throw new ValidacaoException("USUARIO JÁ CADASTRADO!!!");
 	}
 
 	@Override

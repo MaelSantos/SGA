@@ -32,7 +32,7 @@ public class ControleLogin implements Initializable{
     @FXML
     private PasswordField tfdSenha;
 	
-    private IFachada fachada = Fachada.getInstance();
+    private IFachada fachada;
    
 	@FXML
 	private void actionButton(ActionEvent e)

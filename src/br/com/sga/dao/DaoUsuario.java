@@ -89,7 +89,7 @@ public class DaoUsuario implements IDaoUsuario{
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DaoException("PROBLEMA AO SALVAR USUARIO - Contate o ADM");
+            throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");
         }
 		
 	}
@@ -116,7 +116,7 @@ public class DaoUsuario implements IDaoUsuario{
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DaoException("PROBLEMA AO SALVAR USUARIO - Contate o ADM");
+            throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");
         }
 	}
 	public static void main(String[] args) {
