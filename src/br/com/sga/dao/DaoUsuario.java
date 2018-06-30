@@ -24,17 +24,12 @@ public class DaoUsuario implements IDaoUsuario{
 	private ResultSet resultSet;
 	
 	public DaoUsuario() {
-		
 		usuarios = new ArrayList<>();
-		
 	}
-
-	
 
 	public static Funcionario getUsuarioLogado() {
 		return usuarioLogado;
 	}
-
 
 	public static DaoUsuario getInstance()
 	{

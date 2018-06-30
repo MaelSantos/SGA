@@ -48,9 +48,6 @@ public class App extends Application{
 		stage.centerOnScreen();
 		stage.show();
 		
-		//DaoUsuario.getInstance().addUsuario(new Funcionario("Mael Santos", "maelsantos777@gmail.com", "Mael_Santos7", "0708"));
-		//DaoUsuario.getInstance().addUsuario(new Funcionario("Wanderson Pereira" , "exemple@gmail.com", "wanderson100v", "1234"));
-		
 	}
 	
 	public static void changeStage(Tela tela)

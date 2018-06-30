@@ -4,21 +4,43 @@ import java.util.Date;
 
 public class Cliente {
 
-	private Integer id;
+	private Integer id; //id SERIAL PRIMARY KEY,
 	
-	private String nome;
-	private Date nascimento;
-	private String cpf_cnpj;
-	private String genero;
-	private String rg;
-	private String email;
-	private String estado_civil;
-	private String resposavel;
-	private String tipo;
-	private String responsavel;
+	private String nome; //nome VARCHAR(255) NOT NULL,
+	private Date nascimento; //data_nascimento DATE,
+	private String cpf_cnpj; //CPF_CNPJ  VARCHAR(255) UNIQUE NOT NULL,
+	private String genero; //genero VARCHAR(255),
+	private String rg; //RG  VARCHAR(255) UNIQUE NOT NULL, 
+	private String email; //email VARCHAR(255) UNIQUE,
+	private String estado_civil; //	estado_civil  VARCHAR(255),
+	private String profissao; //profissao  VARCHAR(255),
+	private boolean filhos; //filhos  Boolean,
+	private String responsavel; //responsavel VARCHAR(255)
+	private String tipo; //tipo VARCHAR(255),
 	
-	private Integer id_endereco;
+	private Integer id_endereco; //endereco_id INTEGER REFERENCES ENDERECO(id),
 	
+	public Cliente(Integer id, String nome, Date nascimento, String cpf_cnpj, String genero, String rg, String email,
+			String estado_civil, String profissao, boolean filhos, String responsavel, String tipo,
+			Integer id_endereco) {
+	
+		this.id = id;
+		this.nome = nome;
+		this.nascimento = nascimento;
+		this.cpf_cnpj = cpf_cnpj;
+		this.genero = genero;
+		this.rg = rg;
+		this.email = email;
+		this.estado_civil = estado_civil;
+		this.profissao = profissao;
+		this.filhos = filhos;
+		this.responsavel = responsavel;
+		this.tipo = tipo;
+		this.id_endereco = id_endereco;
+	}
+
+	public Cliente() {
+	}
 	
 	public String getNome() {
 		return nome;
@@ -63,10 +85,10 @@ public class Cliente {
 		this.estado_civil = estado_civil;
 	}
 	public String getResposavel() {
-		return resposavel;
+		return responsavel;
 	}
-	public void setResposavel(String resposavel) {
-		this.resposavel = resposavel;
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
 	}
 	
 	public Integer getId() {
@@ -91,5 +113,20 @@ public class Cliente {
 
 	public void setId_endereco(Integer id_endereco) {
 		this.id_endereco = id_endereco;
+	}
+	public String getProfissao() {
+		return profissao;
+	}
+	public void setProfissao(String profissao) {
+		this.profissao = profissao;
+	}
+	public boolean isFilhos() {
+		return filhos;
+	}
+	public void setFilhos(boolean filhos) {
+		this.filhos = filhos;
+	}
+	public String getResponsavel() {
+		return responsavel;
 	}
 }

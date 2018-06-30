@@ -10,5 +10,10 @@ public class SQLUtil {
 	    public static String INSERT_ALL = "INSERT INTO funcionario(nome, senha, login, numero_oab) VALUES (?, ?, ?, ?);";
 	    public static String SELECT_LOGIN_SENHA = "SELECT * FROM FUNCIONARIO WHERE login = ? AND senha = ?";
     }
+    
+    public static class Cliente {
+	    public static String INSERT_ALL = "INSERT INTO CLIENTE() VALUES (?, ?, ?, ?);";
+	    public static String SELECT_CPF_CNPJ = "SELECT * FROM CLIENTE WHERE cpf_cnpj = ?";
+    }
 
 }
