@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Funcionario;
-import br.com.sga.entidade.Tela;
+import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;

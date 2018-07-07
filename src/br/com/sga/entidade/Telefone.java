@@ -2,34 +2,30 @@ package br.com.sga.entidade;
 
 public class Telefone {
 
-	private Integer id;
+	private Integer id; //	id SERIAL PRIMARY KEY,
 	
-	private String numero;
-	private String tipo;
-	private Integer id_cliente;
+	private Integer numero; //numero INTEGER,
+	private Integer prefixo; //prefixo INTEGER
 
-	public Telefone(Integer id, String numero, String tipo, Integer id_cliente) {
+	private Cliente cliente; //cliente_id INTEGER REFERENCES CLIENTE(id), 
+	
+	public Telefone() {
+	}
+	
+	public Telefone(Integer id, Integer numero, Integer prefixo, Cliente cliente) {
 		this.id = id;
 		this.numero = numero;
-		this.tipo = tipo;
-		this.id_cliente = id_cliente;
+		this.prefixo = prefixo;
+		this.cliente = cliente;
 	}
 
 	//metodos de acesso
-	public String getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 
 	public Integer getId() {
@@ -40,12 +36,20 @@ public class Telefone {
 		this.id = id;
 	}
 
-	public Integer getId_cliente() {
-		return id_cliente;
+	public Integer getPrefixo() {
+		return prefixo;
 	}
 
-	public void setId_cliente(Integer id_cliente) {
-		this.id_cliente = id_cliente;
+	public void setPrefixo(Integer prefixo) {
+		this.prefixo = prefixo;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 }

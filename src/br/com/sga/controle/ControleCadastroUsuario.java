@@ -5,12 +5,12 @@ import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
 import br.com.sga.dao.DaoUsuario;
-import br.com.sga.entidade.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.enums.Tela;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

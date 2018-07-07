@@ -1,15 +1,20 @@
 package br.com.sga.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoCliente;
+import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.sql.SQLConnection;
 import br.com.sga.sql.SQLUtil;
 
@@ -18,28 +23,51 @@ public class DaoCliente implements IDaoCliente {
 	private Connection conexao;
 	private PreparedStatement statement;
 	private ResultSet resultSet;
-	
+	private IDaoCommun daoCommun;
+
+	public DaoCliente() {
+
+		daoCommun = new DaoCommun();
+
+	}
+
 	@Override
 	public void salvar(Cliente entidade) throws DaoException {
-		
+
 		try {
-            this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-            this.statement = conexao.prepareStatement(SQLUtil.Cliente.INSERT_ALL);
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Cliente.INSERT_ALL);
 
-            statement.setString(1, entidade.getNome());
-            statement.setString(2, entidade.getSenha());
-            statement.setString(3, entidade.getLogin());
-            statement.setString(4, entidade.getNumero_oab());
-            statement.execute();
-            this.conexao.close();
+			int id_endereco = daoCommun.getCurrentValorTabela("ENDERECO");
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");
-        }
+			//  nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;
+			statement.setString(1, entidade.getNome());
+			statement.setDate(2, new Date(entidade.getNascimento().getTime()));
+			statement.setString(3, entidade.getCpf_cnpj());
+			statement.setString(4, entidade.getGenero().getSexo());
+			statement.setString(5, entidade.getRg());
+			statement.setString(6, entidade.getEmail());
+			statement.setString(7, entidade.getEstado_civil());
+			statement.setString(8, entidade.getProfissao());
+			statement.setBoolean(9, entidade.isFilhos());
+			statement.setString(10, entidade.getResponsavel());
+			statement.setString(11, entidade.getResponsavel());
+			statement.setInt(12, id_endereco);
 
-		
+			int id_cliente = daoCommun.getCurrentValorTabela("CLIENTE");
+			for(Telefone telefone : entidade.getTelefones())
+				daoCommun.salvarContato(telefone, id_cliente);
 
+			entidade.setId(id_cliente);
+			entidade.getEndereco().setId(id_endereco);
+
+			statement.execute();
+			this.conexao.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");
+		}
 	}
 
 	@Override
@@ -50,36 +78,63 @@ public class DaoCliente implements IDaoCliente {
 
 	@Override
 	public Cliente buscarPorId(int id) throws DaoException {
-		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
-	@Override
-	public Cliente buscarPorCodigo(String codigo) throws DaoException {
-		try {
-            this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-            this.statement = conexao.prepareStatement(SQLUtil.Cliente.SELECT_CPF_CNPJ);
-            statement.setString(1,login);
-            statement.setString(2,senha);
-            resultSet = statement.executeQuery();
-            
-            Funcionario funcionario = null;
-            while(resultSet.next()) {
-            	usuarioLogado = funcionario;
-            	funcionario = new Funcionario(resultSet.getString("nome"), resultSet.getString("login"), resultSet.getString("senha"));
-            }
-          
-            this.conexao.close();
-            this.statement.close();
-            this.resultSet.close();
-            return funcionario;	
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");
-        }
+	@Override
+	public Cliente buscarPorCodigo(String cpf_cnpj) throws DaoException {
+		try {
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Cliente.SELECT_CPF_CNPJ);
+			this.statement.setString(1, cpf_cnpj);
+
+			resultSet = this.statement.executeQuery();
+			Cliente cliente;
+			Endereco end;
+			if (resultSet.next()) {
+				cliente = new Cliente();
+				//                nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	
+				cliente.setId(resultSet.getInt("id"));
+				cliente.setNome(resultSet.getString("nome"));
+				cliente.setNascimento(resultSet.getDate("nascimento"));
+				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
+				cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
+				cliente.setRg(resultSet.getString("rg"));
+				cliente.setEmail(resultSet.getString("email"));
+				cliente.setEstado_civil(resultSet.getString("estado_civil"));
+				cliente.setProfissao(resultSet.getString("profissao"));
+				cliente.setFilhos(resultSet.getBoolean("filhos"));
+				cliente.setResponsavel(resultSet.getString("resposavel"));
+				cliente.setTipo(resultSet.getString("tipo"));
+
+				end = new Endereco();
+				end.setId(resultSet.getInt("endereco_id"));
+				end.setBairro(resultSet.getString("bairro"));
+				end.setCidade(resultSet.getString("cidade"));
+				end.setRua(resultSet.getString("rua"));
+				end.setEstado(resultSet.getString("estado"));
+				end.setNumero(resultSet.getString("numero"));
+				end.setComplemento(resultSet.getString("complemento"));
+				end.setCep(resultSet.getString("cep"));
+				end.setPais(resultSet.getString("pais"));
+				cliente.setEndereco(end);
+
+				List<Telefone> list = daoCommun.getContatos(cliente.getId());
+				cliente.setTelefones(list);
+				this.conexao.close();				
+			}
+			else {
+				throw new DaoException("CLIENTE NÃO EXISTE");
+			}
+
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 		
 		return null;
+
 	}
 
 	@Override

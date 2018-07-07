@@ -5,9 +5,9 @@ import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
 import br.com.sga.dao.DaoUsuario;
-import br.com.sga.entidade.Tela;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.enums.Tela;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
