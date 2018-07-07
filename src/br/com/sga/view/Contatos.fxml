@@ -12,9 +12,9 @@
          <children>
             <TreeTableView fx:id="tblContatos" prefHeight="489.0" prefWidth="687.0" tableMenuButtonVisible="true">
               <columns>
-                <TreeTableColumn prefWidth="75.0" text="Nome" />
-                <TreeTableColumn prefWidth="75.0" text="Telefone" />
-                  <TreeTableColumn prefWidth="75.0" text="Opções" />
+                <TreeTableColumn fx:id="columnNome" prefWidth="75.0" text="Nome" />
+                <TreeTableColumn fx:id="columnTelefone" prefWidth="75.0" text="Telefone" />
+                  <TreeTableColumn fx:id="columnOpcoes" prefWidth="75.0" text="Opções" />
               </columns>
                <columnResizePolicy>
                   <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

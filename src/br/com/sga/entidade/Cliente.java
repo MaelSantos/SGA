@@ -27,7 +27,15 @@ public class Cliente {
 
 	public Cliente() {
 	}
-	
+
+	public Cliente(String nome, List<Telefone> telefones) {
+		super();
+		this.nome = nome;
+		this.telefones = telefones;
+	}
+
+
+
 	public String getNome() {
 		return nome;
 	}
