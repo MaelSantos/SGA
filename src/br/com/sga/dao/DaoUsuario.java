@@ -160,5 +160,30 @@ public class DaoUsuario implements IDaoUsuario{
 		return null;
 	}
 
+
+
+	@Override
+	public Funcionario buscarPorNome(String nome) throws DaoException {
+		try {
+            this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_NOME);
+            statement.setString(1,nome);
+            resultSet = statement.executeQuery();
+            
+            Funcionario f = null;
+            while(resultSet.next()) {
+            	f = new Funcionario(resultSet.getInt("id"));
+            }
+            this.conexao.close();
+            this.statement.close();
+            this.resultSet.close();
+            return f;	
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO SALVAR USUARIO - Contate o ADM");
+        }
+	}
+
 	
 }
