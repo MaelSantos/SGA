@@ -16,7 +16,6 @@ public interface IFachada {
     public Funcionario buscarUsuarioPorCodigo(String codigo) throws BusinessException;
     public List<Funcionario> buscarUsuarioPorBusca(String busca) throws BusinessException;
 
-
     public void salvarCliente(Cliente cliente)throws BusinessException;
     
 }

@@ -53,7 +53,7 @@ public class DaoNotificacao implements IDaoNotificacao {
 		}
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.DAY_OF_MONTH,17);
 		c.set(Calendar.MONTH,6);
@@ -78,7 +78,7 @@ public class DaoNotificacao implements IDaoNotificacao {
 		} catch (DaoException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	@Override
 	public void editar(Notificacao entidade) throws DaoException {
 		// TODO Stub de método gerado automaticamente

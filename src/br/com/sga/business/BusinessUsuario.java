@@ -74,10 +74,10 @@ public class BusinessUsuario implements IBusinessUsuario {
 			return f;
 				
 		} catch (DaoException e) {
-			throw new BusinessException("ERRO NO BANCO - CONTATE ADM");
+			throw new BusinessException(e.getMessage());
 			
 		}
 		
 	}
-	
+
 }

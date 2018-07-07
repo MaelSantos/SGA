@@ -155,7 +155,7 @@ public class DaoUsuario implements IDaoUsuario{
 		return null;
 	}
 
-
+/*
 
 	@Override
 	public Funcionario buscarPorNome(String nome) throws DaoException {
@@ -179,6 +179,7 @@ public class DaoUsuario implements IDaoUsuario{
             throw new DaoException("PROBLEMA AO SALVAR USUARIO - Contate o ADM");
         }
 	}
+	*/
 
 	
 }

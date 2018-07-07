@@ -69,4 +69,5 @@ public class Fachada implements IFachada {
 	public void salvarCliente(Cliente cliente) throws BusinessException{
 		bussinessCliente.salvar(cliente);
 	}
+
 }
