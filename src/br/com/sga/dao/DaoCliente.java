@@ -25,12 +25,17 @@ public class DaoCliente implements IDaoCliente {
 	private ResultSet resultSet;
 	private IDaoCommun daoCommun;
 
-	public DaoCliente() {
-
+	private static DaoCliente instance;
+	private DaoCliente() {
 		daoCommun = new DaoCommun();
-
 	}
 
+	public static DaoCliente getInstance() {
+		if(instance == null)
+			instance = new DaoCliente();
+		return instance;
+	}
+	
 	@Override
 	public void salvar(Cliente entidade) throws DaoException {
 

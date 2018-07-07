@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.sga.dao.DaoCliente;
 import br.com.sga.entidade.Cliente;
+import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
 import br.com.sga.interfaces.IBussinessCliente;
@@ -18,7 +19,7 @@ public class BusinessCliente implements IBussinessCliente{
 	
 	private BusinessCliente() {
 		validador = Validar.getInstance();
-		daoCliente = new DaoCliente();	
+		daoCliente = DaoCliente.getInstance();	
 	}
 	
 	public static BusinessCliente getInstance() {
@@ -28,37 +29,37 @@ public class BusinessCliente implements IBussinessCliente{
 	}
 	
 	@Override
-	public void salvar(Cliente entidade) throws DaoException {
+	public void salvar(Cliente entidade) throws BusinessException {
 		
 		try {
 			validarCliente(entidade);
-			daoCliente.salvar(entidade);
-		} catch (ValidacaoException e) {
-			throw new DaoException(e.getMessage());
+			if (entidade.getId() == null) {
+
+				daoCliente.salvar(entidade);
+
+			} else {
+				daoCliente.editar(entidade);
+			}
+
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
 		}
-		
 	}
 	
 	@Override
-	public void editar(Cliente entidade) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		
-	}
-
-	@Override
-	public Cliente buscarPorId(int id) throws DaoException {
+	public Cliente buscarPorId(int id) throws BusinessException{
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
 	@Override
-	public Cliente buscarPorCodigo(String codigo) throws DaoException {
+	public Cliente buscarPorCodigo(String codigo) throws BusinessException{
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
 	@Override
-	public List<Cliente> buscarPorBusca(String busca) throws DaoException {
+	public List<Cliente> buscarPorBusca(String busca) throws BusinessException{
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
@@ -69,10 +70,11 @@ public class BusinessCliente implements IBussinessCliente{
 				cliente.getCpf_cnpj().trim().equals("") ||
 				cliente.getRg().trim().equals(""))
 			throw new ValidacaoException("INFORME TODOS OS DADOS NESCESSARIOS!!!");
-		if(validador.isCPF(cliente.getCpf_cnpj()))
-			throw new ValidacaoException("CPF NÃO EXISTENTE/ACEITO!!!");
+		if(!validador.isCPF(cliente.getCpf_cnpj()) && !validador.isCNPJ(cliente.getCpf_cnpj()))
+			throw new ValidacaoException("CPF/CNPJ NÃO EXISTENTE/ACEITO!!!");
 		if(daoCliente.buscarPorCodigo(cliente.getCpf_cnpj()) != null)
 			throw new ValidacaoException("CPF JÁ EXISTENTE NO BANCO DE DADOS!!!");
+		
 			
 	}
 	

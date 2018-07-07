@@ -35,7 +35,7 @@ public class ControleContatos implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		List<Telefone> list = Arrays.asList(new Telefone(1,1,1,new Cliente()));
+		List<Telefone> list = Arrays.asList(new Telefone(0,981169372,88,new Cliente()));
 		Cliente cliente = new Cliente("Mael",list);
 		
 		TreeItem<String> itemNome = new TreeItem<String>(cliente.getNome());	
