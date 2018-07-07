@@ -24,17 +24,12 @@ public class DaoUsuario implements IDaoUsuario{
 	private ResultSet resultSet;
 	
 	public DaoUsuario() {
-		
 		usuarios = new ArrayList<>();
-		
 	}
-
-	
 
 	public static Funcionario getUsuarioLogado() {
 		return usuarioLogado;
 	}
-
 
 	public static DaoUsuario getInstance()
 	{
@@ -89,7 +84,7 @@ public class DaoUsuario implements IDaoUsuario{
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DaoException("PROBLEMA AO SALVAR USUARIO - Contate o ADM");
+            throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");
         }
 		
 	}
@@ -103,20 +98,20 @@ public class DaoUsuario implements IDaoUsuario{
             statement.setString(2,senha);
             resultSet = statement.executeQuery();
             
-            Funcionario f = null;
+            Funcionario funcionario = null;
             while(resultSet.next()) {
-            	usuarioLogado = f;
-            	f = new Funcionario(resultSet.getString("nome"), resultSet.getString("login"), resultSet.getString("senha"));
+            	usuarioLogado = funcionario;
+            	funcionario = new Funcionario(resultSet.getString("nome"), resultSet.getString("login"), resultSet.getString("senha"));
             }
           
             this.conexao.close();
             this.statement.close();
             this.resultSet.close();
-            return f;	
+            return funcionario;	
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DaoException("PROBLEMA AO SALVAR USUARIO - Contate o ADM");
+            throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");
         }
 	}
 	public static void main(String[] args) {
@@ -129,9 +124,9 @@ public class DaoUsuario implements IDaoUsuario{
 		
 		
 		try {
-			System.out.println(new DaoUsuario().buscarPorLogin("wanderson100v","1234"));
-		} catch (DaoException e) {
-			// TODO Bloco catch gerado automaticamente
+//			System.out.println(new DaoUsuario().buscarPorLogin("wanderson100v","1234"));
+			System.out.println(new DaoUsuario().buscarPorLogin("mael_santos7","0708"));
+		} catch (DaoException e) {;
 			e.printStackTrace();
 		}
 	}

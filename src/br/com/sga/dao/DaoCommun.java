@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.sga.entidade.enums.Tabela;
+import java.util.ArrayList;
+
+import br.com.sga.entidade.Endereco;
+import br.com.sga.entidade.Telefone;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.sql.SQLConnection;
@@ -54,5 +58,71 @@ public class DaoCommun implements IDaoCommun{
 		}
 	}
 
+    @Override
+    public void salvarEndereco(Endereco endereco) throws DaoException {
+        try {
+            this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Endereco.INSERT_ALL);
+            statement.setString(1, endereco.getRua());
+            statement.setString(2, endereco.getNumero());
+            statement.setString(3, endereco.getBairro());
+            statement.setString(4, endereco.getCidade());
+            statement.setString(5, endereco.getEstado());
+            statement.execute();
+            this.connection.close();
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO SALVAR ENDERECO - Contate o ADM");
+        }
+    }
+
+    @Override
+    public void salvarContato(Telefone telefone, int id) throws DaoException {
+
+        try {
+            this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Telefone.INSERT_ALL);
+            statement.setInt(1, telefone.getNumero());
+            statement.setInt(2, telefone.getPrefixo());
+            statement.setInt(3, id);
+            statement.execute();
+            this.connection.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO SALVAR ENDERECO - Contate o ADM");
+        }
+
+    }
+
+    @Override
+    public List<Telefone> getContatos(Integer id) throws DaoException {
+
+        try {
+            this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Telefone.SELECT_TELEFONE_CLIENTE);
+            this.statement.setInt(1, id);
+
+            resultSet = this.statement.executeQuery();
+            List<Telefone> contatos = new ArrayList<>();
+            Telefone telefone;
+            while (resultSet.next()) {
+//            	id ,cliente_id, numero, prefixo
+                telefone = new Telefone();
+                telefone.setId(resultSet.getInt(1));
+                telefone.setPrefixo(resultSet.getInt(2));
+                telefone.setNumero(resultSet.getInt(3));
+                contatos.add(telefone);
+            }
+            this.connection.close();
+
+            return contatos;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO CONSULTAR CONTATOS - Contate o ADM");
+        }
+
+    }
 }

@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
-import br.com.sga.entidade.Tela;
+import br.com.sga.entidade.enums.Tela;
 import br.com.sga.interfaces.Ouvinte;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

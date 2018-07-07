@@ -2,29 +2,16 @@ package br.com.sga.entidade;
 
 public class Endereco {
 
-	private Integer id;
+	private Integer id;	//id SERIAL PRIMARY KEY,
 	
-	private String rua;
-	private String numero;
-	private String bairro;
-	private String cidade;
-	private String estado;
-	private String pais;
-	private String complemento;
-	private String cep;
-	
-	public Endereco(Integer id, String rua, String numero, String bairro, String cidade, String estado, String pais,
-			String complemento, String cep) {
-		this.id = id;
-		this.rua = rua;
-		this.numero = numero;
-		this.bairro = bairro;
-		this.cidade = cidade;
-		this.estado = estado;
-		this.pais = pais;
-		this.complemento = complemento;
-		this.cep = cep;
-	}
+	private String rua; //rua VARCHAR(255)
+	private String numero; //numero VARCHAR(255),
+	private String bairro; //bairro VARCHAR(255), 
+	private String cidade; //cidade VARCHAR(255),
+	private String estado; //estado VARCHAR(255),
+	private String pais; //pais VARCHAR(255), 
+	private String complemento; //complemento VARCHAR(255), 
+	private String cep; //cep VARCHAR(255),
 
 	public String getRua() {
 		return rua;

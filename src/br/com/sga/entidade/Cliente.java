@@ -1,25 +1,41 @@
 package br.com.sga.entidade;
 
 import java.util.Date;
+import java.util.List;
+
+import br.com.sga.entidade.enums.Sexo;
 
 public class Cliente {
 
-	private Integer id;
+	private Integer id; //id SERIAL PRIMARY KEY,
 	
-	private String nome;
-	private Date nascimento;
-	private String cpf_cnpj;
-	private String genero;
-	private String rg;
-	private String email;
-	private String estado_civil;
-	private String resposavel;
-	private String tipo;
-	private String responsavel;
+	private String nome; //nome VARCHAR(255) NOT NULL,
+	private Date nascimento; //data_nascimento DATE,
+	private String cpf_cnpj; //CPF_CNPJ  VARCHAR(255) UNIQUE NOT NULL,
+	private Sexo genero; //genero VARCHAR(255),
+	private String rg; //RG  VARCHAR(255) UNIQUE NOT NULL, 
+	private String email; //email VARCHAR(255) UNIQUE,
+	private String estado_civil; //	estado_civil  VARCHAR(255),
+	private String profissao; //profissao  VARCHAR(255),
+	private boolean filhos; //filhos  Boolean,
+	private String responsavel; //responsavel VARCHAR(255)
+	private String tipo; //tipo VARCHAR(255),
 	
-	private Integer id_endereco;
-	
-	
+	private Endereco endereco; //endereco_id INTEGER REFERENCES ENDERECO(id),
+
+	private List<Telefone> telefones;
+
+	public Cliente() {
+	}
+
+	public Cliente(String nome, List<Telefone> telefones) {
+		super();
+		this.nome = nome;
+		this.telefones = telefones;
+	}
+
+
+
 	public String getNome() {
 		return nome;
 	}
@@ -38,10 +54,10 @@ public class Cliente {
 	public void setCpf_cnpj(String cpf_cnpj) {
 		this.cpf_cnpj = cpf_cnpj;
 	}
-	public String getGenero() {
+	public Sexo getGenero() {
 		return genero;
 	}
-	public void setGenero(String genero) {
+	public void setGenero(Sexo genero) {
 		this.genero = genero;
 	}
 	public String getRg() {
@@ -63,10 +79,10 @@ public class Cliente {
 		this.estado_civil = estado_civil;
 	}
 	public String getResposavel() {
-		return resposavel;
+		return responsavel;
 	}
-	public void setResposavel(String resposavel) {
-		this.resposavel = resposavel;
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
 	}
 	
 	public Integer getId() {
@@ -85,11 +101,39 @@ public class Cliente {
 		this.tipo = tipo;
 	}
 
-	public Integer getId_endereco() {
-		return id_endereco;
+	public String getProfissao() {
+		return profissao;
+	}
+	
+	public void setProfissao(String profissao) {
+		this.profissao = profissao;
+	}
+	
+	public boolean isFilhos() {
+		return filhos;
+	}
+	
+	public void setFilhos(boolean filhos) {
+		this.filhos = filhos;
+	}
+	
+	public String getResponsavel() {
+		return responsavel;
 	}
 
-	public void setId_endereco(Integer id_endereco) {
-		this.id_endereco = id_endereco;
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
 	}
 }

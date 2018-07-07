@@ -1,4 +1,4 @@
-package br.com.sga.entidade;
+package br.com.sga.entidade.enums;
 
 public enum Tela{
 
