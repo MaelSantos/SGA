@@ -5,30 +5,29 @@ import java.sql.Date;
 public class Audiencia {
 
 	private Integer id;
-	
-	private String status;
-	private String vara; 
-	private String orgao;
-	private String tipo; 
+	private String status; // possivel enum
+	private String vara; // possivel enum
+	private String orgao; // possivel enum
+	private String tipo; // possivel enum
 	private Date data_audiencia;
-	private String local; 
-	private String juiz_responsável;
-
-	private Integer id_processo; 
-	private Integer id_agenda;
-
-	public Audiencia(Integer id, String status, String vara, String orgao, String tipo, Date data_audiencia,
-			String local, String juiz_responsável, Integer id_processo, Integer id_agenda) {
+	
+	public Audiencia(Integer id, String status, String vara, String orgao, String tipo, Date data_audiencia) {
 		this.id = id;
 		this.status = status;
 		this.vara = vara;
 		this.orgao = orgao;
 		this.tipo = tipo;
 		this.data_audiencia = data_audiencia;
-		this.local = local;
-		this.juiz_responsável = juiz_responsável;
-		this.id_processo = id_processo;
-		this.id_agenda = id_agenda;
+	}
+	
+
+	public Audiencia(String status, String vara, String orgao, String tipo, Date data_audiencia) {
+		super();
+		this.status = status;
+		this.vara = vara;
+		this.orgao = orgao;
+		this.tipo = tipo;
+		this.data_audiencia = data_audiencia;
 	}
 
 
@@ -36,59 +35,53 @@ public class Audiencia {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getVara() {
+		return vara;
+	}
+
+	public void setVara(String vara) {
+		this.vara = vara;
+	}
+
+	public String getOrgao() {
+		return orgao;
+	}
+
+	public void setOrgao(String orgao) {
+		this.orgao = orgao;
+	}
 
 	public String getTipo() {
 		return tipo;
 	}
 
-
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
-	public String getLocal() {
-		return local;
+	public Date getData_audiencia() {
+		return data_audiencia;
 	}
 
-
-	public void setLocal(String local) {
-		this.local = local;
+	public void setData_audiencia(Date data_audiencia) {
+		this.data_audiencia = data_audiencia;
 	}
+	
+	
+	
 
-
-	public String getJuiz_responsável() {
-		return juiz_responsável;
-	}
-
-
-	public void setJuiz_responsável(String juiz_responsável) {
-		this.juiz_responsável = juiz_responsável;
-	}
-
-
-	public Integer getId_processo() {
-		return id_processo;
-	}
-
-
-	public void setId_processo(Integer id_processo) {
-		this.id_processo = id_processo;
-	}
-
-
-	public Integer getId_agenda() {
-		return id_agenda;
-	}
-
-
-	public void setId_agenda(Integer id_agenda) {
-		this.id_agenda = id_agenda;
-	} 
 
 
 }

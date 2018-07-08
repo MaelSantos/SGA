@@ -2,7 +2,7 @@ package br.com.sga.entidade;
 
 import java.sql.Date;
 
-public class Despesa {
+public class Receita {
 
 	private Integer id;
 	private Date data_retirada; 
@@ -13,7 +13,7 @@ public class Despesa {
 	private String tipo_gasto; // posivel enum
 	private Date vencimento;
 	
-	public Despesa(Integer id, Date data_retirada, String status, String centro_custo, String descricao, float valor,
+	public Receita(Integer id, Date data_retirada, String status, String centro_custo, String descricao, float valor,
 			String tipo_gasto, Date vencimento) {
 		super();
 		this.id = id;
@@ -25,7 +25,7 @@ public class Despesa {
 		this.tipo_gasto = tipo_gasto;
 		this.vencimento = vencimento;
 	}
-	public Despesa(Date data_retirada, String status, String centro_custo, String descricao, float valor,
+	public Receita(Date data_retirada, String status, String centro_custo, String descricao, float valor,
 			String tipo_gasto, Date vencimento) {
 		super();
 		this.data_retirada = data_retirada;
