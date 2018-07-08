@@ -13,7 +13,7 @@ public class SQLUtil {
     	public static String INSERT_ALL = "INSERT INTO vinculo_funcionario(notificacao_id,funcionario_id) VALUES( ? , ?) ";
     }
     public static class Funcionario {
-	    public static final String INSERT_ALL = "INSERT INTO funcionario(nome, senha, login,numero_oab) VALUES (?, ?, ?, ?);";
+	    public static final String INSERT_ALL = "INSERT INTO funcionario(nome, senha, login,numero_oab,endereco_id) VALUES (?, ?, ?, ?,?);";
 	    public static final String SELECT_LOGIN_SENHA = "SELECT * FROM FUNCIONARIO WHERE login = ? AND senha = ?";
 	    public static final String SELECT_NOME = "SELECT ID FROM FUNCIONARIO WHERE NOME = ?"; 
     }

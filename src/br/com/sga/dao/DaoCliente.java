@@ -41,10 +41,12 @@ public class DaoCliente implements IDaoCliente {
 	public void salvar(Cliente entidade) throws DaoException {
 
 		try {
+			daoCommun.salvarEndereco(entidade.getEndereco());
+			int id_endereco = daoCommun.getCurrentValorTabela(Tabela.ENDERECO);
+			
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = conexao.prepareStatement(SQLUtil.Cliente.INSERT_ALL);
-
-			int id_endereco = daoCommun.getCurrentValorTabela(Tabela.ENDERECO);
+			
 
 			//  nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;
 			statement.setString(1, entidade.getNome());

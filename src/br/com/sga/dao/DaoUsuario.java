@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoUsuario;
 import br.com.sga.sql.SQLConnection;
@@ -22,6 +23,7 @@ public class DaoUsuario implements IDaoUsuario{
 	private Connection conexao;
 	private PreparedStatement statement;
 	private ResultSet resultSet;
+	private DaoCommun daoCommun = new DaoCommun();
 	
 	public DaoUsuario() {
 		usuarios = new ArrayList<>();
@@ -72,13 +74,17 @@ public class DaoUsuario implements IDaoUsuario{
 	@Override
 	public void salvar(Funcionario usuario) throws DaoException {
 		try {
-            this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            daoCommun.salvarEndereco(usuario.getEndereco());
+			int endereco_id = daoCommun.getCurrentValorTabela(Tabela.ENDERECO);
+            
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
             this.statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_ALL);
 
             statement.setString(1, usuario.getNome());
             statement.setString(2, usuario.getSenha());
             statement.setString(3, usuario.getLogin());
             statement.setString(4, usuario.getNumero_oab());
+            statement.setInt(5, endereco_id);
             statement.execute();
             this.conexao.close();
 

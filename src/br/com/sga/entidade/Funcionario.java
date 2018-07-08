@@ -13,17 +13,19 @@ public class Funcionario {
 	private String numero_oab;
 	private List<Notificacao> notificacao = new ArrayList<>();
 	private BufferedImage imagem;
+	private Endereco endereco;
 	
 	/*
 	 * pode-se atribuir notificações a um funcionario
 	 */
-	public Funcionario(Integer id,String nome, String email, String login, String senha,String numero_oab) {
+	public Funcionario(Integer id,String nome, String email, String login, String senha,String numero_oab, Endereco endereco) {
 		this.nome = nome;
 		this.email = email;
 		this.login = login;
 		this.senha = senha;
 		this.numero_oab = numero_oab;
 		this.id = id;
+		this.endereco = endereco;
 	}
 	public Funcionario(String nome, String email, String login, String senha,String numero_oab) {
 		this.nome = nome;
@@ -120,6 +122,11 @@ public class Funcionario {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 	
 }
