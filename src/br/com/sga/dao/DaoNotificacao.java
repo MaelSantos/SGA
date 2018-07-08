@@ -34,10 +34,10 @@ public class DaoNotificacao implements IDaoNotificacao {
 			connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = connection.prepareStatement(SQLUtil.Notificacao.INSERT_ALL);
 			//tipo,descricao,prioridade,estado,intervalo_repeticao,data_aviso
-			statement.setString(1,entidade.getTipo());
+			statement.setString(1,entidade.getTipoNotificacao().toString());
 			statement.setString(2,entidade.getDescricao());
 			statement.setString(3,entidade.getPrioridade().toString());
-			statement.setString(4,entidade.getEstado());
+			statement.setString(4,entidade.getEstado().toString());
 			statement.setTimestamp(5,new Timestamp(entidade.getAviso_data().getTime()));
 			statement.execute();
 			

@@ -14,6 +14,7 @@ import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
@@ -167,7 +168,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 		cliente.setEstado_civil(cbxEstado_civil.getValue().toString());
 		cliente.setProfissao(tfdProfissao.getText().trim());
 		cliente.setResponsavel(tfdResponsavel.getText().trim());
-		cliente.setTipo(cbxTipoCliente.getValue().toString());
+		cliente.setTipoCliente(TipoCliente.getTipo(cbxTipoCliente.getValue().toString()));
 
 		if(rbtSim.isSelected())
 			cliente.setFilhos(true);

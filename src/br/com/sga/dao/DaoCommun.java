@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.Testemunha;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.sql.SQLConnection;
@@ -42,7 +43,26 @@ public class DaoCommun implements IDaoCommun{
 	            throw new DaoException("PROBLEMA AO CONSULTAR " + tabela.toString() + " - Contate o ADM");
 	        }
 	}
+	public void salvarTestemunha(Testemunha entidade,Integer consulta_id) throws DaoException {
+		try {
+			salvarEndereco(entidade.getEndereco());
+			int endereco_id = getCurrentValorTabela(Tabela.ENDERECO);
+			
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Testemunha.INSERT_ALL);
+			statement.setString(1,entidade.getNome());
+			statement.setInt(2,endereco_id);
+			statement.setInt(3, consulta_id);
+			statement.execute();
+			int testemunha_id = getCurrentValorTabela(Tabela.TESTEMUNHA);
+			this.connection.close();
+			salvarContato(entidade.getTelefone(),testemunha_id,Tabela.TESTEMUNHA);
 
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO SALVAR TESTEMUNHA - CONTATE O ADM");
+		}
+	}
 	@Override
 	public void salvarVinculoFuncionario(Integer notificacao_id, Integer funcionario_id)  throws DaoException {
 		try {
@@ -51,6 +71,8 @@ public class DaoCommun implements IDaoCommun{
 			statement.setInt(1,notificacao_id);
 			statement.setInt(2,funcionario_id);
 			statement.execute();
+			
+			connection.close();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -63,11 +85,15 @@ public class DaoCommun implements IDaoCommun{
         try {
             this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
             this.statement = connection.prepareStatement(SQLUtil.Endereco.INSERT_ALL);
+            //rua, numero, bairro, cidade, cep, pais, estado, complemento
             statement.setString(1, endereco.getRua());
             statement.setString(2, endereco.getNumero());
             statement.setString(3, endereco.getBairro());
             statement.setString(4, endereco.getCidade());
-            statement.setString(5, endereco.getEstado());
+            statement.setString(5, endereco.getCep());
+            statement.setString(6, endereco.getPais());
+            statement.setString(7, endereco.getEstado());
+            statement.setString(8, endereco.getComplemento());
             statement.execute();
             this.connection.close();
 
@@ -78,17 +104,19 @@ public class DaoCommun implements IDaoCommun{
     }
 
     @Override
-    public void salvarContato(Telefone telefone, int id) throws DaoException {
+    public void salvarContato(Telefone telefone, int id,Tabela tabela) throws DaoException {
 
         try {
             this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-            this.statement = connection.prepareStatement(SQLUtil.Telefone.INSERT_ALL);
+            if(tabela == Tabela.CLIENTE)
+            	this.statement = connection.prepareStatement(SQLUtil.Telefone.INSERT_ALL_PARA_CLIENTE);
+            else
+            	this.statement = connection.prepareStatement(SQLUtil.Telefone.INSERT_ALL_PARA_TESTEMUNHA);
             statement.setInt(1, telefone.getNumero());
             statement.setInt(2, telefone.getPrefixo());
             statement.setInt(3, id);
             statement.execute();
             this.connection.close();
-
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new DaoException("PROBLEMA AO SALVAR ENDERECO - Contate o ADM");
@@ -125,4 +153,5 @@ public class DaoCommun implements IDaoCommun{
         }
 
     }
+
 }

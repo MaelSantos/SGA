@@ -13,6 +13,22 @@ public class Endereco {
 	private String complemento; //complemento VARCHAR(255), 
 	private String cep; //cep VARCHAR(255),
 
+	
+	
+	public Endereco(String rua, String numero, String bairro, String cidade, String estado, String pais,
+			String complemento, String cep) {
+		super();
+		this.rua = rua;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.pais = pais;
+		this.complemento = complemento;
+		this.cep = cep;
+	}
+	public Endereco() {}
+
 	public String getRua() {
 		return rua;
 	}

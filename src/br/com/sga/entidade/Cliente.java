@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.sga.entidade.enums.Sexo;
+import br.com.sga.entidade.enums.TipoCliente;
 
 public class Cliente {
 
@@ -19,11 +20,12 @@ public class Cliente {
 	private String profissao; //profissao  VARCHAR(255),
 	private boolean filhos; //filhos  Boolean,
 	private String responsavel; //responsavel VARCHAR(255)
-	private String tipo; //tipo VARCHAR(255),
+	private TipoCliente tipoCliente; //tipo VARCHAR(255),
 	
 	private Endereco endereco; //endereco_id INTEGER REFERENCES ENDERECO(id),
 
 	private List<Telefone> telefones;
+	private List<Consulta> consultas;
 
 	public Cliente() {
 	}
@@ -33,8 +35,34 @@ public class Cliente {
 		this.nome = nome;
 		this.telefones = telefones;
 	}
+	public Cliente(String nome, List<Telefone> telefones,List<Consulta> consultas) {
+		super();
+		this.nome = nome;
+		this.telefones = telefones;
+		this.consultas = consultas;
+	}
+	
 
 
+
+	public Cliente(String nome, Date nascimento, String cpf_cnpj, Sexo genero, String rg, String email,
+			String estado_civil, String profissao, boolean filhos, String responsavel,TipoCliente tipoCliente, Endereco endereco,
+			List<Telefone> telefones) {
+		super();
+		this.nome = nome;
+		this.nascimento = nascimento;
+		this.cpf_cnpj = cpf_cnpj;
+		this.genero = genero;
+		this.rg = rg;
+		this.email = email;
+		this.estado_civil = estado_civil;
+		this.profissao = profissao;
+		this.filhos = filhos;
+		this.responsavel = responsavel;
+		this.tipoCliente = tipoCliente;
+		this.endereco = endereco;
+		this.telefones = telefones;
+	}
 
 	public String getNome() {
 		return nome;
@@ -93,12 +121,13 @@ public class Cliente {
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+
+	public TipoCliente getTipoCliente() {
+		return tipoCliente;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTipoCliente(TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 
 	public String getProfissao() {
@@ -136,4 +165,13 @@ public class Cliente {
 	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
 	}
+
+	public List<Consulta> getConsultas() {
+		return consultas;
+	}
+
+	public void setConsultas(List<Consulta> consultas) {
+		this.consultas = consultas;
+	}
+	
 }

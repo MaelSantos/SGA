@@ -9,10 +9,10 @@ import java.util.List;
 
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Endereco;
-import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
+import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoCliente;
 import br.com.sga.interfaces.IDaoCommun;
@@ -61,20 +61,18 @@ public class DaoCliente implements IDaoCliente {
 			statement.setString(10, entidade.getResponsavel());
 			statement.setString(11, entidade.getResponsavel());
 			statement.setInt(12, id_endereco);
-
+			
+			statement.execute();
 			int id_cliente = daoCommun.getCurrentValorTabela(Tabela.CLIENTE);
+			this.conexao.close();
 			for(Telefone telefone : entidade.getTelefones())
-				daoCommun.salvarContato(telefone, id_cliente);
-
+				daoCommun.salvarContato(telefone, id_cliente,Tabela.CLIENTE);
 			entidade.setId(id_cliente);
 			entidade.getEndereco().setId(id_endereco);
 
-			statement.execute();
-			this.conexao.close();
-
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");
+			throw new DaoException("PROBLEMA AO SALVAR CLIENTE - CONTATE O ADM");
 		}
 	}
 
@@ -114,8 +112,7 @@ public class DaoCliente implements IDaoCliente {
 				cliente.setProfissao(resultSet.getString("profissao"));
 				cliente.setFilhos(resultSet.getBoolean("filhos"));
 				cliente.setResponsavel(resultSet.getString("resposavel"));
-				cliente.setTipo(resultSet.getString("tipo"));
-
+				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
 				end = new Endereco();
 				end.setId(resultSet.getInt("endereco_id"));
 				end.setBairro(resultSet.getString("bairro"));

@@ -1,36 +1,69 @@
 package br.com.sga.entidade;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.util.Date;
+import java.util.List;
+
+import br.com.sga.entidade.enums.Area;
 
 public class Consulta {
 
 	private Integer id; 
 
-	private String area;	
+	private Area area;	
 	private String descricao;
 	private Date data_consulta;
 	private float valor_honorario; 
 	private String indicacao;
 
-	private Integer id_contrato;
-	private Integer id_funcionario; 
-	private Integer id_cliente;
-	private Integer id_agenda;
+	private Cliente cliente;
+	private Funcionario funcionario;
+	private List<Testemunha> testemunhas;
 
-	public Consulta(Integer id, String area, String descricao, Date data_consulta, float valor_honorario,
-			String indicacao, Integer id_contrato, Integer id_funcionario, Integer id_cliente, Integer id_agenda) {
+	public Consulta(Integer id, Area area, String descricao, Date data_consulta, float valor_honorario,
+			String indicacao, Cliente cliente, Funcionario funcionario, List<Testemunha> testemunhas) {
 		this.id = id;
 		this.area = area;
 		this.descricao = descricao;
 		this.data_consulta = data_consulta;
 		this.valor_honorario = valor_honorario;
 		this.indicacao = indicacao;
-		this.id_contrato = id_contrato;
-		this.id_funcionario = id_funcionario;
-		this.id_cliente = id_cliente;
-		this.id_agenda = id_agenda;
+		this.cliente = cliente;
+		this.funcionario = funcionario;
+		this.testemunhas = testemunhas;
 	}
+	public Consulta( Area area, String descricao, Date data_consulta, float valor_honorario,
+			String indicacao, Cliente cliente, Funcionario funcionario, List<Testemunha> testemunhas) {
+		this.area = area;
+		this.descricao = descricao;
+		this.data_consulta = data_consulta;
+		this.valor_honorario = valor_honorario;
+		this.indicacao = indicacao;
+		this.cliente = cliente;
+		this.funcionario = funcionario;
+		this.testemunhas = testemunhas;
+	}
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -40,38 +73,14 @@ public class Consulta {
 		this.id = id;
 	}
 
-	public Integer getId_contrato() {
-		return id_contrato;
-	}
 
-	public void setId_contrato(Integer id_contrato) {
-		this.id_contrato = id_contrato;
-	}
 
-	public Integer getId_funcionario() {
-		return id_funcionario;
-	}
-
-	public void setId_funcionario(Integer id_funcionario) {
-		this.id_funcionario = id_funcionario;
-	}
-
-	public Integer getId_agenda() {
-		return id_agenda;
-	}
-
-	public void setId_agenda(Integer id_agenda) {
-		this.id_agenda = id_agenda;
-	}
-
-	public String getArea() {
+	public Area getArea() {
 		return area;
 	}
-
-	public void setArea(String area) {
+	public void setArea(Area area) {
 		this.area = area;
 	}
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -104,13 +113,14 @@ public class Consulta {
 		this.indicacao = indicacao;
 	}
 
-	public Integer getId_cliente() {
-		return id_cliente;
+	public List<Testemunha> getTestemunhas() {
+		return testemunhas;
 	}
 
-	public void setId_cliente(Integer id_cliente) {
-		this.id_cliente = id_cliente;
+	public void setTestemunhas(List<Testemunha> testemunhas) {
+		this.testemunhas = testemunhas;
 	}
+
 	
 	
 	

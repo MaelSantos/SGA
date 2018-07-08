@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.Prioridade;
+import br.com.sga.entidade.enums.TipoNotificacao;
 
 public class Notificacao {
-	private String tipo,descricao,estado;
+	private TipoNotificacao tipoNotificacao;
+	private Estado estado;
+	private String descricao;
 	private Prioridade prioridade;
 	private Date aviso_data;
 	private Integer id,intervalo_repeticao;
@@ -24,9 +28,9 @@ public class Notificacao {
 	 * @param intervalo_repeticao
 	 * @param funcionario
 	 */
-	public Notificacao(String tipo, Prioridade prioridade, String descricao, String estado, Date aviso_data, Integer id,
+	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Estado estado, Date aviso_data, Integer id,
 			Integer intervalo_repeticao,List<Funcionario> funcionarios) {
-		this.tipo = tipo;
+		this.tipoNotificacao = tipoNotificacao;
 		this.prioridade = prioridade;
 		this.descricao = descricao;
 		this.estado = estado;
@@ -35,9 +39,9 @@ public class Notificacao {
 		this.intervalo_repeticao = intervalo_repeticao;
 		this.funcionarios = funcionarios;
 	}
-	public Notificacao(String tipo, Prioridade prioridade, String descricao, String estado, Date aviso_data,
+	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Estado estado, Date aviso_data,
 			Integer intervalo_repeticao,List<Funcionario> funcionarios) {
-		this.tipo = tipo;
+		this.tipoNotificacao = tipoNotificacao;
 		this.prioridade = prioridade;
 		this.descricao = descricao;
 		this.estado = estado;
@@ -46,12 +50,6 @@ public class Notificacao {
 		this.funcionarios = funcionarios;
 	}
 	
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
 	public Prioridade getPrioridade() {
 		return prioridade;
 	}
@@ -63,12 +61,6 @@ public class Notificacao {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 	public Date getAviso_data() {
 		return aviso_data;
@@ -94,6 +86,19 @@ public class Notificacao {
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
+	public TipoNotificacao getTipoNotificacao() {
+		return tipoNotificacao;
+	}
+	public void setTipoNotificacao(TipoNotificacao tipoNotificacao) {
+		this.tipoNotificacao = tipoNotificacao;
+	}
+	public Estado getEstado() {
+		return estado;
+	}
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+	
 	
 	
 }

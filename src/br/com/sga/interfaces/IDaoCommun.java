@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.enums.Tabela;
 
 public interface IDaoCommun {
@@ -15,8 +16,12 @@ public interface IDaoCommun {
 	
     public void salvarEndereco(Endereco endereco) throws DaoException;
 
-    public void salvarContato(Telefone telefone, int id) throws DaoException;
-
+    public void salvarContato(Telefone telefone, int id,Tabela tabela) throws DaoException;
+    
+    public void salvarTestemunha(Testemunha entidade,Integer consulta_id) throws DaoException;
+    
     public List<Telefone> getContatos(Integer id) throws DaoException;
+    
+    
 
 }

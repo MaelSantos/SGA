@@ -1,11 +1,14 @@
 package br.com.sga.entidade;
 
+import br.com.sga.entidade.enums.TipoTelefone;
+
 public class Telefone {
 
 	private Integer id; //	id SERIAL PRIMARY KEY,
 	
 	private Integer numero; //numero INTEGER,
 	private Integer prefixo; //prefixo INTEGER
+	private TipoTelefone tipo;
 
 	private Cliente cliente; //cliente_id INTEGER REFERENCES CLIENTE(id), 
 	
@@ -17,6 +20,11 @@ public class Telefone {
 		this.numero = numero;
 		this.prefixo = prefixo;
 		this.cliente = cliente;
+	}
+	public Telefone( Integer numero, Integer prefixo,TipoTelefone tipo) {
+		this.numero = numero;
+		this.prefixo = prefixo;
+		this.tipo = tipo;
 	}
 
 	//metodos de acesso
