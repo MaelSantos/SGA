@@ -9,27 +9,70 @@ public class Financeiro {
   
 	private float total_despesas; 
 	private float total_lucro; 
+	private String ano_conerto; 
 	private List<Contrato> contratos;
 	private List<Receita> receitas;
 	private List<Despesa> despesas;
-	public Financeiro(float total_despesas, float total_lucro, List<Contrato> contratos, List<Receita> receitas,
-			List<Despesa> despesas) {
-		super();
-		this.total_despesas = total_despesas;
-		this.total_lucro = total_lucro;
-		this.contratos = contratos;
-		this.receitas = receitas;
-		this.despesas = despesas;
-	}
+
 	
-	public Financeiro(Integer id, float total_despesas, float total_lucro, List<Contrato> contratos,
+	public Financeiro(Integer id, float total_despesas, float total_lucro, String ano_conerto, List<Contrato> contratos,
 			List<Receita> receitas, List<Despesa> despesas) {
 		super();
 		this.id = id;
 		this.total_despesas = total_despesas;
 		this.total_lucro = total_lucro;
+		this.ano_conerto = ano_conerto;
 		this.contratos = contratos;
 		this.receitas = receitas;
+		this.despesas = despesas;
+	}
+	
+	
+	public Financeiro(float total_despesas, float total_lucro, String ano_conerto) {
+		super();
+		this.total_despesas = total_despesas;
+		this.total_lucro = total_lucro;
+		this.ano_conerto = ano_conerto;
+	}
+
+
+	public Financeiro(float total_despesas, float total_lucro, String ano_conerto, List<Contrato> contratos,
+			List<Receita> receitas, List<Despesa> despesas) {
+		super();
+		this.total_despesas = total_despesas;
+		this.total_lucro = total_lucro;
+		this.ano_conerto = ano_conerto;
+		this.contratos = contratos;
+		this.receitas = receitas;
+		this.despesas = despesas;
+	}
+	
+
+	public Financeiro() {
+	}
+
+
+	public String getAno_conerto() {
+		return ano_conerto;
+	}
+
+	public void setAno_conerto(String ano_conerto) {
+		this.ano_conerto = ano_conerto;
+	}
+
+	public List<Receita> getReceitas() {
+		return receitas;
+	}
+
+	public void setReceitas(List<Receita> receitas) {
+		this.receitas = receitas;
+	}
+
+	public List<Despesa> getDespesas() {
+		return despesas;
+	}
+
+	public void setDespesas(List<Despesa> despesas) {
 		this.despesas = despesas;
 	}
 

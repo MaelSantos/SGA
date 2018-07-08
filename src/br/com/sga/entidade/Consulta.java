@@ -20,6 +20,7 @@ public class Consulta {
 	private Funcionario funcionario;
 	private List<Testemunha> testemunhas;
 
+	public Consulta() {}
 	public Consulta(Integer id, Area area, String descricao, Date data_consulta, float valor_honorario,
 			String indicacao, Cliente cliente, Funcionario funcionario, List<Testemunha> testemunhas) {
 		this.id = id;

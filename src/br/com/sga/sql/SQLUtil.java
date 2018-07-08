@@ -6,20 +6,53 @@ public class SQLUtil {
     public static final String USUARIO_POSTGRES = "postgres";
     public static final String SENHA_POSTGRES = "admin";
     
+    public static class Parcela{
+    	public static final String INSERT_ALL = "INSERT INTO PARCELA(valor,tipo,estado,juros,multa,vencimento,contrato_id) VALUES(?,?,?,?,?,?,?)";
     
+    }
+    
+    public static class Parte{
+    	public static final String INSERT_ALL = "INSERT INTO PARTE(nome,tipo_parte,tipo_participacao,contrato_id) VALUES(?,?,?,?)";
+    
+    }
 
+
+    public static class Financeiro{
+    	public static final String INSERT_ALL = "INSERT INTO FINANCEIRO(total_lucro,total_despesa,ano_coberto) VALUES(?,?,?)";
+    
+    }
+    
+    public static class Receita{
+    	public static final String INSERT_ALL = "INSERT INTO RECEITA(data_entrada,centro_custo,descricao,valor,status,tipo_pagamento,vencimento,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
+    
+    }
+
+    public static class Despesa{
+    	public static final String INSERT_ALL = "INSERT INTO DESPESA(data_retirada,centro_custo,descricao,valor,status,tipo_gasto,vencimento,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
+    
+    }
+    
+    public static class Contrato{
+    	public static final String INSERT_ALL = "INSERT INTO CONTRATO(objeto,valor_total,tipo_pagamento,data_contrato,area,dados_banco,consulta_id,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
+    
+    }
+    
     public static class Testemunha{
     	public static final String INSERT_ALL = "INSERT INTO TESTEMUNHA(nome,endereco_id,consulta_id) VALUES(?,?,?)";
     }
+    
     public static class Consulta{
     	public static final String INSERT_ALL = "INSERT INTO CONSULTA(valor_honorario,descricao,area,indicacao,data_consulta,cliente_id,funcionario_id) VALUES(?,?,?,?,?,?,?)";
     }
+    
     public static class Notificacao{
     	public static final String INSERT_ALL = "INSERT INTO NOTIFICACAO(tipo,descricao,prioridade,estado,data_aviso) VALUES(?,?,?,?,?)";
     }
+   
     public static class VinculoFuncionario{
     	public static final String INSERT_ALL = "INSERT INTO vinculo_funcionario(notificacao_id,funcionario_id) VALUES( ? , ?) ";
     }
+   
     public static class Funcionario {
 	    public static final String INSERT_ALL = "INSERT INTO funcionario(nome, senha, login,numero_oab,endereco_id) VALUES (?, ?, ?, ?,?);";
 	    public static final String SELECT_LOGIN_SENHA = "SELECT * FROM FUNCIONARIO WHERE login = ? AND senha = ?";

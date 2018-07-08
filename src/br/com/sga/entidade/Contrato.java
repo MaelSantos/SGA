@@ -1,6 +1,6 @@
 package br.com.sga.entidade;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import br.com.sga.entidade.enums.Area;
@@ -12,26 +12,72 @@ public class Contrato {
 	
 	private String objeto;
 	private float valor_total;
-	private Consulta consulta;
 	private TipoPagamento tipo_pagamento;
 	private Date data_contrato;
 	private Area area;
 	private String dados_banco;
 	private List<Parte> partes;
+	private List<Parcela> parcelas;
+	private Consulta consulta;
+	private Financeiro financeiro;
 	
-	public Contrato(Integer id, String objeto, float valor_total, Consulta consulta, TipoPagamento tipo_pagamento,
-			Date data_contrato, Area area, String dados_banco, List<Parte> partes) {
+
+	public Contrato(Integer id, String objeto, float valor_total, TipoPagamento tipo_pagamento, Date data_contrato,
+			Area area, String dados_banco, List<Parte> partes, List<Parcela> parcelas, Consulta consulta,Financeiro financeiro) {
 		super();
 		this.id = id;
 		this.objeto = objeto;
 		this.valor_total = valor_total;
-		this.consulta = consulta;
 		this.tipo_pagamento = tipo_pagamento;
 		this.data_contrato = data_contrato;
 		this.area = area;
 		this.dados_banco = dados_banco;
 		this.partes = partes;
+		this.parcelas = parcelas;
+		this.consulta = consulta;
+		this.financeiro = financeiro;
 	}
+	
+
+	public Contrato(String objeto, float valor_total, TipoPagamento tipo_pagamento, Date data_contrato, Area area,
+			String dados_banco, List<Parte> partes, List<Parcela> parcelas, Consulta consulta,Financeiro financeiro) {
+		super();
+		this.objeto = objeto;
+		this.valor_total = valor_total;
+		this.tipo_pagamento = tipo_pagamento;
+		this.data_contrato = data_contrato;
+		this.area = area;
+		this.dados_banco = dados_banco;
+		this.partes = partes;
+		this.parcelas = parcelas;
+		this.consulta = consulta;
+		this.financeiro = financeiro;
+	}
+
+
+
+
+	public List<Parcela> getParcelas() {
+		return parcelas;
+	}
+	
+	
+
+
+	public Financeiro getFinanceiro() {
+		return financeiro;
+	}
+
+
+	public void setFinanceiro(Financeiro financeiro) {
+		this.financeiro = financeiro;
+	}
+
+
+	public void setParcelas(List<Parcela> parcelas) {
+		this.parcelas = parcelas;
+	}
+
 
 	public Integer getId() {
 		return id;

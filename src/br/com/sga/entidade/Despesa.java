@@ -1,19 +1,19 @@
 package br.com.sga.entidade;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Despesa {
 
 	private Integer id;
 	private Date data_retirada; 
-	private String status; // posivel enum
+	private Boolean status; // posivel enum
 	private String centro_custo; // de onde foi gastado
 	private String descricao; 
 	private float valor;
 	private String tipo_gasto; // posivel enum
 	private Date vencimento;
 	
-	public Despesa(Integer id, Date data_retirada, String status, String centro_custo, String descricao, float valor,
+	public Despesa(Integer id, Date data_retirada, Boolean status, String centro_custo, String descricao, float valor,
 			String tipo_gasto, Date vencimento) {
 		super();
 		this.id = id;
@@ -25,7 +25,7 @@ public class Despesa {
 		this.tipo_gasto = tipo_gasto;
 		this.vencimento = vencimento;
 	}
-	public Despesa(Date data_retirada, String status, String centro_custo, String descricao, float valor,
+	public Despesa(Date data_retirada, Boolean status, String centro_custo, String descricao, float valor,
 			String tipo_gasto, Date vencimento) {
 		super();
 		this.data_retirada = data_retirada;
@@ -48,10 +48,10 @@ public class Despesa {
 	public void setData_retirada(Date data_retirada) {
 		this.data_retirada = data_retirada;
 	}
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 	public String getCentro_custo() {
