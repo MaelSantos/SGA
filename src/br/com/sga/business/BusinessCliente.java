@@ -42,6 +42,7 @@ public class BusinessCliente implements IBussinessCliente{
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BusinessException(e.getMessage());
 		}
 	}
@@ -77,7 +78,7 @@ public class BusinessCliente implements IBussinessCliente{
 		if(!validador.isCPF(cliente.getCpf_cnpj()) && !validador.isCNPJ(cliente.getCpf_cnpj()))
 			throw new ValidacaoException("CPF/CNPJ NÃO EXISTENTE/ACEITO!!!");
 		if(daoCliente.buscarPorCodigo(cliente.getCpf_cnpj()) != null)
-			throw new ValidacaoException("CPF JÁ EXISTENTE NO BANCO DE DADOS!!!");
+			throw new ValidacaoException("CPF/CNPJ JÁ EXISTENTE NO BANCO DE DADOS!!!");
 		
 			
 	}

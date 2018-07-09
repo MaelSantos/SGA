@@ -59,5 +59,10 @@ public class Telefone {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	@Override
+	public String toString() {
+		return "Telefone = "+tipo+" ("+prefixo+")"+numero;
+	}
 	
 }

@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class App extends Application{
 	
@@ -42,8 +41,6 @@ public class App extends Application{
 		
 		loginScene = new Scene(login);
 		menuScene = new Scene(menu);
-		
-		System.out.println(cadastroCliente);
 		
 		stage.setScene(loginScene);
 		stage.setTitle("SGA - Sistema De Gerenciamento Advocativo");

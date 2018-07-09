@@ -68,7 +68,7 @@ public class DaoCliente implements IDaoCliente {
 			int id_cliente = daoCommun.getCurrentValorTabela(Tabela.CLIENTE);
 			this.conexao.close();
 			for(Telefone telefone : entidade.getTelefones())
-				daoCommun.salvarContato(telefone, id_cliente,Tabela.CLIENTE);
+				daoCommun.salvarContato(telefone, id_cliente, Tabela.CLIENTE);
 			entidade.setId(id_cliente);
 			entidade.getEndereco().setId(id_endereco);
 
@@ -133,13 +133,14 @@ public class DaoCliente implements IDaoCliente {
 				
 				return cliente;
 			}
-			else {
-				throw new DaoException("CLIENTE NÃO EXISTE");
-			}
+//			else {
+//				throw new DaoException("CLIENTE NÃO EXISTE");
+//			}
 
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
 		}
+		return null;
 
 	}
 
