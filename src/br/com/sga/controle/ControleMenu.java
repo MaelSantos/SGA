@@ -3,6 +3,8 @@ package br.com.sga.controle;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.textfield.TextFields;
+
 import br.com.sga.app.App;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
@@ -13,61 +15,67 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class ControleMenu implements Initializable, Ouvinte{
 
-	@FXML
+    @FXML
     private AnchorPane menu;
-	
-	@FXML
-	private MenuItem btnPerfil;
 
-	@FXML
-	private MenuItem btnConfiguracoes;
-
-	@FXML
-	private MenuItem btnSair;
-
-	@FXML
-	private Button btnArea;
-
-	@FXML
-	private Button btnAgenda;
-
-	@FXML
-	private Button btnClientes;
-
-	@FXML
-	private Button btnProcessos;
-
-	@FXML
-	private Button btnDocumentos;
-
-	@FXML
-	private Button btnFinanceiro;
-
-	@FXML
-	private Button btnEstatisticas;
-
-	@FXML
-	private Button btnHistorico;
-
-	@FXML
-	private Button btnAlertas;
-
-	@FXML
-	private Button btnInformacoes;
-
-	@FXML
-	private AnchorPane pane;
-
-	@FXML
-	private Button btnContatos;
-	
-	@FXML
+    @FXML
     private MenuButton mnbNome;
+
+    @FXML
+    private MenuItem btnPerfil;
+
+    @FXML
+    private MenuItem btnConfiguracoes;
+
+    @FXML
+    private MenuItem btnSair;
+
+    @FXML
+    private TextField tfdPesquisar;
+
+    @FXML
+    private Button btnArea;
+
+    @FXML
+    private Button btnAgenda;
+
+    @FXML
+    private Button btnClientes;
+
+    @FXML
+    private Button btnContatos;
+
+    @FXML
+    private Button btnProcessos;
+
+    @FXML
+    private Button btnDocumentos;
+
+    @FXML
+    private Button btnFinanceiro;
+
+    @FXML
+    private Button btnEstatisticas;
+
+    @FXML
+    private Button btnHistorico;
+
+    @FXML
+    private Button btnAlertas;
+
+    @FXML
+    private AnchorPane pane;
+
+    @FXML
+    private Button btnInformacoes;
 	
 	@FXML
 	public void actionButton(ActionEvent e)
@@ -102,6 +110,22 @@ public class ControleMenu implements Initializable, Ouvinte{
 			App.changeStage(Tela.login);//muda a tela
 	}
 	
+	@FXML
+    void actionKey(KeyEvent event) {
+
+		KeyCode codigo = event.getCode();
+		
+		switch (codigo) {
+		case ENTER:
+			atualizarTela(App.changePane(Tela.getTela(tfdPesquisar.getText())));
+			break;
+		default:
+			break;
+		}
+		
+    }
+
+	
 	@SuppressWarnings("static-access")
 	public void atualizarTela(Pane paneNovo)
 	{	
@@ -116,6 +140,8 @@ public class ControleMenu implements Initializable, Ouvinte{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		App.addOuvinte(this);
+	
+		TextFields.bindAutoCompletion(tfdPesquisar,Tela.values());
 		
 	}
 	@Override

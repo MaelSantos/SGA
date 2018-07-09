@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu" prefHeight="620.0" prefWidth="900.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleMenu">
+<AnchorPane fx:id="menu" prefHeight="620.0" prefWidth="900.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleMenu">
    <children>
       <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="20.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -33,7 +33,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Pesquisa">
                <graphic>
-                  <TextField alignment="CENTER_RIGHT" />
+                  <TextField fx:id="tfdPesquisar" alignment="CENTER_RIGHT" onKeyPressed="#actionKey" />
                </graphic>
           </Menu>
         </menus>

@@ -1,17 +1,19 @@
 package br.com.sga.view;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
 
 public class Alerta extends Alert {
 
-	static Alerta alert;
+	private static Alerta alert;
 	
 	private Alerta(AlertType alertType, String titulo, String header, String content){
 		super(alertType);
 		setTitle(titulo);
 		setHeaderText(header);
 		setContentText(content);
+		
+		initModality(Modality.APPLICATION_MODAL);
 	}
 
 	public static Alerta getInstance()
