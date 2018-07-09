@@ -10,6 +10,7 @@ import java.util.List;
 import br.com.sga.entidade.enums.Tabela;
 import java.util.ArrayList;
 
+import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Parcela;
@@ -239,6 +240,25 @@ public class DaoCommun implements IDaoCommun{
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new DaoException("PROBLEMA AO SALVAR DESPESA - Contate o ADM");
+        }
+	}
+	@Override
+	public void salvarAudiencia(Audiencia audiencia, Integer processo_id) throws DaoException {
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Audiencia.INSERT_ALL);
+           //data_audiencia,tipo,vara,orgao,status,processo_id
+            statement.setDate(1,new Date(audiencia.getData_audiencia().getTime()));
+            statement.setString(2,audiencia.getTipo());
+            statement.setString(3,audiencia.getVara());
+            statement.setString(4,audiencia.getOrgao());
+            statement.setString(5,audiencia.getStatus());
+            statement.setInt(6,processo_id);
+            statement.execute();
+            this.connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO SALVAR AUDIENCIA - Contate o ADM");
         }
 	}
 

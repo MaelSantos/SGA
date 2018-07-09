@@ -57,6 +57,10 @@ public class Contrato {
 
 
 
+	public Contrato() {
+	}
+
+
 	public List<Parcela> getParcelas() {
 		return parcelas;
 	}

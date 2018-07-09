@@ -1,7 +1,6 @@
 package br.com.sga.entidade;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 import br.com.sga.entidade.enums.TipoParticipacao;
@@ -13,7 +12,7 @@ public class Processo {
 	private Contrato contrato;
 	private boolean status;
 	private Date data_atuacao;
-	private Integer numero;
+	private	String numero;
 	private String classe_judicial;
 	private String orgao_julgador;
 	private String comarca;
@@ -24,7 +23,7 @@ public class Processo {
 	private TipoParticipacao tipo_participacao;
 	private List<Audiencia> audiencias;
 	
-	public Processo(Integer id, Contrato contrato, boolean status, Date data_atuacao, Integer numero,
+	public Processo(Integer id, Contrato contrato, boolean status, Date data_atuacao, String numero,
 			String classe_judicial, String orgao_julgador, String comarca, String decisao, String descricao,
 			String fase, String tipo_processo, TipoParticipacao tipo_participacao,List<Audiencia> audiencias) {
 		this.id = id;
@@ -44,7 +43,7 @@ public class Processo {
 	}
 	
 	
-	public Processo(Contrato contrato, boolean status, Date data_atuacao, Integer numero, String classe_judicial,
+	public Processo(Contrato contrato, boolean status, Date data_atuacao, String numero, String classe_judicial,
 			String orgao_julgador, String comarca, String decisao, String descricao, String fase, String tipo_processo,
 			TipoParticipacao tipo_participacao,List<Audiencia> audiencias) {
 		this.contrato = contrato;
@@ -87,10 +86,10 @@ public class Processo {
 	public void setData_atuacao(Date data_atuacao) {
 		this.data_atuacao = data_atuacao;
 	}
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 	public String getClasse_judicial() {

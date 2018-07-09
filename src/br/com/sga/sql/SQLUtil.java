@@ -6,6 +6,14 @@ public class SQLUtil {
     public static final String USUARIO_POSTGRES = "postgres";
     public static final String SENHA_POSTGRES = "admin";
     
+    public static class Processo{
+    	public static final String INSERT_ALL = "INSERT INTO PROCESSO(numero,tipo_participacao,tipo_processo,fase,descricao,decisao,comarca,orgao_julgador,classe_judicial,data_atuacao,status,contrato_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+    }
+    
+    public static class Audiencia{
+    	public static final String INSERT_ALL = "INSERT INTO AUDIENCIA(data_audiencia,tipo,vara,orgao,status,processo_id) VALUES(?,?,?,?,?,?)";
+    }
+    
     public static class Parcela{
     	public static final String INSERT_ALL = "INSERT INTO PARCELA(valor,tipo,estado,juros,multa,vencimento,contrato_id) VALUES(?,?,?,?,?,?,?)";
     
