@@ -3,6 +3,7 @@ package br.com.sga.interfaces;
 import java.util.List;
 
 import br.com.sga.exceptions.DaoException;
+import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Parcela;
@@ -31,6 +32,9 @@ public interface IDaoCommun {
     public void salvarReceita(Receita receita,Integer financeiro_id)throws DaoException;
     
     public void salvarDespesa(Despesa despesa,Integer financeiro_id)throws DaoException;
+    
+    //processo
+    public void salvarAudiencia(Audiencia audiencia, Integer processo_id) throws DaoException;
     
     public void salvarTestemunha(Testemunha entidade,Integer consulta_id) throws DaoException;
     

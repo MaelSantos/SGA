@@ -1,6 +1,6 @@
 package br.com.sga.entidade;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Audiencia {
 
