@@ -225,7 +225,7 @@ public class DaoCommun implements IDaoCommun{
 	public void salvarParcela(Parcela parcela, Integer contrato_id) throws DaoException {
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-            this.statement = connection.prepareStatement(SQLUtil.Receita.INSERT_ALL);
+            this.statement = connection.prepareStatement(SQLUtil.Parcela.INSERT_ALL);
            //valor,tipo,estado,juros,multa,vencimento,contrato_id
             statement.setFloat(1,parcela.getValor());
             statement.setString(2,parcela.getTipo());

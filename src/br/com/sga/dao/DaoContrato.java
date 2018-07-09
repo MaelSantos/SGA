@@ -47,6 +47,7 @@ public class DaoContrato implements IDaoContrato{
 			statement.setString(5, entidade.getArea().toString());
 			statement.setString(6, entidade.getDados_banco());
 			statement.setInt(7, entidade.getConsulta().getId()); // deve-se passar a consulta já com o id 
+			System.out.println(entidade.getFinanceiro().getId());
 			statement.setInt(8,entidade.getFinanceiro().getId());
 			statement.execute();
 			
@@ -83,7 +84,7 @@ public class DaoContrato implements IDaoContrato{
 		consulta.setId(5); // criando consulta apenas para teste, esse id corresponde a uma consulta que cadastrei antes
 		// adicionado todas as parcelas e partes agora associar ao contrato
 		Financeiro financeiro = new Financeiro();
-		financeiro.setId(3);
+		financeiro.setId(4);
 		Contrato c = new Contrato("a",1000f,TipoPagamento.BOLETO,Calendar.getInstance().getTime(),Area.CIVIL,"Banco conta tal ", partes, parcelas,consulta,financeiro);
 		try {
 			new DaoContrato().salvar(c);
