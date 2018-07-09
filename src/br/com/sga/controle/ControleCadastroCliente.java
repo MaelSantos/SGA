@@ -12,9 +12,13 @@ import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.Estado;
+import br.com.sga.entidade.enums.EstadoCivil;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoCliente;
+import br.com.sga.entidade.enums.TipoTelefone;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
@@ -22,6 +26,8 @@ import br.com.sga.fachada.IFachada;
 import br.com.sga.interfaces.IDaoCliente;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.view.Alerta;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,11 +36,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 
 public class ControleCadastroCliente implements Initializable, Ouvinte{
 
 	@FXML
-	private ComboBox<?> cbxTipoCliente;
+	private ComboBox<TipoCliente> cbxTipoCliente;
 
 	@FXML
 	private TextField tfdCpfCnpj;
@@ -49,7 +56,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 	private TextField tfdNascimento;
 
 	@FXML
-	private ComboBox<?> cbxGenero;
+	private ComboBox<Sexo> cbxGenero;
 
 	@FXML
 	private TextField tfdEmail;
@@ -58,7 +65,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 	private TextField tfdProfissao;
 
 	@FXML
-	private ComboBox<?> cbxEstado_civil;
+	private ComboBox<EstadoCivil> cbxEstado_civil;
 
 	@FXML
 	private TextField tfdPrefixo;
@@ -67,7 +74,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 	private TextField tfdTelefone;
 
 	@FXML
-	private ComboBox<?> cbxTipoTelefone;
+	private ComboBox<TipoTelefone> cbxTipoTelefone;
 
 	@FXML
 	private Button btnAdd;
@@ -79,7 +86,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 	private TextField tfdTelefoneResponsavel;
 
 	@FXML
-	private ComboBox<?> cbxTelefoneResposavel;
+	private ComboBox<TipoTelefone> cbxTelefoneResposavel;
 
 	@FXML
 	private RadioButton rbtSim;
@@ -97,7 +104,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 	private TextField tfdNumero;
 
 	@FXML
-	private ComboBox<?> cbxEstado;
+	private ComboBox<String> cbxEstado;
 
 	@FXML
 	private TextField tfdBairro;
@@ -119,6 +126,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 
     private List<Telefone> telefones;
     
+    private ToggleGroup group = new ToggleGroup();
     private IFachada fachada;
     
     @FXML
@@ -134,8 +142,9 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
     			Cliente cliente = criarCliente();	
     			fachada.salvarCliente(cliente);
     		}
+//    		if(obj == btn)
     	} catch (BusinessException e) {
-    		Alerta.getInstance().showMensagem("Erro Ao Salvar", "Erro Ao Salvar", e.getMessage());
+    		Alerta.getInstance().showMensagem("Erro Ao Salvar", "", e.getMessage());
 			e.printStackTrace();
 		}
     
@@ -152,6 +161,16 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 		
 		telefones = new ArrayList<>();
 		fachada = Fachada.getInstance();
+			
+		cbxTipoCliente.getItems().addAll(TipoCliente.getValues());
+		cbxEstado_civil.getItems().addAll(EstadoCivil.getValues());
+		cbxGenero.getItems().addAll(Sexo.getValues());
+		cbxTipoTelefone.getItems().addAll(TipoTelefone.getValues());
+		cbxTelefoneResposavel.getItems().addAll(TipoTelefone.getValues());
+		cbxEstado.getItems().addAll(Estado.getValues());
+		
+		rbtNao.setToggleGroup(group);
+		rbtSim.setToggleGroup(group);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -185,6 +204,8 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 		end.setCep(tfdCep.getText().trim());
 		end.setPais(tfdPais.getText().trim());
 		cliente.setEndereco(end);
+		
+		cliente.setTelefones(telefones);
 		
 		return cliente;
 		

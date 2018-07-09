@@ -173,5 +173,14 @@ public class Cliente {
 	public void setConsultas(List<Consulta> consultas) {
 		this.consultas = consultas;
 	}
+
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nome=" + nome + ", nascimento=" + nascimento + ", cpf_cnpj=" + cpf_cnpj
+				+ ", genero=" + genero + ", rg=" + rg + ", email=" + email + ", estado_civil=" + estado_civil
+				+ ", profissao=" + profissao + ", filhos=" + filhos + ", responsavel=" + responsavel + ", tipoCliente="
+				+ tipoCliente + ", endereco=" + endereco + ", telefones=" + telefones + ", consultas=" + consultas
+				+ "]";
+	}
 	
 }

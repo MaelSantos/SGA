@@ -54,8 +54,12 @@ public class BusinessCliente implements IBussinessCliente{
 
 	@Override
 	public Cliente buscarPorCodigo(String codigo) throws BusinessException{
-		// TODO Stub de método gerado automaticamente
-		return null;
+		
+		try {
+			return daoCliente.buscarPorCodigo(codigo);
+		} catch (DaoException e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override

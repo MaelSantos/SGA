@@ -12,8 +12,6 @@ public class Endereco {
 	private String pais; //pais VARCHAR(255), 
 	private String complemento; //complemento VARCHAR(255), 
 	private String cep; //cep VARCHAR(255),
-
-	
 	
 	public Endereco(String rua, String numero, String bairro, String cidade, String estado, String pais,
 			String complemento, String cep) {
@@ -99,5 +97,11 @@ public class Endereco {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	@Override
+	public String toString() {
+		return "Endereco [id=" + id + ", rua=" + rua + ", numero=" + numero + ", bairro=" + bairro + ", cidade="
+				+ cidade + ", estado=" + estado + ", pais=" + pais + ", complemento=" + complemento + ", cep=" + cep
+				+ "]";
 	}	
 }

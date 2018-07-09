@@ -7,12 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.sga.business.BusinessCliente;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoCliente;
+import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoCliente;
 import br.com.sga.interfaces.IDaoCommun;
@@ -47,7 +50,6 @@ public class DaoCliente implements IDaoCliente {
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = conexao.prepareStatement(SQLUtil.Cliente.INSERT_ALL);
 			
-
 			//  nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;
 			statement.setString(1, entidade.getNome());
 			statement.setDate(2, new Date(entidade.getNascimento().getTime()));
@@ -100,10 +102,10 @@ public class DaoCliente implements IDaoCliente {
 			Endereco end;
 			if (resultSet.next()) {
 				cliente = new Cliente();
-				//                nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	
+//				nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	
 				cliente.setId(resultSet.getInt("id"));
 				cliente.setNome(resultSet.getString("nome"));
-				cliente.setNascimento(resultSet.getDate("nascimento"));
+				cliente.setNascimento(resultSet.getDate("data_nascimento"));
 				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
 				cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
 				cliente.setRg(resultSet.getString("rg"));
@@ -111,7 +113,7 @@ public class DaoCliente implements IDaoCliente {
 				cliente.setEstado_civil(resultSet.getString("estado_civil"));
 				cliente.setProfissao(resultSet.getString("profissao"));
 				cliente.setFilhos(resultSet.getBoolean("filhos"));
-				cliente.setResponsavel(resultSet.getString("resposavel"));
+				cliente.setResponsavel(resultSet.getString("responsavel"));
 				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
 				end = new Endereco();
 				end.setId(resultSet.getInt("endereco_id"));
@@ -124,21 +126,20 @@ public class DaoCliente implements IDaoCliente {
 				end.setCep(resultSet.getString("cep"));
 				end.setPais(resultSet.getString("pais"));
 				cliente.setEndereco(end);
-
+				
 				List<Telefone> list = daoCommun.getContatos(cliente.getId());
 				cliente.setTelefones(list);
-				this.conexao.close();				
+				this.conexao.close();			
+				
+				return cliente;
 			}
 			else {
 				throw new DaoException("CLIENTE NÃO EXISTE");
 			}
 
 		} catch (Exception e) {
-			
-			e.printStackTrace();
+			throw new DaoException(e.getMessage());
 		}
-		
-		return null;
 
 	}
 
@@ -148,4 +149,46 @@ public class DaoCliente implements IDaoCliente {
 		return null;
 	}
 
+	public static void main(String[] args) {
+		
+		Cliente cliente = new Cliente();
+		
+		cliente.setNome("Mael");
+		cliente.setCpf_cnpj("07551074384");
+		cliente.setEmail("maelsantos777@gmail.com");
+		cliente.setEstado_civil("solteiro");
+		cliente.setFilhos(true);
+		cliente.setGenero(Sexo.MASCULINO);
+		cliente.setNascimento(new java.util.Date(02, 9, 1998));
+		cliente.setProfissao("Estudante/Monitor");
+		cliente.setResponsavel("Deus");
+		cliente.setRg("000000000000");
+		cliente.setTipoCliente(TipoCliente.FISICO);
+		
+		Endereco endereco = new Endereco();
+		
+		endereco.setBairro("AABB");
+		endereco.setCep("540670000");
+		endereco.setCidade("Serra Talhada");
+		endereco.setComplemento("Perto Da Academia Das Cidades");
+		endereco.setEstado("PE");
+		endereco.setNumero("4012");
+		endereco.setPais("Brasil");
+		endereco.setRua("Quirino Cordeiro Magalhães");
+		
+		cliente.setEndereco(endereco);
+		
+		try {
+			
+			BusinessCliente.getInstance().salvar(cliente);
+			System.out.println("Cliente: "+BusinessCliente.getInstance().buscarPorCodigo(cliente.getCpf_cnpj()));
+			
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
 }

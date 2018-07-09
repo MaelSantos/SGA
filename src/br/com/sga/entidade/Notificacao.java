@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.sga.entidade.enums.Estado;
+import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Prioridade;
 import br.com.sga.entidade.enums.TipoNotificacao;
 
 public class Notificacao {
 	private TipoNotificacao tipoNotificacao;
-	private Estado estado;
+	private Andamento estado;
 	private String descricao;
 	private Prioridade prioridade;
 	private Date aviso_data;
@@ -28,7 +28,7 @@ public class Notificacao {
 	 * @param intervalo_repeticao
 	 * @param funcionario
 	 */
-	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Estado estado, Date aviso_data, Integer id,
+	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Andamento estado, Date aviso_data, Integer id,
 			Integer intervalo_repeticao,List<Funcionario> funcionarios) {
 		this.tipoNotificacao = tipoNotificacao;
 		this.prioridade = prioridade;
@@ -39,7 +39,7 @@ public class Notificacao {
 		this.intervalo_repeticao = intervalo_repeticao;
 		this.funcionarios = funcionarios;
 	}
-	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Estado estado, Date aviso_data,
+	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Andamento estado, Date aviso_data,
 			Integer intervalo_repeticao,List<Funcionario> funcionarios) {
 		this.tipoNotificacao = tipoNotificacao;
 		this.prioridade = prioridade;
@@ -92,10 +92,10 @@ public class Notificacao {
 	public void setTipoNotificacao(TipoNotificacao tipoNotificacao) {
 		this.tipoNotificacao = tipoNotificacao;
 	}
-	public Estado getEstado() {
+	public Andamento getEstado() {
 		return estado;
 	}
-	public void setEstado(Estado estado) {
+	public void setEstado(Andamento estado) {
 		this.estado = estado;
 	}
 	
