@@ -16,7 +16,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class ControleMenu implements Initializable{
+public class ControleMenu implements Initializable, Ouvinte{
 
 	@FXML
     private AnchorPane menu;
@@ -115,9 +115,11 @@ public class ControleMenu implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		App.addOuvinte(new Ouvinte() {
-			@Override
-			public void atualizar(Tela tela, Funcionario usuario) {
+		App.addOuvinte(this);
+		
+	}
+	@Override
+	public void atualizar(Tela tela, Funcionario usuario) {
 //				if(tela == Tela.perfil) {
 //					atualizarTela(App.changePane(Tela.perfil));
 //				}
@@ -129,12 +131,10 @@ public class ControleMenu implements Initializable{
 //				}else if(tela == Tela.editar_perfil) {
 //					atualizarTela(App.changePane(Tela.editar_perfil));
 //				}
-				
-				atualizarTela(App.changePane(tela));
-				mnbNome.setText(usuario.getNome());
-			}
-		});
 		
+		atualizarTela(App.changePane(tela));
+		System.out.println(usuario);
+		mnbNome.setText(usuario.getNome());
 	}
 
 }

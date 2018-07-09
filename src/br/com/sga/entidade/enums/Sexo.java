@@ -1,8 +1,5 @@
 package br.com.sga.entidade.enums;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 public enum Sexo {
 
 	MASCULINO("MASCULINO"),
@@ -26,17 +23,6 @@ public enum Sexo {
 		}
 		return null;
 
-	}
-
-	public static ObservableList<Sexo> getValues(){
-		
-		ObservableList<Sexo> list = FXCollections.observableArrayList();
-		
-		list.add(MASCULINO);
-		list.add(FEMININO);
-		
-		return list;
-		
 	}
 	
 	@Override

@@ -21,7 +21,7 @@ public class Telefone {
 		this.prefixo = prefixo;
 		this.cliente = cliente;
 	}
-	public Telefone( Integer numero, Integer prefixo,TipoTelefone tipo) {
+	public Telefone(Integer numero, Integer prefixo,TipoTelefone tipo) {
 		this.numero = numero;
 		this.prefixo = prefixo;
 		this.tipo = tipo;

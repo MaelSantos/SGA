@@ -104,7 +104,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 	private TextField tfdNumero;
 
 	@FXML
-	private ComboBox<String> cbxEstado;
+	private ComboBox<Estado> cbxEstado;
 
 	@FXML
 	private TextField tfdBairro;
@@ -134,9 +134,13 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
     	
     	Object obj = event.getSource();
     	try {
-
     		if(obj == btnAdd)
-    			telefones.add(new Telefone(0, Integer.parseInt(tfdNumero.getText()), Integer.parseInt(tfdPrefixo.getText()), null));
+    		{
+    			telefones.add(new Telefone(Integer.parseInt(tfdNumero.getText().trim()), Integer.parseInt(tfdPrefixo.getText().trim()), 
+    					TipoTelefone.getTipo(cbxTipoCliente.getValue().toString())));    			
+    		}
+    		else
+    			Alerta.getInstance().showMensagem("Erro", "", "Add um tipo");
     		if(obj == btnCadastrar)
     		{
     			Cliente cliente = criarCliente();	
@@ -147,7 +151,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
     		Alerta.getInstance().showMensagem("Erro Ao Salvar", "", e.getMessage());
 			e.printStackTrace();
 		}
-    
+    System.out.println(telefones);
     }
 
     @Override
@@ -162,12 +166,12 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 		telefones = new ArrayList<>();
 		fachada = Fachada.getInstance();
 			
-		cbxTipoCliente.getItems().addAll(TipoCliente.getValues());
-		cbxEstado_civil.getItems().addAll(EstadoCivil.getValues());
-		cbxGenero.getItems().addAll(Sexo.getValues());
-		cbxTipoTelefone.getItems().addAll(TipoTelefone.getValues());
-		cbxTelefoneResposavel.getItems().addAll(TipoTelefone.getValues());
-		cbxEstado.getItems().addAll(Estado.getValues());
+		cbxTipoCliente.getItems().addAll(TipoCliente.values());
+		cbxEstado_civil.getItems().addAll(EstadoCivil.values());
+		cbxGenero.getItems().addAll(Sexo.values());
+		cbxTipoTelefone.getItems().addAll(TipoTelefone.values());
+		cbxTelefoneResposavel.getItems().addAll(TipoTelefone.values());
+		cbxEstado.getItems().addAll(Estado.values());
 		
 		rbtNao.setToggleGroup(group);
 		rbtSim.setToggleGroup(group);

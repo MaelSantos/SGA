@@ -43,6 +43,8 @@ public class App extends Application{
 		loginScene = new Scene(login);
 		menuScene = new Scene(menu);
 		
+		System.out.println(cadastroCliente);
+		
 		stage.setScene(loginScene);
 		stage.setTitle("SGA - Sistema De Gerenciamento Advocativo");
 		stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(("SGA.png"))));
