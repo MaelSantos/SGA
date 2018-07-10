@@ -11,11 +11,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class ControleConfiguracoes implements Initializable,Ouvinte{
 
 	@FXML
     private Button btnAddAdm;
+	
+	@FXML
+	private Label lblNome;
 
     Funcionario usuario;
     
@@ -36,9 +40,8 @@ public class ControleConfiguracoes implements Initializable,Ouvinte{
 
 	@Override
 	public void atualizar(Tela tela, Funcionario usuario) {
-		
 		this.usuario = usuario;
-		
+		lblNome.setText(this.usuario.getNome());
 	}
 
 }

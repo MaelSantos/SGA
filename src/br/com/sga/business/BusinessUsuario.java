@@ -22,8 +22,12 @@ public class BusinessUsuario implements IBusinessUsuario {
 	@Override
 	public void salvar(Funcionario usuario) throws BusinessException{
 		try {
+			
 			validarUsuario(usuario);
-			daoUsuario.salvar(usuario);
+			if(usuario.getId() == null)
+				daoUsuario.salvar(usuario);
+			else
+				daoUsuario.editar(usuario);
 		}catch (ValidacaoException e) {
 			throw new BusinessException(e.getMessage());
 		} catch (DaoException e) {
@@ -31,13 +35,7 @@ public class BusinessUsuario implements IBusinessUsuario {
 			throw new BusinessException(e.getMessage());	
 		}		
 	}
-
-	@Override
-	public void editar(Funcionario usuario) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		
-	}
-
+	
 	@Override
 	public Funcionario buscarPorId(int id) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
@@ -59,25 +57,17 @@ public class BusinessUsuario implements IBusinessUsuario {
 	private void validarUsuario(Funcionario usuario) throws ValidacaoException, DaoException{
 		if(usuario.getLogin().trim().equals("") || usuario.getSenha().trim().equals(""))
 			throw new ValidacaoException("DADOS EM BRANCO!!!");
-		if(usuario.getSenha().trim().length() >= 8)
+		if(usuario.getSenha().trim().length() < 8)
 			throw new ValidacaoException("SENHA MUITO CURTA!!!");
-		if(daoUsuario.buscarPorLogin(usuario.getLogin(),usuario.getSenha()) == null)
-			throw new ValidacaoException("USUARIO JÁ CADASTRADO!!!");
 	}
 
 	@Override
 	public Funcionario buscarPorLogin(String login, String senha) throws BusinessException {
 		try {
-			Funcionario f =  daoUsuario.buscarPorLogin(login, senha);
-			if(f == null)
-				throw new BusinessException("NÃO HÁ USUARIOS CADASTRADOS COM ESSES DADOS");
-			return f;
-				
+			return  daoUsuario.buscarPorLogin(login, senha);
 		} catch (DaoException e) {
 			throw new BusinessException(e.getMessage());
-			
 		}
-		
 	}
 
 }

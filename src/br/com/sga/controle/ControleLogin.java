@@ -50,13 +50,10 @@ public class ControleLogin implements Initializable{
 				progresso.setVisible(true);
 				progresso.progressProperty().bind(servico.progressProperty());
 				progresso.progressProperty().unbind();
-				
 				Funcionario funcionario = fachada.buscarPorLogin(tfdLogin.getText(), tfdSenha.getText());
-
 				App.changeStage(Tela.menu);
 				App.notificarOuvintes(Tela.menu,funcionario);
 			}catch (BusinessException e1) {
-				
 				Alerta.getInstance().showMensagem("Dados Incorretos", "Login/Email Ou Senha Incorretos",e1.getMessage());
 //				servico.cancel();
 			}
@@ -75,7 +72,6 @@ public class ControleLogin implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		fachada = Fachada.getInstance();
-		
 		servico = new Service() {
 			@Override
 			protected Task createTask() {

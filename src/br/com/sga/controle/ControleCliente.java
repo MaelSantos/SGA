@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.textfield.TextFields;
 
-import br.com.sga.app.App;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Telefone;
@@ -64,8 +63,11 @@ public class ControleCliente implements Initializable, Ouvinte{
     	Object obj = event.getSource();
     	
     	if(obj == btnAdd)
-    		App.notificarOuvintes(Tela.cadastro_cliente);
+//    		App.notificarOuvintes(Tela.cadastro_cliente);
     	if(obj == cbxTipo)
+    	{
+    		
+    	}
 //    		for(Cliente c : tblClientes.getItems())
 //    			if(!(cbxTipo.getValue() == c.getTipoCliente()))
 //    				tblClientes.getItems()getClass().get
@@ -111,9 +113,31 @@ public class ControleCliente implements Initializable, Ouvinte{
 	@Override
 	public void atualizar(Tela tela, Funcionario usuario) {
 		
-		
 	}
-    
 }
-	
 
+//public class ControleCliente implements Initializable {
+//
+//	@FXML
+//	private Button btnAdd;
+//
+//	private Funcionario funcionario;
+//	@FXML
+//	void actionButton(ActionEvent event) {
+//		
+//		if (event.getSource() == btnAdd) {
+//			App.notificarOuvintes(Tela.cadastro_cliente,funcionario);
+//		}
+//	}
+//
+//	@Override
+//	public void initialize(URL arg0, ResourceBundle arg1) {
+//		App.addOuvinte(new Ouvinte() {
+//			@Override
+//			public void atualizar(Tela tela, Funcionario usuario) {
+//				funcionario = usuario;
+//			}
+//		});
+//	}
+//
+//}

@@ -48,6 +48,8 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 	
 	private IFachada fachada;
 	
+	private Funcionario funcionario;
+	
 	@FXML
     private void actionButton(ActionEvent event) {
 		
@@ -61,16 +63,14 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 					Funcionario funcionario = new Funcionario(
 							tfdNome.getText().trim(), //nome
 							tfdEmail.getText().trim(), //email 
-							tfdSenha.getText().trim(), //senha
 							tfdLogin.getText().trim(), //login 
+							tfdSenha.getText().trim(), //senha
 							tfdNumeroOab.getText().trim()); //numero OAB
-						
 						fachada.salvarUsuario(funcionario);
+						System.out.println("Salvo com sucesso");
 						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...", "Salvo Com Sucesso!");
 				}
-				
-			} catch (Exception e) {
-				
+			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem("Erro!!!", "Erro ao Salvar!!!", e.getMessage());
 			}
 			
@@ -116,7 +116,7 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 		}
 		if(event.getSource() == btnCancelar)
 		{
-			App.notificarOuvintes(Tela.configuracoes, DaoUsuario.getInstance().getUsuarioLogado());
+			App.notificarOuvintes(Tela.configuracoes,funcionario);
 		}
     }
 	
@@ -128,9 +128,7 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 
 	@Override
 	public void atualizar(Tela tela, Funcionario usuario) {
-		
-		
-		
+		funcionario = usuario;
 	}
 
 }

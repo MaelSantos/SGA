@@ -22,21 +22,21 @@ public class ControlePerfil implements Initializable{
     @FXML
     private Label lblNome;
     
+    private Funcionario funcionario;
+    
     @FXML
     void actionButton(ActionEvent event) {
     	if(event.getSource() == editarPerfilButton) 
-    		App.notificarOuvintes(Tela.editar_perfil, DaoUsuario.getUsuarioLogado());
+    		App.notificarOuvintes(Tela.editar_perfil,funcionario);
     }	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		App.addOuvinte(new Ouvinte() {
-			
 			@Override
 			public void atualizar(Tela tela, Funcionario usuario) {
-				
-				lblNome.setText(usuario.getNome());
-				
+				funcionario = usuario;
+				lblNome.setText(funcionario.getNome());
 			}
 		});
 	}

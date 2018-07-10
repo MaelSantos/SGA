@@ -76,39 +76,63 @@ public class ControleMenu implements Initializable, Ouvinte{
 
     @FXML
     private Button btnInformacoes;
+    
+    @FXML
+    private Button cadastrarContratoButton;
+
+    @FXML
+    private Button editarContratoButton;
+
+    @FXML
+    private Button buscarContratoButton;
+
+    @FXML
+    private Button fecharContratoButton;
+
 	
+    private Funcionario funcionario;
 	@FXML
 	public void actionButton(ActionEvent e)
 	{
 		if(e.getSource() == btnArea)
 			atualizarTela(App.changePane(Tela.perfil));
-		if(e.getSource() == btnAgenda)
+		else if(e.getSource() == btnAgenda)
 			atualizarTela(App.changePane(Tela.agenda));
-		if(e.getSource() == btnClientes)
+		else if(e.getSource() == btnClientes)
 			atualizarTela(App.changePane(Tela.clientes));
-		if(e.getSource() == btnContatos)
+		else if(e.getSource() == btnContatos)
 			atualizarTela(App.changePane(Tela.contatos));
-		if(e.getSource() == btnProcessos)
+		else if(e.getSource() == btnProcessos)
 			atualizarTela(App.changePane(Tela.processos));
-		if(e.getSource() == btnDocumentos)
+		else if(e.getSource() == btnDocumentos)
 			atualizarTela(App.changePane(Tela.documentos));
-		if(e.getSource() == btnFinanceiro)
+		else if(e.getSource() == btnFinanceiro)
 			atualizarTela(App.changePane(Tela.financeiro));
-		if(e.getSource() == btnEstatisticas)
+		else if(e.getSource() == btnEstatisticas)
 			atualizarTela(App.changePane(Tela.estatiticas));
-		if(e.getSource() == btnHistorico)
+		else if(e.getSource() == btnHistorico)
 			atualizarTela(App.changePane(Tela.historico));
-		if(e.getSource() == btnAlertas)
+		else if(e.getSource() == btnAlertas)
 			atualizarTela(App.changePane(Tela.alertas));
-		if(e.getSource() == btnInformacoes)
+		else if(e.getSource() == btnInformacoes)
 			atualizarTela(App.changePane(Tela.informacoes));
-		if(e.getSource() == btnPerfil)
+		else if(e.getSource() == btnPerfil)
 			atualizarTela(App.changePane(Tela.perfil));
-		if(e.getSource() == btnConfiguracoes)
+		else if(e.getSource() == btnConfiguracoes)
 			atualizarTela(App.changePane(Tela.configuracoes));
-		if(e.getSource() == btnSair)
+		else if(e.getSource() == btnSair)
 			App.changeStage(Tela.login);//muda a tela
 	}
+	
+
+    @FXML
+    void contratoHandeler(ActionEvent event) {
+    	if(event.getSource() == cadastrarContratoButton)
+			atualizarTela(App.changePane(Tela.cadastro_contrato));
+    	else if(event.getSource() == editarContratoButton) {}
+    	else if(event.getSource() == buscarContratoButton) {}
+    	else if(event.getSource() == fecharContratoButton) {}
+    }
 	
 	@FXML
     void actionKey(KeyEvent event) {
@@ -133,19 +157,18 @@ public class ControleMenu implements Initializable, Ouvinte{
 		pane.setTopAnchor(paneNovo, 0.0);
 		pane.setLeftAnchor(paneNovo, 0.0);
 		pane.setRightAnchor(paneNovo, 0.0);
-		
 		pane.getChildren().setAll(paneNovo);
 	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		App.addOuvinte(this);
-	
 		TextFields.bindAutoCompletion(tfdPesquisar,Tela.values());
 		
 	}
 	@Override
 	public void atualizar(Tela tela, Funcionario usuario) {
+		funcionario = usuario;
 //				if(tela == Tela.perfil) {
 //					atualizarTela(App.changePane(Tela.perfil));
 //				}
@@ -159,8 +182,7 @@ public class ControleMenu implements Initializable, Ouvinte{
 //				}
 		
 		atualizarTela(App.changePane(tela));
-		System.out.println(usuario);
-		mnbNome.setText(usuario.getNome());
+		mnbNome.setText(funcionario.getNome());
 	}
 
 }

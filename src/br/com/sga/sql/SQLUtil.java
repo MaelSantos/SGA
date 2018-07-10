@@ -62,9 +62,13 @@ public class SQLUtil {
     }
    
     public static class Funcionario {
-	    public static final String INSERT_ALL = "INSERT INTO funcionario(nome, senha, login,numero_oab,endereco_id) VALUES (?, ?, ?, ?,?);";
+	    public static final String INSERT_ALL = "INSERT INTO funcionario(nome, senha, login,numero_oab,email,endereco_id) VALUES (?, ?, ?, ? , ? , ?);";
+	    public static final String INSERT_SEM_ENDERECO = "INSERT INTO funcionario(nome, senha, login,numero_oab,email) VALUES (?, ?, ?, ? , ?);";
+	    
 	    public static final String SELECT_LOGIN_SENHA = "SELECT * FROM FUNCIONARIO WHERE login = ? AND senha = ?";
-	    public static final String SELECT_NOME = "SELECT ID FROM FUNCIONARIO WHERE NOME = ?"; 
+	    public static final String SELECT_NOME = "SELECT ID FROM FUNCIONARIO WHERE NOME = ?";
+	   
+	    public static final String UPDATE_ALL = "UPDATE FUNCIONARIO SET NOME = ?, LOGIN = ? , SENHA = ?, NUMERO_OAB = ?, EMAIL = ? where id = ?";
     }
     
 //  nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	

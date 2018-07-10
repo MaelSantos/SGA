@@ -21,7 +21,7 @@ public class App extends Application{
 	static Scene menuScene;
 	
 	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
-	clientes, cadastroCliente, contatos;
+	clientes, cadastroCliente, contatos,cadastroContrato;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -38,6 +38,7 @@ public class App extends Application{
 		clientes = FXMLLoader.load(getClass().getResource("../view/Clientes.fxml"));
 		cadastroCliente = FXMLLoader.load(getClass().getResource("../view/CadastroCliente.fxml"));
 		contatos = FXMLLoader.load(getClass().getResource("../view/Contatos.fxml"));
+		cadastroContrato = FXMLLoader.load(getClass().getResource("../view/CadastroContrato.fxml"));
 		
 		loginScene = new Scene(login);
 		menuScene = new Scene(menu);
@@ -91,6 +92,8 @@ public class App extends Application{
 			return cadastroCliente;
 		case contatos:
 			return contatos;
+		case cadastro_contrato:
+			return cadastroContrato;
 		default:
 			System.err.println("Valor Não Correspondente");
 			break;
@@ -104,9 +107,6 @@ public class App extends Application{
 	public static void notificarOuvintes(Tela tela, Funcionario usuario) {
 		for(Ouvinte ouvinte : ouvintes)
 			ouvinte.atualizar(tela, usuario);
-	}
-	public static void notificarOuvintes(Tela tela) {
-		notificarOuvintes(tela, DaoUsuario.getUsuarioLogado());
 	}
 	
 	public static void addOuvinte(Ouvinte ouvinte) {
