@@ -43,8 +43,7 @@ public class Fachada implements IFachada {
 
 	@Override
 	public void editarUsuario(Funcionario usuario) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		
+		businessUsuario.editarUsuario(usuario);
 	}
 
 	@Override

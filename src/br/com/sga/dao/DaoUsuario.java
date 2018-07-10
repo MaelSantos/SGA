@@ -25,23 +25,23 @@ public class DaoUsuario implements IDaoUsuario{
 	
 
 	@Override
-	public void salvar(Funcionario usuario) throws DaoException {
+	public void salvar(Funcionario entidade) throws DaoException {
 		try {
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			Integer endereco_id = null;
-			if(usuario.getEndereco()!= null) {
-				daoCommun.salvarEndereco(usuario.getEndereco());
+			if(entidade.getEndereco()!= null) {
+				daoCommun.salvarEndereco(entidade.getEndereco());
 				endereco_id = daoCommun.getCurrentValorTabela(Tabela.ENDERECO);
 				this.statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_ALL);
 			}else {
 				this.statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_SEM_ENDERECO);
 			}
 
-            statement.setString(1, usuario.getNome());
-            statement.setString(2, usuario.getSenha());
-            statement.setString(3, usuario.getLogin());
-            statement.setString(4, usuario.getNumero_oab());
-            statement.setString(5,usuario.getEmail());
+            statement.setString(1, entidade.getNome());
+            statement.setString(2, entidade.getSenha());
+            statement.setString(3, entidade.getLogin());
+            statement.setString(4, entidade.getNumero_oab());
+            statement.setString(5,entidade.getEmail());
             if(endereco_id != null)
             	statement.setInt(6,endereco_id);
             statement.execute();
@@ -97,26 +97,47 @@ public class DaoUsuario implements IDaoUsuario{
 		}
 	}
 
+	
+
 	@Override
-	public void editar(Funcionario usuario) {
-		// TODO Stub de método gerado automaticamente
+	public void editar(Funcionario entidade) throws DaoException {
+		//"UPDATE FUNCIONARIO SET NOME = ?, LOGIN = ? , SENHA = ?, NUMERO_OAB = ?, EMAIL = ? where id = ?";
+		try {
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Funcionario.UPDATE_ALL);
+			
+            statement.setString(1,entidade.getNome());
+            statement.setString(2,entidade.getLogin());
+            statement.setString(3,entidade.getSenha());
+            statement.setString(4,entidade.getNumero_oab());
+            statement.setString(5,entidade.getEmail());
+            statement.setInt(6,entidade.getId());
+            statement.executeUpdate();
+            this.conexao.close();
+            
+		}catch (PSQLException ex) {
+			throw new DaoException("EMAIL, LOGIN OU NUMERO OAB JÁ ESTÁ CADASTRATO");
+		}catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO EDITAR USUARIO - CONTATE O ADM");
+        }
 		
 	}
 
 	@Override
-	public Funcionario buscarPorId(int id) {
+	public Funcionario buscarPorId(int id) throws DaoException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
 	@Override
-	public Funcionario buscarPorCodigo(String codigo) {
+	public Funcionario buscarPorCodigo(String codigo) throws DaoException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
 	@Override
-	public List<Funcionario> buscarPorBusca(String busca) {
+	public List<Funcionario> buscarPorBusca(String busca) throws DaoException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}

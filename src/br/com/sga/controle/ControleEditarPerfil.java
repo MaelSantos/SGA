@@ -9,21 +9,23 @@ import br.com.sga.dao.DaoUsuario;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.exceptions.BusinessException;
+import br.com.sga.fachada.Fachada;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class ControleEditarPerfil implements Initializable{
 
     @FXML
     private TextField nomeField;
-
-    @FXML
-    private TextField sobrenomeField;
 
     @FXML
     private TextField emailField;
@@ -39,6 +41,9 @@ public class ControleEditarPerfil implements Initializable{
 
     @FXML
     private TextField loginField;
+    
+    @FXML
+    private TextField numero_oabField;
 
     @FXML
     private Button atualizarLoginButton;
@@ -53,6 +58,8 @@ public class ControleEditarPerfil implements Initializable{
     private Button voltarButton;
 
     private Funcionario funcionario;
+    
+    private Fachada fachada;
 
     @FXML
     private void actionButton(ActionEvent event) {
@@ -61,22 +68,55 @@ public class ControleEditarPerfil implements Initializable{
     	}
     	else
     	{ 
-	    	if(event.getSource() == atualizarPerfilButton) 
-	    		atualizarPerfil(funcionario);
+	    	String feedback = null;
+	    	Boolean sucesso = false;
+    		// copia para dados não sejam editados mesmo errados
+	    	Funcionario copiaFuncionario = new Funcionario(funcionario.getId(),funcionario.getNome(),funcionario.getEmail(),funcionario.getLogin(),funcionario.getSenha(),funcionario.getNumero_oab());
+	    	
+    		if(event.getSource() == atualizarPerfilButton) 
+    		{
+    			sucesso =atualizarPerfil(copiaFuncionario);
+    			feedback = "Dados do perfil";
+    			if(sucesso) {
+	    			nomeField.setText("");
+	    			emailField.setText("");
+	    			numero_oabField.setText("");
+	    		}
+    		}
 	    	else if(event.getSource() == atualizarLoginButton)
 	    	{
-	    		atualizarLogin(funcionario);
+	    		sucesso =atualizarLogin(copiaFuncionario);
+	    		feedback = "Login";
+	    		if(sucesso) 
+	    			loginField.setText("");
 	    	}
 	    	else if(event.getSource() == atualizarSenhaButton) 
 	    	{
-	    		atualizarSenha(funcionario);
+	    		sucesso =atualizarSenha(copiaFuncionario);
+	    		feedback = "Senha";
+	    		if(sucesso) {
+	    			senhaAtualField.setText("");
+	    			confirmarSenhaField.setText("");
+	    			novaSenhaField.setText("");
+	    		}
 	    	}
+	    	try {
+				fachada.editarUsuario(copiaFuncionario);
+				if(sucesso) {
+					funcionario = copiaFuncionario;
+					App.notificarOuvintes(Tela.editar_perfil,funcionario);
+					new Alert(AlertType.INFORMATION,feedback+" atualizado com sucesso",ButtonType.OK).show();
+				}
+			} catch (BusinessException e) {
+				new Alert(AlertType.ERROR,e.getMessage(),ButtonType.OK).show();
+			}
     	}
     }
     
     @Override
   	public void initialize(URL location, ResourceBundle resources) {
-  		App.addOuvinte(new Ouvinte() {
+  		fachada = Fachada.getInstance();
+    	App.addOuvinte(new Ouvinte() {
   			@Override
   			public void atualizar(Tela tela, Funcionario usuario) {
   				funcionario = usuario;
@@ -94,7 +134,7 @@ public class ControleEditarPerfil implements Initializable{
   		
   	}
     
-    private void atualizarSenha(Funcionario usuario) {
+    private Boolean atualizarSenha(Funcionario usuario) {
     	String senhaAtual,novaSenha,confirmarSenha;
     	senhaAtual = senhaAtualField.getText().trim();
     	novaSenha = novaSenhaField.getText().trim();
@@ -106,85 +146,62 @@ public class ControleEditarPerfil implements Initializable{
     		if(validacao != null) 
     		{
     			Alerta.getInstance().showMensagem("Erro","",validacao);
-    			return ;
+    			return false ;
     		}
     		if(senhaAtual.equals(usuario.getSenha())) 
-        	{
         		if(novaSenha.equals(confirmarSenha)) 
         		{
         			usuario.setSenha(novaSenha);
-        			Alerta.getInstance().showMensagem("Confirmação","","Senha alterada com sucesso");
+    				return true;
         		}
         		else
         			Alerta.getInstance().showMensagem("Erro","","nova senha e sua confirmação não coincidem");
-        	}
         	else
         		Alerta.getInstance().showMensagem("Erro","","Senha atual informada é diferente da original");
-    		return;
+    		return false;
     	}
     	Alerta.getInstance().showMensagem("Erro","","Nada foi alterado, entradas de texto estão vazias");
+    	return false;
     }
     
-    private void atualizarLogin(Funcionario usuario) {
+    private Boolean atualizarLogin(Funcionario usuario) {
     	String login = loginField.getText().trim();
-    	if(login.length() >0) {
-			/*if(Verificar.validerLogin(login)) 
-			{
-				usuario.setLogin(login);
-				Alerta.getInstance().showMensagem("","","Login alterado com sucesso");
-				return;
-			}
-			Alerta.getInstance().showMensagem("Confirmação","","Login já esta cadastrado , por favor informe outro");*/
+    	if(login.length() >0) 
+    	{
+			usuario.setLogin(login);
+			return true;
     	}
-    	else 
+		else 
 			Alerta.getInstance().showMensagem("Erro","","Nada foi alterado, entrada de texto esta vazia");
+    	return false;
     }
 	
-    private void atualizarPerfil(Funcionario usuario) {
+    private Boolean atualizarPerfil(Funcionario usuario) {
     	
-    	String nome,email,sobrenome;
+    	String nome,email,numero_oab;
 		nome = nomeField.getText().trim();
 		email = emailField.getText().trim();
-		sobrenome = sobrenomeField.getText().trim();
-		
+		numero_oab = numero_oabField.getText().trim();
 		if(email.length() >0) {
 			String validacao = Validar.getInstance().validarEmail(email);
 			if(validacao != null) {
 				Alerta.getInstance().showMensagem("","",validacao);
-				return;
+				return false;
 			}
-		if(nome.length()>0 || email.length()>0 || sobrenome.length() >0) {
-			StringBuffer feedbak = new StringBuffer("Foi alterado ");
-			int tamIni = feedbak.length();
-			int tamAtual = tamIni;
+		}
+		if(nome.length()>0 || email.length()>0 || numero_oab.length()>0) {
 			if(nome.length()>0) 
-			{
 				usuario.setNome(nome);
-				feedbak.append(" nome");
-				tamAtual = feedbak.length();
-			}
-			/*if(sobrenome.length() >0)  
-			{
-				usuario.setSobrenome(sobrenome);
-				if(tamIni == tamAtual)
-					feedbak.append(" Sobrenome");
-				else {
-					feedbak.append(", sobrenome");
-					tamAtual =feedbak.length();
-				}
-			}*/
+			if(numero_oab.length()>0) 
+				usuario.setNumero_oab(numero_oab);
 			if (email.length() >0) 
-			{
 				usuario.setEmail(email);
-				if(tamIni == tamAtual)
-					feedbak.append(" email");
-				else 
-					feedbak.append("e email");
-			}
-			Alerta.getInstance().showMensagem("Confirmação","Dados alterados: ",feedbak.toString());
+			return true;
 		}
-		else
+		else {
 			Alerta.getInstance().showMensagem("Erro","","Nada foi alterado, entradas de texto estão vazias");
+			return false;
 		}
+	
     }
 }

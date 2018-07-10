@@ -14,13 +14,13 @@ public class Validar {
 			instance = new Validar();
 		return instance;
 	}
-	public static String validarSenha(String senha) {
+	public  String validarSenha(String senha) {
 		if(senha.length()<8)
 			return "Senha curta, minimo 8 caracteres";
 		return null;
 	}
-	public static String validarEmail(String email) {
-		if(email.matches("\\w+@\\w+.com|.com.br"))
+	public  String validarEmail(String email) {
+		if(!email.matches("\\w+@\\w+.com|.com.br"))
 			return "Email informado invalido";
 		return null;
 	}

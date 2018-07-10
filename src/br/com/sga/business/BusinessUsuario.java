@@ -34,8 +34,12 @@ public class BusinessUsuario implements IBusinessUsuario {
 
 	@Override
 	public void editarUsuario(Funcionario usuario) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		
+		try {
+			daoUsuario.editar(usuario);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
