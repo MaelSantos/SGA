@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleInformacoes">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -41,7 +41,7 @@
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <Hyperlink fx:id="emailM" text="maelsantos777@gmail.com" GridPane.columnIndex="1">
+                        <Hyperlink fx:id="emailM" onAction="#openLink" text="maelsantos777@gmail.com" GridPane.columnIndex="1">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
@@ -51,7 +51,7 @@
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <Hyperlink fx:id="emailW" prefHeight="26.0" prefWidth="223.0" text="wanderson100v@gmail.com" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Hyperlink fx:id="emailW" onAction="#openLink" prefHeight="26.0" prefWidth="223.0" text="wanderson100v@gmail.com" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
@@ -84,12 +84,12 @@
                <children>
                   <ImageView fitHeight="289.0" fitWidth="464.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../res/SGA%20-%20Nome.png" />
+                        <Image url="@../../../../../res/SGA%20-%20Nome.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="322.0" fitWidth="264.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../res/ufrpe-uast-logo.png" />
+                        <Image url="@../../../../../res/ufrpe-uast-logo.png" />
                      </image>
                      <viewport>
                         <Rectangle2D />
