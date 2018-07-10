@@ -27,7 +27,7 @@ public class ControleInformacoes {
 	    	Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
 		    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
 		        try {
-		            desktop.browse(new URI("https://www.facebook.com/wanderson.pereira.75098"));
+		            desktop.browse(new URI("https://wanderson100v.github.io/"));
 		        } catch (Exception e) {
 		            e.printStackTrace();
 		        }

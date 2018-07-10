@@ -41,21 +41,29 @@
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <Hyperlink fx:id="emailM" onAction="#openLink" text="maelsantos777@gmail.com" GridPane.columnIndex="1">
-                           <font>
-                              <Font name="Verdana" size="14.0" />
-                           </font>
-                        </Hyperlink>
+                        <BorderPane style="-fx-background-color: white;" GridPane.columnIndex="1">
+                           <center>
+                              <Hyperlink fx:id="emailM" onAction="#openLink" text="maelsantos777@gmail.com">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                              </Hyperlink>
+                           </center>
+                        </BorderPane>
                         <Label text="Wanderson Pereira da Silva Lira" textFill="WHITE" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <Hyperlink fx:id="emailW" onAction="#openLink" prefHeight="26.0" prefWidth="223.0" text="wanderson100v@gmail.com" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Verdana" size="14.0" />
-                           </font>
-                        </Hyperlink>
+                        <BorderPane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <center>
+                              <Hyperlink fx:id="emailW" onAction="#openLink" prefHeight="26.0" prefWidth="223.0" text="clike para mais informações">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                              </Hyperlink>
+                           </center>
+                        </BorderPane>
                         <Label text="+55 (88)9 8116-9372" textFill="WHITE" GridPane.columnIndex="2">
                            <font>
                               <Font name="Verdana" size="14.0" />
