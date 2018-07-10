@@ -62,6 +62,7 @@
                                  </VBox.margin>
                               </Button>
                               <Button fx:id="editarContratoButton" mnemonicParsing="false" onAction="#contratoHandeler" prefHeight="25.0" prefWidth="200.0" text="Editar" />
+                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Gerar documento" />
                               <Button fx:id="buscarContratoButton" mnemonicParsing="false" onAction="#contratoHandeler" prefHeight="25.0" prefWidth="200.0" text="Buscar" />
                               <Button fx:id="fecharContratoButton" mnemonicParsing="false" onAction="#contratoHandeler" prefHeight="25.0" prefWidth="200.0" text="Fechar">
                                  <VBox.margin>

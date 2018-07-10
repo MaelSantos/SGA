@@ -12,9 +12,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="800.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane layoutY="31.0" prefHeight="600.0" prefWidth="700.0">
+      <ScrollPane layoutY="31.0" prefHeight="800.0" prefWidth="700.0">
          <content>
             <AnchorPane prefHeight="800.0" prefWidth="700.0">
                <children>
@@ -56,6 +56,8 @@
                   <TextField layoutX="168.0" layoutY="460.0" prefHeight="25.0" prefWidth="260.0" promptText="Nome completo da parte" />
                   <ComboBox layoutX="470.0" layoutY="460.0" prefWidth="150.0" promptText="Tipo da parte" />
                   <ComboBox layoutX="244.0" layoutY="497.0" prefHeight="25.0" prefWidth="188.0" promptText="tipo participação da parte" />
+                  <Button layoutX="56.0" layoutY="730.0" mnemonicParsing="false" text="Gerar documento para impreção" />
+                  <Button layoutX="272.0" layoutY="730.0" mnemonicParsing="false" text="Salvar contrato" />
                </children>
             </AnchorPane>
          </content>
