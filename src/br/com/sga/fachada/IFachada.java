@@ -9,13 +9,16 @@ import br.com.sga.exceptions.DaoException;
 
 public interface IFachada {
 	
+	//usuario
 	public Funcionario buscarPorLogin(String login, String senha) throws BusinessException;
 	public void salvarUsuario(Funcionario usuario) throws BusinessException;
-    public void editarUsuario(Funcionario usuario) throws BusinessException;
     public Funcionario buscarUsuarioPorId(int id) throws BusinessException;
     public Funcionario buscarUsuarioPorCodigo(String codigo) throws BusinessException;
     public List<Funcionario> buscarUsuarioPorBusca(String busca) throws BusinessException;
 
+    //cliente
     public void salvarCliente(Cliente cliente)throws BusinessException;
-    
+    public Cliente buscarClientePorId(int id) throws BusinessException;
+    public Cliente buscarClientePorCodigo(String codigo) throws BusinessException;
+    public List<Cliente> buscarClientePorBusca(String busca) throws BusinessException;
 }

@@ -271,8 +271,6 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 		return new TextFormatter<>(filter);
 	}
 	
-
-	@SuppressWarnings("deprecation")
 	public Cliente criarCliente()
 	{
 		Cliente cliente = new Cliente();

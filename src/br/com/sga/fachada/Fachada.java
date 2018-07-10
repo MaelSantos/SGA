@@ -15,7 +15,7 @@ import br.com.sga.interfaces.IBussinessCliente;
 public class Fachada implements IFachada {
 
     private IBusinessUsuario businessUsuario;
-    private IBussinessCliente bussinessCliente;
+    private IBussinessCliente businessCliente;
 
     private static Fachada fachada;
 
@@ -28,7 +28,7 @@ public class Fachada implements IFachada {
 
     private Fachada() {
         businessUsuario = new BusinessUsuario();
-        bussinessCliente = BusinessCliente.getInstance();
+        businessCliente = BusinessCliente.getInstance();
     }
 
 	@Override
@@ -38,36 +38,42 @@ public class Fachada implements IFachada {
 
 	@Override
 	public void salvarUsuario(Funcionario usuario) throws BusinessException {
-		businessUsuario.salvarUsuario(usuario);
-	}
-
-	@Override
-	public void editarUsuario(Funcionario usuario) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		
+		businessUsuario.salvar(usuario);
 	}
 
 	@Override
 	public Funcionario buscarUsuarioPorId(int id) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		return businessUsuario.buscarPorId(id);
 	}
 
 	@Override
 	public Funcionario buscarUsuarioPorCodigo(String codigo) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		return businessUsuario.buscarPorCodigo(codigo);
 	}
 
 	@Override
 	public List<Funcionario> buscarUsuarioPorBusca(String busca) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		return businessUsuario.buscarPorBusca(busca);
 	}
 
 	@Override
 	public void salvarCliente(Cliente cliente) throws BusinessException{
-		bussinessCliente.salvar(cliente);
+		businessCliente.salvar(cliente);
+	}
+
+	@Override
+	public Cliente buscarClientePorId(int id) throws BusinessException {
+		return businessCliente.buscarPorId(id);
+	}
+
+	@Override
+	public Cliente buscarClientePorCodigo(String codigo) throws BusinessException {
+		return businessCliente.buscarPorCodigo(codigo);
+	}
+
+	@Override
+	public List<Cliente> buscarClientePorBusca(String busca) throws BusinessException {
+		return businessCliente.buscarPorBusca(busca);
 	}
 
 }

@@ -20,7 +20,7 @@ public class BusinessUsuario implements IBusinessUsuario {
 	}
 
 	@Override
-	public void salvarUsuario(Funcionario usuario) throws BusinessException{
+	public void salvar(Funcionario usuario) throws BusinessException{
 		try {
 			validarUsuario(usuario);
 			daoUsuario.salvar(usuario);
@@ -33,25 +33,25 @@ public class BusinessUsuario implements IBusinessUsuario {
 	}
 
 	@Override
-	public void editarUsuario(Funcionario usuario) throws BusinessException {
+	public void editar(Funcionario usuario) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		
 	}
 
 	@Override
-	public Funcionario buscarUsuarioPorId(int id) throws BusinessException {
+	public Funcionario buscarPorId(int id) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
 	@Override
-	public Funcionario buscarUsuarioPorCodigo(String codigo) throws BusinessException {
+	public Funcionario buscarPorCodigo(String codigo) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
 
 	@Override
-	public List<Funcionario> buscarUsuarioPorBusca(String busca) throws BusinessException {
+	public List<Funcionario> buscarPorBusca(String busca) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
