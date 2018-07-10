@@ -67,8 +67,9 @@ public class DaoCliente implements IDaoCliente {
 			statement.execute();
 			int id_cliente = daoCommun.getCurrentValorTabela(Tabela.CLIENTE);
 			this.conexao.close();
-			for(Telefone telefone : entidade.getTelefones())
-				daoCommun.salvarContato(telefone, id_cliente, Tabela.CLIENTE);
+			if(entidade.getTelefones() != null)
+				for(Telefone telefone : entidade.getTelefones())
+					daoCommun.salvarContato(telefone, id_cliente, Tabela.CLIENTE);
 			entidade.setId(id_cliente);
 			entidade.getEndereco().setId(id_endereco);
 
@@ -116,7 +117,7 @@ public class DaoCliente implements IDaoCliente {
 				cliente.setResponsavel(resultSet.getString("responsavel"));
 				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
 				end = new Endereco();
-				end.setId(resultSet.getInt("endereco_id"));
+				end.setId(resultSet.getInt("id_endereco"));
 				end.setBairro(resultSet.getString("bairro"));
 				end.setCidade(resultSet.getString("cidade"));
 				end.setRua(resultSet.getString("rua"));

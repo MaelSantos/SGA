@@ -12,9 +12,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane layoutY="31.0" prefHeight="800.0" prefWidth="700.0">
+      <ScrollPane layoutY="31.0" prefHeight="600.0" prefWidth="700.0">
          <content>
             <AnchorPane prefHeight="800.0" prefWidth="700.0">
                <children>

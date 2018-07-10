@@ -77,9 +77,9 @@ public class SQLUtil {
         public static final String SELECT_ALL = "select * from CLIENTE";
 
 	    public static final String INSERT_ALL = "INSERT INTO CLIENTE(nome, data_nascimento, cpf_cnpj, genero, rg, email,"
-	    		+ "estado_civil, profissao, filhos, responsavel, tipo, endereco_id) "
+	    		+ "estado_civil, profissao, filhos, responsavel, tipo, id_endereco) "
 	    		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-	    public static final String SELECT_CPF_CNPJ = "SELECT * FROM CLIENTE e, ENDERECO d WHERE e.cpf_cnpj = ? AND d.id = e.endereco_id";
+	    public static final String SELECT_CPF_CNPJ = "SELECT * FROM CLIENTE e, ENDERECO d WHERE e.cpf_cnpj = ? AND d.id = e.id_endereco";
     }
     
 //    id, estado, numero, cep, cidade, bairro, complemento, pais, rua;
