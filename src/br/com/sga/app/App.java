@@ -105,9 +105,6 @@ public class App extends Application{
 		for(Ouvinte ouvinte : ouvintes)
 			ouvinte.atualizar(tela, usuario);
 	}
-	public static void notificarOuvintes(Tela tela) {
-		notificarOuvintes(tela, DaoUsuario.getUsuarioLogado());
-	}
 	
 	public static void addOuvinte(Ouvinte ouvinte) {
 		ouvintes.add(ouvinte);

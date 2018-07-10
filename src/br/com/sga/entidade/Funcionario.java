@@ -20,6 +20,14 @@ public class Funcionario {
 	 * pode-se atribuir notificações a um funcionario
 	 */
 	public Funcionario() {}
+	public Funcionario(Integer id,String nome, String email, String login, String senha,String numero_oab) {
+		this.nome = nome;
+		this.email = email;
+		this.login = login;
+		this.senha = senha;
+		this.numero_oab = numero_oab;
+		this.id = id;
+	}
 	public Funcionario(Integer id,String nome, String email, String login, String senha,String numero_oab, Endereco endereco) {
 		this.nome = nome;
 		this.email = email;

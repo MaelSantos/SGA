@@ -14,6 +14,17 @@ public class Validar {
 			instance = new Validar();
 		return instance;
 	}
+	public static String validarSenha(String senha) {
+		if(senha.length()<8)
+			return "Senha curta, minimo 8 caracteres";
+		return null;
+	}
+	public static String validarEmail(String email) {
+		if(email.matches("\\w+@\\w+.com|.com.br"))
+			return "Email informado invalido";
+		return null;
+	}
+	
 
 	public boolean isCPF(String CPF) {
 		// considera-se erro CPF's formados por uma sequencia de numeros iguais

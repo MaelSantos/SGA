@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.postgresql.util.PSQLException;
+
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.exceptions.DaoException;
@@ -16,79 +18,38 @@ import br.com.sga.sql.SQLUtil;
 
 public class DaoUsuario implements IDaoUsuario{
 
-	private static DaoUsuario dados;
-	private ArrayList<Funcionario> usuarios;
-	private static Funcionario usuarioLogado;
-	
 	private Connection conexao;
 	private PreparedStatement statement;
 	private ResultSet resultSet;
 	private DaoCommun daoCommun = new DaoCommun();
 	
-	public DaoUsuario() {
-		usuarios = new ArrayList<>();
-	}
-
-	public static Funcionario getUsuarioLogado() {
-		return usuarioLogado;
-	}
-
-	public static DaoUsuario getInstance()
-	{
-		if(dados == null)
-			dados = new DaoUsuario();
-		return dados;
-	}
-	
-	public boolean addUsuario(Funcionario usuario)
-	{
-		for(Funcionario u : usuarios)
-		{
-			if(usuario.equals(u))
-			{
-				return false;// se entrar sigifica que existe um usuario igual ja registrado 
-			}
-		}
-		
-		usuarios.add(usuario);
-		return true;
-	}
-
-	public boolean entrarSistema(String login, String senha) {
-		
-		for(Funcionario u : usuarios)
-		{
-			if(u.getLogin().equalsIgnoreCase(login) && u.getSenha().equals(senha))
-			{
-				usuarioLogado = u;
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public ArrayList<Funcionario> getUsuarios() {
-		return usuarios;
-	}
 
 	@Override
 	public void salvar(Funcionario usuario) throws DaoException {
 		try {
-            daoCommun.salvarEndereco(usuario.getEndereco());
-			int endereco_id = daoCommun.getCurrentValorTabela(Tabela.ENDERECO);
-            
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-            this.statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_ALL);
+			Integer endereco_id = null;
+			if(usuario.getEndereco()!= null) {
+				daoCommun.salvarEndereco(usuario.getEndereco());
+				endereco_id = daoCommun.getCurrentValorTabela(Tabela.ENDERECO);
+				this.statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_ALL);
+			}else {
+				this.statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_SEM_ENDERECO);
+			}
 
             statement.setString(1, usuario.getNome());
             statement.setString(2, usuario.getSenha());
             statement.setString(3, usuario.getLogin());
             statement.setString(4, usuario.getNumero_oab());
-            statement.setInt(5, endereco_id);
+            statement.setString(5,usuario.getEmail());
+            if(endereco_id != null)
+            	statement.setInt(6,endereco_id);
             statement.execute();
             this.conexao.close();
 
-        } catch (SQLException ex) {
+		}catch (PSQLException ex) {
+			throw new DaoException("EMAIL, LOGIN OU NUMERO OAB JÁ ESTÁ CADASTRATO");
+		}catch (SQLException ex) {
             ex.printStackTrace();
             throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");
         }
@@ -105,16 +66,15 @@ public class DaoUsuario implements IDaoUsuario{
             resultSet = statement.executeQuery();
             
             Funcionario funcionario = null;
-            while(resultSet.next()) {
-            	usuarioLogado = funcionario;
-            	funcionario = new Funcionario(resultSet.getString("nome"), resultSet.getString("login"), resultSet.getString("senha"));
+            if(resultSet.next()) {
+            	funcionario = new Funcionario(resultSet.getInt("id"), resultSet.getString("nome"), resultSet.getString("email"), resultSet.getString("login"), resultSet.getString("senha"), resultSet.getString("numero_oab"));
+            }else {
+            	throw new DaoException("Não existe usuarios com esses dados");
             }
-          
             this.conexao.close();
             this.statement.close();
             this.resultSet.close();
             return funcionario;	
-
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");

@@ -77,6 +77,7 @@ public class ControleMenu implements Initializable, Ouvinte{
     @FXML
     private Button btnInformacoes;
 	
+    private Funcionario funcionario;
 	@FXML
 	public void actionButton(ActionEvent e)
 	{
@@ -133,19 +134,18 @@ public class ControleMenu implements Initializable, Ouvinte{
 		pane.setTopAnchor(paneNovo, 0.0);
 		pane.setLeftAnchor(paneNovo, 0.0);
 		pane.setRightAnchor(paneNovo, 0.0);
-		
 		pane.getChildren().setAll(paneNovo);
 	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		App.addOuvinte(this);
-	
 		TextFields.bindAutoCompletion(tfdPesquisar,Tela.values());
 		
 	}
 	@Override
 	public void atualizar(Tela tela, Funcionario usuario) {
+		funcionario = usuario;
 //				if(tela == Tela.perfil) {
 //					atualizarTela(App.changePane(Tela.perfil));
 //				}
@@ -159,8 +159,7 @@ public class ControleMenu implements Initializable, Ouvinte{
 //				}
 		
 		atualizarTela(App.changePane(tela));
-		System.out.println(usuario);
-		mnbNome.setText(usuario.getNome());
+		mnbNome.setText(funcionario.getNome());
 	}
 
 }

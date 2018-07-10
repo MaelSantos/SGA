@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
-import br.com.sga.business.Verificar;
+import br.com.sga.business.Validar;
 import br.com.sga.dao.DaoUsuario;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
@@ -52,28 +52,26 @@ public class ControleEditarPerfil implements Initializable{
     @FXML
     private Button voltarButton;
 
-    private Funcionario usuario;
+    private Funcionario funcionario;
 
     @FXML
     private void actionButton(ActionEvent event) {
     	if(event.getSource() == voltarButton) {
-    		
-    		App.notificarOuvintes(Tela.perfil, usuario);
+    		App.notificarOuvintes(Tela.perfil, funcionario);
     	}
     	else
     	{ 
 	    	if(event.getSource() == atualizarPerfilButton) 
-	    		atualizarPerfil(usuario);
+	    		atualizarPerfil(funcionario);
 	    	else if(event.getSource() == atualizarLoginButton)
 	    	{
-	    		atualizarLogin(usuario);
+	    		atualizarLogin(funcionario);
 	    	}
 	    	else if(event.getSource() == atualizarSenhaButton) 
 	    	{
-	    		atualizarSenha(usuario);
+	    		atualizarSenha(funcionario);
 	    	}
     	}
-    	
     }
     
     @Override
@@ -81,11 +79,15 @@ public class ControleEditarPerfil implements Initializable{
   		App.addOuvinte(new Ouvinte() {
   			@Override
   			public void atualizar(Tela tela, Funcionario usuario) {
+  				funcionario = usuario;
   				if(tela == Tela.editar_perfil) {
-  					ControleEditarPerfil.this.usuario = usuario;
-  					nomeField.setPromptText(usuario.getNome());
-  					emailField.setPromptText(usuario.getEmail());
-  					loginField.setPromptText(usuario.getLogin());
+  					funcionario = usuario;
+  					System.out.println(funcionario.getNome());
+  					System.out.println(funcionario.getEmail());
+  					System.out.println(funcionario.getLogin());
+  					nomeField.setPromptText(funcionario.getNome());
+  					emailField.setPromptText(funcionario.getEmail());
+  					loginField.setPromptText(funcionario.getLogin());
   				}
   			}
   		});
@@ -100,14 +102,12 @@ public class ControleEditarPerfil implements Initializable{
     	
     	if(senhaAtual.length() >0 && novaSenha.length() >0 && confirmarSenha.length() >0 ) 
     	{
-    		String validacao = Verificar.validarSenha(novaSenha);
-    		
+    		String validacao = Validar.getInstance().validarSenha(novaSenha);
     		if(validacao != null) 
     		{
     			Alerta.getInstance().showMensagem("Erro","",validacao);
     			return ;
     		}
-    		
     		if(senhaAtual.equals(usuario.getSenha())) 
         	{
         		if(novaSenha.equals(confirmarSenha)) 
@@ -123,19 +123,18 @@ public class ControleEditarPerfil implements Initializable{
     		return;
     	}
     	Alerta.getInstance().showMensagem("Erro","","Nada foi alterado, entradas de texto estão vazias");
-    	
     }
     
     private void atualizarLogin(Funcionario usuario) {
     	String login = loginField.getText().trim();
     	if(login.length() >0) {
-			if(Verificar.validerLogin(login)) 
+			/*if(Verificar.validerLogin(login)) 
 			{
 				usuario.setLogin(login);
 				Alerta.getInstance().showMensagem("","","Login alterado com sucesso");
 				return;
 			}
-			Alerta.getInstance().showMensagem("Confirmação","","Login já esta cadastrado , por favor informe outro");
+			Alerta.getInstance().showMensagem("Confirmação","","Login já esta cadastrado , por favor informe outro");*/
     	}
     	else 
 			Alerta.getInstance().showMensagem("Erro","","Nada foi alterado, entrada de texto esta vazia");
@@ -149,17 +148,15 @@ public class ControleEditarPerfil implements Initializable{
 		sobrenome = sobrenomeField.getText().trim();
 		
 		if(email.length() >0) {
-			String validacao = Verificar.validarEmail(email);
+			String validacao = Validar.getInstance().validarEmail(email);
 			if(validacao != null) {
 				Alerta.getInstance().showMensagem("","",validacao);
 				return;
 			}
-			
 		if(nome.length()>0 || email.length()>0 || sobrenome.length() >0) {
 			StringBuffer feedbak = new StringBuffer("Foi alterado ");
 			int tamIni = feedbak.length();
 			int tamAtual = tamIni;
-			
 			if(nome.length()>0) 
 			{
 				usuario.setNome(nome);

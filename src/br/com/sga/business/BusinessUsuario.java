@@ -59,25 +59,17 @@ public class BusinessUsuario implements IBusinessUsuario {
 	private void validarUsuario(Funcionario usuario) throws ValidacaoException, DaoException{
 		if(usuario.getLogin().trim().equals("") || usuario.getSenha().trim().equals(""))
 			throw new ValidacaoException("DADOS EM BRANCO!!!");
-		if(usuario.getSenha().trim().length() >= 8)
+		if(usuario.getSenha().trim().length() < 8)
 			throw new ValidacaoException("SENHA MUITO CURTA!!!");
-		if(daoUsuario.buscarPorLogin(usuario.getLogin(),usuario.getSenha()) == null)
-			throw new ValidacaoException("USUARIO JÁ CADASTRADO!!!");
 	}
 
 	@Override
 	public Funcionario buscarPorLogin(String login, String senha) throws BusinessException {
 		try {
-			Funcionario f =  daoUsuario.buscarPorLogin(login, senha);
-			if(f == null)
-				throw new BusinessException("NÃO HÁ USUARIOS CADASTRADOS COM ESSES DADOS");
-			return f;
-				
+			return  daoUsuario.buscarPorLogin(login, senha);
 		} catch (DaoException e) {
 			throw new BusinessException(e.getMessage());
-			
 		}
-		
 	}
 
 }
