@@ -153,7 +153,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 			if(obj == btnCadastrar)
 			{
 				Cliente cliente = criarCliente();	
-				fachada.salvarCliente(cliente);
+				fachada.salvarEditarCliente(cliente);
 				telefones.clear();
 				
 				Alerta.getInstance().showMensagem("Salvando...", "Salvo Com Sucesso", "Salvando...");

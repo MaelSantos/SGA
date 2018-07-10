@@ -37,7 +37,7 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public void salvarUsuario(Funcionario usuario) throws BusinessException {
+	public void salvarEditarUsuario(Funcionario usuario) throws BusinessException {
 		businessUsuario.salvar(usuario);
 	}
 
@@ -57,7 +57,7 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public void salvarCliente(Cliente cliente) throws BusinessException{
+	public void salvarEditarCliente(Cliente cliente) throws BusinessException{
 		businessCliente.salvar(cliente);
 	}
 

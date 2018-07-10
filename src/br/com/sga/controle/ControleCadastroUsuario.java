@@ -66,7 +66,7 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 							tfdLogin.getText().trim(), //login 
 							tfdSenha.getText().trim(), //senha
 							tfdNumeroOab.getText().trim()); //numero OAB
-						fachada.salvarUsuario(funcionario);
+						fachada.salvarEditarUsuario(funcionario);
 						System.out.println("Salvo com sucesso");
 						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...", "Salvo Com Sucesso!");
 				}

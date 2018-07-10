@@ -101,7 +101,7 @@ public class ControleEditarPerfil implements Initializable{
 	    		}
 	    	}
 	    	try {
-				fachada.salvarUsuario(copiaFuncionario);
+				fachada.salvarEditarUsuario(copiaFuncionario);
 				if(sucesso) {
 					funcionario = copiaFuncionario;
 					App.notificarOuvintes(Tela.editar_perfil,funcionario);
