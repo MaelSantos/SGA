@@ -2,7 +2,6 @@ package br.com.sga.app;
 
 import java.util.ArrayList;
 
-import br.com.sga.dao.DaoUsuario;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
@@ -21,7 +20,7 @@ public class App extends Application{
 	static Scene menuScene;
 	
 	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
-	clientes, cadastroCliente, contatos,cadastroContrato;
+	clientes, cadastroCliente, contatos, cadastroContrato, processo;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -39,6 +38,7 @@ public class App extends Application{
 		cadastroCliente = FXMLLoader.load(getClass().getResource("../view/CadastroCliente.fxml"));
 		contatos = FXMLLoader.load(getClass().getResource("../view/Contatos.fxml"));
 		cadastroContrato = FXMLLoader.load(getClass().getResource("../view/CadastroContrato.fxml"));
+		processo = FXMLLoader.load(getClass().getResource("../view/Processo.fxml"));
 		
 		loginScene = new Scene(login);
 		menuScene = new Scene(menu);
@@ -94,6 +94,8 @@ public class App extends Application{
 			return contatos;
 		case cadastro_contrato:
 			return cadastroContrato;
+		case processos:
+			return processo;
 		default:
 			System.err.println("Valor Não Correspondente");
 			break;
