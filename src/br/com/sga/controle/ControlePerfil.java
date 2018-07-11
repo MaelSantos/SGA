@@ -38,11 +38,9 @@ public class ControlePerfil extends Controle{
 	@Override
 	public void atualizar(Tela tela, Funcionario usuario) {
 		if(usuario != null)
-		{
 			funcionario = usuario;
+		if(tela == Tela.perfil)
 			lblNome.setText(funcionario.getNome());
-			
-		}
 		
 	}
 }

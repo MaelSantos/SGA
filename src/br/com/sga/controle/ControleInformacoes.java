@@ -20,11 +20,10 @@ public class ControleInformacoes {
     @FXML
     private Hyperlink emailW;
 
-    Funcionario funcionario;
     @FXML
     void openLink(ActionEvent event) {
-	    if(event.getSource() == emailW) {
-	    	Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+    	Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+    	if(event.getSource() == emailW) {
 		    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
 		        try {
 		            desktop.browse(new URI("https://wanderson100v.github.io/"));
@@ -33,16 +32,17 @@ public class ControleInformacoes {
 		        }
 		    }
 	    }
+	    else if(event.getSource() == emailM) {
+		    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+		        try {
+		            desktop.browse(new URI("https://maelsantos.github.io/"));
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+		    }
+	    }
     }
 
     @FXML
-    void initialize() {
-    	App.addOuvinte(new Ouvinte() {
-			
-			@Override
-			public void atualizar(Tela tela, Funcionario usuario) {
-				funcionario  = usuario;
-			}
-		});
-    }
+    void initialize() { }
 }

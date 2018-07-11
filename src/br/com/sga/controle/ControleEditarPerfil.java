@@ -125,9 +125,9 @@ public class ControleEditarPerfil implements Initializable{
     	App.addOuvinte(new Ouvinte() {
   			@Override
   			public void atualizar(Tela tela, Funcionario usuario) {
-  				funcionario = usuario;
-  				if(tela == Tela.editar_perfil) {
+  				if(usuario != null)
   					funcionario = usuario;
+  				if(tela == Tela.editar_perfil) {
   					nomeField.setPromptText(funcionario.getNome());
   					emailField.setPromptText(funcionario.getEmail());
   					loginField.setPromptText(funcionario.getLogin());

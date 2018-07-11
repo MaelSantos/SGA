@@ -43,7 +43,7 @@
                         </Label>
                         <BorderPane style="-fx-background-color: white;" GridPane.columnIndex="1">
                            <center>
-                              <Hyperlink fx:id="emailM" onAction="#openLink" text="maelsantos777@gmail.com">
+                              <Hyperlink fx:id="emailM" onAction="#openLink" text="clike para mais informações">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
                                  </font>
