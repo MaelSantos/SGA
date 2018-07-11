@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class ControlePerfil implements Initializable{
+public class ControlePerfil extends Controle{
 
     @FXML
     private Button editarPerfilButton;
@@ -25,19 +25,24 @@ public class ControlePerfil implements Initializable{
     private Funcionario funcionario;
     
     @FXML
-    void actionButton(ActionEvent event) {
+	public void actionButton(ActionEvent event) {
     	if(event.getSource() == editarPerfilButton) 
     		App.notificarOuvintes(Tela.editar_perfil,funcionario);
     }	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		App.addOuvinte(new Ouvinte() {
-			@Override
-			public void atualizar(Tela tela, Funcionario usuario) {
-				funcionario = usuario;
-				lblNome.setText(funcionario.getNome());
-			}
-		});
+		super.initialize(location, resources);
+	}
+
+	@Override
+	public void atualizar(Tela tela, Funcionario usuario) {
+		if(usuario != null)
+		{
+			funcionario = usuario;
+			lblNome.setText(funcionario.getNome());
+			
+		}
+		
 	}
 }

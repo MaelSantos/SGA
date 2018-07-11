@@ -4,64 +4,26 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.sga.entidade.enums.TipoParticipacao;
+import br.com.sga.entidade.enums.TipoProcesso;
 
 public class Processo {
 
-	private Integer id;
+	private Integer id; //id SERIAL PRIMARY KEY,
 	
-	private Contrato contrato;
-	private boolean status;
-	private Date data_atuacao;
-	private	String numero;
-	private String classe_judicial;
-	private String orgao_julgador;
-	private String comarca;
-	private String decisao;
-	private String descricao;
-	private String fase; 
-	private String tipo_processo;
-	private TipoParticipacao tipo_participacao;
-	private List<Audiencia> audiencias;
+	private Contrato contrato; //contrato_id INTEGER REFERENCES CONTRATO(id),
+	private boolean status; //status  BOOLEAN,  
+	private Date data_atuacao; //data_atuacao  DATE NOT NULL,
+	private	String numero; //numero varchar(255) UNIQUE NOT NULL, 
+	private String classe_judicial; //classe_judicial VARCHAR(255) NOT NULL,
+	private String orgao_julgador; //orgao_julgador VARCHAR(255) NOT NULL,
+	private String comarca; //comarca VARCHAR(255) NOT NULL,
+	private String decisao; //decisao  VARCHAR(255), 
+	private String descricao; //descricao  VARCHAR(255), 
+	private String fase; //fase  VARCHAR(255) NOT NULL, 
+	private TipoProcesso tipo_processo; //tipo_processo  VARCHAR(255) NOT NULL,
+	private TipoParticipacao tipo_participacao; //tipo_participacao  VARCHAR(255)
+	private List<Audiencia> audiencias; 
 	
-	public Processo(Integer id, Contrato contrato, boolean status, Date data_atuacao, String numero,
-			String classe_judicial, String orgao_julgador, String comarca, String decisao, String descricao,
-			String fase, String tipo_processo, TipoParticipacao tipo_participacao,List<Audiencia> audiencias) {
-		this.id = id;
-		this.contrato = contrato;
-		this.status = status;
-		this.data_atuacao = data_atuacao;
-		this.numero = numero;
-		this.classe_judicial = classe_judicial;
-		this.orgao_julgador = orgao_julgador;
-		this.comarca = comarca;
-		this.decisao = decisao;
-		this.descricao = descricao;
-		this.fase = fase;
-		this.tipo_processo = tipo_processo;
-		this.tipo_participacao = tipo_participacao;
-		this.audiencias = audiencias;
-	}
-	
-	
-	public Processo(Contrato contrato, boolean status, Date data_atuacao, String numero, String classe_judicial,
-			String orgao_julgador, String comarca, String decisao, String descricao, String fase, String tipo_processo,
-			TipoParticipacao tipo_participacao,List<Audiencia> audiencias) {
-		this.contrato = contrato;
-		this.status = status;
-		this.data_atuacao = data_atuacao;
-		this.numero = numero;
-		this.classe_judicial = classe_judicial;
-		this.orgao_julgador = orgao_julgador;
-		this.comarca = comarca;
-		this.decisao = decisao;
-		this.descricao = descricao;
-		this.fase = fase;
-		this.tipo_processo = tipo_processo;
-		this.tipo_participacao = tipo_participacao;
-		this.audiencias = audiencias;
-	}
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -128,10 +90,10 @@ public class Processo {
 	public void setFase(String fase) {
 		this.fase = fase;
 	}
-	public String getTipo_processo() {
+	public TipoProcesso getTipo_processo() {
 		return tipo_processo;
 	}
-	public void setTipo_processo(String tipo_processo) {
+	public void setTipo_processo(TipoProcesso tipo_processo) {
 		this.tipo_processo = tipo_processo;
 	}
 	public TipoParticipacao getTipo_participacao() {

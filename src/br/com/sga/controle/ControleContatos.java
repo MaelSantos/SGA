@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.enums.Tela;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
@@ -17,7 +20,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
 
-public class ControleContatos implements Initializable{
+public class ControleContatos extends Controle {
 
 	@FXML
 	private TreeTableView<String> tblContatos;
@@ -34,7 +37,7 @@ public class ControleContatos implements Initializable{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		super.initialize(arg0, arg1);
 		List<Telefone> list = Arrays.asList(new Telefone(0,981169372,88,new Cliente()));
 		Cliente cliente = new Cliente("Mael",list);
 		
@@ -67,6 +70,18 @@ public class ControleContatos implements Initializable{
 		
 		
 		tblContatos.setRoot(root);
+		
+	}
+
+	@Override
+	public void atualizar(Tela tela, Funcionario usuario) {
+		// TODO Stub de método gerado automaticamente
+		
+	}
+
+	@Override
+	public void actionButton(ActionEvent event) {
+		// TODO Stub de método gerado automaticamente
 		
 	}
 

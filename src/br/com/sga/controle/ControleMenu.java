@@ -167,22 +167,13 @@ public class ControleMenu implements Initializable, Ouvinte{
 		
 	}
 	@Override
-	public void atualizar(Tela tela, Funcionario usuario) {
-		funcionario = usuario;
-//				if(tela == Tela.perfil) {
-//					atualizarTela(App.changePane(Tela.perfil));
-//				}
-//				if(tela == Tela.cadastro) {
-//					atualizarTela(App.changePane(Tela.cadastro));
-//				}
-//				if(tela == Tela.configuracoes) {
-//					atualizarTela(App.changePane(Tela.configuracoes));
-//				}else if(tela == Tela.editar_perfil) {
-//					atualizarTela(App.changePane(Tela.editar_perfil));
-//				}
-		
+	public void atualizar(Tela tela, Funcionario funcionario) {
+		if(funcionario != null)
+		{
+			this.funcionario = funcionario;
+			mnbNome.setText(funcionario.getNome());			
+		}
 		atualizarTela(App.changePane(tela));
-		mnbNome.setText(funcionario.getNome());
 	}
 
 }

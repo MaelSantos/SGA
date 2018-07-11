@@ -40,7 +40,7 @@ public class DaoProcesso implements IDaoProcesso {
 			//classe_judicial,data_atuacao,status,contrato_id
 			statement.setString(1,entidade.getNumero());
 			statement.setString(2,entidade.getTipo_participacao().toString());
-			statement.setString(3,entidade.getTipo_processo());
+			statement.setString(3,entidade.getTipo_processo().toString());
 			statement.setString(4,entidade.getFase());
 			statement.setString(5,entidade.getDescricao());
 			statement.setString(6,entidade.getDecisao());
@@ -62,23 +62,23 @@ public class DaoProcesso implements IDaoProcesso {
 		}
 	}
 	
-	public static void main(String[] args) {
-		// inserir processo
-			 /* 1 - cadastrar audiencia já que foi definido que teria ao menos uma ao cadastrar o processo (elas tb poderiam ser cadastradas depois)
-			  * 2 - criar entidade processo (o mesmo já deve contrer um id de contrato (irei usar um contrato já cadastrato para evitar uso de select inicialmente))
-			  */
-		
-			List<Audiencia> audiencias = new ArrayList<>();
-			audiencias.add(new Audiencia("A conparecer","vara tal","orgao tal","audiencia inicial",Calendar.getInstance().getTime()));
-			Contrato contrato = new Contrato();
-			contrato.setId(11); // id de contrato já cadastro em minha base
-			Processo processo = new Processo(contrato,true, Calendar.getInstance().getTime(),"123-123-1233Ab","classe tal","orgao tal","comarca tal", "pendente","processo de fulano a cerca de","primeira instancia","judicial",TipoParticipacao.EXECUTADO, audiencias);
-			try {
-				new DaoProcesso().salvar(processo);
-			} catch (DaoException e) {
-				e.printStackTrace();
-			}
-	}
+//	public static void main(String[] args) {
+//		// inserir processo
+//			 /* 1 - cadastrar audiencia já que foi definido que teria ao menos uma ao cadastrar o processo (elas tb poderiam ser cadastradas depois)
+//			  * 2 - criar entidade processo (o mesmo já deve contrer um id de contrato (irei usar um contrato já cadastrato para evitar uso de select inicialmente))
+//			  */
+//		
+//			List<Audiencia> audiencias = new ArrayList<>();
+//			audiencias.add(new Audiencia("A conparecer","vara tal","orgao tal","audiencia inicial",Calendar.getInstance().getTime()));
+//			Contrato contrato = new Contrato();
+//			contrato.setId(11); // id de contrato já cadastro em minha base
+////			Processo processo = new Processo(contrato,true, Calendar.getInstance().getTime(),"123-123-1233Ab","classe tal","orgao tal","comarca tal", "pendente","processo de fulano a cerca de","primeira instancia","judicial",TipoParticipacao.EXECUTADO, audiencias);
+//			try {
+//				new DaoProcesso().salvar(processo);
+//			} catch (DaoException e) {
+//				e.printStackTrace();
+//			}
+//	}
 
 	@Override
 	public void editar(Processo entidade) throws DaoException {
