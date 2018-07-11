@@ -66,9 +66,8 @@ public class SQLUtil {
 	    
 	    public static final String SELECT_LOGIN_SENHA = "SELECT * FROM FUNCIONARIO WHERE login = ? AND senha = ?";
 	    public static final String SELECT_NOME = "SELECT ID FROM FUNCIONARIO WHERE NOME = ?";
-	   
 	    public static final String SELECT_ALL_BUSCA_ALL = "select * from funcionario where nome like ? or senha like ? or login like  ? or numero_oab like ? or email like ?";
-    	/* para depois :)
+    	/* para depois : pesquisar colunas especificas )
     	 *  select * from funcionario where nome like '%_%' and 	senha like '%_%' and login like 'wan'and numero_oab like '%_%' and email like '%_%'
     	 */
 	    public static final String UPDATE_ALL = "UPDATE FUNCIONARIO SET NOME = ?, LOGIN = ? , SENHA = ?, NUMERO_OAB = ?, EMAIL = ? where id = ?";
