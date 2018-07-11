@@ -13,6 +13,7 @@ import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
+import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -69,48 +70,52 @@ public class ControleEditarPerfil implements Initializable{
     	}
     	else
     	{ 
-	    	String feedback = null;
-	    	Boolean sucesso = false;
-    		// copia para dados não sejam editados mesmo errados
-	    	Funcionario copiaFuncionario = new Funcionario(funcionario.getId(),funcionario.getNome(),funcionario.getEmail(),funcionario.getLogin(),funcionario.getSenha(),funcionario.getNumero_oab());
-	    	
-    		if(event.getSource() == atualizarPerfilButton) 
-    		{
-    			sucesso =atualizarPerfil(copiaFuncionario);
-    			feedback = "Dados do perfil";
-    			if(sucesso) {
-	    			nomeField.setText("");
-	    			emailField.setText("");
-	    			numero_oabField.setText("");
+	    	if(funcionario.getSenha().equals(Dialogo.getInstance().dialogoDeEntradaSenha("Validação","Entre com senha","É necessário a confirmação da senha antes de editar dados de usuário"))) {
+	    		String feedback = null;
+		    	Boolean sucesso = false;
+	    		// copia para dados não sejam editados mesmo errados
+		    	Funcionario copiaFuncionario = new Funcionario(funcionario.getId(),funcionario.getNome(),funcionario.getEmail(),funcionario.getLogin(),funcionario.getSenha(),funcionario.getNumero_oab());
+		    	
+	    		if(event.getSource() == atualizarPerfilButton) 
+	    		{
+	    			sucesso =atualizarPerfil(copiaFuncionario);
+	    			feedback = "Dados do perfil";
+	    			if(sucesso) {
+		    			nomeField.setText("");
+		    			emailField.setText("");
+		    			numero_oabField.setText("");
+		    		}
 	    		}
-    		}
-	    	else if(event.getSource() == atualizarLoginButton)
-	    	{
-	    		sucesso =atualizarLogin(copiaFuncionario);
-	    		feedback = "Login";
-	    		if(sucesso) 
-	    			loginField.setText("");
-	    	}
-	    	else if(event.getSource() == atualizarSenhaButton) 
-	    	{
-	    		sucesso =atualizarSenha(copiaFuncionario);
-	    		feedback = "Senha";
-	    		if(sucesso) {
-	    			senhaAtualField.setText("");
-	    			confirmarSenhaField.setText("");
-	    			novaSenhaField.setText("");
-	    		}
-	    	}
-	    	try {
-				fachada.salvarEditarUsuario(copiaFuncionario);
-				if(sucesso) {
-					funcionario = copiaFuncionario;
-					App.notificarOuvintes(Tela.editar_perfil,funcionario);
-					new Alert(AlertType.INFORMATION,feedback+" atualizado com sucesso",ButtonType.OK).show();
+		    	else if(event.getSource() == atualizarLoginButton)
+		    	{
+		    		sucesso =atualizarLogin(copiaFuncionario);
+		    		feedback = "Login";
+		    		if(sucesso) 
+		    			loginField.setText("");
+		    	}
+		    	else if(event.getSource() == atualizarSenhaButton) 
+		    	{
+		    		sucesso =atualizarSenha(copiaFuncionario);
+		    		feedback = "Senha";
+		    		if(sucesso) {
+		    			senhaAtualField.setText("");
+		    			confirmarSenhaField.setText("");
+		    			novaSenhaField.setText("");
+		    		}
+		    	}
+		    	try {
+					fachada.salvarEditarUsuario(copiaFuncionario);
+					if(sucesso) {
+						funcionario = copiaFuncionario;
+						App.notificarOuvintes(Tela.editar_perfil,funcionario);
+						new Alert(AlertType.INFORMATION,feedback+" atualizado com sucesso",ButtonType.OK).show();
+					}
+				} catch (BusinessException e) {
+					new Alert(AlertType.ERROR,e.getMessage(),ButtonType.OK).show();
 				}
-			} catch (BusinessException e) {
-				new Alert(AlertType.ERROR,e.getMessage(),ButtonType.OK).show();
-			}
+	    	}else {
+	    		Alerta.getInstance().showMensagem("Alerta","Senha invalida","A senha informada está errada, nada foi alterado.\nfavor tente editar novamente");
+	    	}
     	}
     }
     
@@ -123,12 +128,10 @@ public class ControleEditarPerfil implements Initializable{
   				funcionario = usuario;
   				if(tela == Tela.editar_perfil) {
   					funcionario = usuario;
-  					System.out.println(funcionario.getNome());
-  					System.out.println(funcionario.getEmail());
-  					System.out.println(funcionario.getLogin());
   					nomeField.setPromptText(funcionario.getNome());
   					emailField.setPromptText(funcionario.getEmail());
   					loginField.setPromptText(funcionario.getLogin());
+  					numero_oabField.setPromptText(funcionario.getNumero_oab());
   				}
   			}
   		});

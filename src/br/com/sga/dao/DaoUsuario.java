@@ -77,21 +77,12 @@ public class DaoUsuario implements IDaoUsuario{
             return funcionario;	
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new DaoException("PROBLEMA AO SALVAR USUARIO - CONTATE O ADM");
+            throw new DaoException("PROBLEMA AO BUSCAR USUARIO - CONTATE O ADM");
         }
 	}
 	public static void main(String[] args) {
-		/*try {
-			new DaoUsuario().salvar(new Funcionario("Wanderson","Wanderson100v@gmail.com","wanderson100v","1234","123123-31"));
-		} catch (DaoException e) {
-			// TODO Bloco catch gerado automaticamente
-			e.printStackTrace();
-		}*/
-		
-		
 		try {
-//			System.out.println(new DaoUsuario().buscarPorLogin("wanderson100v","1234"));
-			System.out.println(new DaoUsuario().buscarPorLogin("mael_santos7","0708"));
+			System.out.println(new DaoUsuario().buscarPorBusca("Wanderson Pereira"));
 		} catch (DaoException e) {;
 			e.printStackTrace();
 		}
@@ -138,8 +129,31 @@ public class DaoUsuario implements IDaoUsuario{
 
 	@Override
 	public List<Funcionario> buscarPorBusca(String busca) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		try {
+            this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_ALL_BUSCA_ALL);
+            statement.setString(1,busca);
+            statement.setString(2,busca);
+            statement.setString(3,busca);
+            statement.setString(4,busca);
+            statement.setString(5,busca);
+            resultSet = statement.executeQuery();
+            
+            List<Funcionario> lista = new ArrayList<>();
+            while(resultSet.next()) {
+            	lista.add(new Funcionario(resultSet.getInt("id"), resultSet.getString("nome"), resultSet.getString("email"), 
+            			resultSet.getString("login"), resultSet.getString("senha"), resultSet.getString("numero_oab")));
+            }if(lista.isEmpty()){
+            	throw new DaoException("Não existe usuarios com esses dados");
+            }
+            this.conexao.close();
+            this.statement.close();
+            this.resultSet.close();
+            return lista;
+		} catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO BUSCAR USUÁRIOS - CONTATE O ADM");
+        }
 	}
 
 /*
