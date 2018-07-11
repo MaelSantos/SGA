@@ -2,12 +2,14 @@ package br.com.sga.app;
 
 import java.util.ArrayList;
 
+
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -48,7 +50,6 @@ public class App extends Application{
 		stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(("SGA.png"))));
 		stage.centerOnScreen();
 		stage.show();
-		
 	}
 	
 	public static void changeStage(Tela tela)
