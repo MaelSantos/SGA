@@ -184,9 +184,9 @@ public class ControleEditarPerfil implements Initializable{
 		email = emailField.getText().trim();
 		numero_oab = numero_oabField.getText().trim();
 		if(email.length() >0) {
-			String validacao = Validar.getInstance().validarEmail(email);
-			if(validacao != null) {
-				Alerta.getInstance().showMensagem("","",validacao);
+//			String validacao = ;
+			if(Validar.getInstance().isEmail(email)) {
+				Alerta.getInstance().showMensagem("","","FORMATO DO EMAIL INFORMADO ESTA INCORRETO");
 				return false;
 			}
 		}

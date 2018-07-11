@@ -1,6 +1,8 @@
 package br.com.sga.business;
 
 import java.util.InputMismatchException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Validar {
 
@@ -19,10 +21,23 @@ public class Validar {
 			return "Senha curta, minimo 8 caracteres";
 		return null;
 	}
-	public  String validarEmail(String email) {
+	public boolean isEmail(String email) {
 		if(!email.matches("\\w+@\\w+.com|.com.br"))
-			return "Email informado invalido";
-		return null;
+			return false;
+		if(email.length() == 0)
+			return false;
+		return true;
+		
+//		boolean isEmailIdValid = false;
+//        if (email != null && email.length() > 0) {
+//            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+//            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+//            Matcher matcher = pattern.matcher(email);
+//            if (matcher.matches()) {
+//                isEmailIdValid = true;
+//            }
+//        }
+//        return isEmailIdValid;
 	}
 	
 

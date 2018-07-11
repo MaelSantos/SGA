@@ -21,15 +21,13 @@ public class ControleConfiguracoes implements Initializable,Ouvinte{
 	@FXML
 	private Label lblNome;
 
-    Funcionario usuario;
+    private Funcionario usuario;
     
     @FXML
     void actionButton(ActionEvent event) {
 
     	if(event.getSource() == btnAddAdm)
-    	{
     		App.notificarOuvintes(Tela.cadastro, usuario);
-    	}
     	
     }
 

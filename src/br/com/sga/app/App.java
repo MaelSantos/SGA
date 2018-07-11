@@ -3,6 +3,7 @@ package br.com.sga.app;
 import java.util.ArrayList;
 
 import br.com.sga.interfaces.Ouvinte;
+import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
 import javafx.application.Application;
@@ -107,8 +108,14 @@ public class App extends Application{
 	private static ArrayList<Ouvinte> ouvintes = new ArrayList<>();
 
 	public static void notificarOuvintes(Tela tela, Funcionario usuario) {
+		System.out.println("Atualizar Usuario: "+usuario);
 		for(Ouvinte ouvinte : ouvintes)
 			ouvinte.atualizar(tela, usuario);
+	}
+	
+	public static void notificarOuvintes(Tela tela) {
+//		for(Ouvinte ouvinte : ouvintes)
+//			
 	}
 	
 	public static void addOuvinte(Ouvinte ouvinte) {

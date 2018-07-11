@@ -59,8 +59,8 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 	private TextField tfdRg;
 
 	@FXML
-    private DatePicker tfdNascimento;
-	
+	private DatePicker tfdNascimento;
+
 	@FXML
 	private ComboBox<Sexo> cbxGenero;
 
@@ -145,29 +145,31 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 				telefones.add(new Telefone(Integer.parseInt(tfdTelefone.getText().trim()), 
 						Integer.parseInt(tfdPrefixo.getText().trim()), 
 						TipoTelefone.getTipo(cbxTipoTelefone.getValue().toString())));
-				
+
 				tfdTelefone.setText("");
 				tfdPrefixo.setText("");
-				
+
 			}
 			if(obj == btnCadastrar)
 			{
 				Cliente cliente = criarCliente();	
 				fachada.salvarEditarCliente(cliente);
 				telefones.clear();
-				
+
 				Alerta.getInstance().showMensagem("Salvando...", "Salvo Com Sucesso", "Salvando...");
 			}
 			if(obj == cbxTipoCliente)
 			{
 				if(cbxTipoCliente.getValue() == TipoCliente.FISICO)
 				{
+					tfdResponsavel.setVisible(false);
 					tfdPrefixoResponsavel.setVisible(false);
 					cbxTelefoneResposavel.setVisible(false);
 					tfdTelefoneResponsavel.setVisible(false);
 				}
 				if(cbxTipoCliente.getValue() == TipoCliente.JURIDICO)
 				{
+					tfdResponsavel.setVisible(true);
 					tfdPrefixoResponsavel.setVisible(true);
 					cbxTelefoneResposavel.setVisible(true);
 					tfdTelefoneResponsavel.setVisible(true);
@@ -175,63 +177,63 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 			}
 		} catch (BusinessException e) {
 			Alerta.getInstance().showMensagem("Erro Ao Salvar", "", e.getMessage());
-			e.printStackTrace();
+//			e.printStackTrace();
 		}catch (NullPointerException e2) {
-			Alerta.getInstance().showMensagem("Erro Ao Adicionar Telefone", "", "Informe O Tipo De Contato");
+			Alerta.getInstance().showMensagem("Erro Ao Adicionar", "Informe Os Dados Necessarios", e2.getMessage());
 		}
 		catch (NumberFormatException e3) {
-			Alerta.getInstance().showMensagem("Erro Ao Adicionar Telefone", "", "Informe Algum Um Valor Valido");
+			Alerta.getInstance().showMensagem("Erro Ao Adicionar Telefone", "Informe Algum Um Valor Valido", e3.getMessage());
 		}
 		System.out.println(telefones);
 	}
 
 
-    @Override
-    public void atualizar(Tela tela, Funcionario usuario) {
-    	
-    }
-    
+	@Override
+	public void atualizar(Tela tela, Funcionario usuario) {
+
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		App.addOuvinte(this);
-		
+
 		telefones = new ArrayList<>();
 		fachada = Fachada.getInstance();
-			
+
 		cbxTipoCliente.getItems().addAll(TipoCliente.values());
 		cbxEstado_civil.getItems().addAll(EstadoCivil.values());
 		cbxGenero.getItems().addAll(Sexo.values());
 		cbxTipoTelefone.getItems().addAll(TipoTelefone.values());
 		cbxTelefoneResposavel.getItems().addAll(TipoTelefone.values());
 		cbxEstado.getItems().addAll(Estado.values());
-		
+
 		rbtNao.setToggleGroup(group);
 		rbtSim.setToggleGroup(group);
-		
+
 		UnaryOperator<TextFormatter.Change> filter = new UnaryOperator<TextFormatter.Change>() {
 
-            @Override
-            public TextFormatter.Change apply(TextFormatter.Change t) {
+			@Override
+			public TextFormatter.Change apply(TextFormatter.Change t) {
 
-                if (t.isReplaced()) 
-                    if(t.getText().matches("[^0-9]"))
-                        t.setText(t.getControlText().substring(t.getRangeStart(), t.getRangeEnd()));
-                
+				if (t.isReplaced()) 
+					if(t.getText().matches("[^0-9]"))
+						t.setText(t.getControlText().substring(t.getRangeStart(), t.getRangeEnd()));
 
-                if (t.isAdded()) {
-                    if (t.getControlText().contains(".")) {
-                        if (t.getText().matches("[^0-9]")) {
-                            t.setText("");
-                        }
-                    } else if (t.getText().matches("[^0-9.]")) {
-                        t.setText("");
-                    }
-                }
 
-                return t;
-            }
-        };
-        
+				if (t.isAdded()) {
+					if (t.getControlText().contains(".")) {
+						if (t.getText().matches("[^0-9]")) {
+							t.setText("");
+						}
+					} else if (t.getText().matches("[^0-9.]")) {
+						t.setText("");
+					}
+				}
+
+				return t;
+			}
+		};
+
 		tfdCpfCnpj.setTextFormatter(new TextFormatter<>(filter));
 		tfdCep.setTextFormatter(new TextFormatter<>(filter));
 		tfdNumero.setTextFormatter(new TextFormatter<>(filter));
@@ -240,80 +242,86 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 		tfdRg.setTextFormatter(new TextFormatter<>(filter));
 		tfdTelefone.setTextFormatter(new TextFormatter<>(filter));
 		tfdTelefoneResponsavel.setTextFormatter(new TextFormatter<>(filter));
+
+		tfdResponsavel.setVisible(false);
+		tfdPrefixoResponsavel.setVisible(false);
+		cbxTelefoneResposavel.setVisible(false);
+		tfdTelefoneResponsavel.setVisible(false);
 		
 	}
-	
+
 	public TextFormatter<?> criarMascara()
 	{
 		UnaryOperator<TextFormatter.Change> filter = new UnaryOperator<TextFormatter.Change>() {
 
-            @Override
-            public TextFormatter.Change apply(TextFormatter.Change t) {
+			@Override
+			public TextFormatter.Change apply(TextFormatter.Change t) {
 
-                if (t.isReplaced()) 
-                    if(t.getText().matches("[^0-9]"))
-                        t.setText(t.getControlText().substring(t.getRangeStart(), t.getRangeEnd()));
-                
-                if (t.isAdded()) {
-                    if (t.getControlText().contains(".")) {
-                        if (t.getText().matches("[^0-9]")) {
-                            t.setText("");
-                        }
-                    } else if (t.getText().matches("[^0-9.]")) {
-                        t.setText("");
-                    }
-                }
+				if (t.isReplaced()) 
+					if(t.getText().matches("[^0-9]"))
+						t.setText(t.getControlText().substring(t.getRangeStart(), t.getRangeEnd()));
 
-                return t;
-            }
-        };
-        
+				if (t.isAdded()) {
+					if (t.getControlText().contains(".")) {
+						if (t.getText().matches("[^0-9]")) {
+							t.setText("");
+						}
+					} else if (t.getText().matches("[^0-9.]")) {
+						t.setText("");
+					}
+				}
+
+				return t;
+			}
+		};
+
 		return new TextFormatter<>(filter);
 	}
-	
+
 	public Cliente criarCliente()
 	{
 		Cliente cliente = new Cliente();
 
 		cliente.setNome(tfdNome.getText().trim());
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		
+
 		try {
 			Date data = df.parse(tfdNascimento.getEditor().getText());
 			cliente.setNascimento(data);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		cliente.setCpf_cnpj(tfdCpfCnpj.getText().trim());
-		cliente.setGenero(Sexo.getSexo(cbxGenero.getValue().toString()));
-		cliente.setRg(tfdRg.getText().trim());
-		cliente.setEmail(tfdEmail.getText().trim());
-		cliente.setEstado_civil(cbxEstado_civil.getValue().toString());
-		cliente.setProfissao(tfdProfissao.getText().trim());
-		cliente.setResponsavel(tfdResponsavel.getText().trim());
-		cliente.setTipoCliente(TipoCliente.getTipo(cbxTipoCliente.getValue().toString()));
 
-		if(rbtSim.isSelected())
-			cliente.setFilhos(true);
-		else if(rbtNao.isSelected())
-			cliente.setFilhos(false);
-		
-		Endereco end = new Endereco();
-		end.setBairro(tfdBairro.getText().trim());
-		end.setCidade(tfdCidade.getText().trim());
-		end.setRua(tfdRua.getText().trim());
-		end.setEstado(cbxEstado.getValue().toString());
-		end.setNumero(tfdNumero.getText().trim());
-		end.setComplemento(tfdComplemento.getText().trim());
-		end.setCep(tfdCep.getText().trim());
-		end.setPais(tfdPais.getText().trim());
-		cliente.setEndereco(end);
-		
-		cliente.setTelefones(telefones);
-		
+			cliente.setCpf_cnpj(tfdCpfCnpj.getText().trim());
+			cliente.setGenero(Sexo.getSexo(cbxGenero.getValue().toString()));
+			cliente.setRg(tfdRg.getText().trim());
+			cliente.setEmail(tfdEmail.getText().trim());
+			cliente.setEstado_civil(cbxEstado_civil.getValue().toString());
+			cliente.setProfissao(tfdProfissao.getText().trim());
+			cliente.setResponsavel(tfdResponsavel.getText().trim());
+			cliente.setTipoCliente(TipoCliente.getTipo(cbxTipoCliente.getValue().toString()));
+
+			if(rbtSim.isSelected())
+				cliente.setFilhos(true);
+			else if(rbtNao.isSelected())
+				cliente.setFilhos(false);
+
+			Endereco end = new Endereco();
+			end.setBairro(tfdBairro.getText().trim());
+			end.setCidade(tfdCidade.getText().trim());
+			end.setRua(tfdRua.getText().trim());
+			end.setEstado(cbxEstado.getValue().toString());
+			end.setNumero(tfdNumero.getText().trim());
+			end.setComplemento(tfdComplemento.getText().trim());
+			end.setCep(tfdCep.getText().trim());
+			end.setPais(tfdPais.getText().trim());
+			cliente.setEndereco(end);
+
+			cliente.setTelefones(telefones);
+
+			return cliente;
+		} catch (Exception e) {
+			Alerta.getInstance().showMensagem("Erro Ao Cadastra!", "Informe Os Dados Do Cliente", e.getMessage());
+		}
 		return cliente;
-		
+
 	}
-	
+
 }

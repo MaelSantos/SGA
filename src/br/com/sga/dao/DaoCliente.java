@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.sga.business.BusinessCliente;
@@ -61,7 +62,7 @@ public class DaoCliente implements IDaoCliente {
 			statement.setString(8, entidade.getProfissao());
 			statement.setBoolean(9, entidade.isFilhos());
 			statement.setString(10, entidade.getResponsavel());
-			statement.setString(11, entidade.getResponsavel());
+			statement.setString(11, entidade.getTipoCliente().toString());
 			statement.setInt(12, id_endereco);
 			
 			statement.execute();
@@ -87,6 +88,51 @@ public class DaoCliente implements IDaoCliente {
 
 	@Override
 	public Cliente buscarPorId(int id) throws DaoException {
+		try {
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Cliente.SELECT_ID);
+			this.statement.setInt(1, id);
+
+			resultSet = this.statement.executeQuery();
+			Cliente cliente;
+			Endereco end;
+			if (resultSet.next()) {
+				cliente = new Cliente();
+//				nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	
+				cliente.setId(resultSet.getInt("id"));
+				cliente.setNome(resultSet.getString("nome"));
+				cliente.setNascimento(resultSet.getDate("data_nascimento"));
+				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
+				cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
+				cliente.setRg(resultSet.getString("rg"));
+				cliente.setEmail(resultSet.getString("email"));
+				cliente.setEstado_civil(resultSet.getString("estado_civil"));
+				cliente.setProfissao(resultSet.getString("profissao"));
+				cliente.setFilhos(resultSet.getBoolean("filhos"));
+				cliente.setResponsavel(resultSet.getString("responsavel"));
+				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
+				end = new Endereco();
+				end.setId(resultSet.getInt("id_endereco"));
+				end.setBairro(resultSet.getString("bairro"));
+				end.setCidade(resultSet.getString("cidade"));
+				end.setRua(resultSet.getString("rua"));
+				end.setEstado(resultSet.getString("estado"));
+				end.setNumero(resultSet.getString("numero"));
+				end.setComplemento(resultSet.getString("complemento"));
+				end.setCep(resultSet.getString("cep"));
+				end.setPais(resultSet.getString("pais"));
+				cliente.setEndereco(end);
+				
+				List<Telefone> list = daoCommun.getContatos(cliente.getId());
+				cliente.setTelefones(list);
+				this.conexao.close();			
+				
+				return cliente;
+			}
+
+		} catch (Exception e) {
+			throw new DaoException(e.getMessage());
+		}
 		return null;
 	}
 
@@ -147,8 +193,58 @@ public class DaoCliente implements IDaoCliente {
 
 	@Override
 	public List<Cliente> buscarPorBusca(String busca) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+
+		List<Cliente> clientes = new ArrayList<>();
+		
+		try {
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Cliente.SELECT_ALL);
+//			this.statement.setString(1, cpf_cnpj);
+
+			resultSet = this.statement.executeQuery();
+			Cliente cliente;
+//			Endereco end;
+			while(resultSet.next()) {
+				cliente = new Cliente();
+				System.out.println(cliente);
+//				nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	
+				cliente.setId(resultSet.getInt("id"));
+				cliente.setNome(resultSet.getString("nome"));
+				cliente.setNascimento(resultSet.getDate("data_nascimento"));
+				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
+				cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
+				cliente.setRg(resultSet.getString("rg"));
+				cliente.setEmail(resultSet.getString("email"));
+				cliente.setEstado_civil(resultSet.getString("estado_civil"));
+				cliente.setProfissao(resultSet.getString("profissao"));
+				cliente.setFilhos(resultSet.getBoolean("filhos"));
+				cliente.setResponsavel(resultSet.getString("responsavel"));
+				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
+//				end = new Endereco();
+//				end.setId(resultSet.getInt("id_endereco"));
+//				end.setBairro(resultSet.getString("bairro"));
+//				end.setCidade(resultSet.getString("cidade"));
+//				end.setRua(resultSet.getString("rua"));
+//				end.setEstado(resultSet.getString("estado"));
+//				end.setNumero(resultSet.getString("numero"));
+//				end.setComplemento(resultSet.getString("complemento"));
+//				end.setCep(resultSet.getString("cep"));
+//				end.setPais(resultSet.getString("pais"));
+//				cliente.setEndereco(end);
+				
+				List<Telefone> list = daoCommun.getContatos(cliente.getId());
+				cliente.setTelefones(list);
+				
+				clientes.add(cliente);				
+			}
+			this.conexao.close();			
+
+		} catch (Exception e) {
+			throw new DaoException(e.getMessage());
+		}
+		
+		return clientes;
+
 	}
 
 	public static void main(String[] args) {
