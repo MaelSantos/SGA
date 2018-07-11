@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.textfield.TextFields;
 
+import br.com.sga.app.App;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Telefone;
@@ -13,7 +14,9 @@ import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
+import br.com.sga.fachada.IFachada;
 import br.com.sga.interfaces.Ouvinte;
+import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,13 +60,16 @@ public class ControleCliente implements Initializable, Ouvinte{
 	 @FXML
 	 private TableColumn<Cliente, TipoCliente> colTipo;
 	 
+	 private Funcionario funcionario;
+	 private IFachada fachada;
+	 
     @FXML
     void actionButton(ActionEvent event) {
 
     	Object obj = event.getSource();
     	
     	if(obj == btnAdd)
-//    		App.notificarOuvintes(Tela.cadastro_cliente);
+    		App.notificarOuvintes(Tela.cadastro_cliente, funcionario);
     	if(obj == cbxTipo)
     	{
     		
@@ -84,7 +90,10 @@ public class ControleCliente implements Initializable, Ouvinte{
         
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-	
+		App.addOuvinte(this);
+		
+		fachada = Fachada.getInstance();
+		
 		cbxTipo.getItems().addAll(TipoCliente.values());
 		
 		colNome.setCellValueFactory(
@@ -98,46 +107,22 @@ public class ControleCliente implements Initializable, Ouvinte{
 		colTelefone.setCellValueFactory(
                 new PropertyValueFactory<>("telefones"));
 		colTipo.setCellValueFactory(
-                new PropertyValueFactory<>("tipo"));
+                new PropertyValueFactory<>("tipoCliente"));
 		
 		try {
-			tblClientes.getItems().addAll(Fachada.getInstance().buscarClientePorCodigo("07551074384"));
-		} catch (BusinessException e) {
+			tblClientes.getItems().addAll(fachada.buscarClientePorBusca(""));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		TextFields.bindAutoCompletion(tfdBusca,tblClientes.getItems());
+		TextFields.bindAutoCompletion(tfdBusca, tblClientes.getItems());
 		
 	}
 
 	@Override
 	public void atualizar(Tela tela, Funcionario usuario) {
 		
+		this.funcionario = usuario;
 	}
 }
 
-//public class ControleCliente implements Initializable {
-//
-//	@FXML
-//	private Button btnAdd;
-//
-//	private Funcionario funcionario;
-//	@FXML
-//	void actionButton(ActionEvent event) {
-//		
-//		if (event.getSource() == btnAdd) {
-//			App.notificarOuvintes(Tela.cadastro_cliente,funcionario);
-//		}
-//	}
-//
-//	@Override
-//	public void initialize(URL arg0, ResourceBundle arg1) {
-//		App.addOuvinte(new Ouvinte() {
-//			@Override
-//			public void atualizar(Tela tela, Funcionario usuario) {
-//				funcionario = usuario;
-//			}
-//		});
-//	}
-//
-//}

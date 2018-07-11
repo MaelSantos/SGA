@@ -75,8 +75,8 @@ public class SQLUtil {
     
 //  nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	
     public static class Cliente {
-        public static final String SELECT_ID = "select * from CLIENTE where id = ?";
-        public static final String SELECT_ALL = "select * from CLIENTE";
+        public static final String SELECT_ID = "SELECT * FROM CLIENTE WHERE id = ?";
+        public static final String SELECT_ALL = "SELECT * FROM CLIENTE";
 
 	    public static final String INSERT_ALL = "INSERT INTO CLIENTE(nome, data_nascimento, cpf_cnpj, genero, rg, email,"
 	    		+ "estado_civil, profissao, filhos, responsavel, tipo, id_endereco) "
