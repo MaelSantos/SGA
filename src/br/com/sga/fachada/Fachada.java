@@ -4,11 +4,14 @@ package br.com.sga.fachada;
 import java.util.List;
 
 import br.com.sga.business.BusinessCliente;
+import br.com.sga.business.BusinessProcesso;
 import br.com.sga.business.BusinessUsuario;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Processo;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
+import br.com.sga.interfaces.IBusinessProcesso;
 import br.com.sga.interfaces.IBusinessUsuario;
 import br.com.sga.interfaces.IBussinessCliente;
 
@@ -16,6 +19,7 @@ public class Fachada implements IFachada {
 
     private IBusinessUsuario businessUsuario;
     private IBussinessCliente businessCliente;
+    private IBusinessProcesso businessProcesso;
 
     private static Fachada fachada;
 
@@ -29,6 +33,7 @@ public class Fachada implements IFachada {
     private Fachada() {
         businessUsuario = new BusinessUsuario();
         businessCliente = BusinessCliente.getInstance();
+        businessProcesso = new BusinessProcesso();
     }
 
 	@Override
@@ -74,6 +79,26 @@ public class Fachada implements IFachada {
 	@Override
 	public List<Cliente> buscarClientePorBusca(String busca) throws BusinessException {
 		return businessCliente.buscarPorBusca(busca);
+	}
+
+	@Override
+	public void salvarEditarProcesso(Processo entidade) throws BusinessException {
+		businessProcesso.salvarEditar(entidade);
+	}
+
+	@Override
+	public Processo buscarProcessoPorId(int id) throws BusinessException {
+		return businessProcesso.buscarPorId(id);
+	}
+
+	@Override
+	public Processo buscarProcessoPorCodigo(String codigo) throws BusinessException {
+		return businessProcesso.buscarPorCodigo(codigo);
+	}
+
+	@Override
+	public List<Processo> buscarProcessoPorBusca(String busca) throws BusinessException {
+		return businessProcesso.buscarPorBusca(busca);
 	}
 
 }
