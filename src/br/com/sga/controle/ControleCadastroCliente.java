@@ -128,6 +128,9 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 	private TextField tfdComplemento;
 
 	@FXML
+	private Button btnVoltar;
+	
+	@FXML
 	private Button btnCadastrar;
 
 	private List<Telefone> telefones;
@@ -158,6 +161,8 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 
 				Alerta.getInstance().showMensagem("Salvando...", "Salvo Com Sucesso", "Salvando...");
 			}
+			if(obj == btnVoltar)
+				App.notificarOuvintes(Tela.clientes);
 			if(obj == cbxTipoCliente)
 			{
 				if(cbxTipoCliente.getValue() == TipoCliente.FISICO)

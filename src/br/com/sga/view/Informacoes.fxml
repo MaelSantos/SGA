@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleInformacoes">
+<AnchorPane style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleInformacoes">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -41,29 +41,21 @@
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <BorderPane style="-fx-background-color: white;" GridPane.columnIndex="1">
-                           <center>
-                              <Hyperlink fx:id="emailM" onAction="#openLink" text="clike para mais informações">
-                                 <font>
-                                    <Font name="Verdana" size="14.0" />
-                                 </font>
-                              </Hyperlink>
-                           </center>
-                        </BorderPane>
+                        <Hyperlink fx:id="emailM" onAction="#openLink" text="clike para mais informações" textFill="WHITE" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Hyperlink>
                         <Label text="Wanderson Pereira da Silva Lira" textFill="WHITE" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <BorderPane style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <center>
-                              <Hyperlink fx:id="emailW" onAction="#openLink" prefHeight="26.0" prefWidth="223.0" text="clike para mais informações">
-                                 <font>
-                                    <Font name="Verdana" size="14.0" />
-                                 </font>
-                              </Hyperlink>
-                           </center>
-                        </BorderPane>
+                        <Hyperlink fx:id="emailW" onAction="#openLink" prefHeight="26.0" prefWidth="223.0" text="clike para mais informações" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Hyperlink>
                         <Label text="+55 (88)9 8116-9372" textFill="WHITE" GridPane.columnIndex="2">
                            <font>
                               <Font name="Verdana" size="14.0" />
@@ -76,7 +68,7 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <Label text="Versão 1.0" textFill="#fffafa">
+                  <Label text="Versão 1.0" textFill="WHITE">
                      <font>
                         <Font name="Verdana" size="14.0" />
                      </font>

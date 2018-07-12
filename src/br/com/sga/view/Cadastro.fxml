@@ -10,17 +10,42 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
 
-<FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="100.0" nodeOrientation="RIGHT_TO_LEFT" orientation="VERTICAL" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" vgap="30.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroUsuario">
+<FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" hgap="100.0" nodeOrientation="RIGHT_TO_LEFT" orientation="VERTICAL" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" vgap="30.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroUsuario">
    <children>
-      <TextField fx:id="tfdNome" promptText="Nome" />
-      <TextField fx:id="tfdLogin" promptText="Login" />
-      <TextField fx:id="tfdEmail" promptText="Email" />
-      <TextField fx:id="tfdNumeroOab" promptText="Numero OAB" />
-      <PasswordField fx:id="tfdSenha" promptText="Senha" />
-      <PasswordField fx:id="tfdConfirmar" promptText="Confirmar Senha" />
-      <Button fx:id="btnCriar" mnemonicParsing="false" onAction="#actionButton" prefHeight="35.0" prefWidth="103.0" text="Criar Conta" />
-      <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#actionButton" prefHeight="35.0" prefWidth="103.0" text="Cancelar" />
+      <TextField fx:id="tfdNome" promptText="Nome">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font></TextField>
+      <TextField fx:id="tfdLogin" promptText="Login">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font></TextField>
+      <TextField fx:id="tfdEmail" promptText="Email">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font></TextField>
+      <TextField fx:id="tfdNumeroOab" promptText="Numero OAB">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font></TextField>
+      <PasswordField fx:id="tfdSenha" promptText="Senha">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font></PasswordField>
+      <PasswordField fx:id="tfdConfirmar" promptText="Confirmar Senha">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font></PasswordField>
+      <Button fx:id="btnCriar" mnemonicParsing="false" onAction="#actionButton" prefHeight="35.0" prefWidth="103.0" text="Criar Conta">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font></Button>
+      <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#actionButton" prefHeight="35.0" prefWidth="103.0" text="Cancelar">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font></Button>
       <BorderPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="179.0" prefWidth="202.0" style="-fx-border-color: ddd;">
          <center>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />

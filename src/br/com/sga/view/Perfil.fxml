@@ -6,23 +6,32 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControlePerfil">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControlePerfil">
    <children>
       <FlowPane alignment="TOP_CENTER" hgap="20.0" prefHeight="600.0" prefWidth="203.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: black;" />
+            <ImageView fitHeight="179.0" fitWidth="187.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../res/SGA%20-%20Nome.png" />
+               </image>
+            </ImageView>
             <Label fx:id="lblNome" text="Nome Sobrenome">
                <font>
-                  <Font size="19.0" />
+                  <Font name="Verdana" size="19.0" />
                </font>
             </Label>
             <Separator prefWidth="190.0" />
-            <Button fx:id="editarPerfilButton" mnemonicParsing="false" onAction="#actionButton" text="EDITAR PERFIL" />
+            <Button fx:id="editarPerfilButton" mnemonicParsing="false" onAction="#actionButton" text="Editar Perfil">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></Button>
          </children>
          <padding>
             <Insets top="20.0" />

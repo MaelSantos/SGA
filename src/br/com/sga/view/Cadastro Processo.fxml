@@ -17,15 +17,33 @@
          <center>
             <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" vgap="30.0" BorderPane.alignment="CENTER">
                <children>
-                  <ComboBox fx:id="cbxTipoProcesso" prefWidth="174.0" promptText="Tipo Processo" />
-                  <ComboBox fx:id="cbxParticipacao" prefWidth="174.0" promptText="Tipo Participação" />
-                  <TextField fx:id="tfdNumero" promptText="Numero" />
-                  <TextField fx:id="tfdComarca" promptText="Comarca" />
+                  <ComboBox fx:id="cbxTipoProcesso" prefWidth="174.0" promptText="Tipo Processo" styleClass="-fx-font: 12px \&quot;Verdana&quot;" />
+                  <ComboBox fx:id="cbxParticipacao" prefWidth="174.0" promptText="Tipo Participação" styleClass="-fx-font: 12px \&quot;Verdana&quot;" />
+                  <TextField fx:id="tfdNumero" promptText="Numero">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font></TextField>
+                  <TextField fx:id="tfdComarca" promptText="Comarca">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font></TextField>
                   <DatePicker fx:id="tfdData" promptText="Data Atuação" />
-                  <TextField fx:id="tfdDescricao" promptText="Descrição" />
-                  <TextField fx:id="tfdFase" promptText="Fase" />
-                  <TextField fx:id="tfdClasse" promptText="Classe Judicial" />
-                  <TextField fx:id="tfdOrgao" promptText="Orgão Julgador" />
+                  <TextField fx:id="tfdDescricao" promptText="Descrição">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font></TextField>
+                  <TextField fx:id="tfdFase" promptText="Fase">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font></TextField>
+                  <TextField fx:id="tfdClasse" promptText="Classe Judicial">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font></TextField>
+                  <TextField fx:id="tfdOrgao" promptText="Orgão Julgador">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font></TextField>
                </children>
             </FlowPane>
          </center>
