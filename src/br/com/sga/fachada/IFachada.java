@@ -3,6 +3,7 @@ package br.com.sga.fachada;
 import java.util.List;
 
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Processo;
 import br.com.sga.exceptions.BusinessException;
@@ -22,6 +23,12 @@ public interface IFachada {
     public Cliente buscarClientePorId(int id) throws BusinessException;
     public Cliente buscarClientePorCodigo(String codigo) throws BusinessException;
     public List<Cliente> buscarClientePorBusca(String busca) throws BusinessException;
+    
+    //contrato
+    public void salvarEditarContrato(Contrato entidade) throws BusinessException;
+    public Contrato buscarContratoPorId(int id) throws BusinessException;
+    public Contrato buscarContratoPorCodigo(String codigo) throws BusinessException;
+    public List<Contrato> buscarContratoPorBusca(String busca) throws BusinessException;
     
     //processo
     public void salvarEditarProcesso(Processo entidade) throws BusinessException;

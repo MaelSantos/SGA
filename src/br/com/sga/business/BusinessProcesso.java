@@ -69,6 +69,8 @@ public class BusinessProcesso implements IBusinessProcesso{
 
 	private void validar(Processo entidade) throws ValidacaoException{
 		
+		if(entidade.getTipo_processo() == null)
+			throw new ValidacaoException("INFORME O TIPO DE PROCESSO!!!");
 		if(entidade.getComarca() == null || entidade.getComarca().trim().equals(""))
 			throw new ValidacaoException("INFORME A COMARCA!!!");
 		if(entidade.getData_atuacao() == null)
@@ -81,8 +83,6 @@ public class BusinessProcesso implements IBusinessProcesso{
 			throw new ValidacaoException("INFORME O ORGÃO JULGADOR!!!");
 		if(entidade.getFase() == null)
 			throw new ValidacaoException("INFORME A FASE!!!");
-		if(entidade.getTipo_processo() == null)
-			throw new ValidacaoException("INFORME O TIPO DE PROCESSO!!!");
 	}
 	
 }
