@@ -12,52 +12,52 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroContrato">
    <children>
-      <ScrollPane layoutY="31.0" prefHeight="600.0" prefWidth="700.0">
+      <ScrollPane layoutY="31.0" prefHeight="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <AnchorPane prefHeight="800.0" prefWidth="700.0">
+            <AnchorPane prefHeight="800.0">
                <children>
                   <Label layoutX="40.0" layoutY="24.0" text="Cadastro de novo contrato" />
-                  <TextField layoutX="152.0" layoutY="217.0" prefHeight="25.0" prefWidth="128.0" promptText="0.0" />
-                  <TextField layoutX="213.0" layoutY="252.0" prefHeight="25.0" prefWidth="63.0" promptText="1" />
+                  <TextField fx:id="valorTotalField" layoutX="152.0" layoutY="217.0" prefHeight="25.0" prefWidth="128.0" promptText="0.0" />
+                  <TextField fx:id="quantidadeParcelaField" layoutX="213.0" layoutY="252.0" prefHeight="25.0" prefWidth="63.0" promptText="1" />
                   <Label layoutX="90.0" layoutY="221.0" text="Valor total" />
                   <Label layoutX="92.0" layoutY="256.0" text="Quantidade parcelas" />
-                  <RadioButton disable="true" layoutX="87.0" layoutY="287.0" mnemonicParsing="false" selected="true" text="parcelado em valores iguais" />
                   <Label layoutX="82.0" layoutY="116.0" text="Selecione o cliente" />
-                  <TextField layoutX="195.0" layoutY="112.0" prefHeight="25.0" prefWidth="220.0" promptText="nome do cliente para buscar consulta" />
+                  <TextField fx:id="nomeClienteField" layoutX="195.0" layoutY="112.0" prefHeight="25.0" prefWidth="220.0" promptText="nome do cliente para buscar consulta" />
                   <Label layoutX="132.0" layoutY="149.0" text="Consulta" />
-                  <TextField layoutX="195.0" layoutY="145.0" promptText="Consulta com o cliente" />
+                  <TextField fx:id="nomeConsultaField" layoutX="195.0" layoutY="145.0" promptText="Consulta com o cliente" />
                   <Label layoutX="71.0" layoutY="66.0" text="Dados para selecionar consulta que levou ao contrato" />
                   <Label layoutX="71.0" layoutY="191.0" text="Dados do contrato" />
                   <Label layoutX="294.0" layoutY="221.0" text="Tipo de pagamento" />
                   <Label layoutX="292.0" layoutY="256.0" text="Dados do banco" />
-                  <ComboBox layoutX="406.0" layoutY="217.0" prefHeight="25.0" prefWidth="128.0" />
-                  <TextArea layoutX="389.0" layoutY="256.0" prefHeight="61.0" prefWidth="267.0" />
+                  <ComboBox fx:id="tipoPagamamentoBox" layoutX="406.0" layoutY="217.0" prefHeight="25.0" prefWidth="128.0" />
+                  <TextArea fx:id="dadosBancoArea" layoutX="389.0" layoutY="256.0" prefHeight="61.0" prefWidth="267.0" />
                   <Label layoutX="91.0" layoutY="349.0" text="Objeto" />
                   <Label layoutX="310.0" layoutY="349.0" text="Area" />
-                  <ComboBox layoutX="346.0" layoutY="345.0" prefWidth="150.0" />
-                  <TextField layoutX="142.0" layoutY="345.0" />
+                  <ComboBox fx:id="areaBox" layoutX="346.0" layoutY="345.0" prefWidth="150.0" />
+                  <TextField fx:id="objetoField" layoutX="142.0" layoutY="345.0" />
                   <Label layoutX="87.0" layoutY="401.0" text="Data do contrato" />
-                  <DatePicker layoutX="181.0" layoutY="397.0" />
-                  <RadioButton layoutX="369.0" layoutY="401.0" mnemonicParsing="false" text="Data atual" />
-                  <TableView layoutX="58.0" layoutY="536.0" prefHeight="124.0" prefWidth="611.0">
+                  <DatePicker fx:id="dataContratoPicker" layoutX="181.0" layoutY="397.0" />
+                  <RadioButton fx:id="dataAtualRadio" layoutX="369.0" layoutY="401.0" mnemonicParsing="false" text="Data atual" />
+                  <TableView fx:id="parteTableView" editable="true" layoutX="58.0" layoutY="536.0" prefHeight="124.0" prefWidth="611.0">
                     <columns>
-                      <TableColumn prefWidth="330.0" text="nome" />
-                      <TableColumn prefWidth="139.0" text="Tipo parte" />
-                        <TableColumn prefWidth="141.0" text="tipo participação" />
+                        <TableColumn fx:id="selecionadoParteTableColumn" prefWidth="38.0" />
+                      <TableColumn fx:id="nomeParteTableColumn" prefWidth="303.0" text="Nome" />
+                      <TableColumn fx:id="tipoParteTableColumn" minWidth="0.0" prefWidth="122.0" text="Tipo parte" />
+                        <TableColumn fx:id="tipoParticipacaoParteTableColumn" prefWidth="147.0" text="Tipo participação" />
                     </columns>
                   </TableView>
-                  <Button layoutX="522.0" layoutY="497.0" mnemonicParsing="false" text="Adicionar parte" />
-                  <Button layoutX="481.0" layoutY="676.0" mnemonicParsing="false" text="remover parte selecionada" />
+                  <Button fx:id="addParteButton" layoutX="522.0" layoutY="497.0" mnemonicParsing="false" onAction="#actionButton" text="Adicionar parte" />
+                  <Button fx:id="removerParteSelecionadaButton" layoutX="481.0" layoutY="676.0" mnemonicParsing="false" onAction="#actionButton" text="remover parte selecionada" />
                   <Label layoutX="122.0" layoutY="464.0" text="Nome" />
                   <Label layoutX="440.0" layoutY="464.0" text="Tipo" />
                   <Label layoutX="120.0" layoutY="501.0" text="Tipo da Participação" />
-                  <TextField layoutX="168.0" layoutY="460.0" prefHeight="25.0" prefWidth="260.0" promptText="Nome completo da parte" />
-                  <ComboBox layoutX="470.0" layoutY="460.0" prefWidth="150.0" promptText="Tipo da parte" />
-                  <ComboBox layoutX="244.0" layoutY="497.0" prefHeight="25.0" prefWidth="188.0" promptText="tipo participação da parte" />
-                  <Button layoutX="56.0" layoutY="730.0" mnemonicParsing="false" text="Gerar documento para impreção" />
-                  <Button layoutX="272.0" layoutY="730.0" mnemonicParsing="false" text="Salvar contrato" />
+                  <TextField fx:id="nomeParteField" layoutX="168.0" layoutY="460.0" prefHeight="25.0" prefWidth="260.0" promptText="Nome completo da parte" />
+                  <ComboBox fx:id="tipoParteBox" layoutX="470.0" layoutY="460.0" prefWidth="150.0" promptText="Tipo da parte" />
+                  <ComboBox fx:id="tipoParticipcaoBox" layoutX="244.0" layoutY="497.0" onAction="#actionButton" prefHeight="25.0" prefWidth="188.0" promptText="tipo participação da parte" />
+                  <Button fx:id="gerarDocumentoButton" layoutX="56.0" layoutY="730.0" mnemonicParsing="false" onAction="#actionButton" text="Gerar documento para impreção" />
+                  <Button fx:id="salvarContratoButton" layoutX="290.0" layoutY="730.0" mnemonicParsing="false" onAction="#actionButton" text="Salvar contrato" />
                </children>
             </AnchorPane>
          </content>
