@@ -4,28 +4,22 @@ package br.com.sga.fachada;
 import java.util.List;
 
 import br.com.sga.business.BusinessCliente;
-<<<<<<< HEAD
 import br.com.sga.business.BusinessConsulta;
-import br.com.sga.business.BusinessUsuario;
-import br.com.sga.entidade.Cliente;
-import br.com.sga.entidade.Consulta;
-=======
 import br.com.sga.business.BusinessContrato;
 import br.com.sga.business.BusinessProcesso;
 import br.com.sga.business.BusinessUsuario;
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Consulta;
+import br.com.sga.business.BusinessUsuario;
+import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Contrato;
->>>>>>> 257251d160e569e0f1a7fed2b24b3d100149c2a0
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Processo;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
-<<<<<<< HEAD
 import br.com.sga.interfaces.IBusinessConsulta;
-=======
 import br.com.sga.interfaces.IBusinessContrato;
 import br.com.sga.interfaces.IBusinessProcesso;
->>>>>>> 257251d160e569e0f1a7fed2b24b3d100149c2a0
 import br.com.sga.interfaces.IBusinessUsuario;
 import br.com.sga.interfaces.IBussinessCliente;
 
@@ -33,12 +27,9 @@ public class Fachada implements IFachada {
 
     private IBusinessUsuario businessUsuario;
     private IBussinessCliente businessCliente;
-<<<<<<< HEAD
     private IBusinessConsulta businessConsulta;
-=======
     private IBusinessProcesso businessProcesso;
     private IBusinessContrato businessContrato;
->>>>>>> 257251d160e569e0f1a7fed2b24b3d100149c2a0
 
     private static Fachada fachada;
 
@@ -52,12 +43,9 @@ public class Fachada implements IFachada {
     private Fachada() {
         businessUsuario = new BusinessUsuario();
         businessCliente = BusinessCliente.getInstance();
-<<<<<<< HEAD
         businessConsulta = new BusinessConsulta();
-=======
         businessProcesso = new BusinessProcesso();
         businessContrato = new BusinessContrato();
->>>>>>> 257251d160e569e0f1a7fed2b24b3d100149c2a0
     }
 
 	@Override
@@ -106,7 +94,6 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void salvarEditarConsulta(Consulta consulta) throws BusinessException {
 		businessConsulta.salvar(consulta);
 	}
@@ -119,7 +106,8 @@ public class Fachada implements IFachada {
 	@Override
 	public List<Consulta> buscarConsultaPorCliente(String busca) throws BusinessException {
 		return businessConsulta.buscarPorCliente(busca);
-=======
+	}
+	
 	public void salvarEditarProcesso(Processo entidade) throws BusinessException {
 		businessProcesso.salvarEditar(entidade);
 	}
@@ -158,7 +146,6 @@ public class Fachada implements IFachada {
 	@Override
 	public List<Contrato> buscarContratoPorBusca(String busca) throws BusinessException {
 		return businessContrato.buscarPorBusca(busca);
->>>>>>> 257251d160e569e0f1a7fed2b24b3d100149c2a0
 	}
 
 }

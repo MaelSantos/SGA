@@ -116,7 +116,7 @@ public class ControleCadastroProcesso extends Controle{
 			processo.setTipo_participacao(cbxParticipacao.getValue());
 			processo.setTipo_processo(cbxTipoProcesso.getValue());
 			
-			processo.setContrato(fachada.buscarco);
+			//processo.setContrato(fachada.buscarco);
 			
 		} catch (Exception e) {
 
