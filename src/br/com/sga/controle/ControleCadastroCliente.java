@@ -287,13 +287,12 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 	{
 		Cliente cliente = new Cliente();
 
-		cliente.setNome(tfdNome.getText().trim());
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-
 		try {
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 			Date data = df.parse(tfdNascimento.getEditor().getText());
 			cliente.setNascimento(data);
 
+			cliente.setNome(tfdNome.getText().trim());
 			cliente.setCpf_cnpj(tfdCpfCnpj.getText().trim());
 			cliente.setGenero(Sexo.getSexo(cbxGenero.getValue().toString()));
 			cliente.setRg(tfdRg.getText().trim());

@@ -3,8 +3,13 @@ package br.com.sga.fachada;
 import java.util.List;
 
 import br.com.sga.entidade.Cliente;
+<<<<<<< HEAD
 import br.com.sga.entidade.Consulta;
+=======
+import br.com.sga.entidade.Contrato;
+>>>>>>> 257251d160e569e0f1a7fed2b24b3d100149c2a0
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Processo;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 
@@ -23,8 +28,22 @@ public interface IFachada {
     public Cliente buscarClientePorCodigo(String codigo) throws BusinessException;
     public List<Cliente> buscarClientePorBusca(String busca) throws BusinessException;
     
+<<<<<<< HEAD
     // consulta
     public void salvarEditarConsulta(Consulta consulta) throws BusinessException;
     public Consulta buscarConsultaPorId(int id) throws BusinessException;
     public List<Consulta> buscarConsultaPorCliente(String busca) throws BusinessException;
+=======
+    //contrato
+    public void salvarEditarContrato(Contrato entidade) throws BusinessException;
+    public Contrato buscarContratoPorId(int id) throws BusinessException;
+    public Contrato buscarContratoPorCodigo(String codigo) throws BusinessException;
+    public List<Contrato> buscarContratoPorBusca(String busca) throws BusinessException;
+    
+    //processo
+    public void salvarEditarProcesso(Processo entidade) throws BusinessException;
+    public Processo buscarProcessoPorId(int id) throws BusinessException;
+    public Processo buscarProcessoPorCodigo(String codigo) throws BusinessException;
+    public List<Processo> buscarProcessoPorBusca(String busca) throws BusinessException;
+>>>>>>> 257251d160e569e0f1a7fed2b24b3d100149c2a0
 }

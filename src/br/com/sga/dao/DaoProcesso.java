@@ -53,8 +53,8 @@ public class DaoProcesso implements IDaoProcesso {
 			statement.execute();
 			int  processo_id = daoCommun.getCurrentValorTabela(Tabela.PROCESSO);
 			connection.close();
-			for(Audiencia e : entidade.getAudiencias())
-				daoCommun.salvarAudiencia(e,processo_id);
+//			for(Audiencia e : entidade.getAudiencias())
+//				daoCommun.salvarAudiencia(e,processo_id);
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
