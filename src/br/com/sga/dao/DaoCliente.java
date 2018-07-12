@@ -10,7 +10,9 @@ import java.util.List;
 
 import br.com.sga.business.BusinessCliente;
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
+import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Sexo;
@@ -190,7 +192,7 @@ public class DaoCliente implements IDaoCliente {
 		return null;
 
 	}
-
+	
 	@Override
 	public List<Cliente> buscarPorBusca(String busca) throws DaoException {
 

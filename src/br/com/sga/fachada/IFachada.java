@@ -3,6 +3,7 @@ package br.com.sga.fachada;
 import java.util.List;
 
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
@@ -21,4 +22,9 @@ public interface IFachada {
     public Cliente buscarClientePorId(int id) throws BusinessException;
     public Cliente buscarClientePorCodigo(String codigo) throws BusinessException;
     public List<Cliente> buscarClientePorBusca(String busca) throws BusinessException;
+    
+    // consulta
+    public void salvarEditarConsulta(Consulta consulta) throws BusinessException;
+    public Consulta buscarConsultaPorId(int id) throws BusinessException;
+    public List<Consulta> buscarConsultaPorCliente(String busca) throws BusinessException;
 }

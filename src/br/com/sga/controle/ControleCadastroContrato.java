@@ -1,13 +1,21 @@
 package br.com.sga.controle;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.textfield.TextFields;
+
+import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.enums.Area;
+import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.entidade.tabelaView.Parte;
+import br.com.sga.exceptions.BusinessException;
+import br.com.sga.fachada.Fachada;
 import br.com.sga.view.Alerta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +33,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.DragEvent;
 
 public class ControleCadastroContrato {
 
@@ -99,10 +108,16 @@ public class ControleCadastroContrato {
 
     @FXML
     private Button salvarContratoButton;
+    
+    @FXML
+    private Button buscarConsultaButton;
 
     @FXML
     void actionButton(ActionEvent event) {
-    	if(addParteButton == event.getSource()) {
+    	if(event.getSource() == buscarConsultaButton) {
+    		buscarConsultas();
+    	}
+    	else if(addParteButton == event.getSource()) {
     		String alerta = addParte();
     		if(alerta != null)
     			Alerta.getInstance().showMensagem("Alerta","", alerta);
@@ -123,11 +138,12 @@ public class ControleCadastroContrato {
     	
     	if(nome.length() <1 || tipo_parte == null || tipo_participacao == null)
     		return "Não foi possivel adicionar parte: Há campos vazios";
-    	parteTableView.getItems().add(new Parte(false,nome,tipo_parte,tipo_participacao));
+    	parteTableView.getItems().add(new Parte(nome,tipo_parte,tipo_participacao));
     	return null;
     }
     
     private String removerParte() {
+    	parteTableView.refresh();
     	ObservableList<Parte> listaParaRemover = FXCollections.observableArrayList();
     	for(Parte p : parteTableView.getItems()) {
     		System.out.println(p.getSelecionado());
@@ -139,6 +155,31 @@ public class ControleCadastroContrato {
     	return listaParaRemover.size()+" Partes removidas";
     		
     }
+    
+    private String salvarProcesso() {
+    	// buscar cliente unido a suas consultas
+    	// filtrar as consultas
+    	return null;
+    }
+    private void buscarConsultas() {
+		String dadoBusca = nomeClienteField.getText().trim();
+		if(dadoBusca.length() >0)
+			try {
+				List<Consulta> consultas = Fachada.getInstance().buscarConsultaPorCliente(dadoBusca);
+				ArrayList<String> feedBack = new ArrayList<>();
+				for(Consulta e : consultas)
+					feedBack.add(e.getData_consulta().toString() +" "+ e.getArea());
+				System.out.println(feedBack);
+				TextFields.bindAutoCompletion(nomeConsultaField,feedBack);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+				Alerta.getInstance().showMensagem("Alerta","",e.getMessage());
+			}
+		else {
+			
+		}
+    }
+    
     @FXML
     void initialize() {
     	for(TipoPagamento tipo : TipoPagamento.values())
@@ -159,5 +200,7 @@ public class ControleCadastroContrato {
         nomeParteTableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         tipoParteTableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(tipoParteBox.getItems()));
         tipoParticipacaoParteTableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(tipoParticipcaoBox.getItems()));
+        
+        parteTableView.setItems(FXCollections.observableArrayList());
     }
 }

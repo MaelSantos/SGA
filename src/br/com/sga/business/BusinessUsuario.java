@@ -15,7 +15,6 @@ public class BusinessUsuario implements IBusinessUsuario {
 	private IDaoUsuario daoUsuario;
 	
 	public BusinessUsuario() {
-		
 		daoUsuario = new DaoUsuario();
 	}
 

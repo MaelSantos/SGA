@@ -55,8 +55,6 @@ public class Contrato {
 	}
 
 
-
-
 	public Contrato() {
 	}
 
@@ -65,8 +63,6 @@ public class Contrato {
 		return parcelas;
 	}
 	
-	
-
 
 	public Financeiro getFinanceiro() {
 		return financeiro;
