@@ -19,7 +19,10 @@
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
-                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#actionButton" text="Adicionar Cliente" />
+                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#actionButton" text="Adicionar Cliente">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font></Button>
               </buttons>
             </ButtonBar>
          </bottom>
@@ -34,7 +37,10 @@
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfdBusca" onKeyPressed="#actionKey" />
+                  <TextField fx:id="tfdBusca" onKeyPressed="#actionKey" promptText="Busca">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font></TextField>
                   <ComboBox fx:id="cbxTipo" onAction="#actionButton" prefWidth="150.0" promptText="Tipo" />
                </children>
             </FlowPane>

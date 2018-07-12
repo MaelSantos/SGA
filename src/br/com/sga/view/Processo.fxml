@@ -19,7 +19,7 @@
                <children>
                   <Label text="Acompanhamento De Processos" textFill="WHITE">
                      <font>
-                        <Font name="Verdana" size="14.0" />
+                        <Font name="Verdana" size="16.0" />
                      </font>
                   </Label>
                </children>
