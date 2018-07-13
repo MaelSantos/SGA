@@ -230,7 +230,7 @@ public class DaoCommun implements IDaoCommun{
            //valor,tipo,estado,juros,multa,vencimento,contrato_id
             statement.setFloat(1,parcela.getValor());
             statement.setString(2,parcela.getTipo());
-            statement.setString(3,parcela.getEstado());
+            statement.setString(3,parcela.getEstado().toString());
             statement.setFloat(4,parcela.getJuros());
             statement.setFloat(5,parcela.getMulta());
             statement.setDate(6,new Date(parcela.getVencimento().getTime()));

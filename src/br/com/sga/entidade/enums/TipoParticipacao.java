@@ -6,9 +6,10 @@ public enum TipoParticipacao {
 	
 	public static TipoParticipacao getValue(String tipo)
 	{
-		for(TipoParticipacao t : values())
-			if(t.toString().equalsIgnoreCase(tipo))
-				return t;
+		if(tipo != null)
+			for(TipoParticipacao t : values())
+				if(t.toString().equalsIgnoreCase(tipo))
+					return t;
 		return null;
 		
 	}
