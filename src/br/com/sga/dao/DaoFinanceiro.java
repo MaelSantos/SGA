@@ -93,7 +93,7 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 		try {
             this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
             this.statement = connection.prepareStatement(SQLUtil.Financeiro.BUSCAR_ANO);
-            statement.setInt(1,ano);
+            statement.setString(1,String.valueOf(ano));
             resultSet = statement.executeQuery();
             Financeiro financeiro = null;
             if(resultSet.next()) {

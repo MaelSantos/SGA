@@ -39,12 +39,15 @@ public class BusinessContrato implements IBusinessContrato {
 	}
 
 	private void gerarDadasDeParcelas(Contrato contrato) {
-		Calendar c = Calendar.getInstance();
-		c.setTime(contrato.getData_contrato());
-		for(Parcela e : contrato.getParcelas()) {
-			c.set(Calendar.DAY_OF_MONTH,e.dia_pagamento);
-			e.setVencimento(c.getTime());
-			c.set(Calendar.MONTH,Calendar.MONTH+1);
+		if(!contrato.getParcelas().isEmpty()) {
+			Calendar c = Calendar.getInstance();
+			c.setTime(contrato.getData_contrato());
+			c.set(Calendar.DAY_OF_MONTH,contrato.getParcelas().get(0).dia_pagamento);
+			for(Parcela e : contrato.getParcelas()) {
+				e.setVencimento(c.getTime());
+				c.set(Calendar.DAY_OF_MONTH,e.dia_pagamento);
+				c.set(Calendar.MONTH,Calendar.MONTH+1);
+			}
 		}
 	}
 	

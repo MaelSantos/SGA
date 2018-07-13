@@ -185,7 +185,7 @@ public class ControleCadastroContrato {
 			financeiro = fachada.buscarFinanceiroPorAno( Calendar.getInstance().get(Calendar.YEAR));
 		} catch (BusinessException e2) {
 			e2.printStackTrace();
-			Alerta.getInstance().showMensagem("Alerta","","Ainda não há financeiros cadastrado para esse ano.\nFavor cadastrar financeiro antes de efetivar um contrato");
+			Alerta.getInstance().showMensagem("Alerta","",e2.getMessage());
 			return;
 		}
     	// pegando valores da tela
@@ -213,7 +213,7 @@ public class ControleCadastroContrato {
     	Date data_contrato = null;
     	if(dataAtualRadio.isSelected())
     		data_contrato = Calendar.getInstance().getTime();
-    	else if (dataContratoPicker.getValue().toString().length() >0){
+    	else if (dataContratoPicker.getValue() != null){
     		LocalDate ld = dataContratoPicker.getValue();
         	Calendar c =  Calendar.getInstance();
         	c.set(ld.getYear(), ld.getMonthValue(), ld.getDayOfMonth());
@@ -242,11 +242,12 @@ public class ControleCadastroContrato {
     		}
     	}
 		// pegando id do contrato referente ao ano corrente
-    	if(nomeConsultaField.getText().trim().length() <1) {
+    	if(nomeConsultaField.getText().trim().length() > 0) {
 			if(data_contrato != null) {
 				if(objeto.length()>0 || area != null || tipo_pagamento != null || dia_pagamento != null)
 					try {
 						fachada.salvarEditarContrato(new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, area, dados_banco, partes,parcelas, consulta,financeiro));
+						Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
 					} catch (BusinessException e1) {
 						e1.printStackTrace();
 						Alerta.getInstance().showMensagem("Alerta","",e1.getMessage());
@@ -264,11 +265,11 @@ public class ControleCadastroContrato {
 		if(dadoBusca.length() >0)
 			try {
 				consultas = Fachada.getInstance().buscarConsultaPorCliente(dadoBusca);
-				/*ArrayList<String> feedBack = new ArrayList<>();
+				ArrayList<String> feedBack = new ArrayList<>();
 				for(Consulta e : consultas)
-					feedBack.add(e.getData_consulta().toString() +" "+ e.getArea());
-				System.out.println(feedBack);*/
-				TextFields.bindAutoCompletion(nomeConsultaField,consultas);
+					feedBack.add(e.toString());
+				System.out.println(feedBack);
+				TextFields.bindAutoCompletion(nomeConsultaField,feedBack);
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Alerta","",e.getMessage());
