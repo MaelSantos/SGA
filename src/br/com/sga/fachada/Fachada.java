@@ -100,7 +100,7 @@ public class Fachada implements IFachada {
 
 	@Override
 	public Consulta buscarConsultaPorId(int id) throws BusinessException {
-		return null;
+		return businessConsulta.buscarPorId(id);
 	}
 
 	@Override

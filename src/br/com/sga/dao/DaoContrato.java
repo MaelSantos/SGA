@@ -86,6 +86,7 @@ public class DaoContrato implements IDaoContrato{
 		Financeiro financeiro = new Financeiro();
 		financeiro.setId(4);
 		Contrato c = new Contrato("a",1000f,TipoPagamento.BOLETO,Calendar.getInstance().getTime(),Area.CIVIL,"Banco conta tal ", partes, parcelas,consulta,financeiro);
+		System.out.println(c);
 		try {
 			new DaoContrato().salvar(c);
 		} catch (DaoException e) {

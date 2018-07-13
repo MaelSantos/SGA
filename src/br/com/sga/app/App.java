@@ -2,15 +2,13 @@ package br.com.sga.app;
 
 import java.util.ArrayList;
 
-
 import br.com.sga.interfaces.Ouvinte;
-import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -44,31 +42,30 @@ public class App extends Application{
 		processo = FXMLLoader.load(getClass().getResource("../view/Processo.fxml"));
 		cadastrarProcesso = FXMLLoader.load(getClass().getResource("../view/Cadastro Processo.fxml"));
 		
-		loginScene = new Scene(login);
-		menuScene = new Scene(menu);
+//		Parent parent = FXMLLoader.load(getClass().getResource("../view/Carregar.fxml"));
+//		Scene scene = new Scene(parent);
+//		stage.setScene(scene);
 		
+		loginScene = new Scene(login);
+		menuScene = new Scene(menu);		
 		stage.setScene(loginScene);
+		
 		stage.setTitle("SGA - Sistema De Gerenciamento Advocativo");
-		stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(("SGA.png"))));
+		stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(("Icon.png"))));
 		stage.centerOnScreen();
 		stage.show();
+		
 	}
 	
 	public static void changeStage(Tela tela)
 	{
-//		double w = stage.getWidth();
-//		double h = stage.getHeight();
 		switch (tela) {
 		case login:
 			stage.setScene(loginScene);
-//			stage.setWidth(w);
-//			stage.setHeight(h);
 			stage.centerOnScreen();
 			break;
 		case menu:
 			stage.setScene(menuScene);
-//			stage.setWidth(w);
-//			stage.setHeight(h);
 			stage.centerOnScreen();
 			break;
 		default:
@@ -126,7 +123,9 @@ public class App extends Application{
 	}
 	
 	public static void main(String[] args) {
+		
 		launch(args);
+		
 	}
 
 }

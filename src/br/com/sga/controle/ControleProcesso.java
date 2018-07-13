@@ -11,6 +11,7 @@ import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.BusinessException;
+import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.view.Alerta;
@@ -97,6 +98,8 @@ public class ControleProcesso extends Controle{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		super.initialize(arg0, arg1);
 		
+		fachada = Fachada.getInstance();
+		
 		colAndamento1.setCellValueFactory(
                 new PropertyValueFactory<>("decisao"));
 		colAndamento2.setCellValueFactory(
@@ -132,16 +135,15 @@ public class ControleProcesso extends Controle{
 		colProcesso3.setCellValueFactory(
                 new PropertyValueFactory<>("numero"));
 		
-//		try {
-//			
-//			tbl1Vara.getItems().setAll(fachada.buscarProcessoPorBusca(TipoProcesso.Vara_1.toString()));
-//			tbl2Vara.getItems().setAll(fachada.buscarProcessoPorBusca(TipoProcesso.Vara_2.toString()));
-//			tbl3Vara.getItems().setAll(fachada.buscarProcessoPorBusca(TipoProcesso.Vara_Criminal.toString()));
-//			
-//		} catch (BusinessException e) {
-//			e.printStackTrace();
-//			Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Carregar Processos", e.getMessage());
-//		}
+		try {
+			tbl1Vara.getItems().addAll(fachada.buscarProcessoPorBusca(TipoProcesso.Vara_1.toString()));
+			tbl2Vara.getItems().addAll(fachada.buscarProcessoPorBusca(TipoProcesso.Vara_2.toString()));
+			tbl3Vara.getItems().addAll(fachada.buscarProcessoPorBusca(TipoProcesso.Vara_Criminal.toString()));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Carregar Processos", e.getMessage());
+		}
 		
 	}
 

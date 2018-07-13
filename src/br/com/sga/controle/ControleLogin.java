@@ -47,19 +47,11 @@ public class ControleLogin implements Initializable{
 		if(e.getSource() == btnEntrar)
 		{			
 			try {
-				progresso.setVisible(true);
-				progresso.progressProperty().bind(servico.progressProperty());
-				progresso.progressProperty().unbind();
 				Funcionario funcionario = fachada.buscarPorLogin(tfdLogin.getText(), tfdSenha.getText());
 				App.changeStage(Tela.menu);
 				App.notificarOuvintes(Tela.menu,funcionario);
 			}catch (BusinessException e1) {
 				Alerta.getInstance().showMensagem("Dados Incorretos", "Login/Email Ou Senha Incorretos",e1.getMessage());
-//				servico.cancel();
-			}
-			finally {
-				servico.restart();
-				progresso.setVisible(false);
 			}
 		}
 
@@ -71,28 +63,7 @@ public class ControleLogin implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		fachada = Fachada.getInstance();
-		servico = new Service() {
-			@Override
-			protected Task createTask() {
-				return new Task() {
-					@Override
-					protected Void call() throws Exception {
-						updateMessage("Carregando...");
-						Thread.sleep(300);
-						updateProgress(0, 100);
-						for (int i = 0; i < 100; i++) {
-							updateProgress(i + 1, 10);
-							updateMessage("Carregando " + (i + 1) + " de 10");
-							Thread.sleep(300);
-						}
-						updateMessage("Terminou");
-						return null;
-					}
-				};
-			}
-		};
-		
+		fachada = Fachada.getInstance();		
 	}
 
 }

@@ -100,11 +100,11 @@ public class ControleCadastroProcesso extends Controle{
 	@Override
 	public void atualizar(Tela tela, Funcionario usuario) {
 		
-		try {
-			TextFields.bindAutoCompletion(tfdContrato, fachada.buscarContratoPorBusca(""));
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			TextFields.bindAutoCompletion(tfdContrato, fachada.buscarContratoPorBusca(""));
+//		} catch (BusinessException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 

@@ -107,7 +107,7 @@ public class DaoProcesso implements IDaoProcesso {
 	public List<Processo> buscarPorBusca(String busca) throws DaoException {
 
 		List<Processo> processos = new ArrayList<>();
-
+		System.out.println("Criou Processo: "+processos);
 		try {
 
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
@@ -140,11 +140,12 @@ public class DaoProcesso implements IDaoProcesso {
 				contrato.setId(resultSet.getInt("contrato_id"));
 				
 				processo.setContrato(contrato);
-				
 				processos.add(processo);			
+				System.out.println("Adicionou Processo: "+processo);
 
 			}
-			this.conexao.close();			
+			this.conexao.close();
+			System.out.println("Saiu ou não entrou nou while");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DaoException("ERRO AO BUSCAR PROCESSOS DO TIPO "+busca.toUpperCase()+" - CONTATE O ADM");
