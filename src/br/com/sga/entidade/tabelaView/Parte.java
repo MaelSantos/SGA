@@ -11,8 +11,8 @@ public class Parte {
     private final SimpleStringProperty tipo_participacao;
     private final SimpleBooleanProperty selecionado;
     
-    public Parte(Boolean selecionado ,String nome, String tipo_parte,String tipo_participacao) {
-    	this.selecionado = new SimpleBooleanProperty(selecionado);
+    public Parte(String nome, String tipo_parte,String tipo_participacao) {
+    	this.selecionado = new SimpleBooleanProperty(false);
     	this.nome = new SimpleStringProperty(nome);
     	this.tipo_parte = new SimpleStringProperty(tipo_parte);
     	this.tipo_participacao = new SimpleStringProperty(tipo_participacao);
@@ -34,21 +34,20 @@ public class Parte {
 		return tipo_participacao.get();
 	}
 
-	
-	public void setNome(String nome) {
-		this.nome.set(nome);
+	public SimpleStringProperty getNomeProperty() {
+		return nome;
 	}
-	
-	public void setTipoParte(String tipo_parte) {
-		this.tipo_parte.set(tipo_parte);
+
+	public SimpleStringProperty getTipo_parteProperty() {
+		return tipo_parte;
 	}
-	
-	public void setTipoParticipacao(String tipo_participacao) {
-		this.tipo_participacao.set(tipo_participacao);
+
+	public SimpleStringProperty getTipo_participacaoProperty() {
+		return tipo_participacao;
 	}
-	
-	public void setSelecionado(Boolean selecionado ) {
-		this.selecionado.set(selecionado);
+
+	public SimpleBooleanProperty getSelecionadoProperty() {
+		return selecionado;
 	}
 	
 	

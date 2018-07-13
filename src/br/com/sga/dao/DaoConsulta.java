@@ -120,4 +120,33 @@ public class DaoConsulta implements IDaoConsulta {
 		return null;
 	}
 
+	@Override
+	public List<Consulta> buscaPorCliente(String busca) throws DaoException {
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Consulta.BUSCA_POR_CLIENTE);
+            statement.setString(1,busca);
+            statement.setString(2,busca);
+            statement.setString(3,busca);
+            statement.setString(4,busca);
+            resultSet = statement.executeQuery();
+           
+            List<Consulta> lista = new ArrayList<>();
+            while(resultSet.next()) {
+            	lista.add(new Consulta(resultSet.getInt("id"),
+            			Area.getArea(resultSet.getString("area")),
+            			resultSet.getDate("data_consulta")));
+            }if(lista.isEmpty()){
+            	throw new DaoException("Não existe consultas para esse usuario com esses dados");
+            }
+            this.connection.close();
+            this.statement.close();
+            this.resultSet.close();
+            return lista;
+		} catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO BUSCAR CONSULTAS DO USUARIO - CONTATE O ADM");
+        }
+	}
+
 }

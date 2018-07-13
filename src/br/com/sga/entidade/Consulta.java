@@ -33,6 +33,13 @@ public class Consulta {
 		this.funcionario = funcionario;
 		this.testemunhas = testemunhas;
 	}
+	
+	
+	public Consulta(Integer id, Area area, Date data_consulta) {
+		this.id = id;
+		this.area = area;
+		this.data_consulta = data_consulta;
+	}
 	public Consulta( Area area, String descricao, Date data_consulta, float valor_honorario,
 			String indicacao, Cliente cliente, Funcionario funcionario, List<Testemunha> testemunhas) {
 		this.area = area;

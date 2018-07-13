@@ -23,7 +23,7 @@
                   <TextField fx:id="quantidadeParcelaField" layoutX="213.0" layoutY="252.0" prefHeight="25.0" prefWidth="63.0" promptText="1" />
                   <Label layoutX="90.0" layoutY="221.0" text="Valor total" />
                   <Label layoutX="92.0" layoutY="256.0" text="Quantidade parcelas" />
-                  <Label layoutX="82.0" layoutY="116.0" text="Selecione o cliente" />
+                  <Label layoutX="74.0" layoutY="116.0" text="Selecione um cliente" />
                   <TextField fx:id="nomeClienteField" layoutX="195.0" layoutY="112.0" prefHeight="25.0" prefWidth="220.0" promptText="nome do cliente para buscar consulta" />
                   <Label layoutX="132.0" layoutY="149.0" text="Consulta" />
                   <TextField fx:id="nomeConsultaField" layoutX="195.0" layoutY="145.0" promptText="Consulta com o cliente" />
@@ -58,6 +58,7 @@
                   <ComboBox fx:id="tipoParticipcaoBox" layoutX="244.0" layoutY="497.0" onAction="#actionButton" prefHeight="25.0" prefWidth="188.0" promptText="tipo participação da parte" />
                   <Button fx:id="gerarDocumentoButton" layoutX="56.0" layoutY="730.0" mnemonicParsing="false" onAction="#actionButton" text="Gerar documento para impreção" />
                   <Button fx:id="salvarContratoButton" layoutX="290.0" layoutY="730.0" mnemonicParsing="false" onAction="#actionButton" text="Salvar contrato" />
+                  <Button fx:id="buscarConsultaButton" layoutX="426.0" layoutY="112.0" mnemonicParsing="false" onAction="#actionButton" text="buscar" />
                </children>
             </AnchorPane>
          </content>
