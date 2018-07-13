@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.textfield.TextFields;
+
 import br.com.sga.app.App;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Processo;
@@ -24,6 +26,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class ControleCadastroProcesso extends Controle{
+	
+	@FXML
+    private TextField tfdContrato;
+	
 	@FXML
 	private ComboBox<TipoProcesso> cbxTipoProcesso;
 
@@ -93,7 +99,12 @@ public class ControleCadastroProcesso extends Controle{
 
 	@Override
 	public void atualizar(Tela tela, Funcionario usuario) {
-		// TODO Stub de método gerado automaticamente
+		
+		try {
+			TextFields.bindAutoCompletion(tfdContrato, fachada.buscarContratoPorBusca(""));
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -116,7 +127,7 @@ public class ControleCadastroProcesso extends Controle{
 			processo.setTipo_participacao(cbxParticipacao.getValue());
 			processo.setTipo_processo(cbxTipoProcesso.getValue());
 			
-			processo.setContrato(fachada.buscarco);
+			processo.setContrato(fachada.buscarContratoPorCodigo(tfdContrato.getText().trim()));
 			
 		} catch (Exception e) {
 

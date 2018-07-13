@@ -8,6 +8,7 @@ public class SQLUtil {
     
     public static class Processo{
     	public static final String INSERT_ALL = "INSERT INTO PROCESSO(numero,tipo_participacao,tipo_processo,fase,descricao,decisao,comarca,orgao_julgador,classe_judicial,data_atuacao,status,contrato_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+    	public static final String SELECT_TIPO = "SELECT FROM PROCESSO p, Contrato c WHERE p.tipo_processo = ? and p.contrato_id=c.id";
     }
     
     public static class Audiencia{
@@ -23,7 +24,6 @@ public class SQLUtil {
     	public static final String INSERT_ALL = "INSERT INTO PARTE(nome,tipo_parte,tipo_participacao,contrato_id) VALUES(?,?,?,?)";
     
     }
-
 
     public static class Financeiro{
     	public static final String INSERT_ALL = "INSERT INTO FINANCEIRO(total_lucro,total_despesa,ano_coberto) VALUES(?,?,?)";

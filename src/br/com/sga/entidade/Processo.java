@@ -22,7 +22,7 @@ public class Processo {
 	private String fase; //fase  VARCHAR(255) NOT NULL, 
 	private TipoProcesso tipo_processo; //tipo_processo  VARCHAR(255) NOT NULL,
 	private TipoParticipacao tipo_participacao; //tipo_participacao  VARCHAR(255)
-	private List<Audiencia> audiencias; 
+	private List<Audiencia> audiencias;
 	
 	public Integer getId() {
 		return id;

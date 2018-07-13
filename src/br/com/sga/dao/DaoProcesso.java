@@ -9,13 +9,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.postgresql.jdbc2.ArrayAssistantRegistry;
 
 import br.com.sga.entidade.Audiencia;
+import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
+import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
+import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoProcesso;
@@ -23,19 +28,19 @@ import br.com.sga.sql.SQLConnection;
 import br.com.sga.sql.SQLUtil;
 
 public class DaoProcesso implements IDaoProcesso {
-	Connection  connection ;
-	ResultSet resultSet;
-	PreparedStatement statement;
-	DaoCommun daoCommun;
-	
+	private Connection conexao;
+	private PreparedStatement statement;
+	private ResultSet resultSet;
+	private DaoCommun daoCommun;
+
 	public DaoProcesso() {
 		daoCommun = new DaoCommun();
 	}
 	@Override
 	public void salvar(Processo entidade) throws DaoException {
 		try {
-			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			this.statement = connection.prepareStatement(SQLUtil.Processo.INSERT_ALL);
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Processo.INSERT_ALL);
 			//numero,tipo_participacao,tipo_processo,fase,descricao,decisao,comarca,orgao_julgador,
 			//classe_judicial,data_atuacao,status,contrato_id
 			statement.setString(1,entidade.getNumero());
@@ -52,37 +57,37 @@ public class DaoProcesso implements IDaoProcesso {
 			statement.setInt(12,entidade.getContrato().getId());
 			statement.execute();
 			int  processo_id = daoCommun.getCurrentValorTabela(Tabela.PROCESSO);
-			connection.close();
-//			for(Audiencia e : entidade.getAudiencias())
-//				daoCommun.salvarAudiencia(e,processo_id);
-			
+			conexao.close();
+			//			for(Audiencia e : entidade.getAudiencias())
+			//				daoCommun.salvarAudiencia(e,processo_id);
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO SALVAR PROCESSO - CONTATE O ADM");
 		}
 	}
-	
-//	public static void main(String[] args) {
-//		// inserir processo
-//			 /* 1 - cadastrar audiencia já que foi definido que teria ao menos uma ao cadastrar o processo (elas tb poderiam ser cadastradas depois)
-//			  * 2 - criar entidade processo (o mesmo já deve contrer um id de contrato (irei usar um contrato já cadastrato para evitar uso de select inicialmente))
-//			  */
-//		
-//			List<Audiencia> audiencias = new ArrayList<>();
-//			audiencias.add(new Audiencia("A conparecer","vara tal","orgao tal","audiencia inicial",Calendar.getInstance().getTime()));
-//			Contrato contrato = new Contrato();
-//			contrato.setId(11); // id de contrato já cadastro em minha base
-////			Processo processo = new Processo(contrato,true, Calendar.getInstance().getTime(),"123-123-1233Ab","classe tal","orgao tal","comarca tal", "pendente","processo de fulano a cerca de","primeira instancia","judicial",TipoParticipacao.EXECUTADO, audiencias);
-//			try {
-//				new DaoProcesso().salvar(processo);
-//			} catch (DaoException e) {
-//				e.printStackTrace();
-//			}
-//	}
+
+	//	public static void main(String[] args) {
+	//		// inserir processo
+	//			 /* 1 - cadastrar audiencia já que foi definido que teria ao menos uma ao cadastrar o processo (elas tb poderiam ser cadastradas depois)
+	//			  * 2 - criar entidade processo (o mesmo já deve contrer um id de contrato (irei usar um contrato já cadastrato para evitar uso de select inicialmente))
+	//			  */
+	//		
+	//			List<Audiencia> audiencias = new ArrayList<>();
+	//			audiencias.add(new Audiencia("A conparecer","vara tal","orgao tal","audiencia inicial",Calendar.getInstance().getTime()));
+	//			Contrato contrato = new Contrato();
+	//			contrato.setId(11); // id de contrato já cadastro em minha base
+	////			Processo processo = new Processo(contrato,true, Calendar.getInstance().getTime(),"123-123-1233Ab","classe tal","orgao tal","comarca tal", "pendente","processo de fulano a cerca de","primeira instancia","judicial",TipoParticipacao.EXECUTADO, audiencias);
+	//			try {
+	//				new DaoProcesso().salvar(processo);
+	//			} catch (DaoException e) {
+	//				e.printStackTrace();
+	//			}
+	//	}
 
 	@Override
 	public void editar(Processo entidade) throws DaoException {
-		
+
 	}
 
 	@Override
@@ -99,8 +104,39 @@ public class DaoProcesso implements IDaoProcesso {
 
 	@Override
 	public List<Processo> buscarPorBusca(String busca) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+
+		List<Processo> processos = new ArrayList<>();
+
+		try {
+
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Processo.SELECT_TIPO);
+			this.statement.setString(1, busca);
+
+			resultSet = this.statement.executeQuery();
+			Processo processo;
+			Contrato contrato;
+			while(resultSet.next()) {
+
+				processo = new Processo();
+				
+				
+				
+				contrato = new Contrato();
+				processo.setContrato(contrato);
+				
+				processos.add(processo);			
+
+			}
+
+
+			this.conexao.close();			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("ERRO AO BUSCAR PROCESSOS DO TIPO "+busca.toUpperCase()+" - CONTATE O ADM");
+		}
+
+		return processos;
 	}
 
 }

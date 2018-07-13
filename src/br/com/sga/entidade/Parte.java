@@ -17,7 +17,6 @@ public class Parte {
 	}
 	
 	public Parte(TipoParte tipo_parte, TipoParticipacao tipo_participacao, String nome) {
-		super();
 		this.tipo_parte = tipo_parte;
 		this.tipo_participacao = tipo_participacao;
 		this.nome = nome;
@@ -48,6 +47,9 @@ public class Parte {
 		this.nome = nome;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Tipo: "+tipo_parte+" Nome: "+nome;
+	}
 	
 }

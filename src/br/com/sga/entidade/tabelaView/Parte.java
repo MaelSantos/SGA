@@ -11,7 +11,6 @@ public class Parte {
     private final SimpleStringProperty tipo_participacao;
     private final SimpleBooleanProperty selecionado;
     
-    
     public Parte(Boolean selecionado ,String nome, String tipo_parte,String tipo_participacao) {
     	this.selecionado = new SimpleBooleanProperty(selecionado);
     	this.nome = new SimpleStringProperty(nome);
