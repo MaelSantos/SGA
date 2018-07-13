@@ -22,6 +22,7 @@ import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.entidade.enums.TipoParticipacao;
+import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoProcesso;
 import br.com.sga.sql.SQLConnection;
@@ -56,11 +57,11 @@ public class DaoProcesso implements IDaoProcesso {
 			statement.setBoolean(11,entidade.isStatus());
 			statement.setInt(12,entidade.getContrato().getId());
 			statement.execute();
-			int  processo_id = daoCommun.getCurrentValorTabela(Tabela.PROCESSO);
-			conexao.close();
+//			int  processo_id = daoCommun.getCurrentValorTabela(Tabela.PROCESSO);
 			//			for(Audiencia e : entidade.getAudiencias())
 			//				daoCommun.salvarAudiencia(e,processo_id);
 
+			conexao.close();			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO SALVAR PROCESSO - CONTATE O ADM");
@@ -118,18 +119,31 @@ public class DaoProcesso implements IDaoProcesso {
 			Contrato contrato;
 			while(resultSet.next()) {
 
-				processo = new Processo();
-				
-				
+				processo = new Processo();				
+//				contrato_id, status, data_atuacao, numero, classe_judicial, orgao_julgador, comarca
+//				decisao, descricao, fase, tipo_processo, tipo_participacao, audiencias;
+				processo.setId(resultSet.getInt("id"));
+				processo.setStatus(resultSet.getBoolean("status"));
+				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
+				processo.setNumero(resultSet.getString("numero"));
+				processo.setClasse_judicial(resultSet.getString("classe_judicial"));
+				processo.setOrgao_julgador(resultSet.getString("orgao_julgador"));
+				processo.setComarca(resultSet.getString("comarca"));
+				processo.setDecisao(resultSet.getString("decisao"));
+				processo.setDescricao(resultSet.getString("descricao"));
+				processo.setFase(resultSet.getString("fase"));
+				processo.setTipo_processo(TipoProcesso.getTipo(resultSet.getString("tipo_processo")));
+				processo.setTipo_participacao(TipoParticipacao.getValue(resultSet.getString("tipo_participacao")));
 				
 				contrato = new Contrato();
+				
+				contrato.setId(resultSet.getInt("contrato_id"));
+				
 				processo.setContrato(contrato);
 				
 				processos.add(processo);			
 
 			}
-
-
 			this.conexao.close();			
 		} catch (Exception e) {
 			e.printStackTrace();

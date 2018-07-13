@@ -141,7 +141,7 @@ public class Fachada implements IFachada {
 
 	@Override
 	public Contrato buscarContratoPorId(int id) throws BusinessException {
-		return buscarContratoPorId(id);
+		return businessContrato.buscarPorId(id);
 	}
 
 	@Override
