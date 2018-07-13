@@ -15,6 +15,11 @@ public class Financeiro {
 	private List<Despesa> despesas;
 
 	
+	
+	public Financeiro(Integer id) {
+		this.id = id;
+	}
+
 	public Financeiro(Integer id, float total_despesas, float total_lucro, String ano_conerto, List<Contrato> contratos,
 			List<Receita> receitas, List<Despesa> despesas) {
 		super();

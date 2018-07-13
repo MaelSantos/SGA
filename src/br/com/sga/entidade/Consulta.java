@@ -81,8 +81,6 @@ public class Consulta {
 		this.id = id;
 	}
 
-
-
 	public Area getArea() {
 		return area;
 	}
@@ -127,6 +125,11 @@ public class Consulta {
 
 	public void setTestemunhas(List<Testemunha> testemunhas) {
 		this.testemunhas = testemunhas;
+	}
+	
+	@Override
+	public String toString() {
+		return "Area "+this.getArea().toString()+" Data "+ this.getData_consulta().toString();
 	}
 
 	

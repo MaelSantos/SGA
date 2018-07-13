@@ -35,7 +35,7 @@ public class Contrato {
 		this.consulta = consulta;
 		this.financeiro = financeiro;
 	}
-	
+
 
 	public Contrato(String objeto, float valor_total, TipoPagamento tipo_pagamento, Date data_contrato, Area area,
 			String dados_banco, List<Parte> partes, List<Parcela> parcelas, Consulta consulta,Financeiro financeiro) {

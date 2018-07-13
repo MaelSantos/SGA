@@ -27,6 +27,7 @@ public class SQLUtil {
 
     public static class Financeiro{
     	public static final String INSERT_ALL = "INSERT INTO FINANCEIRO(total_lucro,total_despesa,ano_coberto) VALUES(?,?,?)";
+    	public static final String BUSCAR_ANO= "SELECT ID FROM FINACEIRO WHERE ANO = ?";
     }
     
     public static class Receita{

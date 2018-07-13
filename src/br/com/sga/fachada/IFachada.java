@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
+import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Processo;
 import br.com.sga.exceptions.BusinessException;
@@ -40,4 +41,8 @@ public interface IFachada {
     public Processo buscarProcessoPorId(int id) throws BusinessException;
     public Processo buscarProcessoPorCodigo(String codigo) throws BusinessException;
     public List<Processo> buscarProcessoPorBusca(String busca) throws BusinessException;
+    
+    //financeiro
+    public void salvarEditarFinanceiro(Financeiro entidade) throws BusinessException;
+    public Financeiro buscarFinanceiroPorAno(Integer ano) throws BusinessException;
 }

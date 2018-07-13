@@ -15,6 +15,7 @@ import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Testemunha;
+import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoPagamento;
@@ -78,7 +79,7 @@ public class DaoContrato implements IDaoContrato{
 		for(int i =0 ; i < 10; i ++) {
 			Calendar c = Calendar.getInstance();
 			c.set(Calendar.MONTH,i);
-			parcelas.add(new Parcela(100.0f,c.getTime(),0.4f,0.1f,"tipo1","A receber"));
+			parcelas.add(new Parcela(100.0f,c.getTime(),0.4f,0.1f,"tipo1",Andamento.PENDENTE));
 		}
 		Consulta consulta = new Consulta();
 		consulta.setId(5); // criando consulta apenas para teste, esse id corresponde a uma consulta que cadastrei antes

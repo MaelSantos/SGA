@@ -11,6 +11,7 @@ import java.util.List;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Financeiro;
+import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Receita;
@@ -86,6 +87,28 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 	public List<Financeiro> buscarPorBusca(String busca) throws DaoException {
 		// TODO Stub de método gerado automaticamente
 		return null;
+	}
+	@Override
+	public Financeiro buscarPorAno(Integer ano) throws DaoException {
+		try {
+            this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Financeiro.BUSCAR_ANO);
+            statement.setInt(1,ano);
+            resultSet = statement.executeQuery();
+            Financeiro financeiro = null;
+            if(resultSet.next()) {
+            	financeiro = new Financeiro(resultSet.getInt("id"));
+            }else {
+            	throw new DaoException("ANO NÃO CADASTRADO A BASE");
+            }
+            this.connection.close();
+            this.statement.close();
+            this.resultSet.close();
+            return financeiro;	
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO BUSCAR FINANCEIRO - CONTATE O ADM");
+        }
 	}
 
 }

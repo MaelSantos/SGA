@@ -2,16 +2,20 @@ package br.com.sga.entidade;
 
 import java.util.Date;
 
+import br.com.sga.entidade.enums.Andamento;
+
 public class Parcela {
    
 	private Integer id; 
-	private float valor; 
+	private Float valor; 
 	private Date vencimento; 
-	private float juros; 
-	private float multa; 
+	private Float juros; 
+	private Float multa; 
 	private String tipo; 
-	private String estado;
-	public Parcela(Integer id, float valor, Date vencimento, float juros, float multa, String tipo, String estado) {
+	private Andamento estado;
+	public Integer dia_pagamento;
+	
+	public Parcela(Integer id, Float valor, Date vencimento, Float juros, Float multa, String tipo, Andamento estado) {
 		super();
 		this.id = id;
 		this.valor = valor;
@@ -21,7 +25,22 @@ public class Parcela {
 		this.tipo = tipo;
 		this.estado = estado;
 	}
-	public Parcela(float valor, Date vencimento, float juros, float multa, String tipo, String estado) {
+	
+	
+	
+	public Parcela(Float valor, Float juros, Float multa, String tipo, Andamento estado, Integer dia_pagamento) {
+		super();
+		this.valor = valor;
+		this.juros = juros;
+		this.multa = multa;
+		this.tipo = tipo;
+		this.estado = estado;
+		this.dia_pagamento = dia_pagamento;
+	}
+
+
+
+	public Parcela(Float valor, Date vencimento, Float juros, Float multa, String tipo, Andamento estado) {
 		super();
 		this.valor = valor;
 		this.vencimento = vencimento;
@@ -30,6 +49,9 @@ public class Parcela {
 		this.tipo = tipo;
 		this.estado = estado;
 	}
+
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -39,7 +61,7 @@ public class Parcela {
 	public float getValor() {
 		return valor;
 	}
-	public void setValor(float valor) {
+	public void setValor(Float valor) {
 		this.valor = valor;
 	}
 	public Date getVencimento() {
@@ -51,13 +73,13 @@ public class Parcela {
 	public float getJuros() {
 		return juros;
 	}
-	public void setJuros(float juros) {
+	public void setJuros(Float juros) {
 		this.juros = juros;
 	}
 	public float getMulta() {
 		return multa;
 	}
-	public void setMulta(float multa) {
+	public void setMulta(Float multa) {
 		this.multa = multa;
 	}
 	public String getTipo() {
@@ -66,10 +88,10 @@ public class Parcela {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public String getEstado() {
+	public Andamento getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(Andamento estado) {
 		this.estado = estado;
 	}
 	
