@@ -23,7 +23,7 @@ public class App extends Application{
 	static Scene menuScene;
 	
 	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
-	clientes, cadastroCliente, contatos, cadastroContrato, processo, cadastrarProcesso;
+	clientes, cadastroCliente, contatos, cadastroContrato, processo, cadastrarProcesso, detalhesProcesso;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -62,11 +62,8 @@ public class App extends Application{
 	
 	public static void changeStage(Tela tela)
 	{
-		
 		switch (tela) {
 		case login:
-			System.out.println("mudou a tela: "+tela);
-			System.out.println("loginScene: "+loginScene);
 			stage.setScene(loginScene);
 			stage.centerOnScreen();
 			
@@ -105,6 +102,8 @@ public class App extends Application{
 			return processo;
 		case cadastro_processo:
 			return cadastrarProcesso;
+		case detalhes_processo:
+			return detalhesProcesso;
 		default:
 			System.err.println("Valor Não Correspondente");
 			break;

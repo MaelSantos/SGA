@@ -167,12 +167,15 @@ public class ControleMenu implements Initializable, Ouvinte{
 		
 	}
 	@Override
-	public void atualizar(Tela tela, Funcionario funcionario) {
-		if(funcionario != null)
+	public void atualizar(Tela tela, Object object) {
+		if(object != null)
 		{
-			this.funcionario = funcionario;
-			String nome_completo =funcionario.getNome();
-			mnbNome.setText(nome_completo.substring(0,nome_completo.indexOf(" ")));			
+			if (object instanceof Funcionario) {
+				this.funcionario = (Funcionario) object;
+				String nome_completo = funcionario.getNome();
+				mnbNome.setText(nome_completo.substring(0,nome_completo.indexOf(" ")));
+			}
+						
 		}
 		atualizarTela(App.changePane(tela));
 	}

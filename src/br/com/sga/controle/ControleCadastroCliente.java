@@ -194,7 +194,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 
 
 	@Override
-	public void atualizar(Tela tela, Funcionario usuario) {
+	public void atualizar(Tela tela, Object object) {
 
 	}
 
