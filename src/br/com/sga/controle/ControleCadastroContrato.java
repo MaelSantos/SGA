@@ -46,17 +46,12 @@ import javafx.scene.input.DragEvent;
 
 public class ControleCadastroContrato {
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField valorTotalField;
 
     @FXML
-    private TextField quantidadeParcelaField;
+    private ComboBox<Integer> quantidadeParcelasBox;
 
     @FXML
     private TextField nomeClienteField;
@@ -69,9 +64,6 @@ public class ControleCadastroContrato {
 
     @FXML
     private TextArea dadosBancoArea;
-
-    @FXML
-    private ComboBox<String> areaBox;
 
     @FXML
     private TextField objetoField;
@@ -139,9 +131,11 @@ public class ControleCadastroContrato {
     	if(event.getSource() == tipoPagamamentoBox) {
     		if(!tipoPagamamentoBox.getSelectionModel().getSelectedItem().equals(TipoPagamento.A_VISTA.toString())) {
     		     dadosBancoArea.setVisible(true);
+    		     quantidadeParcelasBox.setVisible(true);
     		}else {
-    			dadosBancoArea.setText("");
+    			 dadosBancoArea.setText("");
     		     dadosBancoArea.setVisible(false);
+    		     quantidadeParcelasBox.setVisible(false);
     		}
     	}
     	else if(event.getSource() == buscarConsultaButton)
@@ -200,13 +194,13 @@ public class ControleCadastroContrato {
 	    	valor_total = Float.parseFloat(valorTotalField.getText().trim());
 	    	juros = Float.parseFloat(jurosField.getText());
 	    	multa = Float.parseFloat(multaField.getText());
-	    	quantidade_parcelas = Integer.parseInt(quantidadeParcelaField.getText().trim());
+	    	quantidade_parcelas = quantidadeParcelasBox.getSelectionModel().getSelectedItem();
+	    	
     	}catch (NumberFormatException e) {
     		Alerta.getInstance().showMensagem("Alerta","","Entrada invalida para campos numericos ");
     		return;
     	}
     	Integer dia_pagamento = diaPagamentoBox.getSelectionModel().getSelectedItem();
-    	Area area = Area.getArea(areaBox.getSelectionModel().getSelectedItem());
     	TipoPagamento tipo_pagamento = TipoPagamento.getTipoPagamento(tipoPagamamentoBox.getSelectionModel().getSelectedItem());
     	
     	// pegandoa data caso esteja selecionado a data atual a data do date picker é desconsiderada
@@ -223,6 +217,8 @@ public class ControleCadastroContrato {
     	String dados_banco = "";
     	if(tipo_pagamento != TipoPagamento.A_VISTA)
     		dados_banco = dadosBancoArea.getText().trim();
+    	else
+    		quantidade_parcelas = 1;
     	
     	// pegando lista de partes
     	List<br.com.sga.entidade.Parte> partes = new ArrayList<>();
@@ -244,9 +240,9 @@ public class ControleCadastroContrato {
 		// pegando id do contrato referente ao ano corrente
     	if(nomeConsultaField.getText().trim().length() > 0) {
 			if(data_contrato != null) {
-				if(objeto.length()>0 || area != null || tipo_pagamento != null || dia_pagamento != null)
+				if(objeto.length()>0  || tipo_pagamento != null || dia_pagamento != null)
 					try {
-						fachada.salvarEditarContrato(new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, area, dados_banco, partes,parcelas, consulta,financeiro));
+						fachada.salvarEditarContrato(new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, consulta.getArea(), dados_banco, partes,parcelas, consulta,financeiro));
 						Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
 					} catch (BusinessException e1) {
 						e1.printStackTrace();
@@ -288,8 +284,6 @@ public class ControleCadastroContrato {
     		tipoParteBox.getItems().add(tipo.toString());
     	for(TipoParticipacao tipo : TipoParticipacao.values())
     		tipoParticipcaoBox.getItems().add(tipo.toString());
-    	for(Area tipo : Area.values())
-    		areaBox.getItems().add(tipo.toString());
     	for(int i = 1 ; i <=31 ; i ++)
     		diaPagamentoBox.getItems().add(i);
     	
