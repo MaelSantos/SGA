@@ -130,7 +130,8 @@ public class ControleMenu implements Initializable, Ouvinte{
     	if(event.getSource() == cadastrarContratoButton)
 			atualizarTela(App.changePane(Tela.cadastro_contrato));
     	else if(event.getSource() == editarContratoButton) {}
-    	else if(event.getSource() == buscarContratoButton) {}
+    	else if(event.getSource() == buscarContratoButton) 
+    		atualizarTela(App.changePane(Tela.buscar_contrato));
     	else if(event.getSource() == fecharContratoButton) {}
     }
 	

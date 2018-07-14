@@ -108,12 +108,6 @@ public class DaoContrato implements IDaoContrato{
 	}
 
 	@Override
-	public Contrato buscarPorCodigo(String codigo) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
-	}
-
-	@Override
 	public List<Contrato> buscarPorBusca(String busca) throws DaoException {
 		// TODO Stub de método gerado automaticamente
 		return null;

@@ -48,16 +48,6 @@ public class BusinessProcesso implements IBusinessProcesso{
 	}
 
 	@Override
-	public Processo buscarPorCodigo(String codigo) throws BusinessException {
-		try {
-			return daoProcesso.buscarPorCodigo(codigo);
-		} catch (DaoException e) {
-			e.printStackTrace();
-			throw new BusinessException(e.getMessage());
-		}
-	}
-
-	@Override
 	public List<Processo> buscarPorBusca(String busca) throws BusinessException {
 		try {
 			return daoProcesso.buscarPorBusca(busca);

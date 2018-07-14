@@ -30,7 +30,6 @@ public class Carregar implements Initializable{
 	public Pane carregarArquivo(String caminho) throws IOException
 	{
 		Pane pane = FXMLLoader.load(getClass().getResource(caminho));
-
 		this.texto = caminho;
 		return pane;
 	}
@@ -124,6 +123,11 @@ public class Carregar implements Initializable{
                 		updateMessage(texto);
                 		porcentagem = 1;
                 		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		// para att progesso referente dps
+                		App.buscarContrato = carregarArquivo("../view/BuscarContrato.fxml");
+                		updateMessage(texto);
                 		System.out.println(texto);
                 		
                 		App.detalhesProcesso = carregarArquivo("../view/DetalhesProcesso.fxml");

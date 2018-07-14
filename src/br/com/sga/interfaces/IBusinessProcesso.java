@@ -9,7 +9,6 @@ public interface IBusinessProcesso {
 
 	public void salvarEditar(Processo entidade) throws BusinessException;
     public Processo buscarPorId(int id) throws BusinessException;
-    public Processo buscarPorCodigo(String codigo) throws BusinessException;
     public List<Processo> buscarPorBusca(String busca) throws BusinessException;
 	
 }

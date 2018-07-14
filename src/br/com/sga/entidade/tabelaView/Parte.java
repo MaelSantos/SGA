@@ -2,8 +2,6 @@ package br.com.sga.entidade.tabelaView;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class Parte {
 	private final SimpleStringProperty nome;

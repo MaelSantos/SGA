@@ -42,12 +42,6 @@ public class BusinessUsuario implements IBusinessUsuario {
 	}
 
 	@Override
-	public Funcionario buscarPorCodigo(String codigo) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		return null;
-	}
-
-	@Override
 	public List<Funcionario> buscarPorBusca(String busca) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;

@@ -17,13 +17,11 @@ public interface IFachada {
 	public Funcionario buscarPorLogin(String login, String senha) throws BusinessException;
 	public void salvarEditarUsuario(Funcionario usuario) throws BusinessException;
     public Funcionario buscarUsuarioPorId(int id) throws BusinessException;
-    public Funcionario buscarUsuarioPorCodigo(String codigo) throws BusinessException;
     public List<Funcionario> buscarUsuarioPorBusca(String busca) throws BusinessException;
 
     //cliente
     public void salvarEditarCliente(Cliente cliente)throws BusinessException;
     public Cliente buscarClientePorId(int id) throws BusinessException;
-    public Cliente buscarClientePorCodigo(String codigo) throws BusinessException;
     public List<Cliente> buscarClientePorBusca(String busca) throws BusinessException;
     
     // consulta
@@ -33,13 +31,11 @@ public interface IFachada {
     //contrato
     public void salvarEditarContrato(Contrato entidade) throws BusinessException;
     public Contrato buscarContratoPorId(int id) throws BusinessException;
-    public Contrato buscarContratoPorCodigo(String codigo) throws BusinessException;
     public List<Contrato> buscarContratoPorBusca(String busca) throws BusinessException;
     
     //processo
     public void salvarEditarProcesso(Processo entidade) throws BusinessException;
     public Processo buscarProcessoPorId(int id) throws BusinessException;
-    public Processo buscarProcessoPorCodigo(String codigo) throws BusinessException;
     public List<Processo> buscarProcessoPorBusca(String busca) throws BusinessException;
     
     //financeiro

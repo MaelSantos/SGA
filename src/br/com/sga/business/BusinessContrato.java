@@ -62,16 +62,6 @@ public class BusinessContrato implements IBusinessContrato {
 	}
 
 	@Override
-	public Contrato buscarPorCodigo(String codigo) throws BusinessException {
-		try {
-			return daoContrato.buscarPorCodigo(codigo);
-		} catch (DaoException e) {
-			e.printStackTrace();
-			throw new BusinessException(e.getMessage());
-		}
-	}
-
-	@Override
 	public List<Contrato> buscarPorBusca(String busca) throws BusinessException {
 		try {
 			return daoContrato.buscarPorBusca(busca);
