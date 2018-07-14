@@ -57,7 +57,7 @@ public class ControleCadastroContrato {
     private TextField nomeClienteField;
 
     @FXML
-    private TextField nomeConsultaField;
+    private ComboBox<String> consultaBox;
 
     @FXML
     private ComboBox<String> tipoPagamamentoBox;
@@ -146,7 +146,7 @@ public class ControleCadastroContrato {
     		removerParte();
     	else if(gerarDocumentoButton == event.getSource()) {}
     	else if(salvarContratoButton == event.getSource())
-    		salvarProcesso();
+    		salvarContrato();
     	
     }
     
@@ -173,7 +173,7 @@ public class ControleCadastroContrato {
     		
     }
     
-    private void salvarProcesso() {
+    private void salvarContrato() {
     	Financeiro financeiro = null;
     	try {
 			financeiro = fachada.buscarFinanceiroPorAno( Calendar.getInstance().get(Calendar.YEAR));
@@ -184,7 +184,7 @@ public class ControleCadastroContrato {
 		}
     	// pegando valores da tela
     	String objeto = objetoField.getText().trim();
-    	String dados_consulta = nomeConsultaField.getText().trim();
+    	String dados_consulta = consultaBox.getSelectionModel().getSelectedItem();
     	Float valor_total = null;
     	Float juros = null;
     	Float multa = null;
@@ -225,11 +225,6 @@ public class ControleCadastroContrato {
     	for(br.com.sga.entidade.tabelaView.Parte  e : parteTableView.getItems())
     		partes.add(new br.com.sga.entidade.Parte(TipoParte.getTipoParte(e.getTipo_parte()),TipoParticipacao.getValue(e.getTipo_participacao()),e.getNome()));
     	
-    	//gerando as parecelas
-    	List<Parcela> parcelas = new ArrayList<>();
-    	for(int i =0 ; i < quantidade_parcelas; i ++)
-    		parcelas.add(new Parcela((Float)(valor_total/quantidade_parcelas),juros, multa,"CONTRATO",Andamento.PENDENTE,dia_pagamento));
-    	
     	// pegando consulta selecionada
     	Consulta consulta = null;
     	for(Consulta e :consultas) {
@@ -238,10 +233,15 @@ public class ControleCadastroContrato {
     		}
     	}
 		// pegando id do contrato referente ao ano corrente
-    	if(nomeConsultaField.getText().trim().length() > 0) {
+    	if(dados_consulta != null) {
 			if(data_contrato != null) {
-				if(objeto.length()>0  || tipo_pagamento != null || dia_pagamento != null)
+				if(objeto.length()>0  || tipo_pagamento != null || dia_pagamento != null || quantidade_parcelas != null)
 					try {
+						//gerando as parecelas
+				    	List<Parcela> parcelas = new ArrayList<>();
+				    	for(int i =0 ; i < quantidade_parcelas; i ++)
+				    		parcelas.add(new Parcela((Float)(valor_total/quantidade_parcelas),juros, multa,"CONTRATO",Andamento.PENDENTE,dia_pagamento));
+				    	
 						fachada.salvarEditarContrato(new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, consulta.getArea(), dados_banco, partes,parcelas, consulta,financeiro));
 						Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
 					} catch (BusinessException e1) {
@@ -260,12 +260,13 @@ public class ControleCadastroContrato {
 		String dadoBusca = nomeClienteField.getText().trim();
 		if(dadoBusca.length() >0)
 			try {
+				consultaBox.getItems().clear();
 				consultas = Fachada.getInstance().buscarConsultaPorCliente(dadoBusca);
 				ArrayList<String> feedBack = new ArrayList<>();
 				for(Consulta e : consultas)
 					feedBack.add(e.toString());
 				System.out.println(feedBack);
-				TextFields.bindAutoCompletion(nomeConsultaField,feedBack);
+				consultaBox.getItems().addAll(feedBack);
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Alerta","",e.getMessage());
@@ -284,8 +285,10 @@ public class ControleCadastroContrato {
     		tipoParteBox.getItems().add(tipo.toString());
     	for(TipoParticipacao tipo : TipoParticipacao.values())
     		tipoParticipcaoBox.getItems().add(tipo.toString());
-    	for(int i = 1 ; i <=31 ; i ++)
+    	for(int i = 1 ; i <=28 ; i ++)
     		diaPagamentoBox.getItems().add(i);
+    	for(int i = 1 ; i <=12 ; i ++)
+    		quantidadeParcelasBox.getItems().add(i);
     	
     	selecionadoParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("selecionado"));
         nomeParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
