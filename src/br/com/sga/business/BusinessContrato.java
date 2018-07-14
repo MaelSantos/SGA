@@ -75,4 +75,14 @@ public class BusinessContrato implements IBusinessContrato {
 		
 	}
 
+	@Override
+	public List<Contrato> buscarPorCliente(String busca) throws BusinessException {
+		try {
+			return daoContrato.buscaPorCliente(busca);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
 }

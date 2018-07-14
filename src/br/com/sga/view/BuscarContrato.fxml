@@ -25,8 +25,8 @@
                 <TableColumn fx:id="dataColumn" prefWidth="120.0" text="Data" />
                 <TableColumn fx:id="areaColumn" minWidth="9.0" prefWidth="123.0" text="Area" />
                   <TableColumn fx:id="objetivoColumn" minWidth="0.0" prefWidth="131.0" text="Objeto" />
-                  <TableColumn prefWidth="135.0" text="Tipo pagamento" />
-                  <TableColumn prefWidth="152.0" text="Dados Banco" />
+                  <TableColumn fx:id="tipo_pagamentoColumn" prefWidth="135.0" text="Tipo pagamento" />
+                  <TableColumn fx:id="dadosBancoColumn" prefWidth="152.0" text="Dados Banco" />
               </columns>
             </TableView>
          </children>

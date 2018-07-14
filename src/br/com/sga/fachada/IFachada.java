@@ -32,6 +32,7 @@ public interface IFachada {
     public void salvarEditarContrato(Contrato entidade) throws BusinessException;
     public Contrato buscarContratoPorId(int id) throws BusinessException;
     public List<Contrato> buscarContratoPorBusca(String busca) throws BusinessException;
+    public List<Contrato> buscarContratoPorCliente(String busca) throws BusinessException;
     
     //processo
     public void salvarEditarProcesso(Processo entidade) throws BusinessException;

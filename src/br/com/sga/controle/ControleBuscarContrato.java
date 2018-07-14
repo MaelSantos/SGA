@@ -1,6 +1,11 @@
 package br.com.sga.controle;
 
-import br.com.sga.entidade.tabelaView.Contrato;
+import java.util.List;
+
+import br.com.sga.exceptions.BusinessException;
+import br.com.sga.fachada.Fachada;
+import br.com.sga.fachada.IFachada;
+import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,16 +24,16 @@ public class ControleBuscarContrato {
     private Button buscarButton;
 
     @FXML
-    private TableView<Contrato> contratosTableView;
+    private TableView<br.com.sga.entidade.tabelaView.Contrato> contratosTableView;
 
     @FXML
-    private TableColumn<Contrato, String> dataColumn;
+    private TableColumn<br.com.sga.entidade.tabelaView.Contrato, String> dataColumn;
 
     @FXML
-    private TableColumn<Contrato, String> areaColumn;
+    private TableColumn<br.com.sga.entidade.tabelaView.Contrato, String> areaColumn;
 
     @FXML
-    private TableColumn<Contrato, String> objetivoColumn;
+    private TableColumn<br.com.sga.entidade.tabelaView.Contrato, String> objetivoColumn;
 
     @FXML
     private AnchorPane paneBusca;
@@ -36,16 +41,32 @@ public class ControleBuscarContrato {
     @FXML
     private AnchorPane paneDetalhes;
 
+    private IFachada fachada;	
+    
     @FXML
     void actionButton(ActionEvent event) {
-    	
+    	if(event.getSource() == buscarButton) {
+    		String busca = buscarField.getText().trim();
+    		if(busca.length() >0)
+				try {
+					List<br.com.sga.entidade.Contrato> contratos =fachada.buscarContratoPorCliente(busca);
+					for(br.com.sga.entidade.Contrato e : contratos) {
+						contratosTableView.getItems().add(new br.com.sga.entidade.tabelaView.Contrato(e.getData_contrato().toString(),
+								e.getArea().toString(),e.getObjeto()));
+					}
+				} catch (BusinessException e) {
+					e.printStackTrace();
+				}
+			else
+    			Alerta.getInstance().showMensagem("Alerta","","Campo de pesquisa vazio, entre com dado de cliente");
+    	}
     }
     @FXML
     void initialize() {
-    
+    	fachada = Fachada.getInstance();
     	dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
     	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
-    	objetivoColumn.setCellValueFactory( new PropertyValueFactory<>("objetivo"));
+    	objetivoColumn.setCellValueFactory( new PropertyValueFactory<>("objeto"));
     	
     	
     }

@@ -110,7 +110,41 @@ public class DaoContrato implements IDaoContrato{
 	@Override
 	public List<Contrato> buscarPorBusca(String busca) throws DaoException {
 		// TODO Stub de método gerado automaticamente
+		
 		return null;
+	
 	}
+	@Override
+	public List<Contrato> buscaPorCliente(String busca) throws DaoException {
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Contrato.BUSCA_POR_CLIENTE);
+            statement.setString(1,busca);
+            statement.setString(2,busca);
+            statement.setString(3,busca);
+            statement.setString(4,busca);
+            resultSet = statement.executeQuery();
+           
+            List<Contrato> lista = new ArrayList<>();
+            while(resultSet.next()) {
+            	lista.add(new Contrato(resultSet.getInt("id"),
+            			resultSet.getString("objeto"),resultSet.getFloat("valor_total"),
+            			TipoPagamento.getTipoPagamento(resultSet.getString("tipo_pagamento")),
+            			resultSet.getDate("data_contrato"),Area.getArea(resultSet.getString("area")),
+            			resultSet.getString("dados_banco")));
+            }if(lista.isEmpty()){
+            	throw new DaoException("Não existe contratos cadastrados com esse cliente");
+            }
+            this.connection.close();
+            this.statement.close();
+            this.resultSet.close();
+            return lista;
+		} catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO BUSCAR CONTRATOS DE CLIENTE - CONTATE O ADM");
+        }
+	}
+	
+	
 	
 }

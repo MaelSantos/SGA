@@ -148,4 +148,9 @@ public class Fachada implements IFachada {
 		return businessFinanceiro.buscarPorAno(ano);
 	}
 
+	@Override
+	public List<Contrato> buscarContratoPorCliente(String busca) throws BusinessException {
+		return businessContrato.buscarPorCliente(busca);
+	}
+
 }
