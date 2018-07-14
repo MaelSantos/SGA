@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.com.sga.entidade.enums.Tela;
 import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +24,7 @@ public class Carregar implements Initializable{
 	@FXML
 	private Label lblInformacao;
 
+	private Service<Object> servico;
 	private String texto = "...";
 	double porcentagem = 0.0;
 
@@ -35,76 +39,141 @@ public class Carregar implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		new LoaderThread().start();
+		servico = new Service<Object>() {
+            @Override
+            protected Task<Object> createTask() {
+                return new Task<Object>() {
+                    @Override
+                    protected Void call() throws Exception {
+                    	
+                    	Thread.sleep(300);
+                    	System.out.println("carregando...");
+                        updateMessage("...");
+                        
+                        App.login = carregarArquivo("../view/Login.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.077;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.cadastro = carregarArquivo("../view/Cadastro.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.154;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.menu = carregarArquivo("../view/Menu.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.231;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.informacoes = carregarArquivo("../view/Informacoes.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.308;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.perfil = carregarArquivo("../view/Perfil.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.385;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.editarPerfil = carregarArquivo("../view/EditarPerfil.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.462;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.configuracoes = carregarArquivo("../view/Configuracoes.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.539;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.clientes = carregarArquivo("../view/Clientes.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.616;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.cadastroCliente = carregarArquivo("../view/CadastroCliente.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.693;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.contatos = carregarArquivo("../view/Contatos.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.77;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.cadastroContrato = carregarArquivo("../view/CadastroContrato.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.847;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.processo = carregarArquivo("../view/Processo.fxml");
+                		updateMessage(texto);
+                		porcentagem = 0.924;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.cadastrarProcesso = carregarArquivo("../view/CadastroProcesso.fxml");
+                		updateMessage(texto);
+                		porcentagem = 1;
+                		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		App.loginScene = new Scene(App.login);
+                		App.menuScene = new Scene(App.menu);
+
+                		return null;
+                    }
+                    @Override
+                    protected void succeeded() {
+                    	super.succeeded();
+                    	App.changeStage(Tela.login);
+                    }
+                };
+                
+                
+            }
+        };
+        
+        //fazendo o bind (ligando) nas proprety
+        lblInformacao.textProperty().bind(servico.messageProperty());
+        pgbCarregar.progressProperty().bind(servico.progressProperty());
+        //precisa inicializar o Service
+        servico.start();
+        
+//		new LoaderThread().start();
+    
+        
 	}
 
-	public void preCarregar() throws Exception
-	{	
-		System.out.println("carregando...");
-		App.login = carregarArquivo("../view/Login.fxml");
-		porcentagem = 0.083;
-		App.cadastro = carregarArquivo("../view/Cadastro.fxml");
-		porcentagem = 0.166;
-		App.menu = carregarArquivo("../view/Menu.fxml");
-		porcentagem = 0.249;
-		App.informacoes = carregarArquivo("../view/Informacoes.fxml");
-		porcentagem = 0.332;
-		App.perfil = carregarArquivo("../view/Perfil.fxml");
-		porcentagem = 0.415;
-		App.editarPerfil = carregarArquivo("../view/EditarPerfil.fxml");
-		porcentagem = 0.498;
-		App.configuracoes = carregarArquivo("../view/Configuracoes.fxml");
-		porcentagem = 0.581;
-		App.clientes = carregarArquivo("../view/Clientes.fxml");
-		porcentagem = 0.664;
-		App.cadastroCliente = carregarArquivo("../view/CadastroCliente.fxml");
-		porcentagem = 0.747;
-		App.contatos = carregarArquivo("../view/Contatos.fxml");
-		porcentagem = 0.83;
-		App.cadastroContrato = carregarArquivo("../view/CadastroContrato.fxml");
-		porcentagem = 0.913;
-		App.processo = carregarArquivo("../view/Processo.fxml");
-		porcentagem = 1;
-		App.cadastrarProcesso = carregarArquivo("../view/Cadastro Processo.fxml");
-
-		App.loginScene = new Scene(App.login);
-		App.menuScene = new Scene(App.menu);
-		
-	}
-
-	public class LoaderThread extends Thread {
-
-		@Override
-		public void run() {
-
-			Platform.runLater(new Runnable() {
-
-				@Override
-				public void run() {
-					while(porcentagem < 1)
-					{
-						try {
-							Thread.sleep(50);
-							System.out.println(porcentagem);
-							System.out.println(texto);
-							lblInformacao.setText(texto);
-							pgbCarregar.setProgress(porcentagem*10);
-
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-
-					}
-				}
-			});
-
-			try {
-				preCarregar();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
+//	public class LoaderThread extends Thread {
+//
+//		@Override
+//		public void run() {
+//
+////			while(porcentagem <= 1)
+////			{
+//				System.out.println("no while");
+	//fazendo o bind (ligando) nas proprety
+//    lblInformacao.textProperty().bind(servico.messageProperty());
+//    pgbCarregar.progressProperty().bind(servico.progressProperty());
+//    //precisa inicializar o Service
+//    servico.start();
+//    
+////			}
+//				servico.cancel();
+//			System.out.println("fora while");
+//			
+//		}
+//	}
 
 }

@@ -4,13 +4,19 @@ import java.util.Date;
 
 public class Audiencia {
 
-	private Integer id;
-	private String status; // possivel enum
-	private String vara; // possivel enum
-	private String orgao; // possivel enum
-	private String tipo; // possivel enum
-	private Date data_audiencia;
+	private Integer id; //id SERIAL PRIMARY KEY,
+	private String status; //status VARCHAR(255), possivel enum
+	private String vara; //vara VARCHAR(255) NOT NULL, possivel enum
+	private String orgao; //orgao VARCHAR(255) NOT NULL possivel enum
+	private String tipo; //tipo VARCHAR(255) NOT NULL,  possivel enum
+	private Date data_audiencia; //data_audiencia DATE,
 	
+	private Processo processo; //processo_id  INTEGER REFERENCES PROCESSO(id),
+	
+	 public Audiencia() {
+		
+	}
+	 
 	public Audiencia(Integer id, String status, String vara, String orgao, String tipo, Date data_audiencia) {
 		this.id = id;
 		this.status = status;
@@ -20,16 +26,13 @@ public class Audiencia {
 		this.data_audiencia = data_audiencia;
 	}
 	
-
 	public Audiencia(String status, String vara, String orgao, String tipo, Date data_audiencia) {
-		super();
 		this.status = status;
 		this.vara = vara;
 		this.orgao = orgao;
 		this.tipo = tipo;
 		this.data_audiencia = data_audiencia;
 	}
-
 
 	public Integer getId() {
 		return id;
