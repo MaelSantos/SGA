@@ -97,11 +97,6 @@ public class DaoProcesso implements IDaoProcesso {
 		return null;
 	}
 
-	@Override
-	public Processo buscarPorCodigo(String codigo) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
-	}
 
 	@Override
 	public List<Processo> buscarPorBusca(String busca) throws DaoException {

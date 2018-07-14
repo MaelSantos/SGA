@@ -77,11 +77,6 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 		return null;
 	}
 
-	@Override
-	public Financeiro buscarPorCodigo(String codigo) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
-	}
 
 	@Override
 	public List<Financeiro> buscarPorBusca(String busca) throws DaoException {

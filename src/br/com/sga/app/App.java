@@ -23,26 +23,13 @@ public class App extends Application{
 	static Scene menuScene;
 	
 	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
-	clientes, cadastroCliente, contatos, cadastroContrato, processo, cadastrarProcesso, detalhesProcesso;
+	clientes, cadastroCliente, contatos, cadastroContrato, processo, cadastrarProcesso, detalhesProcesso
+	,buscarContrato;
 	
 	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage stage) throws Exception {
 		this.stage = stage;
-		
-//		login = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
-//		cadastro = FXMLLoader.load(getClass().getResource("../view/Cadastro.fxml"));
-//		menu = FXMLLoader.load(getClass().getResource("../view/Menu.fxml"));
-//		informacoes = FXMLLoader.load(getClass().getResource("../view/Informacoes.fxml"));
-//		perfil = FXMLLoader.load(getClass().getResource("../view/Perfil.fxml"));
-//		editarPerfil = FXMLLoader.load(getClass().getResource("../view/EditarPerfil.fxml"));
-//		configuracoes = FXMLLoader.load(getClass().getResource("../view/Configuracoes.fxml"));
-//		clientes = FXMLLoader.load(getClass().getResource("../view/Clientes.fxml"));
-//		cadastroCliente = FXMLLoader.load(getClass().getResource("../view/CadastroCliente.fxml"));
-//		contatos = FXMLLoader.load(getClass().getResource("../view/Contatos.fxml"));
-//		cadastroContrato = FXMLLoader.load(getClass().getResource("../view/CadastroContrato.fxml"));
-//		processo = FXMLLoader.load(getClass().getResource("../view/Processo.fxml"));
-//		cadastrarProcesso = FXMLLoader.load(getClass().getResource("../view/CadastroProcesso.fxml"));
 		
 		stage.centerOnScreen();
 		Parent parent = FXMLLoader.load(getClass().getResource("../view/Carregar.fxml"));
@@ -52,12 +39,6 @@ public class App extends Application{
 		stage.centerOnScreen();
 		stage.setTitle("SGA - Sistema De Gerenciamento Advocativo");
 		stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(("Icon.png"))));
-//		loginScene = new Scene(login);
-//		menuScene = new Scene(menu);
-		
-//		stage.setScene(loginScene);
-//		stage.centerOnScreen();
-		
 	}
 	
 	public static void changeStage(Tela tela)
@@ -104,6 +85,8 @@ public class App extends Application{
 			return cadastrarProcesso;
 		case detalhes_processo:
 			return detalhesProcesso;
+		case buscar_contrato:
+			return buscarContrato;
 		default:
 			System.err.println("Valor Não Correspondente");
 			break;

@@ -281,7 +281,7 @@ public class DaoCliente implements IDaoCliente {
 		try {
 			
 			BusinessCliente.getInstance().salvar(cliente);
-			System.out.println("Cliente: "+BusinessCliente.getInstance().buscarPorCodigo(cliente.getCpf_cnpj()));
+		//	System.out.println("Cliente: "+BusinessCliente.getInstance().buscarPorCodigo(cliente.getCpf_cnpj()));
 			
 		} catch (BusinessException e) {
 			e.printStackTrace();

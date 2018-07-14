@@ -35,7 +35,18 @@ public class Contrato {
 		this.consulta = consulta;
 		this.financeiro = financeiro;
 	}
-
+	
+	public Contrato(Integer id, String objeto, float valor_total, TipoPagamento tipo_pagamento, Date data_contrato,
+			Area area, String dados_banco) {
+		super();
+		this.id = id;
+		this.objeto = objeto;
+		this.valor_total = valor_total;
+		this.tipo_pagamento = tipo_pagamento;
+		this.data_contrato = data_contrato;
+		this.area = area;
+		this.dados_banco = dados_banco;
+	}
 
 	public Contrato(String objeto, float valor_total, TipoPagamento tipo_pagamento, Date data_contrato, Area area,
 			String dados_banco, List<Parte> partes, List<Parcela> parcelas, Consulta consulta,Financeiro financeiro) {

@@ -12,8 +12,6 @@ public interface IBussinessCliente {
 
 	public Cliente buscarPorId(int id) throws BusinessException;
 
-	public Cliente buscarPorCodigo(String codigo) throws BusinessException;
-
 	public List<Cliente> buscarPorBusca(String busca) throws BusinessException;
 	
 }

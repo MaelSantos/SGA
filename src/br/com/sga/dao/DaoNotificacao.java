@@ -91,11 +91,6 @@ public class DaoNotificacao implements IDaoNotificacao {
 		return null;
 	}
 
-	@Override
-	public Notificacao buscarPorCodigo(String codigo) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
-	}
 
 	@Override
 	public List<Notificacao> buscarPorBusca(String busca) throws DaoException {

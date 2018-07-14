@@ -127,7 +127,7 @@ public class ControleCadastroProcesso extends Controle{
 			processo.setTipo_participacao(cbxParticipacao.getValue());
 			processo.setTipo_processo(cbxTipoProcesso.getValue());
 			
-			processo.setContrato(fachada.buscarContratoPorCodigo(tfdContrato.getText().trim()));
+			//processo.setContrato(fachada.buscarContratoPorCodigo(tfdContrato.getText().trim()));
 
 		} catch (Exception e) {
 

@@ -121,11 +121,6 @@ public class DaoUsuario implements IDaoUsuario{
 		return null;
 	}
 
-	@Override
-	public Funcionario buscarPorCodigo(String codigo) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
-	}
 
 	@Override
 	public List<Funcionario> buscarPorBusca(String busca) throws DaoException {

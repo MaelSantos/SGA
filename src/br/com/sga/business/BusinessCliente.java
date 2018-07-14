@@ -54,16 +54,6 @@ public class BusinessCliente implements IBussinessCliente{
 	}
 
 	@Override
-	public Cliente buscarPorCodigo(String codigo) throws BusinessException{
-		
-		try {
-			return daoCliente.buscarPorCodigo(codigo);
-		} catch (DaoException e) {
-			throw new BusinessException(e.getMessage());
-		}
-	}
-
-	@Override
 	public List<Cliente> buscarPorBusca(String busca) throws BusinessException{
 		try {
 			return daoCliente.buscarPorBusca(busca);

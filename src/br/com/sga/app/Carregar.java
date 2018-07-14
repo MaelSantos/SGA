@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.sga.entidade.enums.Tela;
-import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -31,7 +30,6 @@ public class Carregar implements Initializable{
 	public Pane carregarArquivo(String caminho) throws IOException
 	{
 		Pane pane = FXMLLoader.load(getClass().getResource(caminho));
-
 		this.texto = caminho;
 		return pane;
 	}
@@ -46,7 +44,6 @@ public class Carregar implements Initializable{
                     @Override
                     protected Void call() throws Exception {
                     	
-                    	Thread.sleep(300);
                     	System.out.println("carregando...");
                         updateMessage("...");
                         
@@ -126,6 +123,11 @@ public class Carregar implements Initializable{
                 		updateMessage(texto);
                 		porcentagem = 1;
                 		updateProgress(porcentagem, 1);
+                		System.out.println(texto);
+                		
+                		// para att progesso referente dps
+                		App.buscarContrato = carregarArquivo("../view/BuscarContrato.fxml");
+                		updateMessage(texto);
                 		System.out.println(texto);
                 		
                 		App.detalhesProcesso = carregarArquivo("../view/DetalhesProcesso.fxml");

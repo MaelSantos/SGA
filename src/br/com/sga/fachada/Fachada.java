@@ -69,10 +69,6 @@ public class Fachada implements IFachada {
 		return businessUsuario.buscarPorId(id);
 	}
 
-	@Override
-	public Funcionario buscarUsuarioPorCodigo(String codigo) throws BusinessException {
-		return businessUsuario.buscarPorCodigo(codigo);
-	}
 
 	@Override
 	public List<Funcionario> buscarUsuarioPorBusca(String busca) throws BusinessException {
@@ -89,10 +85,6 @@ public class Fachada implements IFachada {
 		return businessCliente.buscarPorId(id);
 	}
 
-	@Override
-	public Cliente buscarClientePorCodigo(String codigo) throws BusinessException {
-		return businessCliente.buscarPorCodigo(codigo);
-	}
 
 	@Override
 	public List<Cliente> buscarClientePorBusca(String busca) throws BusinessException {
@@ -123,10 +115,6 @@ public class Fachada implements IFachada {
 		return businessProcesso.buscarPorId(id);
 	}
 
-	@Override
-	public Processo buscarProcessoPorCodigo(String codigo) throws BusinessException {
-		return businessProcesso.buscarPorCodigo(codigo);
-	}
 
 	@Override
 	public List<Processo> buscarProcessoPorBusca(String busca) throws BusinessException {
@@ -144,10 +132,6 @@ public class Fachada implements IFachada {
 		return businessContrato.buscarPorId(id);
 	}
 
-	@Override
-	public Contrato buscarContratoPorCodigo(String codigo) throws BusinessException {
-		return businessContrato.buscarPorCodigo(codigo);
-	}
 
 	@Override
 	public List<Contrato> buscarContratoPorBusca(String busca) throws BusinessException {
@@ -162,6 +146,11 @@ public class Fachada implements IFachada {
 	@Override
 	public Financeiro buscarFinanceiroPorAno(Integer ano) throws BusinessException {
 		return businessFinanceiro.buscarPorAno(ano);
+	}
+
+	@Override
+	public List<Contrato> buscarContratoPorCliente(String busca) throws BusinessException {
+		return businessContrato.buscarPorCliente(busca);
 	}
 
 }

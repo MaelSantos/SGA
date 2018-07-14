@@ -111,11 +111,6 @@ public class DaoConsulta implements IDaoConsulta {
 	}
 
 	@Override
-	public Consulta buscarPorCodigo(String codigo) throws DaoException {
-		return null;
-	}
-
-	@Override
 	public List<Consulta> buscarPorBusca(String busca) throws DaoException {
 		return null;
 	}
