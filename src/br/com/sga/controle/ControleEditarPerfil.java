@@ -24,7 +24,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class ControleEditarPerfil implements Initializable{
+public class ControleEditarPerfil implements Initializable,Ouvinte{
 
     @FXML
     private TextField nomeField;
@@ -122,19 +122,7 @@ public class ControleEditarPerfil implements Initializable{
     @Override
   	public void initialize(URL location, ResourceBundle resources) {
   		fachada = Fachada.getInstance();
-    	App.addOuvinte(new Ouvinte() {
-  			@Override
-  			public void atualizar(Tela tela, Funcionario usuario) {
-  				if(usuario != null)
-  					funcionario = usuario;
-  				if(tela == Tela.editar_perfil) {
-  					nomeField.setPromptText(funcionario.getNome());
-  					emailField.setPromptText(funcionario.getEmail());
-  					loginField.setPromptText(funcionario.getLogin());
-  					numero_oabField.setPromptText(funcionario.getNumero_oab());
-  				}
-  			}
-  		});
+    	App.addOuvinte(this);
   		
   	}
     
@@ -208,4 +196,22 @@ public class ControleEditarPerfil implements Initializable{
 		}
 	
     }
+
+	@Override
+	public void atualizar(Tela tela, Object object) {
+		
+		if(object != null)
+		{
+			if (object instanceof Funcionario)
+				funcionario = (Funcionario) object;
+			if(tela == Tela.editar_perfil) {
+				nomeField.setPromptText(funcionario.getNome());
+				emailField.setPromptText(funcionario.getEmail());
+				loginField.setPromptText(funcionario.getLogin());
+				numero_oabField.setPromptText(funcionario.getNumero_oab());
+			}
+
+		}
+
+	}
 }

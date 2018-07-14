@@ -127,8 +127,12 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 	}
 
 	@Override
-	public void atualizar(Tela tela, Funcionario usuario) {
-		funcionario = usuario;
+	public void atualizar(Tela tela, Object usuario) {
+		if (usuario instanceof Funcionario) {
+			
+			funcionario = (Funcionario) usuario;
+			
+		}
 	}
 
 }

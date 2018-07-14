@@ -126,6 +126,8 @@ public class Carregar implements Initializable{
                 		updateProgress(porcentagem, 1);
                 		System.out.println(texto);
                 		
+                		App.detalhesProcesso = carregarArquivo("../view/DetalhesProcesso.fxml");
+                		
                 		App.loginScene = new Scene(App.login);
                 		App.menuScene = new Scene(App.menu);
 

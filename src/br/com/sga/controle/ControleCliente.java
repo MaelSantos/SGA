@@ -120,9 +120,13 @@ public class ControleCliente implements Initializable, Ouvinte{
 	}
 
 	@Override
-	public void atualizar(Tela tela, Funcionario usuario) {
+	public void atualizar(Tela tela, Object usuario) {
 		
-		this.funcionario = usuario;
+		if (usuario instanceof Funcionario) {
+			
+			this.funcionario = (Funcionario) usuario;
+			
+		}
 	}
 }
 

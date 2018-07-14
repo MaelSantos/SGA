@@ -85,13 +85,17 @@ public class ControleProcesso extends Controle{
 	private IFachada fachada;
 	
 	@FXML
+	private Button btnDetalhes;
+	
+	@FXML
 	public void actionButton(ActionEvent event) {
 
 		Object obj = event.getSource();
 		
 		if(obj == btnCadastrar)
 			App.notificarOuvintes(Tela.cadastro_processo);
-		
+		if(obj == btnDetalhes)
+			App.notificarOuvintes(Tela.detalhes_processo);
 	}
 
 	@Override
@@ -148,7 +152,7 @@ public class ControleProcesso extends Controle{
 	}
 
 	@Override
-	public void atualizar(Tela tela, Funcionario usuario) {
+	public void atualizar(Tela tela, Object object) {
 		
 		
 	}

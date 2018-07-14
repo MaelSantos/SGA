@@ -77,6 +77,11 @@
             </TableView>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
+                  <Button fx:id="btnDetalhes" mnemonicParsing="false" onAction="#actionButton" text="Detalhes Processo">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </Button>
                 <Button fx:id="btnCadastrar" mnemonicParsing="false" onAction="#actionButton" text="Cadastrar Processo">
                      <font>
                         <Font name="Verdana" size="12.0" />

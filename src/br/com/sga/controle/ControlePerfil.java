@@ -36,10 +36,13 @@ public class ControlePerfil extends Controle{
 	}
 
 	@Override
-	public void atualizar(Tela tela, Funcionario usuario) {
+	public void atualizar(Tela tela, Object usuario) {
 		if(usuario != null) {
-			funcionario = usuario;
-			lblNome.setText(funcionario.getNome());
+			if (usuario instanceof Funcionario) {
+				funcionario = (Funcionario) usuario;
+				lblNome.setText(funcionario.getNome());
+				
+			}
 		}
 		
 	}

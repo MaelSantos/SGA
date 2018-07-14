@@ -74,7 +74,7 @@ public class ControleContatos extends Controle {
 	}
 
 	@Override
-	public void atualizar(Tela tela, Funcionario usuario) {
+	public void atualizar(Tela tela, Object usuario) {
 		// TODO Stub de método gerado automaticamente
 		
 	}

@@ -37,12 +37,12 @@ public class ControleConfiguracoes implements Initializable,Ouvinte{
 	}
 
 	@Override
-	public void atualizar(Tela tela, Funcionario usuario) {
+	public void atualizar(Tela tela, Object usuario) {
 		if(usuario != null)
-		{
-			this.usuario = usuario;
-			lblNome.setText(this.usuario.getNome());			
-		}
-	}
+			if (usuario instanceof Funcionario) {
+				this.usuario = (Funcionario) usuario;
+				lblNome.setText(this.usuario.getNome());			
 
+			}
+	}
 }

@@ -137,7 +137,7 @@ public class DaoConsulta implements IDaoConsulta {
             			Area.getArea(resultSet.getString("area")),
             			resultSet.getDate("data_consulta")));
             }if(lista.isEmpty()){
-            	throw new DaoException("Não existe consultas para esse usuario com esses dados");
+            	throw new DaoException("Não existe consultas para esse usuario, com esses dados");
             }
             this.connection.close();
             this.statement.close();
