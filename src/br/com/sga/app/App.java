@@ -114,10 +114,9 @@ public class App extends Application{
 	
 	private static ArrayList<Ouvinte> ouvintes = new ArrayList<>();
 
-	public static void notificarOuvintes(Tela tela, Funcionario usuario) {
-		
+	public static void notificarOuvintes(Tela tela, Object object) {
 		for(Ouvinte ouvinte : ouvintes)
-			ouvinte.atualizar(tela, usuario);
+			ouvinte.atualizar(tela, object);
 	}
 	
 	public static void notificarOuvintes(Tela tela) {

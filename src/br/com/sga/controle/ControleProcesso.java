@@ -95,7 +95,7 @@ public class ControleProcesso extends Controle{
 		if(obj == btnCadastrar)
 			App.notificarOuvintes(Tela.cadastro_processo);
 		if(obj == btnDetalhes)
-			App.notificarOuvintes(Tela.detalhes_processo);
+			App.notificarOuvintes(Tela.detalhes_processo, tbl1Vara.getSelectionModel().getSelectedItem());
 	}
 
 	@Override

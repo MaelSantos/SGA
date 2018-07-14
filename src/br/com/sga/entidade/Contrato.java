@@ -149,7 +149,22 @@ public class Contrato {
 		this.partes = partes;
 	}
 	
+	@Override
+	public String toString() {
+		return "CLIENTE: ["+consulta.getCliente().getNome()+"] - DATA: ["+data_contrato+"] - VALOR: ["+valor_total+"]";
+	}
 	
-	
+	public static void main(String[] args) {
+		Contrato c = new Contrato();
+		
+		Consulta consulta = new Consulta();
+		consulta.setCliente(new Cliente("Mael", null));
+		
+		c.setConsulta(consulta);
+		c.setData_contrato(new Date());
+		c.setValor_total(10000);
+		
+		System.out.println(c);	
+	}
 
 }
