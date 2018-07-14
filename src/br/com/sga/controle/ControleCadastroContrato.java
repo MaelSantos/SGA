@@ -46,32 +46,24 @@ import javafx.scene.input.DragEvent;
 
 public class ControleCadastroContrato {
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField valorTotalField;
 
     @FXML
-    private TextField quantidadeParcelaField;
+    private ComboBox<Integer> quantidadeParcelasBox;
 
     @FXML
     private TextField nomeClienteField;
 
     @FXML
-    private TextField nomeConsultaField;
+    private ComboBox<String> consultaBox;
 
     @FXML
     private ComboBox<String> tipoPagamamentoBox;
 
     @FXML
     private TextArea dadosBancoArea;
-
-    @FXML
-    private ComboBox<String> areaBox;
 
     @FXML
     private TextField objetoField;
@@ -139,9 +131,11 @@ public class ControleCadastroContrato {
     	if(event.getSource() == tipoPagamamentoBox) {
     		if(!tipoPagamamentoBox.getSelectionModel().getSelectedItem().equals(TipoPagamento.A_VISTA.toString())) {
     		     dadosBancoArea.setVisible(true);
+    		     quantidadeParcelasBox.setVisible(true);
     		}else {
-    			dadosBancoArea.setText("");
+    			 dadosBancoArea.setText("");
     		     dadosBancoArea.setVisible(false);
+    		     quantidadeParcelasBox.setVisible(false);
     		}
     	}
     	else if(event.getSource() == buscarConsultaButton)
@@ -152,7 +146,7 @@ public class ControleCadastroContrato {
     		removerParte();
     	else if(gerarDocumentoButton == event.getSource()) {}
     	else if(salvarContratoButton == event.getSource())
-    		salvarProcesso();
+    		salvarContrato();
     	
     }
     
@@ -179,7 +173,7 @@ public class ControleCadastroContrato {
     		
     }
     
-    private void salvarProcesso() {
+    private void salvarContrato() {
     	Financeiro financeiro = null;
     	try {
 			financeiro = fachada.buscarFinanceiroPorAno( Calendar.getInstance().get(Calendar.YEAR));
@@ -190,7 +184,7 @@ public class ControleCadastroContrato {
 		}
     	// pegando valores da tela
     	String objeto = objetoField.getText().trim();
-    	String dados_consulta = nomeConsultaField.getText().trim();
+    	String dados_consulta = consultaBox.getSelectionModel().getSelectedItem();
     	Float valor_total = null;
     	Float juros = null;
     	Float multa = null;
@@ -200,13 +194,13 @@ public class ControleCadastroContrato {
 	    	valor_total = Float.parseFloat(valorTotalField.getText().trim());
 	    	juros = Float.parseFloat(jurosField.getText());
 	    	multa = Float.parseFloat(multaField.getText());
-	    	quantidade_parcelas = Integer.parseInt(quantidadeParcelaField.getText().trim());
+	    	quantidade_parcelas = quantidadeParcelasBox.getSelectionModel().getSelectedItem();
+	    	
     	}catch (NumberFormatException e) {
     		Alerta.getInstance().showMensagem("Alerta","","Entrada invalida para campos numericos ");
     		return;
     	}
     	Integer dia_pagamento = diaPagamentoBox.getSelectionModel().getSelectedItem();
-    	Area area = Area.getArea(areaBox.getSelectionModel().getSelectedItem());
     	TipoPagamento tipo_pagamento = TipoPagamento.getTipoPagamento(tipoPagamamentoBox.getSelectionModel().getSelectedItem());
     	
     	// pegandoa data caso esteja selecionado a data atual a data do date picker é desconsiderada
@@ -223,16 +217,13 @@ public class ControleCadastroContrato {
     	String dados_banco = "";
     	if(tipo_pagamento != TipoPagamento.A_VISTA)
     		dados_banco = dadosBancoArea.getText().trim();
+    	else
+    		quantidade_parcelas = 1;
     	
     	// pegando lista de partes
     	List<br.com.sga.entidade.Parte> partes = new ArrayList<>();
     	for(br.com.sga.entidade.tabelaView.Parte  e : parteTableView.getItems())
     		partes.add(new br.com.sga.entidade.Parte(TipoParte.getTipoParte(e.getTipo_parte()),TipoParticipacao.getValue(e.getTipo_participacao()),e.getNome()));
-    	
-    	//gerando as parecelas
-    	List<Parcela> parcelas = new ArrayList<>();
-    	for(int i =0 ; i < quantidade_parcelas; i ++)
-    		parcelas.add(new Parcela((Float)(valor_total/quantidade_parcelas),juros, multa,"CONTRATO",Andamento.PENDENTE,dia_pagamento));
     	
     	// pegando consulta selecionada
     	Consulta consulta = null;
@@ -242,11 +233,16 @@ public class ControleCadastroContrato {
     		}
     	}
 		// pegando id do contrato referente ao ano corrente
-    	if(nomeConsultaField.getText().trim().length() > 0) {
+    	if(dados_consulta != null) {
 			if(data_contrato != null) {
-				if(objeto.length()>0 || area != null || tipo_pagamento != null || dia_pagamento != null)
+				if(objeto.length()>0  || tipo_pagamento != null || dia_pagamento != null || quantidade_parcelas != null)
 					try {
-						fachada.salvarEditarContrato(new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, area, dados_banco, partes,parcelas, consulta,financeiro));
+						//gerando as parecelas
+				    	List<Parcela> parcelas = new ArrayList<>();
+				    	for(int i =0 ; i < quantidade_parcelas; i ++)
+				    		parcelas.add(new Parcela((Float)(valor_total/quantidade_parcelas),juros, multa,"CONTRATO",Andamento.PENDENTE,dia_pagamento));
+				    	
+						fachada.salvarEditarContrato(new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, consulta.getArea(), dados_banco, partes,parcelas, consulta,financeiro));
 						Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
 					} catch (BusinessException e1) {
 						e1.printStackTrace();
@@ -264,12 +260,13 @@ public class ControleCadastroContrato {
 		String dadoBusca = nomeClienteField.getText().trim();
 		if(dadoBusca.length() >0)
 			try {
+				consultaBox.getItems().clear();
 				consultas = Fachada.getInstance().buscarConsultaPorCliente(dadoBusca);
 				ArrayList<String> feedBack = new ArrayList<>();
 				for(Consulta e : consultas)
 					feedBack.add(e.toString());
 				System.out.println(feedBack);
-				TextFields.bindAutoCompletion(nomeConsultaField,feedBack);
+				consultaBox.getItems().addAll(feedBack);
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Alerta","",e.getMessage());
@@ -288,10 +285,10 @@ public class ControleCadastroContrato {
     		tipoParteBox.getItems().add(tipo.toString());
     	for(TipoParticipacao tipo : TipoParticipacao.values())
     		tipoParticipcaoBox.getItems().add(tipo.toString());
-    	for(Area tipo : Area.values())
-    		areaBox.getItems().add(tipo.toString());
-    	for(int i = 1 ; i <=31 ; i ++)
+    	for(int i = 1 ; i <=28 ; i ++)
     		diaPagamentoBox.getItems().add(i);
+    	for(int i = 1 ; i <=12 ; i ++)
+    		quantidadeParcelasBox.getItems().add(i);
     	
     	selecionadoParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("selecionado"));
         nomeParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
