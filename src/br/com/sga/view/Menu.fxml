@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu" prefHeight="620.0" prefWidth="900.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleMenu">
+<AnchorPane fx:id="menu" prefHeight="620.0" prefWidth="900.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleMenu">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -95,7 +95,7 @@
                         </Button>
                         <Accordion cache="true" style="-fx-background-color: teal;">
                            <panes>
-                            <TitledPane expanded="false" nodeOrientation="RIGHT_TO_LEFT" style="-fx-background-color: teal;" text="Contratos" textFill="WHITE">
+                            <TitledPane expanded="false" nodeOrientation="RIGHT_TO_LEFT" style="-fx-background-color: teal;" text="Contratos">
                                  <content>
                                     <VBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="0.0" spacing="5.0" style="-fx-background-color: teal;">
                                        <children>

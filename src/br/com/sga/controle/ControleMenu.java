@@ -94,7 +94,7 @@ public class ControleMenu implements Initializable, Ouvinte{
 	@FXML
 	public void actionButton(ActionEvent e)
 	{
-		if(e.getSource() == btnArea)
+		if(e.getSource() == btnArea) 
 			atualizarTela(App.changePane(Tela.perfil));
 		else if(e.getSource() == btnAgenda)
 			atualizarTela(App.changePane(Tela.agenda));
@@ -121,7 +121,7 @@ public class ControleMenu implements Initializable, Ouvinte{
 		else if(e.getSource() == btnConfiguracoes)
 			atualizarTela(App.changePane(Tela.configuracoes));
 		else if(e.getSource() == btnSair)
-			App.changeStage(Tela.login);//muda a tela
+			App.changeStage(Tela.login);
 	}
 	
 
@@ -171,7 +171,8 @@ public class ControleMenu implements Initializable, Ouvinte{
 		if(funcionario != null)
 		{
 			this.funcionario = funcionario;
-			mnbNome.setText(funcionario.getNome());			
+			String nome_completo =funcionario.getNome();
+			mnbNome.setText(nome_completo.substring(0,nome_completo.indexOf(" ")));			
 		}
 		atualizarTela(App.changePane(tela));
 	}
