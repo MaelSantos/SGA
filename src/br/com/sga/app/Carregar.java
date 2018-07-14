@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.com.sga.entidade.enums.Tela;
-import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -46,7 +45,6 @@ public class Carregar implements Initializable{
                     @Override
                     protected Void call() throws Exception {
                     	
-                    	Thread.sleep(300);
                     	System.out.println("carregando...");
                         updateMessage("...");
                         

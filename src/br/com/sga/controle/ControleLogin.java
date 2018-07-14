@@ -53,6 +53,8 @@ public class ControleLogin implements Initializable{
 			}catch (BusinessException e1) {
 				Alerta.getInstance().showMensagem("Dados Incorretos", "Login/Email Ou Senha Incorretos",e1.getMessage());
 			}
+			tfdLogin.setText("");
+			tfdSenha.setText("");
 		}
 
 		if(e.getSource() == btnSair)
