@@ -2,6 +2,7 @@ package br.com.sga.controle;
 
 import java.util.Date;
 
+import br.com.sga.app.App;
 import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
@@ -107,21 +108,37 @@ public class ControleDetalhesProcesso extends Controle {
 				tfdOrgao.setText(processo.getNumero());
 				tfdUsuario.setText(processo.getContrato().getConsulta().getCliente().getNome());
 				tfdValor.setText(processo.getContrato().getValor_total()+"");
+				
+				tblAudiencias.getItems().setAll(processo.getAudiencias());
+				
+				tblAtivo.getItems().clear();
+				tblPassivo.getItems().clear();
+				for(Parte p : processo.getContrato().getPartes())
+				{
+					if(p.getTipo_parte() == TipoParte.ATIVO)
+						tblAtivo.getItems().add(p);
+					if(p.getTipo_parte() == TipoParte.PASSIVO)
+						tblPassivo.getItems().add(p);
+				}
+				
 			} catch (BusinessException e) {
 				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
 			
 		}
-		
-		
 
 	}
 
 	@Override
 	public void actionButton(ActionEvent event) {
-		// TODO Stub de método gerado automaticamente
-
+		
+		Object obj = event.getSource();
+		
+		if(obj == btnAdd)
+			App.notificarOuvintes(Tela.cadastro_audiencia);
+		if(obj == btnVoltar)
+			App.notificarOuvintes(Tela.processos);
 	}
 
 	@Override

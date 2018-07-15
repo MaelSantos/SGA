@@ -13,6 +13,7 @@ import org.postgresql.jdbc2.ArrayAssistantRegistry;
 
 import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
@@ -95,8 +96,56 @@ public class DaoProcesso implements IDaoProcesso {
 
 	@Override
 	public Processo buscarPorId(int id) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		
+		try {
+
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Processo.SELECT_ID);
+			this.statement.setInt(1, id);
+
+			resultSet = this.statement.executeQuery();
+			
+			Processo processo = null;
+			Contrato contrato = null;
+			Consulta consulta = null;
+			Cliente cliente = null;
+			
+			if(resultSet.next()) {
+
+				processo = new Processo();				
+
+				processo.setId(resultSet.getInt(1));
+				processo.setNumero(resultSet.getString("numero"));
+				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
+				processo.setComarca(resultSet.getString("comarca"));
+				processo.setDecisao(resultSet.getString("decisao"));
+				
+				contrato = new Contrato();
+				contrato.setValor_total(resultSet.getFloat("valor_total"));
+				contrato.setId(resultSet.getInt("contrato_id"));
+				
+				consulta = new Consulta();
+				cliente = new Cliente();
+				cliente.setNome(resultSet.getString("nome"));
+				consulta.setCliente(cliente);
+				
+				contrato.setConsulta(consulta);
+				
+				contrato.setPartes(daoCommun.getPartes(contrato.getId()));
+				
+				processo.setContrato(contrato);
+				
+//				for(Audiencia a : daoCommun.a)
+			}
+			
+			this.conexao.close();
+			return processo;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("ERRO AO BUSCAR PROCESSO POR ID - CONTATE O ADM");
+		}
+
 	}
 
 	@Override

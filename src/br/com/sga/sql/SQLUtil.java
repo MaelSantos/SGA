@@ -9,6 +9,7 @@ public class SQLUtil {
     public static class Processo{
     	public static final String INSERT_ALL = "INSERT INTO PROCESSO(numero,tipo_participacao,tipo_processo,fase,descricao,decisao,comarca,orgao_julgador,classe_judicial,data_atuacao,status,contrato_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
     	public static final String SELECT_TIPO = "SELECT p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase FROM PROCESSO p WHERE p.tipo_processo = ?";
+    	public static final String SELECT_ID = "SELECT P.*,C.valor_total, E.nome FROM PROCESSO P, CONTRATO C,CONSULTA D, CLIENTE E WHERE P.ID = ? AND P.CONTRATO_ID=C.ID AND C.CONSULTA_ID=D.ID AND D.CLIENTE_ID = E.ID";
     
     }
     
