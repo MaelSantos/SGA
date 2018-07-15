@@ -5,19 +5,16 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
-import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Processo;
+import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoProcesso;
-import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
-import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -26,58 +23,58 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ControleProcesso extends Controle{
 
 	@FXML
-	private TableView<Processo> tbl1Vara;
+	private TableView<ProcessoAdapter> tbl1Vara;
 
 	@FXML
-	private TableColumn<Processo, Integer> colProcesso1;
+	private TableColumn<ProcessoAdapter, Integer> colProcesso1;
 
 	@FXML
-	private TableColumn<Processo, String> colComarca1;
+	private TableColumn<ProcessoAdapter, String> colComarca1;
 
 	@FXML
-	private TableColumn<Processo, String> colPartes1;
+	private TableColumn<ProcessoAdapter, String> colPartes1;
 
 	@FXML
-	private TableColumn<Processo, Andamento> colAndamento1;
+	private TableColumn<ProcessoAdapter, Andamento> colAndamento1;
 
 	@FXML
-	private TableColumn<Processo, Date> colData1;
+	private TableColumn<ProcessoAdapter, Date> colData1;
 
 	@FXML
-	private TableView<Processo> tbl2Vara;
+	private TableView<ProcessoAdapter> tbl2Vara;
 
 	@FXML
-	private TableColumn<Processo, Integer> colProcesso2;
+	private TableColumn<ProcessoAdapter, Integer> colProcesso2;
 
 	@FXML
-	private TableColumn<Processo, String> colComarca2;
+	private TableColumn<ProcessoAdapter, String> colComarca2;
 
 	@FXML
-	private TableColumn<Processo, String> colPartes2;
+	private TableColumn<ProcessoAdapter, String> colPartes2;
 
 	@FXML
-	private TableColumn<Processo, Andamento> colAndamento2;
+	private TableColumn<ProcessoAdapter, Andamento> colAndamento2;
 
 	@FXML
-	private TableColumn<Processo, Date> colData2;
+	private TableColumn<ProcessoAdapter, Date> colData2;
 
 	@FXML
-	private TableView<Processo> tbl3Vara;
+	private TableView<ProcessoAdapter> tbl3Vara;
 
 	@FXML
-	private TableColumn<Processo, Integer> colProcesso3;
+	private TableColumn<ProcessoAdapter, Integer> colProcesso3;
 
 	@FXML
-	private TableColumn<Processo, String> colComarca3;
+	private TableColumn<ProcessoAdapter, String> colComarca3;
 
 	@FXML
-	private TableColumn<Processo, String> colPartes3;
+	private TableColumn<ProcessoAdapter, String> colPartes3;
 
 	@FXML
-	private TableColumn<Processo, Andamento> colAndamento3;
+	private TableColumn<ProcessoAdapter, Andamento> colAndamento3;
 
 	@FXML
-	private TableColumn<Processo, Date> colData3;
+	private TableColumn<ProcessoAdapter, Date> colData3;
 	
 	@FXML
 	private Button btnCadastrar;
@@ -126,11 +123,11 @@ public class ControleProcesso extends Controle{
                 new PropertyValueFactory<>("data_atuacao"));
 		
 		colPartes1.setCellValueFactory(
-                new PropertyValueFactory<>("contrato"));
+                new PropertyValueFactory<>("fase"));
 		colPartes2.setCellValueFactory(
-                new PropertyValueFactory<>("contrato"));
+                new PropertyValueFactory<>("fase"));
 		colPartes3.setCellValueFactory(
-                new PropertyValueFactory<>("contrato"));
+                new PropertyValueFactory<>("fase"));
 		
 		colProcesso1.setCellValueFactory(
                 new PropertyValueFactory<>("numero"));
@@ -140,9 +137,9 @@ public class ControleProcesso extends Controle{
                 new PropertyValueFactory<>("numero"));
 		
 		try {
-			tbl1Vara.getItems().addAll(fachada.buscarProcessoPorBusca(TipoProcesso.Vara_1.toString()));
-			tbl2Vara.getItems().addAll(fachada.buscarProcessoPorBusca(TipoProcesso.Vara_2.toString()));
-			tbl3Vara.getItems().addAll(fachada.buscarProcessoPorBusca(TipoProcesso.Vara_Criminal.toString()));
+			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_1.toString()));
+			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_2.toString()));
+			tbl3Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_Criminal.toString()));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,6 +151,16 @@ public class ControleProcesso extends Controle{
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		
+		if (object instanceof Processo) {
+			Processo processo = (Processo) object;
+			
+			if(processo.getTipo_processo() == TipoProcesso.Vara_1)
+				tbl1Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
+			if(processo.getTipo_processo() == TipoProcesso.Vara_2)
+				tbl2Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
+			if(processo.getTipo_processo() == TipoProcesso.Vara_Criminal)
+				tbl3Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
+		}
 		
 	}
 

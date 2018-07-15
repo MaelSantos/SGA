@@ -1,6 +1,5 @@
 package br.com.sga.fachada;
 
-
 import java.util.List;
 
 import br.com.sga.business.BusinessCliente;
@@ -17,6 +16,8 @@ import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Processo;
+import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IBusinessConsulta;
@@ -139,6 +140,11 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
+	public List<ContratoAdapter> buscaAllContratoAdapter() throws BusinessException {
+		return businessContrato.buscaAllAdapter();
+	}
+	
+	@Override
 	public void salvarEditarFinanceiro(Financeiro entidade) throws BusinessException {
 		businessFinanceiro.salvarEditar(entidade);
 	}
@@ -151,6 +157,11 @@ public class Fachada implements IFachada {
 	@Override
 	public List<Contrato> buscarContratoPorCliente(String busca) throws BusinessException {
 		return businessContrato.buscarPorCliente(busca);
+	}
+
+	@Override
+	public List<ProcessoAdapter> buscaAllProcessoAdapter(String tipo) throws BusinessException {
+		return businessProcesso.buscarAllAdapter(tipo);
 	}
 
 }

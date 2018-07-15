@@ -11,7 +11,7 @@ public class Contrato {
 	private Integer id;
 	
 	private String objeto;
-	private float valor_total;
+	private Float valor_total;
 	private TipoPagamento tipo_pagamento;
 	private Date data_contrato;
 	private Area area;

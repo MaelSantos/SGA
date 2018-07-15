@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.sga.dao.DaoProcesso;
 import br.com.sga.entidade.Processo;
+import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
@@ -23,9 +24,9 @@ public class BusinessProcesso implements IBusinessProcesso{
 	public void salvarEditar(Processo entidade) throws BusinessException {
 		
 		try {
+			validar(entidade);
 			if(entidade.getId() == null)
 			{
-				validar(entidade);
 				daoProcesso.salvar(entidade);
 			}
 			else
@@ -73,6 +74,18 @@ public class BusinessProcesso implements IBusinessProcesso{
 			throw new ValidacaoException("INFORME O ORGÃO JULGADOR!!!");
 		if(entidade.getFase() == null)
 			throw new ValidacaoException("INFORME A FASE!!!");
+		if(entidade.getContrato().getId() == null)
+			throw new ValidacaoException("SELECIONE UM CONTRATO!!!");
+	}
+
+	@Override
+	public List<ProcessoAdapter> buscarAllAdapter(String tipo) throws BusinessException {
+		try {
+			return daoProcesso.buscarAllAdapter(tipo);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 	
 }
