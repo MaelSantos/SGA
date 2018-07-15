@@ -31,8 +31,9 @@ public class ControlePerfil extends Controle{
     }	
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		super.initialize(location, resources);
+	public void init() {
+		// TODO Stub de método gerado automaticamente
+		
 	}
 
 	@Override

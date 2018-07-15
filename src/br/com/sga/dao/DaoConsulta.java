@@ -32,7 +32,7 @@ public class DaoConsulta implements IDaoConsulta {
 	DaoCommun daoCommun ;
 	
 	public DaoConsulta(){
-		daoCommun = new DaoCommun();
+		daoCommun = DaoCommun.getInstance();
 	}
 	
 	@Override
@@ -62,43 +62,44 @@ public class DaoConsulta implements IDaoConsulta {
 		}
         
 	}
-	public static void main(String[] args) {
-		//Salvar consulta
-		// * 1 - testemunhas - > dados da testemunha , endereço , telefone e nome
-		// * 2 - demais dados da consulta,
-		// * 3 - buscar cliente e funcionario correspondente (para fins de teste irei por já o id)
-		 
-		Endereco e1 = new Endereco( "Andrelino Jose ","412", "AAVV","Pesqueira", "TA", "Brasil","casa","50230-550");
-		Telefone tel1 = new Telefone(3213123,32,TipoTelefone.PESSOAL);
-		Testemunha t1 = new Testemunha(e1, tel1,"zèsin");
-		
-		Endereco e2 = new Endereco( "Jose P","232", "Coa","Pesqueira", "TA", "Brasil","Ca","50230-550");
-		Telefone tel2 = new Telefone(3213123,32,TipoTelefone.RESIDENCIAL);
-		Testemunha t2 = new Testemunha(e2, tel2,"Pedro pereira");
-		
-		List<Testemunha> testemunhas = new ArrayList<>();
-		testemunhas.add(t1);
-		testemunhas.add(t2);
-		
-		List<Telefone> telefonesCliente = new ArrayList<>();
-		telefonesCliente.add(tel2);
-		Cliente cliente = new Cliente("Jose2",Calendar.getInstance().getTime(),"12343",Sexo.MASCULINO,"123343","zé@Hmail2","sar","Babado",false,"Não",TipoCliente.FISICO,e2, telefonesCliente);
-		cliente.setEndereco(e2);
-		try {
-			DaoCliente.getInstance().salvar(cliente);
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-		
-		Funcionario funcionario = new Funcionario();
-		funcionario.setId(2); // <---------------------------------------------------------
-		Consulta consulta = new Consulta(Area.TRABALHISTA,"Descrição do caso entrada por funcionario",Calendar.getInstance().getTime(),13000f,"Maria", cliente, funcionario, testemunhas);
-		try {
-			new DaoConsulta().salvar(consulta);
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-	}
+	
+//	public static void main(String[] args) {
+//		//Salvar consulta
+//		// * 1 - testemunhas - > dados da testemunha , endereço , telefone e nome
+//		// * 2 - demais dados da consulta,
+//		// * 3 - buscar cliente e funcionario correspondente (para fins de teste irei por já o id)
+//		 
+//		Endereco e1 = new Endereco( "Andrelino Jose ","412", "AAVV","Pesqueira", "TA", "Brasil","casa","50230-550");
+//		Telefone tel1 = new Telefone(3213123,32,TipoTelefone.PESSOAL);
+//		Testemunha t1 = new Testemunha(e1, tel1,"zèsin");
+//		
+//		Endereco e2 = new Endereco( "Jose P","232", "Coa","Pesqueira", "TA", "Brasil","Ca","50230-550");
+//		Telefone tel2 = new Telefone(3213123,32,TipoTelefone.RESIDENCIAL);
+//		Testemunha t2 = new Testemunha(e2, tel2,"Pedro pereira");
+//		
+//		List<Testemunha> testemunhas = new ArrayList<>();
+//		testemunhas.add(t1);
+//		testemunhas.add(t2);
+//		
+//		List<Telefone> telefonesCliente = new ArrayList<>();
+//		telefonesCliente.add(tel2);
+//		Cliente cliente = new Cliente("Jose2",Calendar.getInstance().getTime(),"12343",Sexo.MASCULINO,"123343","zé@Hmail2","sar","Babado",false,"Não",TipoCliente.FISICO,e2, telefonesCliente);
+//		cliente.setEndereco(e2);
+//		try {
+//			DaoCliente.getInstance().salvar(cliente);
+//		} catch (DaoException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		Funcionario funcionario = new Funcionario();
+//		funcionario.setId(2); // <---------------------------------------------------------
+//		Consulta consulta = new Consulta(Area.TRABALHISTA,"Descrição do caso entrada por funcionario",Calendar.getInstance().getTime(),13000f,"Maria", cliente, funcionario, testemunhas);
+//		try {
+//			new DaoConsulta().salvar(consulta);
+//		} catch (DaoException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Override
 	public void editar(Consulta entidade) throws DaoException {

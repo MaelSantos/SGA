@@ -12,7 +12,7 @@ public class ProcessoAdapter {
 	private	String numero; //numero varchar(255) UNIQUE NOT NULL, 
 	private String comarca; //comarca VARCHAR(255) NOT NULL,
 	private String decisao; //decisao  VARCHAR(255), 
-	private String fase; //fase  VARCHAR(255) NOT NULL, 
+	private String partes; //fase  VARCHAR(255) NOT NULL, 
 	
 	public Integer getId() {
 		return id;
@@ -44,12 +44,13 @@ public class ProcessoAdapter {
 	public void setDecisao(String decisao) {
 		this.decisao = decisao;
 	}
-	public String getFase() {
-		return fase;
+		
+	public String getPartes() {
+		return partes;
 	}
-	public void setFase(String fase) {
-		this.fase = fase;
-	}	
+	public void setPartes(String partes) {
+		this.partes = partes;
+	}
 
 	@Override
 	public String toString() {
@@ -65,7 +66,7 @@ public class ProcessoAdapter {
 		adapter.setComarca(processo.getComarca());
 		adapter.setData_atuacao(processo.getData_atuacao());
 		adapter.setDecisao(processo.getDecisao());
-		adapter.setFase(processo.getFase());
+		adapter.setPartes(processo.getContrato().getPartes().toString());
 		adapter.setNumero(processo.getNumero());
 		
 		return adapter;

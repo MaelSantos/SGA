@@ -22,6 +22,9 @@ public class Parte {
 		this.nome = nome;
 	}
 
+	public Parte() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -49,7 +52,7 @@ public class Parte {
 	
 	@Override
 	public String toString() {
-		return "Tipo: "+tipo_parte+" Nome: "+nome;
+		return "Tipo: ["+tipo_parte+"] Nome: ["+nome+"]";
 	}
 	
 }

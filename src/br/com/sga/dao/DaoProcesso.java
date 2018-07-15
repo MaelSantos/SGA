@@ -37,7 +37,7 @@ public class DaoProcesso implements IDaoProcesso {
 	private DaoCommun daoCommun;
 
 	public DaoProcesso() {
-		daoCommun = new DaoCommun();
+		daoCommun = DaoCommun.getInstance();
 	}
 	@Override
 	public void salvar(Processo entidade) throws DaoException {
@@ -122,13 +122,15 @@ public class DaoProcesso implements IDaoProcesso {
 				processo = new ProcessoAdapter();				
 
 //				p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase
-				processo.setId(resultSet.getInt("id"));
+				processo.setId(resultSet.getInt(1));
 				processo.setNumero(resultSet.getString("numero"));
 				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
 				processo.setComarca(resultSet.getString("comarca"));
 				processo.setDecisao(resultSet.getString("decisao"));
-				processo.setFase(resultSet.getString("fase"));
-			
+				
+				int contrato_id = resultSet.getInt(5);
+				
+				processo.setPartes(daoCommun.getPartes(contrato_id).toString());
 				
 				processos.add(processo);
 			}

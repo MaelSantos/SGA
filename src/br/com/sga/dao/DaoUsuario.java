@@ -21,9 +21,13 @@ public class DaoUsuario implements IDaoUsuario{
 	private Connection conexao;
 	private PreparedStatement statement;
 	private ResultSet resultSet;
-	private DaoCommun daoCommun = new DaoCommun();
+	private DaoCommun daoCommun;
 	
 
+	public DaoUsuario() {
+		daoCommun = DaoCommun.getInstance();
+	}
+	
 	@Override
 	public void salvar(Funcionario entidade) throws DaoException {
 		try {

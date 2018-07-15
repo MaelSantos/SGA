@@ -33,14 +33,8 @@ public class DaoCliente implements IDaoCliente {
 	private IDaoCommun daoCommun;
 
 	private static DaoCliente instance;
-	private DaoCliente() {
-		daoCommun = new DaoCommun();
-	}
-
-	public static DaoCliente getInstance() {
-		if(instance == null)
-			instance = new DaoCliente();
-		return instance;
+	public DaoCliente() {
+		daoCommun = DaoCommun.getInstance();
 	}
 	
 	@Override

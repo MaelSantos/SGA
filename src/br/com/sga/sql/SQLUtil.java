@@ -23,7 +23,7 @@ public class SQLUtil {
     
     public static class Parte{
     	public static final String INSERT_ALL = "INSERT INTO PARTE(nome,tipo_parte,tipo_participacao,contrato_id) VALUES(?,?,?,?)";
-    
+    	public static final String SELECT_PARTE_CONTRATO_ID = "SELECT * FROM PARTE WHERE contrato_id = ?";
     }
 
     public static class Financeiro{
@@ -48,7 +48,7 @@ public class SQLUtil {
     	public static final String BUSCA_POR_CLIENTE ="select cont.* from contrato cont, consulta cons, cliente clie "
     			+ "where clie.id = cons.cliente_id and cons.id = cont.consulta_id and clie.nome = ? or clie.email = ? "
     			+ "or clie.cpf_cnpj = ? or clie.rg = ?";
-    	public static final String SELECT_CONTRATO_ADAPTER = "SELECT C.ID,C.VALOR_TOTAL,C.DATA_CONTRATO,D.NOME FROM CONTRATO C, CLIENTE D, CONSULTA E WHERE C.CONSULTA_ID = E.ID AND D.ID = E.CLIENTE_ID";
+    	public static final String SELECT_CONTRATO_ADAPTER = "SELECT C.id,D.nome,C.data_contrato,C.valor_total FROM CONTRATO C, CLIENTE D, CONSULTA E WHERE C.CONSULTA_ID = E.ID AND D.ID = E.CLIENTE_ID";
     }
     
     public static class Testemunha{

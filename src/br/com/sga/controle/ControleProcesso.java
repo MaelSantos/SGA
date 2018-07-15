@@ -35,7 +35,7 @@ public class ControleProcesso extends Controle{
 	private TableColumn<ProcessoAdapter, String> colPartes1;
 
 	@FXML
-	private TableColumn<ProcessoAdapter, Andamento> colAndamento1;
+	private TableColumn<ProcessoAdapter, String> colAndamento1;
 
 	@FXML
 	private TableColumn<ProcessoAdapter, Date> colData1;
@@ -53,7 +53,7 @@ public class ControleProcesso extends Controle{
 	private TableColumn<ProcessoAdapter, String> colPartes2;
 
 	@FXML
-	private TableColumn<ProcessoAdapter, Andamento> colAndamento2;
+	private TableColumn<ProcessoAdapter, String> colAndamento2;
 
 	@FXML
 	private TableColumn<ProcessoAdapter, Date> colData2;
@@ -71,7 +71,7 @@ public class ControleProcesso extends Controle{
 	private TableColumn<ProcessoAdapter, String> colPartes3;
 
 	@FXML
-	private TableColumn<ProcessoAdapter, Andamento> colAndamento3;
+	private TableColumn<ProcessoAdapter, String> colAndamento3;
 
 	@FXML
 	private TableColumn<ProcessoAdapter, Date> colData3;
@@ -95,9 +95,7 @@ public class ControleProcesso extends Controle{
 			App.notificarOuvintes(Tela.detalhes_processo, tbl1Vara.getSelectionModel().getSelectedItem());
 	}
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		super.initialize(arg0, arg1);
+	public void init() {
 		
 		fachada = Fachada.getInstance();
 		
@@ -123,11 +121,11 @@ public class ControleProcesso extends Controle{
                 new PropertyValueFactory<>("data_atuacao"));
 		
 		colPartes1.setCellValueFactory(
-                new PropertyValueFactory<>("fase"));
+                new PropertyValueFactory<>("partes"));
 		colPartes2.setCellValueFactory(
-                new PropertyValueFactory<>("fase"));
+                new PropertyValueFactory<>("partes"));
 		colPartes3.setCellValueFactory(
-                new PropertyValueFactory<>("fase"));
+                new PropertyValueFactory<>("partes"));
 		
 		colProcesso1.setCellValueFactory(
                 new PropertyValueFactory<>("numero"));

@@ -19,7 +19,7 @@ public class BusinessCliente implements IBussinessCliente{
 	
 	private BusinessCliente() {
 		validador = Validar.getInstance();
-		daoCliente = DaoCliente.getInstance();	
+		daoCliente = new DaoCliente();	
 	}
 	
 	public static BusinessCliente getInstance() {

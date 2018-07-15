@@ -34,7 +34,7 @@ public class DaoContrato implements IDaoContrato{
 	DaoCommun daoCommun;
 	
 	public DaoContrato() {
-		daoCommun = new DaoCommun();
+		daoCommun = DaoCommun.getInstance();
 	}
 	@Override
 	public void salvar(Contrato entidade) throws DaoException {

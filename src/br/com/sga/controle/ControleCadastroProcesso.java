@@ -70,8 +70,7 @@ public class ControleCadastroProcesso extends Controle{
 	private Processo processo;
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		super.initialize(arg0, arg1);
+	public void init() {
 
 		fachada = Fachada.getInstance();
 
