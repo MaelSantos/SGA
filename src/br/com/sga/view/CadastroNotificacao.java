@@ -1,12 +1,10 @@
 package br.com.sga.view;
 
-import javax.swing.ButtonGroup;
 
 import br.com.sga.entidade.enums.Prioridade;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;

@@ -43,7 +43,6 @@ public class Fachada implements IFachada {
     private IBusinessContrato businessContrato;
     private IBusinessFinanceiro businessFinanceiro;
     private IBusinessNotificacao businessNotificacao;
-    
     private IBusinessAudiencia businessAudiencia;
 
     private static Fachada fachada;
@@ -180,6 +179,10 @@ public class Fachada implements IFachada {
 		return businessNotificacao.buscarPorNotificaoesPorFuncionario(funcionario);
 	}
 	
+	public List<Notificacao> buscarPorFuncionario(List<Funcionario> funcionarios) throws BusinessException {
+		// TODO Stub de método gerado automaticamente
+		return null;
+	}
 	public List<ProcessoAdapter> buscaAllProcessoAdapter(String tipo) throws BusinessException {
 		return businessProcesso.buscarAllAdapter(tipo);
 	}

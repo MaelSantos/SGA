@@ -7,14 +7,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 import br.com.sga.app.App;
-import br.com.sga.dao.DaoUsuario;
-import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.view.Alerta;
 import br.com.sga.view.CadastroNotificacao;
 import br.com.sga.view.Dialogo;
@@ -29,13 +25,10 @@ import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -104,6 +97,11 @@ public class ControlePerfil extends Controle{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
+	
+	}
+	
+	@Override
+	public void init() {
 		fachada = Fachada.getInstance();
 		Calendar c = Calendar.getInstance();
 		diasPagination.setPageCount(c.getActualMaximum(Calendar.DAY_OF_MONTH));
@@ -141,8 +139,4 @@ public class ControlePerfil extends Controle{
 		
 	}
 
-	@Override
-	public void init() {
-		
-	}
 }

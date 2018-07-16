@@ -10,14 +10,11 @@ import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 
 
@@ -34,10 +31,6 @@ public class ControleLogin implements Initializable{
 
 	@FXML
 	private PasswordField tfdSenha;
-
-	@FXML
-	private ProgressIndicator progresso;
-	Service<Void> servico;
 	
 	private IFachada fachada;
 
