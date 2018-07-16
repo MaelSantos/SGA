@@ -1,13 +1,10 @@
 package br.com.sga.controle;
 
-import java.net.URL;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
-import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.fachada.Fachada;
@@ -75,20 +72,20 @@ public class ControleProcesso extends Controle{
 
 	@FXML
 	private TableColumn<ProcessoAdapter, Date> colData3;
-	
+
 	@FXML
 	private Button btnCadastrar;
 
 	private IFachada fachada;
-	
+
 	@FXML
 	private Button btnDetalhes;
-	
+
 	@FXML
 	public void actionButton(ActionEvent event) {
 
 		Object obj = event.getSource();
-		
+
 		if(obj == btnCadastrar)
 			App.notificarOuvintes(Tela.cadastro_processo);
 		if(obj == btnDetalhes)
@@ -96,70 +93,82 @@ public class ControleProcesso extends Controle{
 	}
 
 	public void init() {
-		
+
 		fachada = Fachada.getInstance();
-		
+
 		colAndamento1.setCellValueFactory(
-                new PropertyValueFactory<>("decisao"));
+				new PropertyValueFactory<>("decisao"));
 		colAndamento2.setCellValueFactory(
-                new PropertyValueFactory<>("decisao"));
+				new PropertyValueFactory<>("decisao"));
 		colAndamento3.setCellValueFactory(
-                new PropertyValueFactory<>("decisao"));
-		
+				new PropertyValueFactory<>("decisao"));
+
 		colComarca1.setCellValueFactory(
-                new PropertyValueFactory<>("comarca"));
+				new PropertyValueFactory<>("comarca"));
 		colComarca2.setCellValueFactory(
-                new PropertyValueFactory<>("comarca"));
+				new PropertyValueFactory<>("comarca"));
 		colComarca3.setCellValueFactory(
-                new PropertyValueFactory<>("comarca"));
-		
+				new PropertyValueFactory<>("comarca"));
+
 		colData1.setCellValueFactory(
-                new PropertyValueFactory<>("data_atuacao"));
+				new PropertyValueFactory<>("data_atuacao"));
 		colData2.setCellValueFactory(
-                new PropertyValueFactory<>("data_atuacao"));
+				new PropertyValueFactory<>("data_atuacao"));
 		colData3.setCellValueFactory(
-                new PropertyValueFactory<>("data_atuacao"));
-		
+				new PropertyValueFactory<>("data_atuacao"));
+
 		colPartes1.setCellValueFactory(
-                new PropertyValueFactory<>("partes"));
+				new PropertyValueFactory<>("partes"));
 		colPartes2.setCellValueFactory(
-                new PropertyValueFactory<>("partes"));
+				new PropertyValueFactory<>("partes"));
 		colPartes3.setCellValueFactory(
-                new PropertyValueFactory<>("partes"));
-		
+				new PropertyValueFactory<>("partes"));
+
 		colProcesso1.setCellValueFactory(
-                new PropertyValueFactory<>("numero"));
+				new PropertyValueFactory<>("numero"));
 		colProcesso2.setCellValueFactory(
-                new PropertyValueFactory<>("numero"));
+				new PropertyValueFactory<>("numero"));
 		colProcesso3.setCellValueFactory(
-                new PropertyValueFactory<>("numero"));
-		
+				new PropertyValueFactory<>("numero"));
+
 		try {
 			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_1.toString()));
 			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_2.toString()));
 			tbl3Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_Criminal.toString()));
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Carregar Processos", e.getMessage());
 		}
-		
+
 	}
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
-		
+
 		if (object instanceof Processo) {
 			Processo processo = (Processo) object;
-			
+
 			if(processo.getTipo_processo() == TipoProcesso.Vara_1)
-				tbl1Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
+			{
+				for(ProcessoAdapter a : tbl1Vara.getItems())
+					if(!(a.getId() == processo.getId()))
+						tbl1Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
+			}
 			if(processo.getTipo_processo() == TipoProcesso.Vara_2)
-				tbl2Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
+			{
+				for(ProcessoAdapter a : tbl2Vara.getItems())
+					if(!(a.getId() == processo.getId()))				
+						tbl2Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
+			}
 			if(processo.getTipo_processo() == TipoProcesso.Vara_Criminal)
-				tbl3Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
+			{
+				for(ProcessoAdapter a : tbl3Vara.getItems())
+					if(!(a.getId() == processo.getId()))
+						tbl3Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
+			}
 		}
-		
+
 	}
 
 }

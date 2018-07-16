@@ -49,90 +49,100 @@ public class Carregar implements Initializable{
 
 						App.login = carregarArquivo("../view/Login.fxml");
 						updateMessage(texto);
-						porcentagem = 0.077;
+						porcentagem = 0.0625;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.cadastro = carregarArquivo("../view/Cadastro.fxml");
 						updateMessage(texto);
-						porcentagem = 0.154;
+						porcentagem = 0.125;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.menu = carregarArquivo("../view/Menu.fxml");
 						updateMessage(texto);
-						porcentagem = 0.231;
+						porcentagem = 0.1875;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.informacoes = carregarArquivo("../view/Informacoes.fxml");
 						updateMessage(texto);
-						porcentagem = 0.308;
+						porcentagem = 0.25;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.perfil = carregarArquivo("../view/Perfil.fxml");
 						updateMessage(texto);
-						porcentagem = 0.385;
+						porcentagem = 0.3125;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.editarPerfil = carregarArquivo("../view/EditarPerfil.fxml");
 						updateMessage(texto);
-						porcentagem = 0.462;
+						porcentagem = 0.375;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.configuracoes = carregarArquivo("../view/Configuracoes.fxml");
 						updateMessage(texto);
-						porcentagem = 0.539;
+						porcentagem = 0.4375;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.clientes = carregarArquivo("../view/Clientes.fxml");
 						updateMessage(texto);
-						porcentagem = 0.616;
+						porcentagem = 0.5;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.cadastroCliente = carregarArquivo("../view/CadastroCliente.fxml");
 						updateMessage(texto);
-						porcentagem = 0.693;
+						porcentagem = 0.5625;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.contatos = carregarArquivo("../view/Contatos.fxml");
 						updateMessage(texto);
-						porcentagem = 0.77;
+						porcentagem = 0.625;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.cadastroContrato = carregarArquivo("../view/CadastroContrato.fxml");
 						updateMessage(texto);
-						porcentagem = 0.847;
+						porcentagem = 0.6875;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.processo = carregarArquivo("../view/Processo.fxml");
 						updateMessage(texto);
-						porcentagem = 0.924;
+						porcentagem = 0.75;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.cadastrarProcesso = carregarArquivo("../view/CadastroProcesso.fxml");
 						updateMessage(texto);
-						porcentagem = 1;
+						porcentagem = 0.8125;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						// para att progesso referente dps
 						App.buscarContrato = carregarArquivo("../view/BuscarContrato.fxml");
 						updateMessage(texto);
+						porcentagem = 0.875;
+						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
 						App.detalhesProcesso = carregarArquivo("../view/DetalhesProcesso.fxml");
-
+						updateMessage(texto);
+						porcentagem = 0.9375;
+						updateProgress(porcentagem, 1);
+						System.out.println(texto);
+						
 						App.cadastrarAudiencia = carregarArquivo("../view/CadastroAudiencia.fxml");
+						updateMessage(texto);
+						porcentagem = 1;
+						updateProgress(porcentagem, 1);
+						System.out.println(texto);
 						
 						App.loginScene = new Scene(App.login);
 						App.menuScene = new Scene(App.menu);

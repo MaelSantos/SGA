@@ -8,7 +8,9 @@ import java.util.Date;
 import br.com.sga.app.App;
 import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Processo;
+import br.com.sga.entidade.enums.StatusAudiencia;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoAudiencia;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
@@ -23,7 +25,10 @@ import javafx.scene.control.TextField;
 public class ControleCadastroAudiencia extends Controle {
 
 	@FXML
-	private ComboBox<?> cbxTipo;
+	private ComboBox<TipoAudiencia> cbxTipo;
+	
+	@FXML
+	private ComboBox<StatusAudiencia> cbxStatus;
 
 	@FXML
 	private TextField tfdProcesso;
@@ -63,6 +68,9 @@ public class ControleCadastroAudiencia extends Controle {
 	@Override
 	public void init() {
 		fachada = Fachada.getInstance();
+		
+		cbxStatus.getItems().addAll(StatusAudiencia.values());
+		cbxTipo.getItems().addAll(TipoAudiencia.values());
 
 	}
 
@@ -77,6 +85,8 @@ public class ControleCadastroAudiencia extends Controle {
 			try {
 				Audiencia audiencia = criarAudiencia();
 				fachada.salvarEditarAudiencia(audiencia);
+				Alerta.getInstance().showMensagem("Salvo", "", "Audiencia Cadastrada Com Sucesso");
+				App.notificarOuvintes(Tela.cadastro_audiencia,audiencia);
 			} catch (BusinessException | ParseException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Audiencia", e.getMessage());
@@ -97,9 +107,9 @@ public class ControleCadastroAudiencia extends Controle {
 		Date data = df.parse(tfdData.getEditor().getText());
 		audiencia.setData_audiencia(data);
 
-//		audiencia.setStatus("");
+		audiencia.setStatus(cbxStatus.getValue());
 		audiencia.setOrgao(tfdOrgao.getText().trim());
-		audiencia.setTipo(cbxTipo.getValue().toString());
+		audiencia.setTipo(cbxTipo.getValue());
 		audiencia.setVara(tfdVara.getText().trim());
 		
 //		audiencia.setProcesso();

@@ -2,13 +2,16 @@ package br.com.sga.entidade;
 
 import java.util.Date;
 
+import br.com.sga.entidade.enums.StatusAudiencia;
+import br.com.sga.entidade.enums.TipoAudiencia;
+
 public class Audiencia {
 
 	private Integer id; //id SERIAL PRIMARY KEY,
-	private String status; //status VARCHAR(255), possivel enum
+	private StatusAudiencia status; //status VARCHAR(255), possivel enum
 	private String vara; //vara VARCHAR(255) NOT NULL, possivel enum
 	private String orgao; //orgao VARCHAR(255) NOT NULL possivel enum
-	private String tipo; //tipo VARCHAR(255) NOT NULL,  possivel enum
+	private TipoAudiencia tipo; //tipo VARCHAR(255) NOT NULL,  possivel enum
 	private Date data_audiencia; //data_audiencia DATE,
 	
 	private Processo processo; //processo_id  INTEGER REFERENCES PROCESSO(id),
@@ -17,23 +20,6 @@ public class Audiencia {
 		
 	}
 	 
-	public Audiencia(Integer id, String status, String vara, String orgao, String tipo, Date data_audiencia) {
-		this.id = id;
-		this.status = status;
-		this.vara = vara;
-		this.orgao = orgao;
-		this.tipo = tipo;
-		this.data_audiencia = data_audiencia;
-	}
-	
-	public Audiencia(String status, String vara, String orgao, String tipo, Date data_audiencia) {
-		this.status = status;
-		this.vara = vara;
-		this.orgao = orgao;
-		this.tipo = tipo;
-		this.data_audiencia = data_audiencia;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -42,11 +28,11 @@ public class Audiencia {
 		this.id = id;
 	}
 
-	public String getStatus() {
+	public StatusAudiencia getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusAudiencia status) {
 		this.status = status;
 	}
 
@@ -66,12 +52,12 @@ public class Audiencia {
 		this.orgao = orgao;
 	}
 
-	public String getTipo() {
+	public TipoAudiencia getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTipo(TipoAudiencia tipoAudiencia) {
+		this.tipo = tipoAudiencia;
 	}
 
 	public Date getData_audiencia() {

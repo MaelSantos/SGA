@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.sga.entidade.Audiencia;
+import br.com.sga.entidade.enums.StatusAudiencia;
+import br.com.sga.entidade.enums.TipoAudiencia;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoAudiencia;
-import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.sql.SQLConnection;
 import br.com.sga.sql.SQLUtil;
 
@@ -34,11 +35,11 @@ public class DaoAudiencia implements IDaoAudiencia {
 			
 //			data_audiencia,tipo,vara,orgao,status,processo_id
 			statement.setDate(1, new Date(entidade.getData_audiencia().getTime()));
-			statement.setString(2, entidade.getTipo());
+			statement.setString(2, entidade.getTipo().name());
 			statement.setString(3, entidade.getVara());
 			statement.setString(4, entidade.getOrgao());
-			statement.setString(5, entidade.getStatus());
-			statement.setInt(12, entidade.getProcesso().getId());
+			statement.setString(5, entidade.getStatus().name());
+			statement.setInt(6, entidade.getProcesso().getId());
 			
 			statement.execute();
 
@@ -87,8 +88,8 @@ public class DaoAudiencia implements IDaoAudiencia {
 				audiencia.setId(resultSet.getInt("id"));
 				audiencia.setData_audiencia(resultSet.getDate("data_audiencia"));
 				audiencia.setOrgao(resultSet.getString("orgao"));
-				audiencia.setStatus(resultSet.getString("status"));
-				audiencia.setTipo(resultSet.getString("tipo"));
+				audiencia.setStatus(StatusAudiencia.getValor(resultSet.getString("status")));
+				audiencia.setTipo(TipoAudiencia.getValor(resultSet.getString("tipo")));
 				audiencia.setVara(resultSet.getString("vara"));
 				
 				audiencias.add(audiencia);

@@ -66,52 +66,42 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Label text="Data De Distribuição" GridPane.columnIndex="2">
+                        <Label text="Classe Juridicial" GridPane.columnIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfdDistribuicao" editable="false" promptText="Distribuição" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <TextField fx:id="tfdClasse" editable="false" promptText="Classe" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Label text="Classe Juridicial" GridPane.rowIndex="2">
+                        <Label text="Órgão Julgador" GridPane.rowIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfdClasse" editable="false" promptText="Classe" GridPane.rowIndex="3">
+                        <TextField fx:id="tfdOrgao" editable="false" promptText="Órgão" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Label text="Órgão Julgador" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label text="Valor causa" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfdOrgao" editable="false" promptText="Órgão" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TextField fx:id="tfdValor" editable="false" promptText="Valor" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Label text="Valor causa" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <Label text="Cliente" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfdValor" editable="false" promptText="Valor" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Label text="Usuário Cadastrado" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="tfdUsuario" editable="false" promptText="Usuário" GridPane.rowIndex="5">
+                        <TextField fx:id="tfdUsuario" editable="false" promptText="Cliente" GridPane.columnIndex="2" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>

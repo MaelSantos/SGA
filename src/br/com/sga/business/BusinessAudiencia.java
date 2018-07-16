@@ -71,10 +71,12 @@ public class BusinessAudiencia implements IBusinessAudiencia {
 			throw new ValidacaoException("INFORMA플O OBRIGATORIA - INFORME A VARA!!!");
 		if(entidade.getOrgao() == null || entidade.getOrgao().trim().equalsIgnoreCase(""))
 			throw new ValidacaoException("INFORMA플O OBRIGATORIA - INFORME O ORG홒!!!");
-		if(entidade.getTipo() == null || entidade.getTipo().trim().equalsIgnoreCase(""))
+		if(entidade.getTipo() == null)
 			throw new ValidacaoException("INFORMA플O OBRIGATORIA - INFORME O TIPO!!!");
 		if(entidade.getData_audiencia() == null)
 			throw new ValidacaoException("INFORMA플O OBRIGATORIA - INFORME A DATA!!!");
+		if(entidade.getStatus() == null)
+			throw new ValidacaoException("INFORMA플O OBRIGATORIA - INFORME O STATUS!!!");
 	}
 	
 }

@@ -29,9 +29,6 @@ public class ControleDetalhesProcesso extends Controle {
     private TextField tfdAtuacao;
 
     @FXML
-    private TextField tfdDistribuicao;
-
-    @FXML
     private TextField tfdClasse;
 
     @FXML
