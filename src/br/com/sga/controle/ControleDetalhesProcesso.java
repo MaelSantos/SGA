@@ -89,7 +89,7 @@ public class ControleDetalhesProcesso extends Controle {
     private Button btnAdd;
 	
     private IFachada fachada;
-    
+    private Processo processo;
 	
 	@Override
 	public void atualizar(Tela tela, Object object) {
@@ -122,10 +122,22 @@ public class ControleDetalhesProcesso extends Controle {
 						tblPassivo.getItems().add(p);
 				}
 				
+				this.processo = processo;
+				
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
 			
+		}
+		
+		else if (object instanceof Audiencia) {
+			Audiencia audiencia = (Audiencia) object;
+			
+			if(audiencia.getProcesso().getId() == processo.getId())
+			{
+				this.processo.getAudiencias().add(audiencia);
+				tblAudiencias.getItems().add(audiencia);
+			}
 		}
 
 	}
@@ -136,7 +148,7 @@ public class ControleDetalhesProcesso extends Controle {
 		Object obj = event.getSource();
 		
 		if(obj == btnAdd)
-			App.notificarOuvintes(Tela.cadastro_audiencia);
+			App.notificarOuvintes(Tela.cadastro_audiencia, processo);
 		if(obj == btnVoltar)
 			App.notificarOuvintes(Tela.processos);
 	}

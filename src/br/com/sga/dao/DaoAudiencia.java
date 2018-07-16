@@ -44,7 +44,7 @@ public class DaoAudiencia implements IDaoAudiencia {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DaoException("PROBLEMA AO SALVAR CLIENTE - CONTATE O ADM");
+			throw new DaoException("PROBLEMA AO SALVAR AUDIENCIA - CONTATE O ADM");
 		}
 
 	}
