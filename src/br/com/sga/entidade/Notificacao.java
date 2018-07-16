@@ -1,5 +1,6 @@
 package br.com.sga.entidade;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Prioridade;
 import br.com.sga.entidade.enums.TipoNotificacao;
 
-public class Notificacao {
+public class Notificacao implements Comparable<Notificacao>{
 	private TipoNotificacao tipoNotificacao;
 	private Andamento estado;
 	private String descricao;
@@ -26,6 +27,7 @@ public class Notificacao {
 	 * @param id
 	 * @param funcionario
 	 */
+	
 	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Andamento estado, Date aviso_data, Integer id,List<Funcionario> funcionarios) {
 		this.tipoNotificacao = tipoNotificacao;
 		this.prioridade = prioridade;
@@ -34,6 +36,14 @@ public class Notificacao {
 		this.aviso_data = aviso_data;
 		this.id = id;
 		this.funcionarios = funcionarios;
+	}
+	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Andamento estado, Date aviso_data, Integer id) {
+		this.tipoNotificacao = tipoNotificacao;
+		this.prioridade = prioridade;
+		this.descricao = descricao;
+		this.estado = estado;
+		this.aviso_data = aviso_data;
+		this.id = id;
 	}
 	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Andamento estado, Date aviso_data,
 			List<Funcionario> funcionarios) {
@@ -88,6 +98,18 @@ public class Notificacao {
 		this.estado = estado;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return " Hora "+ this.getAviso_data().toString() + " - "+ getDescricao() + "  Prioridade : "+ this.getPrioridade().toString()+ " Estado : "+ this.getEstado().toString();
+	}
+	@Override
+	public int compareTo(Notificacao arg0) {
+		if(this.getAviso_data().getTime() > arg0.getAviso_data().getTime())
+			return 1;
+		else if(this.getAviso_data().getTime() < arg0.getAviso_data().getTime())
+			return -1;
+		else 
+			return 0;
+	}
 	
 }

@@ -59,5 +59,5 @@ public interface IFachada {
     
     // notificacao
     public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException;
-    public List<Notificacao> buscarPorFuncionario(List<Funcionario> funcionarios) throws BusinessException;
+    public List<Notificacao> buscarNotificacaoPorFuncionario(Funcionario funcionario) throws BusinessException;
 }

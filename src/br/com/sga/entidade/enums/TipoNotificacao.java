@@ -4,10 +4,11 @@ public enum TipoNotificacao {
 	
 	TAREFA,FINANCEIRO,AUDIENCIA;
 	
-	public TipoNotificacao getTipoNotificacao(String tipo) {
-		for(TipoNotificacao e : values()) 
-			if(e.toString().equalsIgnoreCase(tipo))
-				return e;
+	public static TipoNotificacao getTipo(String tipo) {
+		if(tipo != null)
+			for(TipoNotificacao e : values()) 
+				if(e.toString().equalsIgnoreCase(tipo))
+					return e;
 		return null;
 	}
 	

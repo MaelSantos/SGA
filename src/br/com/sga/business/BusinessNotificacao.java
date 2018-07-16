@@ -37,16 +37,20 @@ public class BusinessNotificacao implements IBusinessNotificacao{
 		
 	}
 
-	@Override
-	public List<Notificacao> buscarPorFuncionario(List<Funcionario> funcionarios) throws BusinessException {
-			
-		return null;
-	}
 	
 	private void validarNotificacao(Notificacao notificacao) throws ValidacaoException{
 		
 		if(notificacao.getDescricao().trim().length() <1) {
 			new ValidacaoException("DESCRIÇÃO INVALIDA");
+		}
+	}
+
+	@Override
+	public List<Notificacao> buscarPorNotificaoesPorFuncionario(Funcionario funcionario) throws BusinessException {
+		try {
+			return daoNotificacao.buscarPorFuncionario(funcionario.getNumero_oab());
+		} catch (DaoException e) {
+			throw new BusinessException(e.getMessage());
 		}
 	}
 	

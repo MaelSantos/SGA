@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -36,6 +37,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
@@ -100,36 +102,47 @@ public class ControlePerfil extends Controle{
     }	
 
 	@Override
-<<<<<<< HEAD
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
 		fachada = Fachada.getInstance();
 		Calendar c = Calendar.getInstance();
 		diasPagination.setPageCount(c.getActualMaximum(Calendar.DAY_OF_MONTH));
 		diasPagination.setCurrentPageIndex(Calendar.DAY_OF_MONTH);
-		diasPagination.setPageFactory(new Callback<Integer, Node>() {
-		       public Node call(Integer pageIndex) {
-		           FlowPane pane = new FlowPane();
-		           pane.getChildren().add(new Label(""+new SecureRandom().nextInt(1000)));
-		           return pane;
-		       }
-		   });
-=======
-	public void init() {
-		// TODO Stub de método gerado automaticamente
-		
->>>>>>> bad7ebe6922950c4e29ca2ac361a7d0d31127392
 	}
-
+	
 	@Override
 	public void atualizar(Tela tela, Object usuario) {
 		if(usuario != null) {
 			if (usuario instanceof Funcionario) {
 				funcionario = (Funcionario) usuario;
 				lblNome.setText(funcionario.getNome());
-				
+				Calendar c = Calendar.getInstance();
+				diasPagination.setPageFactory(new Callback<Integer, Node>() {
+				       
+					public Node call(Integer pageIndex) {
+				    	   VBox v =  new VBox();
+				    	   List<Notificacao> notificacoes  =null;
+				    	   try {
+								notificacoes = fachada.buscarNotificacaoPorFuncionario(funcionario);
+								Collections.sort(notificacoes);
+				    	   } catch (BusinessException e1) {
+								Alerta.getInstance().showMensagem("Alerta","",e1.getMessage());
+							}
+				    	   for(Notificacao e : notificacoes) {
+				        	   c.setTime(e.getAviso_data());
+				        	   if(pageIndex+1  == c.get(Calendar.DAY_OF_MONTH ))
+				        		   v.getChildren().add(new Label(e.toString()));
+				           }
+				           return v;
+				       }
+				   });
 			}
 		}
+		
+	}
+
+	@Override
+	public void init() {
 		
 	}
 }

@@ -67,6 +67,9 @@ public class SQLUtil {
     
     public static class Notificacao{
     	public static final String INSERT_ALL = "INSERT INTO NOTIFICACAO(tipo,descricao,prioridade,estado,data_aviso) VALUES(?,?,?,?,?)";
+    	public static final String BUSCA_POR_FUNCIONARIO ="select n.* from funcionario f, vinculo_funcionario v , "
+    			+ "notificacao n where n.estado != 'COMPLETO' and n.id =  v.notificacao_id and v.funcionario_id ="
+    			+ " f.id and f.numero_oab = ?";
     }
    
     public static class VinculoFuncionario{

@@ -11,8 +11,10 @@ import java.util.List;
 
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Prioridade;
 import br.com.sga.entidade.enums.Tabela;
+import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoNotificacao;
 import br.com.sga.sql.SQLConnection;
@@ -96,6 +98,32 @@ public class DaoNotificacao implements IDaoNotificacao {
 	public List<Notificacao> buscarPorBusca(String busca) throws DaoException {
 		// TODO Stub de método gerado automaticamente
 		return null;
+	}
+
+	@Override
+	public List<Notificacao> buscarPorFuncionario(String busca) throws DaoException {
+		try {
+            this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Notificacao.BUSCA_POR_FUNCIONARIO); // PESQUISA TODAS AS NOTIFICACOES ATIVAS PARA UM FUNCIONARIO A PARTIR DO SEU NUMERO AOB
+            statement.setString(1,busca);
+            resultSet = statement.executeQuery();
+            
+            List<Notificacao> lista = new ArrayList<>();
+            while(resultSet.next()) {
+            	lista.add(new Notificacao(TipoNotificacao.getTipo(resultSet.getString("tipo")),Prioridade.getTipo(resultSet.getString("prioridade")),
+            			resultSet.getString("descricao"),Andamento.getTipo(resultSet.getString("estado")), 
+            			resultSet.getDate("data_aviso"),resultSet.getInt("id")));
+            }if(lista.isEmpty()){
+            	throw new DaoException("NÃO HÁ NOFICAÇÕES ATIVAS PARA ESSE USUARIO");
+            }
+            this.connection.close();
+            this.statement.close();
+            this.resultSet.close();
+            return lista;
+		} catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO NOTIFICACOES DE FUNCIONARIO - CONTATE O ADM");
+        }
 	}
 
 }
