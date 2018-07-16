@@ -10,37 +10,42 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroAudiencia">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" vgap="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <ComboBox prefWidth="150.0" promptText="Tipo" />
-                  <TextField editable="false" promptText="Processo">
+                  <TextField fx:id="tfdProcesso" editable="false" promptText="Processo">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </TextField>
-                  <TextField promptText="Vara">
+                  <ComboBox fx:id="cbxTipo" prefWidth="174.0" promptText="Tipo" />
+                  <ComboBox fx:id="cbxStatus" prefWidth="174.0" promptText="Status" />
+                  <TextField fx:id="tfdVara" promptText="Vara">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </TextField>
-                  <TextField promptText="Orgão">
+                  <TextField fx:id="tfdOrgao" promptText="Orgão">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </TextField>
-                  <DatePicker promptText="Data Da Audiência" />
+                  <DatePicker fx:id="tfdData" promptText="Data Da Audiência" />
                </children>
             </FlowPane>
          </center>
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button mnemonicParsing="false" text="Cadastrar Audiência">
+                  <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#actionButton" text="Voltar">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </Button>
+                <Button fx:id="btnCadastrar" mnemonicParsing="false" onAction="#actionButton" text="Cadastrar Audiência">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font>

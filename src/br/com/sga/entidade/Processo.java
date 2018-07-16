@@ -112,7 +112,10 @@ public class Processo {
 		this.audiencias = audiencias;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "NUMERO: ["+numero+"] DATA: ["+data_atuacao+"] TIPO: ["+tipo_processo+"]";
+	}
 	
 	
 }

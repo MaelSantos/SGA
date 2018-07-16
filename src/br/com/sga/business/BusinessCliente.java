@@ -11,21 +11,13 @@ import br.com.sga.interfaces.IBussinessCliente;
 import br.com.sga.interfaces.IDaoCliente;
 
 public class BusinessCliente implements IBussinessCliente{
-
-	private static BusinessCliente instance;
 	
 	private IDaoCliente daoCliente;
 	private Validar validador;
 	
-	private BusinessCliente() {
+	public BusinessCliente() {
 		validador = Validar.getInstance();
-		daoCliente = DaoCliente.getInstance();	
-	}
-	
-	public static BusinessCliente getInstance() {
-		if(instance == null)
-			instance = new BusinessCliente();
-		return instance;
+		daoCliente = new DaoCliente();	
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.sga.dao.DaoContrato;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Parcela;
+import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
@@ -79,6 +80,16 @@ public class BusinessContrato implements IBusinessContrato {
 	public List<Contrato> buscarPorCliente(String busca) throws BusinessException {
 		try {
 			return daoContrato.buscaPorCliente(busca);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ContratoAdapter> buscaAllAdapter() throws BusinessException {
+		try {
+			return daoContrato.buscarAllAdapter();
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());

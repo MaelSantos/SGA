@@ -28,7 +28,7 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 	DaoCommun daoCommun;
 	
 	public DaoFinanceiro() {
-		daoCommun = new DaoCommun();
+		daoCommun = DaoCommun.getInstance();
 	}
 	@Override
 	public void salvar(Financeiro entidade) throws DaoException {
@@ -48,23 +48,23 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 		}
 	}
 	
-	public static void main(String[] args) {
-		Financeiro financeiro = new Financeiro(0f, 0f,"2024"); // ANO UNICO !!!
-		try {
-			new DaoFinanceiro().salvar(financeiro);
-			DaoCommun d = new DaoCommun();
-			d.salvarDespesa(new Despesa(Calendar.getInstance().getTime(),false,"comida","Gasto com comida para ir em audiencia",
-					100f,"Diversos",Calendar.getInstance().getTime()),financeiro.getId());
-			d.salvarDespesa(new Despesa(Calendar.getInstance().getTime(),false,"veiculo","gasolina",
-					1000f,"tansporte",Calendar.getInstance().getTime()),financeiro.getId());
-			d.salvarReceita(new Receita(Calendar.getInstance().getTime(),false,"cliente","ganho como pagamento por consulta",
-					150f,"receita de consulta",Calendar.getInstance().getTime()),financeiro.getId());
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-		
-		
-	}
+//	public static void main(String[] args) {
+//		Financeiro financeiro = new Financeiro(0f, 0f,"2024"); // ANO UNICO !!!
+//		try {
+//			new DaoFinanceiro().salvar(financeiro);
+//			DaoCommun d = DaoCommun.getInstance();
+//			d.salvarDespesa(new Despesa(Calendar.getInstance().getTime(),false,"comida","Gasto com comida para ir em audiencia",
+//					100f,"Diversos",Calendar.getInstance().getTime()),financeiro.getId());
+//			d.salvarDespesa(new Despesa(Calendar.getInstance().getTime(),false,"veiculo","gasolina",
+//					1000f,"tansporte",Calendar.getInstance().getTime()),financeiro.getId());
+//			d.salvarReceita(new Receita(Calendar.getInstance().getTime(),false,"cliente","ganho como pagamento por consulta",
+//					150f,"receita de consulta",Calendar.getInstance().getTime()),financeiro.getId());
+//		} catch (DaoException e) {
+//			e.printStackTrace();
+//		}
+//	
+//	}
+	
 	@Override
 	public void editar(Financeiro entidade) throws DaoException {
 		// TODO Stub de método gerado automaticamente

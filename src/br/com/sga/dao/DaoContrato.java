@@ -15,6 +15,7 @@ import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Testemunha;
+import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.entidade.enums.Tabela;
@@ -33,7 +34,7 @@ public class DaoContrato implements IDaoContrato{
 	DaoCommun daoCommun;
 	
 	public DaoContrato() {
-		daoCommun = new DaoCommun();
+		daoCommun = DaoCommun.getInstance();
 	}
 	@Override
 	public void salvar(Contrato entidade) throws DaoException {
@@ -103,8 +104,34 @@ public class DaoContrato implements IDaoContrato{
 
 	@Override
 	public Contrato buscarPorId(int id) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Contrato.SELECT_CONTRATO_ID);
+            this.statement.setInt(1, id);
+            
+            resultSet = statement.executeQuery();
+           
+            Contrato contrato = null;
+            while(resultSet.next()) {
+            	
+            	contrato = new Contrato();
+            	contrato.setId(resultSet.getInt("id"));
+//            	contrato.setNome_cliente(resultSet.getString("nome"));
+            	contrato.setData_contrato(resultSet.getDate("data_contrato"));
+            	contrato.setValor_total(resultSet.getFloat("valor_total"));
+            	
+            }
+            this.connection.close();
+            this.statement.close();
+            this.resultSet.close();
+            return contrato;
+            
+		} catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO BUSCAR CONTRATOS POR ID - CONTATE O ADM");
+        }
+
 	}
 
 	@Override
@@ -143,6 +170,38 @@ public class DaoContrato implements IDaoContrato{
             ex.printStackTrace();
             throw new DaoException("PROBLEMA AO BUSCAR CONTRATOS DE CLIENTE - CONTATE O ADM");
         }
+	}
+	@Override
+	public List<ContratoAdapter> buscarAllAdapter() throws DaoException {
+
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Contrato.SELECT_CONTRATO_ADAPTER);
+
+            resultSet = statement.executeQuery();
+           
+            List<ContratoAdapter> adapters = new ArrayList<>();
+            while(resultSet.next()) {
+            	
+            	ContratoAdapter adapter = new ContratoAdapter();
+            	adapter.setId(resultSet.getInt("id"));
+            	adapter.setNome_cliente(resultSet.getString("nome"));
+            	adapter.setData_contrato(resultSet.getDate("data_contrato"));
+            	adapter.setValor_total(resultSet.getFloat("valor_total"));
+            	
+            	adapters.add(adapter);
+            	
+            }
+            this.connection.close();
+            this.statement.close();
+            this.resultSet.close();
+            return adapters;
+            
+		} catch (Exception ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO BUSCAR CONTRATOS ADAPTERS - CONTATE O ADM");
+        }
+
 	}
 	
 	

@@ -36,8 +36,7 @@ public class ControleContatos extends Controle {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		super.initialize(arg0, arg1);
+	public void init() {
 		List<Telefone> list = Arrays.asList(new Telefone(0,981169372,88,new Cliente()));
 		Cliente cliente = new Cliente("Mael",list);
 		

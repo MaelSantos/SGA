@@ -13,11 +13,13 @@ import org.postgresql.jdbc2.ArrayAssistantRegistry;
 
 import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoCliente;
@@ -29,13 +31,14 @@ import br.com.sga.sql.SQLConnection;
 import br.com.sga.sql.SQLUtil;
 
 public class DaoProcesso implements IDaoProcesso {
+	
 	private Connection conexao;
 	private PreparedStatement statement;
 	private ResultSet resultSet;
 	private DaoCommun daoCommun;
 
 	public DaoProcesso() {
-		daoCommun = new DaoCommun();
+		daoCommun = DaoCommun.getInstance();
 	}
 	@Override
 	public void salvar(Processo entidade) throws DaoException {
@@ -93,60 +96,107 @@ public class DaoProcesso implements IDaoProcesso {
 
 	@Override
 	public Processo buscarPorId(int id) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
-	}
+		
+		try {
 
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Processo.SELECT_ID);
+			this.statement.setInt(1, id);
+
+			resultSet = this.statement.executeQuery();
+			
+			Processo processo = null;
+			Contrato contrato = null;
+			Consulta consulta = null;
+			Cliente cliente = null;
+			
+			if(resultSet.next()) {
+
+				processo = new Processo();				
+
+				processo.setId(resultSet.getInt(1));
+				processo.setNumero(resultSet.getString("numero"));
+				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
+				processo.setComarca(resultSet.getString("comarca"));
+				processo.setDecisao(resultSet.getString("decisao"));
+				processo.setClasse_judicial(resultSet.getString("classe_judicial"));
+				processo.setDescricao(resultSet.getString("descricao"));
+				processo.setFase(resultSet.getString("fase"));
+				processo.setOrgao_julgador(resultSet.getString("orgao_julgador"));
+				processo.setTipo_participacao(TipoParticipacao.getValue(resultSet.getString("tipo_participacao")));
+				processo.setTipo_processo(TipoProcesso.getTipo(resultSet.getString("tipo_processo")));
+				
+				contrato = new Contrato();
+				contrato.setValor_total(resultSet.getFloat("valor_total"));
+				contrato.setId(resultSet.getInt("contrato_id"));
+				
+				consulta = new Consulta();
+				cliente = new Cliente();
+				cliente.setNome(resultSet.getString("nome"));
+				consulta.setCliente(cliente);
+				
+				contrato.setConsulta(consulta);
+				
+				contrato.setPartes(daoCommun.getPartes(contrato.getId()));
+				
+				processo.setContrato(contrato);
+				
+//				for(Audiencia a : daoCommun.a)
+			}
+			
+			this.conexao.close();
+			return processo;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("ERRO AO BUSCAR PROCESSO POR ID - CONTATE O ADM");
+		}
+
+	}
 
 	@Override
 	public List<Processo> buscarPorBusca(String busca) throws DaoException {
-
-		List<Processo> processos = new ArrayList<>();
-		System.out.println("Criou Processo: "+processos);
+		return null;
+	}
+	@Override
+	public List<ProcessoAdapter> buscarAllAdapter(String tipo) throws DaoException {
+		
+		List<ProcessoAdapter> processos = new ArrayList<>();
 		try {
 
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = conexao.prepareStatement(SQLUtil.Processo.SELECT_TIPO);
-			this.statement.setString(1, busca);
+			this.statement.setString(1, tipo);
 
 			resultSet = this.statement.executeQuery();
-			Processo processo;
+			
+			ProcessoAdapter processo;
 			Contrato contrato;
 			while(resultSet.next()) {
 
-				processo = new Processo();				
-//				contrato_id, status, data_atuacao, numero, classe_judicial, orgao_julgador, comarca
-//				decisao, descricao, fase, tipo_processo, tipo_participacao, audiencias;
-				processo.setId(resultSet.getInt("id"));
-				processo.setStatus(resultSet.getBoolean("status"));
-				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
+				processo = new ProcessoAdapter();				
+
+//				p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase
+				processo.setId(resultSet.getInt(1));
 				processo.setNumero(resultSet.getString("numero"));
-				processo.setClasse_judicial(resultSet.getString("classe_judicial"));
-				processo.setOrgao_julgador(resultSet.getString("orgao_julgador"));
+				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
 				processo.setComarca(resultSet.getString("comarca"));
 				processo.setDecisao(resultSet.getString("decisao"));
-				processo.setDescricao(resultSet.getString("descricao"));
-				processo.setFase(resultSet.getString("fase"));
-				processo.setTipo_processo(TipoProcesso.getTipo(resultSet.getString("tipo_processo")));
-				processo.setTipo_participacao(TipoParticipacao.getValue(resultSet.getString("tipo_participacao")));
 				
-				contrato = new Contrato();
+				int contrato_id = resultSet.getInt(5);
 				
-				contrato.setId(resultSet.getInt("contrato_id"));
+				processo.setPartes(daoCommun.getPartes(contrato_id).toString());
 				
-				processo.setContrato(contrato);
-				processos.add(processo);			
-				System.out.println("Adicionou Processo: "+processo);
-
+				processos.add(processo);
 			}
+			
 			this.conexao.close();
-			System.out.println("Saiu ou não entrou nou while");
+			return processos;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new DaoException("ERRO AO BUSCAR PROCESSOS DO TIPO "+busca.toUpperCase()+" - CONTATE O ADM");
+			throw new DaoException("ERRO AO BUSCAR PROCESSOS DO TIPO "+tipo.toUpperCase()+" - CONTATE O ADM");
 		}
 
-		return processos;
 	}
-
+	
 }

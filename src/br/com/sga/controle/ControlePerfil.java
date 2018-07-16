@@ -100,6 +100,7 @@ public class ControlePerfil extends Controle{
     }	
 
 	@Override
+<<<<<<< HEAD
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
 		fachada = Fachada.getInstance();
@@ -113,6 +114,11 @@ public class ControlePerfil extends Controle{
 		           return pane;
 		       }
 		   });
+=======
+	public void init() {
+		// TODO Stub de método gerado automaticamente
+		
+>>>>>>> bad7ebe6922950c4e29ca2ac361a7d0d31127392
 	}
 
 	@Override

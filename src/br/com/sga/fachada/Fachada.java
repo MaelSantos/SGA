@@ -1,8 +1,8 @@
 package br.com.sga.fachada;
 
-
 import java.util.List;
 
+import br.com.sga.business.BusinessAudiencia;
 import br.com.sga.business.BusinessCliente;
 import br.com.sga.business.BusinessConsulta;
 import br.com.sga.business.BusinessContrato;
@@ -10,6 +10,7 @@ import br.com.sga.business.BusinessFinanceiro;
 import br.com.sga.business.BusinessNotificacao;
 import br.com.sga.business.BusinessProcesso;
 import br.com.sga.business.BusinessUsuario;
+import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.business.BusinessUsuario;
@@ -19,8 +20,11 @@ import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
+import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
+import br.com.sga.interfaces.IBusinessAudiencia;
 import br.com.sga.interfaces.IBusinessConsulta;
 import br.com.sga.interfaces.IBusinessContrato;
 import br.com.sga.interfaces.IBusinessFinanceiro;
@@ -37,8 +41,12 @@ public class Fachada implements IFachada {
     private IBusinessProcesso businessProcesso;
     private IBusinessContrato businessContrato;
     private IBusinessFinanceiro businessFinanceiro;
+<<<<<<< HEAD
     private IBusinessNotificacao businessNotificacao;
     
+=======
+    private IBusinessAudiencia businessAudiencia;
+>>>>>>> bad7ebe6922950c4e29ca2ac361a7d0d31127392
 
     private static Fachada fachada;
 
@@ -51,12 +59,16 @@ public class Fachada implements IFachada {
 
     private Fachada() {
         businessUsuario = new BusinessUsuario();
-        businessCliente = BusinessCliente.getInstance();
+        businessCliente = new BusinessCliente();
         businessConsulta = new BusinessConsulta();
         businessProcesso = new BusinessProcesso();
         businessContrato = new BusinessContrato();
         businessFinanceiro = new BusinessFinanceiro();
+<<<<<<< HEAD
         businessNotificacao =  new BusinessNotificacao();
+=======
+        businessAudiencia = new BusinessAudiencia();
+>>>>>>> bad7ebe6922950c4e29ca2ac361a7d0d31127392
     }
 
 	@Override
@@ -144,6 +156,11 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
+	public List<ContratoAdapter> buscaAllContratoAdapter() throws BusinessException {
+		return businessContrato.buscaAllAdapter();
+	}
+	
+	@Override
 	public void salvarEditarFinanceiro(Financeiro entidade) throws BusinessException {
 		businessFinanceiro.salvarEditar(entidade);
 	}
@@ -159,6 +176,7 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException {
 		businessNotificacao.salvarEditarNotificacao(notificacao);
 	}
@@ -167,6 +185,30 @@ public class Fachada implements IFachada {
 	public List<Notificacao> buscarPorFuncionario(List<Funcionario> funcionarios) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
+=======
+	public List<ProcessoAdapter> buscaAllProcessoAdapter(String tipo) throws BusinessException {
+		return businessProcesso.buscarAllAdapter(tipo);
+	}
+
+	@Override
+	public void salvarEditarAudiencia(Audiencia entidade) throws BusinessException {
+		businessAudiencia.salvar(entidade);
+	}
+
+	@Override
+	public Audiencia buscarAudienciaPorId(int id) throws BusinessException {
+		return businessAudiencia.buscarPorId(id);
+	}
+
+	@Override
+	public List<Audiencia> buscarAudienciaPorBusca(String busca) throws BusinessException {
+		return businessAudiencia.buscarPorBusca(busca);
+	}
+
+	@Override
+	public List<Audiencia> buscarAudienciaPorIdProcesso(int id) throws BusinessException {
+		return businessAudiencia.buscarPorIdProcesso(id);
+>>>>>>> bad7ebe6922950c4e29ca2ac361a7d0d31127392
 	}
 
 }

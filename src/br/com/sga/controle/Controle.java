@@ -11,9 +11,12 @@ import javafx.fxml.Initializable;
 
 public abstract class Controle implements Initializable, Ouvinte {
 	
+	public abstract void init();
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		App.addOuvinte(this);
+		init();
 	}
 	
 	 @FXML

@@ -17,7 +17,7 @@
          <center>
             <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" vgap="30.0" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="tfdContrato" promptText="Contrato Referente" />
+                  <ComboBox fx:id="cbxContrato" prefWidth="174.0" promptText="Contrato Referente" />
                   <ComboBox fx:id="cbxTipoProcesso" prefWidth="174.0" promptText="Tipo Processo" styleClass="-fx-font: 12px \&quot;Verdana&quot;" />
                   <ComboBox fx:id="cbxParticipacao" prefWidth="174.0" promptText="Tipo Participação" styleClass="-fx-font: 12px \&quot;Verdana&quot;" />
                   <TextField fx:id="tfdNumero" promptText="Numero">

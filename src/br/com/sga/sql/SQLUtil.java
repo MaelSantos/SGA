@@ -8,11 +8,16 @@ public class SQLUtil {
     
     public static class Processo{
     	public static final String INSERT_ALL = "INSERT INTO PROCESSO(numero,tipo_participacao,tipo_processo,fase,descricao,decisao,comarca,orgao_julgador,classe_judicial,data_atuacao,status,contrato_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-    	public static final String SELECT_TIPO = "SELECT FROM PROCESSO p, CONTRATO c,PARTE r WHERE p.tipo_processo = ? and p.contrato_id=c.id and r.contrato_id=c.id";
+    	public static final String SELECT_TIPO = "SELECT p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase FROM PROCESSO p WHERE p.tipo_processo = ?";
+    	public static final String SELECT_ID = "SELECT P.*,C.valor_total, E.nome FROM PROCESSO P, CONTRATO C,CONSULTA D, CLIENTE E WHERE P.ID = ? AND P.CONTRATO_ID=C.ID AND C.CONSULTA_ID=D.ID AND D.CLIENTE_ID = E.ID";
+    
     }
     
     public static class Audiencia{
     	public static final String INSERT_ALL = "INSERT INTO AUDIENCIA(data_audiencia,tipo,vara,orgao,status,processo_id) VALUES(?,?,?,?,?,?)";
+    	public static final String SELECT_PROCESSO_ID = "SELECT A.* FROM AUDIENCIA A, PROCESSO P WHERE P.ID = ? AND P.ID=A.PROCESSO_ID";
+    	
+    	
     }
     
     public static class Parcela{
@@ -22,7 +27,7 @@ public class SQLUtil {
     
     public static class Parte{
     	public static final String INSERT_ALL = "INSERT INTO PARTE(nome,tipo_parte,tipo_participacao,contrato_id) VALUES(?,?,?,?)";
-    
+    	public static final String SELECT_PARTE_CONTRATO_ID = "SELECT * FROM PARTE WHERE contrato_id = ?";
     }
 
     public static class Financeiro{
@@ -43,9 +48,11 @@ public class SQLUtil {
     public static class Contrato{
     	public static final String INSERT_ALL = "INSERT INTO CONTRATO(objeto,valor_total,tipo_pagamento,data_contrato,area,dados_banco,consulta_id,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
     	public static final String BUSCAR_ATIVOS = "SELECT * FROM CONTRATO WHERE STATUS = TRUE";
+    	public static final String SELECT_CONTRATO_ID = "SELECT * FROM CONTRATO WHERE id = ?";
     	public static final String BUSCA_POR_CLIENTE ="select cont.* from contrato cont, consulta cons, cliente clie "
     			+ "where clie.id = cons.cliente_id and cons.id = cont.consulta_id and clie.nome = ? or clie.email = ? "
     			+ "or clie.cpf_cnpj = ? or clie.rg = ?";
+    	public static final String SELECT_CONTRATO_ADAPTER = "SELECT C.id,D.nome,C.data_contrato,C.valor_total FROM CONTRATO C, CLIENTE D, CONSULTA E WHERE C.CONSULTA_ID = E.ID AND D.ID = E.CLIENTE_ID";
     }
     
     public static class Testemunha{

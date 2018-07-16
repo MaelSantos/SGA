@@ -25,7 +25,7 @@ public class DaoNotificacao implements IDaoNotificacao {
 	DaoCommun daoCommun;
 	
 	public DaoNotificacao() {
-		daoCommun = new DaoCommun();
+		daoCommun = DaoCommun.getInstance();
 	}	
 	
 	@Override

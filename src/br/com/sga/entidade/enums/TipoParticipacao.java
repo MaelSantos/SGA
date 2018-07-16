@@ -2,7 +2,7 @@ package br.com.sga.entidade.enums;
 
 public enum TipoParticipacao {
 	
-	EXEQUENTE,EXECUTADO;
+	EXEQUENTE,EXECUTADO,ADVOCADO;
 	
 	public static TipoParticipacao getValue(String tipo)
 	{
