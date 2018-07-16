@@ -7,11 +7,14 @@ import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 
 public interface IFachada {
+	
+	
 	
 	//usuario
 	public Funcionario buscarPorLogin(String login, String senha) throws BusinessException;
@@ -42,4 +45,8 @@ public interface IFachada {
     //financeiro
     public void salvarEditarFinanceiro(Financeiro entidade) throws BusinessException;
     public Financeiro buscarFinanceiroPorAno(Integer ano) throws BusinessException;
+    
+    // notificacao
+    public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException;
+    public List<Notificacao> buscarPorFuncionario(List<Funcionario> funcionarios) throws BusinessException;
 }

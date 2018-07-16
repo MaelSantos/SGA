@@ -7,6 +7,7 @@ import br.com.sga.business.BusinessCliente;
 import br.com.sga.business.BusinessConsulta;
 import br.com.sga.business.BusinessContrato;
 import br.com.sga.business.BusinessFinanceiro;
+import br.com.sga.business.BusinessNotificacao;
 import br.com.sga.business.BusinessProcesso;
 import br.com.sga.business.BusinessUsuario;
 import br.com.sga.entidade.Cliente;
@@ -16,12 +17,14 @@ import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IBusinessConsulta;
 import br.com.sga.interfaces.IBusinessContrato;
 import br.com.sga.interfaces.IBusinessFinanceiro;
+import br.com.sga.interfaces.IBusinessNotificacao;
 import br.com.sga.interfaces.IBusinessProcesso;
 import br.com.sga.interfaces.IBusinessUsuario;
 import br.com.sga.interfaces.IBussinessCliente;
@@ -34,6 +37,7 @@ public class Fachada implements IFachada {
     private IBusinessProcesso businessProcesso;
     private IBusinessContrato businessContrato;
     private IBusinessFinanceiro businessFinanceiro;
+    private IBusinessNotificacao businessNotificacao;
     
 
     private static Fachada fachada;
@@ -52,6 +56,7 @@ public class Fachada implements IFachada {
         businessProcesso = new BusinessProcesso();
         businessContrato = new BusinessContrato();
         businessFinanceiro = new BusinessFinanceiro();
+        businessNotificacao =  new BusinessNotificacao();
     }
 
 	@Override
@@ -151,6 +156,17 @@ public class Fachada implements IFachada {
 	@Override
 	public List<Contrato> buscarContratoPorCliente(String busca) throws BusinessException {
 		return businessContrato.buscarPorCliente(busca);
+	}
+
+	@Override
+	public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException {
+		businessNotificacao.salvarEditarNotificacao(notificacao);
+	}
+
+	@Override
+	public List<Notificacao> buscarPorFuncionario(List<Funcionario> funcionarios) throws BusinessException {
+		// TODO Stub de método gerado automaticamente
+		return null;
 	}
 
 }

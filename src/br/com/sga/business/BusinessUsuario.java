@@ -43,8 +43,11 @@ public class BusinessUsuario implements IBusinessUsuario {
 
 	@Override
 	public List<Funcionario> buscarPorBusca(String busca) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		try {
+			return daoUsuario.buscarPorBusca(busca);
+		} catch (DaoException e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	private void validarUsuario(Funcionario usuario) throws ValidacaoException, DaoException{

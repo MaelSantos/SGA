@@ -1,6 +1,5 @@
 package br.com.sga.entidade;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class Notificacao {
 	private String descricao;
 	private Prioridade prioridade;
 	private Date aviso_data;
-	private Integer id,intervalo_repeticao;
+	private Integer id;
 	private List<Funcionario> funcionarios;
 	
 	/**
@@ -25,28 +24,24 @@ public class Notificacao {
 	 * @param estado
 	 * @param aviso_data
 	 * @param id
-	 * @param intervalo_repeticao
 	 * @param funcionario
 	 */
-	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Andamento estado, Date aviso_data, Integer id,
-			Integer intervalo_repeticao,List<Funcionario> funcionarios) {
+	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Andamento estado, Date aviso_data, Integer id,List<Funcionario> funcionarios) {
 		this.tipoNotificacao = tipoNotificacao;
 		this.prioridade = prioridade;
 		this.descricao = descricao;
 		this.estado = estado;
 		this.aviso_data = aviso_data;
 		this.id = id;
-		this.intervalo_repeticao = intervalo_repeticao;
 		this.funcionarios = funcionarios;
 	}
 	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Andamento estado, Date aviso_data,
-			Integer intervalo_repeticao,List<Funcionario> funcionarios) {
+			List<Funcionario> funcionarios) {
 		this.tipoNotificacao = tipoNotificacao;
 		this.prioridade = prioridade;
 		this.descricao = descricao;
 		this.estado = estado;
 		this.aviso_data = aviso_data;
-		this.intervalo_repeticao = intervalo_repeticao;
 		this.funcionarios = funcionarios;
 	}
 	
@@ -73,12 +68,6 @@ public class Notificacao {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public Integer getIntervalo_repeticao() {
-		return intervalo_repeticao;
-	}
-	public void setIntervalo_repeticao(Integer intervalo_repeticao) {
-		this.intervalo_repeticao = intervalo_repeticao;
 	}
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;

@@ -41,6 +41,21 @@ public class Dialogo {
 		return entrada;
 		
 	}
+	
+	public CadastroNotificacao cadastroNotificacaoDialog() {
+		Dialog<String> dialog = new Dialog<>();
+		dialog.setTitle("Cadastro de tarefa");
+		dialog.setHeaderText("Cadastre uma nova tarefa para voce ou todos os funcionários");
+		CadastroNotificacao cadastroNotificacao  = new CadastroNotificacao();
+		dialog.getDialogPane().setContent(cadastroNotificacao);
+		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+		Optional<String> result = dialog.showAndWait();
+		if(result.isPresent())
+			return cadastroNotificacao;
+		return null;
+	}
+	
 	public String dialogoDeEntradaText(String titulo,String cabecario,String msg) {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle(titulo);
