@@ -125,7 +125,6 @@ public class Carregar implements Initializable{
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
-						// para att progesso referente dps
 						App.buscarContrato = carregarArquivo("../view/BuscarContrato.fxml");
 						updateMessage(texto);
 						porcentagem = 0.875;

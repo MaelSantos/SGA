@@ -3,7 +3,6 @@ package br.com.sga.app;
 import java.util.ArrayList;
 
 import br.com.sga.interfaces.Ouvinte;
-import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class App extends Application{
 	

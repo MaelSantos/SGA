@@ -41,12 +41,8 @@ public class Fachada implements IFachada {
     private IBusinessProcesso businessProcesso;
     private IBusinessContrato businessContrato;
     private IBusinessFinanceiro businessFinanceiro;
-<<<<<<< HEAD
     private IBusinessNotificacao businessNotificacao;
-    
-=======
     private IBusinessAudiencia businessAudiencia;
->>>>>>> bad7ebe6922950c4e29ca2ac361a7d0d31127392
 
     private static Fachada fachada;
 
@@ -64,11 +60,8 @@ public class Fachada implements IFachada {
         businessProcesso = new BusinessProcesso();
         businessContrato = new BusinessContrato();
         businessFinanceiro = new BusinessFinanceiro();
-<<<<<<< HEAD
         businessNotificacao =  new BusinessNotificacao();
-=======
         businessAudiencia = new BusinessAudiencia();
->>>>>>> bad7ebe6922950c4e29ca2ac361a7d0d31127392
     }
 
 	@Override
@@ -176,7 +169,6 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException {
 		businessNotificacao.salvarEditarNotificacao(notificacao);
 	}
@@ -185,7 +177,8 @@ public class Fachada implements IFachada {
 	public List<Notificacao> buscarPorFuncionario(List<Funcionario> funcionarios) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
-=======
+	}
+
 	public List<ProcessoAdapter> buscaAllProcessoAdapter(String tipo) throws BusinessException {
 		return businessProcesso.buscarAllAdapter(tipo);
 	}
@@ -208,7 +201,6 @@ public class Fachada implements IFachada {
 	@Override
 	public List<Audiencia> buscarAudienciaPorIdProcesso(int id) throws BusinessException {
 		return businessAudiencia.buscarPorIdProcesso(id);
->>>>>>> bad7ebe6922950c4e29ca2ac361a7d0d31127392
 	}
 
 }
