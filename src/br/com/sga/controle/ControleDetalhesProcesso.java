@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControleDetalhesProcesso extends Controle {
 
@@ -103,12 +104,12 @@ public class ControleDetalhesProcesso extends Controle {
 				
 				tfdAtuacao.setText(processo.getData_atuacao().toString());
 				tfdClasse.setText(processo.getClasse_judicial());
-//			tfdDistribuicao.setText(processo.dis);
 				tfdNumero.setText(processo.getNumero());
-				tfdOrgao.setText(processo.getNumero());
+				tfdOrgao.setText(processo.getOrgao_julgador());
 				tfdUsuario.setText(processo.getContrato().getConsulta().getCliente().getNome());
 				tfdValor.setText(processo.getContrato().getValor_total()+"");
 				
+				processo.setAudiencias(fachada.buscarAudienciaPorIdProcesso(processo.getId()));
 				tblAudiencias.getItems().setAll(processo.getAudiencias());
 				
 				tblAtivo.getItems().clear();
@@ -122,7 +123,6 @@ public class ControleDetalhesProcesso extends Controle {
 				}
 				
 			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
 			
@@ -145,8 +145,29 @@ public class ControleDetalhesProcesso extends Controle {
 	public void init() {
 		fachada = Fachada.getInstance();
 		
+		colData.setCellValueFactory(
+                new PropertyValueFactory<>("data_audiencia"));
+		colOrgao.setCellValueFactory(
+                new PropertyValueFactory<>("orgao"));
+		colVara.setCellValueFactory(
+				new PropertyValueFactory<>("vara"));
+		colStatus.setCellValueFactory(
+				new PropertyValueFactory<>("status"));
 		
+		colParticipantes1.setCellValueFactory(
+                new PropertyValueFactory<>("nome"));
+		colParticipantes2.setCellValueFactory(
+                new PropertyValueFactory<>("nome"));
 		
+		colSituacao1.setCellValueFactory(
+                new PropertyValueFactory<>("situacao"));
+		colSituacao2.setCellValueFactory(
+                new PropertyValueFactory<>("situacao"));
+		
+		colTipo1.setCellValueFactory(
+                new PropertyValueFactory<>("tipo_participacao"));
+		colTipo2.setCellValueFactory(
+                new PropertyValueFactory<>("tipo_participacao"));
 	}
 
 }

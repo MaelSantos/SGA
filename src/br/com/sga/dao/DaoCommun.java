@@ -194,6 +194,7 @@ public class DaoCommun implements IDaoCommun{
 				parte.setNome(resultSet.getString("nome"));
 				parte.setTipo_parte(TipoParte.getTipoParte(resultSet.getString("tipo_parte")));
 				parte.setTipo_participacao(TipoParticipacao.getValue(resultSet.getString("tipo_participacao")));
+				parte.setSituacao(resultSet.getString("situacao"));
 			
 				partes.add(parte);
 				

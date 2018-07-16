@@ -15,6 +15,9 @@ public class SQLUtil {
     
     public static class Audiencia{
     	public static final String INSERT_ALL = "INSERT INTO AUDIENCIA(data_audiencia,tipo,vara,orgao,status,processo_id) VALUES(?,?,?,?,?,?)";
+    	public static final String SELECT_PROCESSO_ID = "SELECT A.* FROM AUDIENCIA A, PROCESSO P WHERE P.ID = ? AND P.ID=A.PROCESSO_ID";
+    	
+    	
     }
     
     public static class Parcela{

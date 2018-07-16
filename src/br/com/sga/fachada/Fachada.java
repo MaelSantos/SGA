@@ -2,12 +2,14 @@ package br.com.sga.fachada;
 
 import java.util.List;
 
+import br.com.sga.business.BusinessAudiencia;
 import br.com.sga.business.BusinessCliente;
 import br.com.sga.business.BusinessConsulta;
 import br.com.sga.business.BusinessContrato;
 import br.com.sga.business.BusinessFinanceiro;
 import br.com.sga.business.BusinessProcesso;
 import br.com.sga.business.BusinessUsuario;
+import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.business.BusinessUsuario;
@@ -20,6 +22,7 @@ import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
+import br.com.sga.interfaces.IBusinessAudiencia;
 import br.com.sga.interfaces.IBusinessConsulta;
 import br.com.sga.interfaces.IBusinessContrato;
 import br.com.sga.interfaces.IBusinessFinanceiro;
@@ -35,7 +38,7 @@ public class Fachada implements IFachada {
     private IBusinessProcesso businessProcesso;
     private IBusinessContrato businessContrato;
     private IBusinessFinanceiro businessFinanceiro;
-    
+    private IBusinessAudiencia businessAudiencia;
 
     private static Fachada fachada;
 
@@ -48,11 +51,12 @@ public class Fachada implements IFachada {
 
     private Fachada() {
         businessUsuario = new BusinessUsuario();
-        businessCliente = BusinessCliente.getInstance();
+        businessCliente = new BusinessCliente();
         businessConsulta = new BusinessConsulta();
         businessProcesso = new BusinessProcesso();
         businessContrato = new BusinessContrato();
         businessFinanceiro = new BusinessFinanceiro();
+        businessAudiencia = new BusinessAudiencia();
     }
 
 	@Override
@@ -162,6 +166,26 @@ public class Fachada implements IFachada {
 	@Override
 	public List<ProcessoAdapter> buscaAllProcessoAdapter(String tipo) throws BusinessException {
 		return businessProcesso.buscarAllAdapter(tipo);
+	}
+
+	@Override
+	public void salvarEditarAudiencia(Audiencia entidade) throws BusinessException {
+		businessAudiencia.salvar(entidade);
+	}
+
+	@Override
+	public Audiencia buscarAudienciaPorId(int id) throws BusinessException {
+		return businessAudiencia.buscarPorId(id);
+	}
+
+	@Override
+	public List<Audiencia> buscarAudienciaPorBusca(String busca) throws BusinessException {
+		return businessAudiencia.buscarPorBusca(busca);
+	}
+
+	@Override
+	public List<Audiencia> buscarAudienciaPorIdProcesso(int id) throws BusinessException {
+		return businessAudiencia.buscarPorIdProcesso(id);
 	}
 
 }

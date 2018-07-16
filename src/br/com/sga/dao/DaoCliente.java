@@ -10,11 +10,8 @@ import java.util.List;
 
 import br.com.sga.business.BusinessCliente;
 import br.com.sga.entidade.Cliente;
-import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
-import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Telefone;
-import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoCliente;
@@ -31,8 +28,7 @@ public class DaoCliente implements IDaoCliente {
 	private PreparedStatement statement;
 	private ResultSet resultSet;
 	private IDaoCommun daoCommun;
-
-	private static DaoCliente instance;
+	
 	public DaoCliente() {
 		daoCommun = DaoCommun.getInstance();
 	}
@@ -243,46 +239,46 @@ public class DaoCliente implements IDaoCliente {
 
 	}
 
-	public static void main(String[] args) {
-		
-		Cliente cliente = new Cliente();
-		
-		cliente.setNome("Mael");
-		cliente.setCpf_cnpj("07551074384");
-		cliente.setEmail("maelsantos777@gmail.com");
-		cliente.setEstado_civil("solteiro");
-		cliente.setFilhos(true);
-		cliente.setGenero(Sexo.MASCULINO);
-		cliente.setNascimento(new java.util.Date(02, 9, 1998));
-		cliente.setProfissao("Estudante/Monitor");
-		cliente.setResponsavel("Deus");
-		cliente.setRg("000000000000");
-		cliente.setTipoCliente(TipoCliente.FISICO);
-		
-		Endereco endereco = new Endereco();
-		
-		endereco.setBairro("AABB");
-		endereco.setCep("540670000");
-		endereco.setCidade("Serra Talhada");
-		endereco.setComplemento("Perto Da Academia Das Cidades");
-		endereco.setEstado("PE");
-		endereco.setNumero("4012");
-		endereco.setPais("Brasil");
-		endereco.setRua("Quirino Cordeiro Magalhães");
-		
-		cliente.setEndereco(endereco);
-		
-		try {
-			
-			BusinessCliente.getInstance().salvar(cliente);
-		//	System.out.println("Cliente: "+BusinessCliente.getInstance().buscarPorCodigo(cliente.getCpf_cnpj()));
-			
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-	}
+//	public static void main(String[] args) {
+//		
+//		Cliente cliente = new Cliente();
+//		
+//		cliente.setNome("Mael");
+//		cliente.setCpf_cnpj("07551074384");
+//		cliente.setEmail("maelsantos777@gmail.com");
+//		cliente.setEstado_civil("solteiro");
+//		cliente.setFilhos(true);
+//		cliente.setGenero(Sexo.MASCULINO);
+//		cliente.setNascimento(new java.util.Date(02, 9, 1998));
+//		cliente.setProfissao("Estudante/Monitor");
+//		cliente.setResponsavel("Deus");
+//		cliente.setRg("000000000000");
+//		cliente.setTipoCliente(TipoCliente.FISICO);
+//		
+//		Endereco endereco = new Endereco();
+//		
+//		endereco.setBairro("AABB");
+//		endereco.setCep("540670000");
+//		endereco.setCidade("Serra Talhada");
+//		endereco.setComplemento("Perto Da Academia Das Cidades");
+//		endereco.setEstado("PE");
+//		endereco.setNumero("4012");
+//		endereco.setPais("Brasil");
+//		endereco.setRua("Quirino Cordeiro Magalhães");
+//		
+//		cliente.setEndereco(endereco);
+//		
+//		try {
+//			
+//			BusinessCliente.getInstance().salvar(cliente);
+//		//	System.out.println("Cliente: "+BusinessCliente.getInstance().buscarPorCodigo(cliente.getCpf_cnpj()));
+//			
+//		} catch (BusinessException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		
+//	}
 	
 }

@@ -119,6 +119,12 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
 				processo.setComarca(resultSet.getString("comarca"));
 				processo.setDecisao(resultSet.getString("decisao"));
+				processo.setClasse_judicial(resultSet.getString("classe_judicial"));
+				processo.setDescricao(resultSet.getString("descricao"));
+				processo.setFase(resultSet.getString("fase"));
+				processo.setOrgao_julgador(resultSet.getString("orgao_julgador"));
+				processo.setTipo_participacao(TipoParticipacao.getValue(resultSet.getString("tipo_participacao")));
+				processo.setTipo_processo(TipoProcesso.getTipo(resultSet.getString("tipo_processo")));
 				
 				contrato = new Contrato();
 				contrato.setValor_total(resultSet.getFloat("valor_total"));

@@ -81,6 +81,14 @@ public class Audiencia {
 	public void setData_audiencia(Date data_audiencia) {
 		this.data_audiencia = data_audiencia;
 	}
+
+	public Processo getProcesso() {
+		return processo;
+	}
+
+	public void setProcesso(Processo processo) {
+		this.processo = processo;
+	}
 	
 	
 	
