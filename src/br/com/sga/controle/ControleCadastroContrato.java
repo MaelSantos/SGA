@@ -20,7 +20,7 @@ import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
-import br.com.sga.entidade.tabelaView.Parte;
+import br.com.sga.entidade.Parte;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
@@ -42,7 +42,6 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.DragEvent;
 
 public class ControleCadastroContrato {
 
@@ -78,31 +77,25 @@ public class ControleCadastroContrato {
     private TableView<Parte> parteTableView;
 
     @FXML
-    private TableColumn<Parte, Boolean> selecionadoParteTableColumn;
-
-    @FXML
     private TableColumn<Parte, String> nomeParteTableColumn;
 
     @FXML
-    private TableColumn<Parte, String> tipoParteTableColumn;
+    private TableColumn<Parte, TipoParte> tipoParteTableColumn;
 
     @FXML
-    private TableColumn<Parte, String> tipoParticipacaoParteTableColumn;
+    private TableColumn<Parte, TipoParticipacao> tipoParticipacaoParteTableColumn;
 
     @FXML
     private Button addParteButton;
 
     @FXML
-    private Button removerParteSelecionadaButton;
-
-    @FXML
     private TextField nomeParteField;
 
     @FXML
-    private ComboBox<String> tipoParteBox;
+    private ComboBox<TipoParte> tipoParteBox;
 
     @FXML
-    private ComboBox<String> tipoParticipcaoBox;
+    private ComboBox<TipoParticipacao> tipoParticipcaoBox;
 
     @FXML
     private Button gerarDocumentoButton;
@@ -142,8 +135,6 @@ public class ControleCadastroContrato {
     		buscarConsultas();
     	else if(addParteButton == event.getSource())
     		addParte();
-    	else if(removerParteSelecionadaButton == event.getSource())
-    		removerParte();
     	else if(gerarDocumentoButton == event.getSource()) {}
     	else if(salvarContratoButton == event.getSource())
     		salvarContrato();
@@ -152,25 +143,11 @@ public class ControleCadastroContrato {
     
     private void addParte(){
     	String nome = nomeParteField.getText().trim();
-    	String tipo_parte = tipoParteBox.getSelectionModel().getSelectedItem();
-    	String tipo_participacao = tipoParticipcaoBox.getSelectionModel().getSelectedItem();
+    	TipoParte tipo_parte = tipoParteBox.getSelectionModel().getSelectedItem();
+    	TipoParticipacao tipo_participacao = tipoParticipcaoBox.getSelectionModel().getSelectedItem();
     	if(nome.length() <1 || tipo_parte == null || tipo_participacao == null)
     		Alerta.getInstance().showMensagem("Alerta","","Não foi possivel adicionar parte: Há campos vazios");
-    	parteTableView.getItems().add(new Parte(nome,tipo_parte,tipo_participacao));
-    }
-    
-    private void removerParte() {
-    	parteTableView.refresh();
-    	ObservableList<Parte> listaParaRemover = FXCollections.observableArrayList();
-    	for(Parte p : parteTableView.getItems()) {
-    		System.out.println(p.getSelecionado());
-    		System.out.println(p.getNome());
-    		if(p.getSelecionado())
-    			listaParaRemover.add(p);
-    	}
-    	parteTableView.getItems().removeAll(listaParaRemover);
-    	Alerta.getInstance().showMensagem("Alerta","",listaParaRemover.size()+" Partes removidas");
-    		
+    	parteTableView.getItems().add(new Parte(tipo_parte, tipo_participacao, nome));
     }
     
     private void salvarContrato() {
@@ -221,9 +198,8 @@ public class ControleCadastroContrato {
     		quantidade_parcelas = 1;
     	
     	// pegando lista de partes
-    	List<br.com.sga.entidade.Parte> partes = new ArrayList<>();
-    	for(br.com.sga.entidade.tabelaView.Parte  e : parteTableView.getItems())
-    		partes.add(new br.com.sga.entidade.Parte(TipoParte.getTipoParte(e.getTipo_parte()),TipoParticipacao.getValue(e.getTipo_participacao()),e.getNome()));
+    	List<Parte> partes = new ArrayList<>();
+    	partes.addAll(parteTableView.getItems());
     	
     	// pegando consulta selecionada
     	Consulta consulta = null;
@@ -281,24 +257,22 @@ public class ControleCadastroContrato {
     	fachada = Fachada.getInstance();
     	for(TipoPagamento tipo : TipoPagamento.values())
     		tipoPagamamentoBox.getItems().add(tipo.toString());
-    	for(TipoParte tipo : TipoParte.values())
-    		tipoParteBox.getItems().add(tipo.toString());
-    	for(TipoParticipacao tipo : TipoParticipacao.values())
-    		tipoParticipcaoBox.getItems().add(tipo.toString());
-    	for(int i = 1 ; i <=28 ; i ++)
+    	
+    	tipoParteBox.getItems().addAll(TipoParte.values());
+		tipoParticipcaoBox.getItems().addAll(TipoParticipacao.values());
+    	
+		for(int i = 1 ; i <=28 ; i ++)
     		diaPagamentoBox.getItems().add(i);
     	for(int i = 1 ; i <=12 ; i ++)
     		quantidadeParcelasBox.getItems().add(i);
     	
-    	selecionadoParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("selecionado"));
         nomeParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tipoParteTableColumn.setCellValueFactory( new PropertyValueFactory<>("tipo_parte"));
         tipoParticipacaoParteTableColumn.setCellValueFactory( new PropertyValueFactory<>("tipo_participacao"));
         
-        selecionadoParteTableColumn.setCellFactory(CheckBoxTableCell.forTableColumn(selecionadoParteTableColumn));
-        nomeParteTableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        tipoParteTableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(tipoParteBox.getItems()));
-        tipoParticipacaoParteTableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(tipoParticipcaoBox.getItems()));
+       // nomeParteTableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+       // tipoParteTableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(tipoParteBox.getItems()));
+       // tipoParticipacaoParteTableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(tipoParticipcaoBox.getItems()));
         
         parteTableView.setItems(FXCollections.observableArrayList());
         

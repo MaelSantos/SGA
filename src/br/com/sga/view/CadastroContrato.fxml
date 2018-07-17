@@ -91,18 +91,12 @@
                         </RadioButton>
                         <TableView fx:id="parteTableView" editable="true" layoutX="46.0" layoutY="632.0" prefHeight="124.0" prefWidth="611.0">
                           <columns>
-                              <TableColumn fx:id="selecionadoParteTableColumn" prefWidth="38.0" />
                             <TableColumn fx:id="nomeParteTableColumn" prefWidth="303.0" text="Nome" />
-                            <TableColumn fx:id="tipoParteTableColumn" minWidth="0.0" prefWidth="122.0" text="Tipo parte" />
-                              <TableColumn fx:id="tipoParticipacaoParteTableColumn" prefWidth="147.0" text="Tipo participação" />
+                            <TableColumn fx:id="tipoParteTableColumn" minWidth="0.0" prefWidth="146.0" text="Tipo parte" />
+                              <TableColumn fx:id="tipoParticipacaoParteTableColumn" prefWidth="161.0" text="Tipo participação" />
                           </columns>
                         </TableView>
                         <Button fx:id="addParteButton" layoutX="506.0" layoutY="573.0" mnemonicParsing="false" onAction="#actionButton" text="Adicionar parte">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="removerParteSelecionadaButton" layoutX="488.0" layoutY="773.0" mnemonicParsing="false" onAction="#actionButton" text="Remover parte selecionada">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>

@@ -2,6 +2,9 @@ package br.com.sga.controle;
 
 import java.util.List;
 
+import br.com.sga.app.App;
+import br.com.sga.entidade.Contrato;
+import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
@@ -14,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 
 public class ControleBuscarContrato {
 
@@ -24,22 +28,23 @@ public class ControleBuscarContrato {
     private Button buscarButton;
 
     @FXML
-    private TableView<br.com.sga.entidade.tabelaView.Contrato> contratosTableView;
+    private TableView<Contrato> contratosTableView;
 
     @FXML
-    private TableColumn<br.com.sga.entidade.tabelaView.Contrato, String> dataColumn;
+    private TableColumn<Contrato, String> dataColumn;
 
     @FXML
-    private TableColumn<br.com.sga.entidade.tabelaView.Contrato, String> areaColumn;
+    private TableColumn<Contrato, String> areaColumn;
 
     @FXML
-    private TableColumn<br.com.sga.entidade.tabelaView.Contrato, String> objetivoColumn;
-
+    private TableColumn<Contrato, String> objetivoColumn;
+   
     @FXML
-    private AnchorPane paneBusca;
-
+    private TableColumn<?, ?>  acoesColumn;
+    
     @FXML
-    private AnchorPane paneDetalhes;
+    private Button cadastrarContratoButton;
+
 
     private IFachada fachada;	
     
@@ -49,25 +54,23 @@ public class ControleBuscarContrato {
     		String busca = buscarField.getText().trim();
     		if(busca.length() >0)
 				try {
-					List<br.com.sga.entidade.Contrato> contratos =fachada.buscarContratoPorCliente(busca);
-					for(br.com.sga.entidade.Contrato e : contratos) {
-						contratosTableView.getItems().add(new br.com.sga.entidade.tabelaView.Contrato(e.getData_contrato().toString(),
-								e.getArea().toString(),e.getObjeto()));
-					}
+					contratosTableView.getItems().clear();
+					List<Contrato> contratos =fachada.buscarContratoPorCliente(busca);
+					contratosTableView.getItems().addAll(contratos);
 				} catch (BusinessException e) {
 					e.printStackTrace();
 				}
 			else
     			Alerta.getInstance().showMensagem("Alerta","","Campo de pesquisa vazio, entre com dado de cliente");
+    	}else if(event.getSource() == cadastrarContratoButton) {
+    		App.notificarOuvintes(Tela.cadastro_contrato);
     	}
     }
     @FXML
     void initialize() {
     	fachada = Fachada.getInstance();
-    	dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
+    	dataColumn.setCellValueFactory(new PropertyValueFactory<>("data_contrato"));
     	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
     	objetivoColumn.setCellValueFactory( new PropertyValueFactory<>("objeto"));
-    	
-    	
     }
 }
