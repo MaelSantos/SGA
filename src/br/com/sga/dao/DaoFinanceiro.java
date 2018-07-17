@@ -38,7 +38,7 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 			//total_lucro,total_despesa,ano_coberto
 			statement.setFloat(1,entidade.getTotal_lucro());
 			statement.setFloat(2,entidade.getTotal_despesas());
-			statement.setString(3,entidade.getAno_conerto());
+			statement.setString(3,entidade.getAno_coberto());
 			statement.execute();
 			entidade.setId(daoCommun.getCurrentValorTabela(Tabela.FINANCEIRO)); 
 			connection.close();
@@ -87,12 +87,19 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 	public Financeiro buscarPorAno(Integer ano) throws DaoException {
 		try {
             this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-            this.statement = connection.prepareStatement(SQLUtil.Financeiro.BUSCAR_ANO);
+            this.statement = connection.prepareStatement(SQLUtil.Financeiro.SELECT_ANO);
             statement.setString(1,String.valueOf(ano));
             resultSet = statement.executeQuery();
             Financeiro financeiro = null;
             if(resultSet.next()) {
             	financeiro = new Financeiro(resultSet.getInt("id"));
+            	financeiro.setAno_coberto(resultSet.getString("ano_coberto"));
+            	financeiro.setTotal_despesas(resultSet.getFloat("total_despesa"));
+            	financeiro.setTotal_lucro(resultSet.getFloat("total_lucro"));
+            	
+            	financeiro.setReceitas(daoCommun.getReceita(financeiro.getId()));
+            	financeiro.setDespesas(daoCommun.getDespesa(financeiro.getId()));
+            	
             }else {
             	throw new DaoException("ANO NÃO CADASTRADO A BASE");
             }

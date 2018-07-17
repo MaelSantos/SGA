@@ -15,5 +15,9 @@ public enum Tela{
 			}
 		return null;
 	}
+	@Override
+	public String toString() {
+		return super.toString().replace("_"," ");
+	}
 	
 }

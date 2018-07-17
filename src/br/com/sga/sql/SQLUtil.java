@@ -16,13 +16,10 @@ public class SQLUtil {
     public static class Audiencia{
     	public static final String INSERT_ALL = "INSERT INTO AUDIENCIA(data_audiencia,tipo,vara,orgao,status,processo_id) VALUES(?,?,?,?,?,?)";
     	public static final String SELECT_PROCESSO_ID = "SELECT A.* FROM AUDIENCIA A, PROCESSO P WHERE P.ID = ? AND P.ID=A.PROCESSO_ID";
-    	
-    	
     }
     
     public static class Parcela{
-    	public static final String INSERT_ALL = "INSERT INTO PARCELA(valor,tipo,estado,juros,multa,vencimento,contrato_id) VALUES(?,?,?,?,?,?,?)";
-    
+    	public static final String INSERT_ALL = "INSERT INTO PARCELA(valor,tipo,estado,juros,multa,vencimento,contrato_id) VALUES(?,?,?,?,?,?,?)";    
     }
     
     public static class Parte{
@@ -32,7 +29,7 @@ public class SQLUtil {
 
     public static class Financeiro{
     	public static final String INSERT_ALL = "INSERT INTO FINANCEIRO(total_lucro,total_despesa,ano_coberto) VALUES(?,?,?)";
-    	public static final String BUSCAR_ANO= "SELECT ID FROM FINANCEIRO WHERE ANO_COBERTO = ?";
+    	public static final String SELECT_ANO = "SELECT * FROM FINANCEIRO WHERE ANO_COBERTO = ?";
     }
     
     public static class Receita{

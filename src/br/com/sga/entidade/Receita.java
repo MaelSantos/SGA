@@ -4,14 +4,16 @@ import java.util.Date;
 
 public class Receita {
 
-	private Integer id;
-	private Date data_entrada; 
-	private Boolean status; // posivel enum
-	private String centro_custo; // de onde foi gastado
-	private String descricao; 
-	private float valor;
-	private String tipo_pagamento; // posivel enum
-	private Date vencimento;
+	private Integer id; //id SERIAL PRIMARY KEY,
+	private Date data_entrada; //data_entrada DATE NOT NULL,
+	private String centro_custo; //centro_custo VARCHAR(255), de onde foi gastado
+	private String descricao; //descricao VARCHAR(255),
+	private Float valor; //valor  FLOAT NOT NULL, 
+	private Boolean status; //status VARCHAR(255), possivel enum
+	private String tipo_pagamento; //tipo_pagamento VARCHAR(50) NOT NULL,  posivel enum
+	private Date vencimento;// vencimento DATE NOT NULL,
+	
+//	financeiro_id INTEGER REFERENCES FINANCEIRO(id)
 	
 	public Receita(Integer id, Date data_entrada, Boolean status, String centro_custo, String descricao, float valor,
 			String tipo_pagamento, Date vencimento) {

@@ -4,14 +4,16 @@ import java.util.Date;
 
 public class Despesa {
 
-	private Integer id;
-	private Date data_retirada; 
-	private Boolean status; // posivel enum
-	private String centro_custo; // de onde foi gastado
-	private String descricao; 
-	private float valor;
-	private String tipo_gasto; // posivel enum
-	private Date vencimento;
+	private Integer id; //id SERIAL PRIMARY KEY,
+	private Date data_retirada; //data_retirada DATE NOT NULL,
+	private Boolean status; //	status Boolean,  possivel enum
+	private String centro_custo; //centro_custo VARCHAR(255), de onde foi gastado
+	private String descricao; //descricao  VARCHAR(255) NOT NULL,
+	private Float valor; //valor FLOAT NOT NULL,
+	private String tipo_gasto; //tipo_gasto VARCHAR(50) NOT NULL, posivel enum
+	private Date vencimento; //vencimento DATE NOT NULL,
+
+//	financeiro_id INTEGER REFERENCES FINANCEIRO(id)
 	
 	public Despesa(Integer id, Date data_retirada, Boolean status, String centro_custo, String descricao, float valor,
 			String tipo_gasto, Date vencimento) {

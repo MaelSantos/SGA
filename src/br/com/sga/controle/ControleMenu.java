@@ -21,7 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class ControleMenu implements Initializable, Ouvinte{
+public class ControleMenu extends Controle{
 
     @FXML
     private AnchorPane menu;
@@ -89,8 +89,8 @@ public class ControleMenu implements Initializable, Ouvinte{
     @FXML
     private Button fecharContratoButton;
 
-	
     private Funcionario funcionario;
+    
 	@FXML
 	public void actionButton(ActionEvent e)
 	{
@@ -138,11 +138,13 @@ public class ControleMenu implements Initializable, Ouvinte{
 	@FXML
     void actionKey(KeyEvent event) {
 
+		System.out.println("key");
 		KeyCode codigo = event.getCode();
 		
 		switch (codigo) {
 		case ENTER:
-			atualizarTela(App.changePane(Tela.getTela(tfdPesquisar.getText())));
+			if(tfdPesquisar.getText() != null || !(tfdPesquisar.getText().trim().equals("")))
+				atualizarTela(App.changePane(Tela.getTela(tfdPesquisar.getText())));
 			break;
 		default:
 			break;
@@ -162,19 +164,21 @@ public class ControleMenu implements Initializable, Ouvinte{
 	}
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		App.addOuvinte(this);
+	public void init() {
+		
 		TextFields.bindAutoCompletion(tfdPesquisar,Tela.values());
 		
 	}
+	
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		if(object != null)
 		{
 			if (object instanceof Funcionario) {
 				this.funcionario = (Funcionario) object;
-				String nome_completo = funcionario.getNome();
-				mnbNome.setText(nome_completo.substring(0,nome_completo.indexOf(" ")));
+//				String nome_completo = funcionario.getNome();
+//				mnbNome.setText(nome_completo.substring(0,nome_completo.indexOf(" ")));
+				mnbNome.setText(funcionario.getNome());
 			}
 						
 		}

@@ -143,6 +143,13 @@ public class Carregar implements Initializable{
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 						
+						//atualizar depois
+						App.financeiro = carregarArquivo("../view/Financeiro.fxml");
+						updateMessage(texto);
+						porcentagem = 1;
+						updateProgress(porcentagem, 1);
+						System.out.println(texto);
+						
 						App.loginScene = new Scene(App.login);
 						App.menuScene = new Scene(App.menu);
 

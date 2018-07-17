@@ -1,20 +1,17 @@
 package br.com.sga.entidade;
 
-import java.sql.Date;
 import java.util.List;
 
 public class Financeiro {
 
-	private Integer id;
+	private Integer id; //id SERIAL PRIMARY KEY,
   
-	private float total_despesas; 
-	private float total_lucro; 
-	private String ano_conerto; 
+	private float total_despesas; //total_despesa  FLOAT, 
+	private float total_lucro; //total_lucro FLOAT,
+	private String ano_coberto; //ano_coberto VARCHAR(20) UNIQUE
 	private List<Contrato> contratos;
 	private List<Receita> receitas;
 	private List<Despesa> despesas;
-
-	
 	
 	public Financeiro(Integer id) {
 		this.id = id;
@@ -26,7 +23,7 @@ public class Financeiro {
 		this.id = id;
 		this.total_despesas = total_despesas;
 		this.total_lucro = total_lucro;
-		this.ano_conerto = ano_conerto;
+		this.ano_coberto = ano_conerto;
 		this.contratos = contratos;
 		this.receitas = receitas;
 		this.despesas = despesas;
@@ -37,7 +34,7 @@ public class Financeiro {
 		super();
 		this.total_despesas = total_despesas;
 		this.total_lucro = total_lucro;
-		this.ano_conerto = ano_conerto;
+		this.ano_coberto = ano_conerto;
 	}
 
 
@@ -46,7 +43,7 @@ public class Financeiro {
 		super();
 		this.total_despesas = total_despesas;
 		this.total_lucro = total_lucro;
-		this.ano_conerto = ano_conerto;
+		this.ano_coberto = ano_conerto;
 		this.contratos = contratos;
 		this.receitas = receitas;
 		this.despesas = despesas;
@@ -57,12 +54,12 @@ public class Financeiro {
 	}
 
 
-	public String getAno_conerto() {
-		return ano_conerto;
+	public String getAno_coberto() {
+		return ano_coberto;
 	}
 
-	public void setAno_conerto(String ano_conerto) {
-		this.ano_conerto = ano_conerto;
+	public void setAno_coberto(String ano_conerto) {
+		this.ano_coberto = ano_conerto;
 	}
 
 	public List<Receita> getReceitas() {
@@ -104,6 +101,13 @@ public class Financeiro {
 	}
 	public void setContratos(List<Contrato> contratos) {
 		this.contratos = contratos;
+	}
+
+	@Override
+	public String toString() {
+		return "Financeiro [id=" + id + ", total_despesas=" + total_despesas + ", total_lucro=" + total_lucro
+				+ ", ano_coberto=" + ano_coberto + ", contratos=" + contratos + ", receitas=" + receitas + ", despesas="
+				+ despesas + "]";
 	}
 
 	

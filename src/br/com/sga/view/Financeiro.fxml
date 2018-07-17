@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleFinanceiro">
+   <children>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <FlowPane alignment="CENTER_LEFT" columnHalignment="CENTER" prefHeight="126.0" prefWidth="700.0">
+               <children>
+                  <Label fx:id="lblAno" text="Ano:" textFill="WHITE">
+                     <font>
+                        <Font name="Verdana Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </FlowPane>
+            <GridPane alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints maxWidth="416.0" minWidth="10.0" prefWidth="416.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="224.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="60.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints fillHeight="false" valignment="CENTER" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="tfdAno" prefHeight="25.0" prefWidth="188.0" promptText="Ano" GridPane.columnIndex="1" />
+                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionButton" text="Buscar" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </Button>
+                  <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                        <Button fx:id="btnAddReceita" mnemonicParsing="false" onAction="#actionButton" text="Adicionar Receita">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Button>
+                      <Button fx:id="btnAddDespesa" mnemonicParsing="false" onAction="#actionButton" text="Adicionar Despesa">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Button>
+                    </buttons>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </ButtonBar>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </GridPane>
+            <Separator prefWidth="200.0" />
+            <GridPane hgap="10.0" prefHeight="315.0" prefWidth="680.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="259.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TableView fx:id="tblReceitas" prefHeight="283.0" prefWidth="335.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
+                    <columns>
+                      <TableColumn fx:id="colValor1" prefWidth="75.0" text="Valor" />
+                        <TableColumn fx:id="colTipo1" prefWidth="75.0" text="Tipo De Pagamento" />
+                        <TableColumn fx:id="colDescricao1" prefWidth="75.0" text="Descrição" />
+                      <TableColumn fx:id="colVencimento1" prefWidth="75.0" text="Vencimento" />
+                        <TableColumn fx:id="colStatus1" prefWidth="75.0" text="Status" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <TableView fx:id="tblDespesas" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <columns>
+                        <TableColumn fx:id="colValor2" prefWidth="75.0" text="Valor" />
+                      <TableColumn fx:id="colCentroCusto" prefWidth="75.0" text="Centro Custo" />
+                      <TableColumn fx:id="colDescricao2" prefWidth="75.0" text="Descrição" />
+                        <TableColumn fx:id="colVencimento2" prefWidth="75.0" text="Vencimento" />
+                        <TableColumn fx:id="colStatus2" prefWidth="75.0" text="Status" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <Label text="Receitas" textFill="WHITE">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Despesas" textFill="WHITE" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblReceitas" text="Total De Receitas:" textFill="WHITE" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblDespesas" text="Total De Despesas:" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Verdana" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </GridPane>
+            <Separator prefWidth="200.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

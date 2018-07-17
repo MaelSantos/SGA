@@ -313,4 +313,16 @@ public class DaoCommun implements IDaoCommun{
 		}
 	}
 
+	@Override
+	public List<Receita> getReceita(Integer financeiro_id) throws DaoException {
+		// TODO Stub de método gerado automaticamente
+		return null;
+	}
+
+	@Override
+	public List<Despesa> getDespesa(Integer financeiro_id) throws DaoException {
+		// TODO Stub de método gerado automaticamente
+		return null;
+	}
+	
 }

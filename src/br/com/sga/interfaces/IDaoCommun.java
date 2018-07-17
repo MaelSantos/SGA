@@ -17,7 +17,7 @@ public interface IDaoCommun {
 	
 	public int getCurrentValorTabela(Tabela tabela) throws DaoException;
 
-	//EnderecoE
+	//Endereco
 	public void salvarEndereco(Endereco endereco) throws DaoException;
 	
     //Telefone 
@@ -35,6 +35,8 @@ public interface IDaoCommun {
     public void salvarReceita(Receita receita,Integer financeiro_id)throws DaoException;
     public void salvarDespesa(Despesa despesa,Integer financeiro_id)throws DaoException;
     public void salvarVinculoFuncionario(Integer notificacao_id,Integer funcionario_id) throws DaoException;
+    public List<Receita> getReceita(Integer financeiro_id)throws DaoException;
+    public List<Despesa> getDespesa(Integer financeiro_id)throws DaoException;
     
     //processo
     public void salvarAudiencia(Audiencia audiencia, Integer processo_id) throws DaoException;
