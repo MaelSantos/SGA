@@ -18,7 +18,7 @@
    <children>
       <FlowPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ScrollPane hbarPolicy="NEVER" pannable="true" prefViewportHeight="600.0" style="-fx-background-color: #008B8B;" vbarPolicy="ALWAYS">
+            <ScrollPane hbarPolicy="NEVER" pannable="true" prefViewportHeight="585.0" style="-fx-background-color: #008B8B;" vbarPolicy="ALWAYS">
                <content>
                   <AnchorPane prefHeight="850.0" prefWidth="685.0" style="-fx-background-color: #008B8B;">
                      <children>
@@ -108,12 +108,12 @@
                         </TextField>
                         <ComboBox fx:id="tipoParteBox" layoutX="348.0" layoutY="572.0" prefWidth="150.0" promptText="Tipo da parte" />
                         <ComboBox fx:id="tipoParticipcaoBox" layoutX="161.0" layoutY="572.0" onAction="#actionButton" prefHeight="25.0" prefWidth="179.0" promptText="tipo participação da parte" />
-                        <Button fx:id="gerarDocumentoButton" layoutX="63.0" layoutY="827.0" mnemonicParsing="false" onAction="#actionButton" text="Gerar documento para impreção">
+                        <Button fx:id="gerarDocumentoButton" layoutX="63.0" layoutY="800.0" mnemonicParsing="false" onAction="#actionButton" text="Gerar documento para impreção">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="salvarContratoButton" layoutX="297.0" layoutY="827.0" mnemonicParsing="false" onAction="#actionButton" text="Salvar contrato">
+                        <Button fx:id="salvarContratoButton" layoutX="297.0" layoutY="800.0" mnemonicParsing="false" onAction="#actionButton" text="Salvar contrato">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>

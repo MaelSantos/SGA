@@ -91,10 +91,7 @@
                               <DropShadow blurType="GAUSSIAN" />
                            </effect>
                         </Button>
-                        <Button fx:id="contratoButton" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Contrato" textFill="WHITE">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
+                        <Button fx:id="btnClientes" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Clientes" textFill="WHITE">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
@@ -105,7 +102,21 @@
                               <DropShadow blurType="GAUSSIAN" />
                            </effect>
                         </Button>
-                        <Button fx:id="btnClientes" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Clientes" textFill="WHITE">
+                        <Button fx:id="consultaButton" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="17.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Consulta" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <DropShadow blurType="GAUSSIAN" />
+                           </effect>
+                        </Button>
+                        <Button fx:id="contratoButton" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Contrato" textFill="WHITE">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>

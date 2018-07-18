@@ -43,10 +43,9 @@ public class Carregar implements Initializable{
 				return new Task<Object>() {
 					@Override
 					protected Void call() throws Exception {
-
+						// peso por tela - Double sumPerView =  1.0/ Tela.values().length;
 						System.out.println("carregando...");
 						updateMessage("...");
-
 						App.login = carregarArquivo("../view/Login.fxml");
 						updateMessage(texto);
 						porcentagem = 0.0625;
@@ -149,6 +148,8 @@ public class Carregar implements Initializable{
 						porcentagem = 1;
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
+						
+						App.cadastroConsulta = carregarArquivo("../view/CadastroConsulta.fxml");
 						
 						App.loginScene = new Scene(App.login);
 						App.menuScene = new Scene(App.menu);
