@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -12,153 +13,167 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroContrato">
    <children>
-      <FlowPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ScrollPane hbarPolicy="NEVER" pannable="true" prefViewportHeight="585.0" style="-fx-background-color: #008B8B;" vbarPolicy="ALWAYS">
-               <content>
-                  <AnchorPane prefHeight="850.0" prefWidth="685.0" style="-fx-background-color: #008B8B;">
-                     <children>
-                        <Label layoutX="39.0" layoutY="37.0" text="Cadastro de novo contrato" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="24.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="valorTotalField" layoutX="130.0" layoutY="329.0" prefHeight="25.0" prefWidth="145.0">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Label layoutX="57.0" layoutY="334.0" text="Valor total" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="128.0" layoutY="116.0" text="Dado do cliente" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="nomeClienteField" layoutX="234.0" layoutY="111.0" prefHeight="25.0" prefWidth="273.0" promptText="Nome, cpf ,rg ou email do cliente">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Label layoutX="82.0" layoutY="149.0" text="Selecione uma consulta" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="45.0" layoutY="80.0" text="Dados para selecionar consulta que levou ao contrato" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="50.0" layoutY="189.0" text="Dados do contrato" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="tipoPagamamentoBox" layoutX="288.0" layoutY="329.0" onAction="#actionButton" prefHeight="25.0" prefWidth="165.0" promptText="Tipo de pagamento" />
-                        <TextArea fx:id="dadosBancoArea" layoutX="288.0" layoutY="362.0" prefHeight="64.0" prefWidth="358.0" promptText="Dados para banco">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextArea>
-                        <Label layoutX="68.0" layoutY="221.0" text="Objeto" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="objetoField" layoutX="123.0" layoutY="217.0" prefHeight="23.0" prefWidth="149.0">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Label layoutX="304.0" layoutY="221.0" text="Data do contrato" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Label>
-                        <DatePicker fx:id="dataContratoPicker" layoutX="423.0" layoutY="216.0" promptText="Outra data" />
-                        <RadioButton fx:id="dataAtualRadio" layoutX="303.0" layoutY="245.0" mnemonicParsing="false" text="Data atual" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </RadioButton>
-                        <TableView fx:id="parteTableView" editable="true" layoutX="46.0" layoutY="632.0" prefHeight="124.0" prefWidth="611.0">
-                          <columns>
-                            <TableColumn fx:id="nomeParteTableColumn" prefWidth="303.0" text="Nome" />
-                            <TableColumn fx:id="tipoParteTableColumn" minWidth="0.0" prefWidth="146.0" text="Tipo parte" />
-                              <TableColumn fx:id="tipoParticipacaoParteTableColumn" prefWidth="161.0" text="Tipo participação" />
-                          </columns>
-                        </TableView>
-                        <Button fx:id="addParteButton" layoutX="506.0" layoutY="573.0" mnemonicParsing="false" onAction="#actionButton" text="Adicionar parte">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Button>
-                        <TextField fx:id="nomeParteField" layoutX="160.0" layoutY="536.0" prefHeight="25.0" prefWidth="454.0" promptText="Nome completo da parte">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <ComboBox fx:id="tipoParteBox" layoutX="348.0" layoutY="572.0" prefWidth="150.0" promptText="Tipo da parte" />
-                        <ComboBox fx:id="tipoParticipcaoBox" layoutX="161.0" layoutY="572.0" onAction="#actionButton" prefHeight="25.0" prefWidth="179.0" promptText="tipo participação da parte" />
-                        <Button fx:id="gerarDocumentoButton" layoutX="63.0" layoutY="800.0" mnemonicParsing="false" onAction="#actionButton" text="Gerar documento para impreção">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="salvarContratoButton" layoutX="297.0" layoutY="800.0" mnemonicParsing="false" onAction="#actionButton" text="Salvar contrato">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="buscarConsultaButton" layoutX="526.0" layoutY="112.0" mnemonicParsing="false" onAction="#actionButton" text="Buscar Cliente">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Button>
-                        <ComboBox fx:id="diaPagamentoBox" accessibleText="Dia para pagamento de parcela" layoutX="286.0" layoutY="432.0" prefHeight="25.0" prefWidth="163.0" promptText="Dia para pagamento" />
-                        <Label layoutX="88.0" layoutY="367.0" prefHeight="15.0" prefWidth="42.0" text="Juros" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="87.0" layoutY="399.0" text="Multa" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="jurosField" layoutX="130.0" layoutY="362.0" prefHeight="25.0" prefWidth="87.0">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font></TextField>
-                        <TextField fx:id="multaField" layoutX="129.0" layoutY="394.0" prefHeight="25.0" prefWidth="88.0">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font></TextField>
-                        <Label layoutX="47.0" layoutY="296.0" text="Monetário" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="59.0" layoutY="499.0" text="Adição de partes ao contrato" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="quantidadeParcelasBox" layoutX="104.0" layoutY="432.0" prefHeight="25.0" prefWidth="166.0" promptText="Quantidade parcelas" />
-                        <ComboBox fx:id="consultaBox" layoutX="234.0" layoutY="144.0" prefHeight="25.0" prefWidth="182.0" promptText="Consulta com o cliente" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </ScrollPane>
+            <FlowPane alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: #077272;">
+               <children>
+                  <Label text="Cadastro de novo contrato" textFill="WHITE">
+                     <font>
+                        <Font name="Verdana" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </FlowPane>
+            <FlowPane alignment="CENTER">
+               <children>
+                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefViewportHeight="585.0" style="-fx-background-color: #008B8B;" vbarPolicy="ALWAYS">
+                     <content>
+                        <AnchorPane prefHeight="850.0" prefWidth="685.0" style="-fx-background-color: #008B8B;">
+                           <children>
+                              <TextField fx:id="valorTotalField" layoutX="128.0" layoutY="284.0" prefHeight="25.0" prefWidth="145.0">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label layoutX="55.0" layoutY="289.0" text="Valor total" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="126.0" layoutY="71.0" text="Dado do cliente" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="nomeClienteField" layoutX="232.0" layoutY="66.0" prefHeight="25.0" prefWidth="273.0" promptText="Nome, cpf ,rg ou email do cliente">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label layoutX="80.0" layoutY="104.0" text="Selecione uma consulta" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="43.0" layoutY="35.0" text="Dados para selecionar consulta que levou ao contrato" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="48.0" layoutY="144.0" text="Dados do contrato" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="tipoPagamamentoBox" layoutX="286.0" layoutY="284.0" onAction="#actionButton" prefHeight="25.0" prefWidth="165.0" promptText="Tipo de pagamento" />
+                              <TextArea fx:id="dadosBancoArea" layoutX="286.0" layoutY="317.0" prefHeight="64.0" prefWidth="358.0" promptText="Dados para banco">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </TextArea>
+                              <Label layoutX="66.0" layoutY="176.0" text="Objeto" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="objetoField" layoutX="121.0" layoutY="172.0" prefHeight="23.0" prefWidth="149.0">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label layoutX="302.0" layoutY="176.0" text="Data do contrato" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="dataContratoPicker" layoutX="421.0" layoutY="171.0" promptText="Outra data" />
+                              <RadioButton fx:id="dataAtualRadio" layoutX="301.0" layoutY="200.0" mnemonicParsing="false" text="Data atual" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </RadioButton>
+                              <TableView fx:id="parteTableView" editable="true" layoutX="44.0" layoutY="587.0" prefHeight="124.0" prefWidth="611.0">
+                                <columns>
+                                  <TableColumn fx:id="nomeParteTableColumn" prefWidth="303.0" text="Nome" />
+                                  <TableColumn fx:id="tipoParteTableColumn" minWidth="0.0" prefWidth="146.0" text="Tipo parte" />
+                                    <TableColumn fx:id="tipoParticipacaoParteTableColumn" prefWidth="161.0" text="Tipo participação" />
+                                </columns>
+                              </TableView>
+                              <Button fx:id="addParteButton" layoutX="504.0" layoutY="528.0" mnemonicParsing="false" onAction="#actionButton" text="Adicionar parte">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Button>
+                              <TextField fx:id="nomeParteField" layoutX="158.0" layoutY="491.0" prefHeight="25.0" prefWidth="454.0" promptText="Nome completo da parte">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <ComboBox fx:id="tipoParteBox" layoutX="346.0" layoutY="527.0" prefWidth="150.0" promptText="Tipo da parte" />
+                              <ComboBox fx:id="tipoParticipcaoBox" layoutX="159.0" layoutY="527.0" onAction="#actionButton" prefHeight="25.0" prefWidth="179.0" promptText="tipo participação da parte" />
+                              <Button fx:id="gerarDocumentoButton" layoutX="61.0" layoutY="755.0" mnemonicParsing="false" onAction="#actionButton" text="Gerar documento para impreção">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="salvarContratoButton" layoutX="295.0" layoutY="755.0" mnemonicParsing="false" onAction="#actionButton" text="Salvar contrato">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="buscarConsultaButton" layoutX="524.0" layoutY="67.0" mnemonicParsing="false" onAction="#actionButton" text="Buscar Cliente">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Button>
+                              <ComboBox fx:id="diaPagamentoBox" accessibleText="Dia para pagamento de parcela" layoutX="284.0" layoutY="387.0" prefHeight="25.0" prefWidth="163.0" promptText="Dia para pagamento" />
+                              <Label layoutX="86.0" layoutY="322.0" prefHeight="15.0" prefWidth="42.0" text="Juros" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="85.0" layoutY="354.0" text="Multa" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="jurosField" layoutX="128.0" layoutY="317.0" prefHeight="25.0" prefWidth="87.0">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="multaField" layoutX="127.0" layoutY="349.0" prefHeight="25.0" prefWidth="88.0">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label layoutX="45.0" layoutY="251.0" text="Monetário" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="57.0" layoutY="454.0" text="Adição de partes ao contrato" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="quantidadeParcelasBox" layoutX="102.0" layoutY="387.0" prefHeight="25.0" prefWidth="166.0" promptText="Quantidade parcelas" />
+                              <ComboBox fx:id="consultaBox" layoutX="232.0" layoutY="99.0" prefHeight="25.0" prefWidth="182.0" promptText="Consulta com o cliente" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </FlowPane>
          </children>
-      </FlowPane>
+      </VBox>
    </children>
 </AnchorPane>

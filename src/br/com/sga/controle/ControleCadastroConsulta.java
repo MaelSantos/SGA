@@ -9,7 +9,12 @@ import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoPagamento;
+import br.com.sga.entidade.enums.TipoParte;
+import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.entidade.enums.TipoTelefone;
+import br.com.sga.fachada.Fachada;
+import br.com.sga.fachada.IFachada;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,6 +25,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControleCadastroConsulta extends Controle{
 
@@ -122,8 +129,18 @@ public class ControleCadastroConsulta extends Controle{
     @FXML
     private Button cadastrarClienteButton;
 
+    private IFachada fachada ;
+    
     public void actionButton(ActionEvent event) {
-
+    	System.out.println("evento");
+    	if(event.getSource() == outroFuncionarioRadio) {
+    		buscarFuncionarioButton.setVisible(true);
+    		dadoFuncionarioField.setVisible(true);
+    	}else if(event.getSource() == funcionarioLogadoRadio) {
+    		buscarFuncionarioButton.setVisible(false);
+    		dadoFuncionarioField.setVisible(false);
+    		dadoFuncionarioField.setText("");
+    	}
     }
 
 	@Override
@@ -133,6 +150,20 @@ public class ControleCadastroConsulta extends Controle{
 
 	@Override
 	public void init() {
-			
+		fachada = Fachada.getInstance();
+    	
+    	
+    	areaBox.getItems().addAll(Area.values());
+		estadoBox.getItems().addAll(Estado.values());
+		tipoTelefoneBox.getItems().addAll(TipoTelefone.values());
+		
+        nomeTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        telefoneTestemunhaColumn.setCellValueFactory( new PropertyValueFactory<>("telefone")); // utiliazra do to string de ambos
+        enderecoTestemunhaColumn.setCellValueFactory( new PropertyValueFactory<>("endereco"));
+        
+        ToggleGroup tg = new ToggleGroup();
+		funcionarioLogadoRadio.setToggleGroup(tg);
+		funcionarioLogadoRadio.setSelected(true);
+		outroFuncionarioRadio.setToggleGroup(tg);
 	}
 }
