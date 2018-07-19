@@ -76,18 +76,13 @@ public class ControleMenu extends Controle{
 
     @FXML
     private Button btnInformacoes;
+   
+    @FXML
+    private Button contratoButton;
     
     @FXML
-    private Button cadastrarContratoButton;
+    private Button consultaButton;
 
-    @FXML
-    private Button editarContratoButton;
-
-    @FXML
-    private Button buscarContratoButton;
-
-    @FXML
-    private Button fecharContratoButton;
 
     private Funcionario funcionario;
     
@@ -120,20 +115,14 @@ public class ControleMenu extends Controle{
 			atualizarTela(App.changePane(Tela.perfil));
 		else if(e.getSource() == btnConfiguracoes)
 			atualizarTela(App.changePane(Tela.configuracoes));
+		else if(e.getSource() == contratoButton) 
+    		atualizarTela(App.changePane(Tela.buscar_contrato));
+		else if(e.getSource() == consultaButton) 
+    		atualizarTela(App.changePane(Tela.cadastro_consulta));
 		else if(e.getSource() == btnSair)
 			App.changeStage(Tela.login);
+		
 	}
-	
-
-    @FXML
-    void contratoHandeler(ActionEvent event) {
-    	if(event.getSource() == cadastrarContratoButton)
-			atualizarTela(App.changePane(Tela.cadastro_contrato));
-    	else if(event.getSource() == editarContratoButton) {}
-    	else if(event.getSource() == buscarContratoButton) 
-    		atualizarTela(App.changePane(Tela.buscar_contrato));
-    	else if(event.getSource() == fecharContratoButton) {}
-    }
 	
 	@FXML
     void actionKey(KeyEvent event) {
@@ -176,11 +165,9 @@ public class ControleMenu extends Controle{
 		{
 			if (object instanceof Funcionario) {
 				this.funcionario = (Funcionario) object;
-//				String nome_completo = funcionario.getNome();
-//				mnbNome.setText(nome_completo.substring(0,nome_completo.indexOf(" ")));
-				mnbNome.setText(funcionario.getNome());
+			String nome_completo = funcionario.getNome();
+			mnbNome.setText((nome_completo.contains(" ")) ? nome_completo.substring(0,nome_completo.indexOf(" ")): nome_completo);
 			}
-						
 		}
 		atualizarTela(App.changePane(tela));
 	}

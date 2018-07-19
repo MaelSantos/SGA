@@ -21,7 +21,7 @@ public class App extends Application{
 	
 	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
 	clientes, cadastroCliente, contatos, cadastroContrato, processo, cadastrarProcesso, detalhesProcesso,
-	buscarContrato, cadastrarAudiencia, financeiro;
+	buscarContrato, cadastrarAudiencia, financeiro,cadastroConsulta;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -88,6 +88,8 @@ public class App extends Application{
 			return cadastrarAudiencia;
 		case financeiro:
 			return financeiro;
+		case cadastro_consulta:
+			return cadastroConsulta;
 		default:
 			System.err.println("Valor Não Correspondente");
 			break;
