@@ -20,8 +20,8 @@ public class App extends Application{
 	static Scene menuScene;
 	
 	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
-	clientes, cadastroCliente, contatos, cadastroContrato, processo, cadastrarProcesso, detalhesProcesso,
-	buscarContrato, cadastrarAudiencia, financeiro,cadastroConsulta;
+	clientes, cadastroCliente, cadastroContrato, processo, cadastrarProcesso, detalhesProcesso,
+	buscarContrato, cadastrarAudiencia, financeiro,cadastroConsulta, cadastroReceitaDespesa;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -72,8 +72,6 @@ public class App extends Application{
 			return clientes;
 		case cadastro_cliente:
 			return cadastroCliente;
-		case contatos:
-			return contatos;
 		case cadastro_contrato:
 			return cadastroContrato;
 		case processos:
@@ -90,6 +88,8 @@ public class App extends Application{
 			return financeiro;
 		case cadastro_consulta:
 			return cadastroConsulta;
+		case Cadastro_Receita_Despesa:
+			return cadastroReceitaDespesa;
 		default:
 			System.err.println("Valor Não Correspondente");
 			break;

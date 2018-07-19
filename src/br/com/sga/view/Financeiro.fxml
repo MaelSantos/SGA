@@ -32,30 +32,26 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </FlowPane>
-            <GridPane alignment="CENTER">
+            <GridPane alignment="CENTER" prefHeight="39.0" prefWidth="677.0">
               <columnConstraints>
-                <ColumnConstraints maxWidth="416.0" minWidth="10.0" prefWidth="416.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="224.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="60.0" />
+                  <ColumnConstraints maxWidth="438.0" minWidth="10.0" prefWidth="208.0" />
+                <ColumnConstraints maxWidth="438.0" minWidth="10.0" prefWidth="233.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="0.0" prefWidth="61.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.0" minWidth="10.0" prefWidth="193.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints fillHeight="false" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints fillHeight="false" valignment="CENTER" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="tfdAno" prefHeight="25.0" prefWidth="188.0" promptText="Ano" GridPane.columnIndex="1" />
+                  <TextField fx:id="tfdAno" prefColumnCount="10" prefHeight="25.0" prefWidth="412.0" promptText="Ano" GridPane.columnIndex="1" />
                   <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionButton" text="Buscar" GridPane.columnIndex="2">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Button>
-                  <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                  <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3">
                     <buttons>
-                        <Button fx:id="btnAddReceita" mnemonicParsing="false" onAction="#actionButton" text="Adicionar Receita">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Button>
-                      <Button fx:id="btnAddDespesa" mnemonicParsing="false" onAction="#actionButton" text="Adicionar Despesa">
+                        <Button fx:id="btnAddReceita" mnemonicParsing="false" onAction="#actionButton" text="Adicionar Receita/Despesa">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>

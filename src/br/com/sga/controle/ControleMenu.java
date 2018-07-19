@@ -1,17 +1,12 @@
 package br.com.sga.controle;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import org.controlsfx.control.textfield.TextFields;
 
 import br.com.sga.app.App;
-import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -49,9 +44,6 @@ public class ControleMenu extends Controle{
 
     @FXML
     private Button btnClientes;
-
-    @FXML
-    private Button btnContatos;
 
     @FXML
     private Button btnProcessos;
@@ -95,8 +87,6 @@ public class ControleMenu extends Controle{
 			atualizarTela(App.changePane(Tela.agenda));
 		else if(e.getSource() == btnClientes)
 			atualizarTela(App.changePane(Tela.clientes));
-		else if(e.getSource() == btnContatos)
-			atualizarTela(App.changePane(Tela.contatos));
 		else if(e.getSource() == btnProcessos)
 			atualizarTela(App.changePane(Tela.processos));
 		else if(e.getSource() == btnDocumentos)

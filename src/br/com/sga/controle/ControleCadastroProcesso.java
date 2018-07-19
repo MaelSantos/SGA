@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class ControleCadastroProcesso extends Controle{
 
@@ -97,18 +98,21 @@ public class ControleCadastroProcesso extends Controle{
 				processo = criarProcesso();
 				fachada.salvarEditarProcesso(processo);
 				App.notificarOuvintes(Tela.cadastro_processo, processo);
-				Alerta.getInstance().showMensagem("Salvo", "Salvando...","Salvo Com Seucesso");
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...","Salvo Com Seucesso");
+				limparCampos();
 			} catch (BusinessException e) {
 				e.printStackTrace();
-				Alerta.getInstance().showMensagem("Erro Ao Salvar", "Erro ao Salvar Processo", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Ao Salvar", "Erro ao Salvar Processo", e.getMessage());
 			} catch (ParseException e) {
 				e.printStackTrace();
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Nos Dados!", "Erro Algum Dado Pode Estar Faltando ou esta incorreto!!!", e.getMessage());
 			}
 		}
 		if(obj == btnVoltar)
 			App.notificarOuvintes(Tela.processos);
 
 	}
+
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
@@ -150,4 +154,15 @@ public class ControleCadastroProcesso extends Controle{
 			return processo;
 	}
 
+	private void limparCampos() {
+	
+		tfdClasse.setText("");
+		tfdComarca.setText("");
+		tfdData.getEditor().setText("");
+		tfdDescricao.setText("");
+		tfdFase.setText("");
+		tfdNumero.setText("");
+		tfdOrgao.setText("");
+		
+	}	
 }

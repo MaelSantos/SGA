@@ -6,8 +6,8 @@ public class Financeiro {
 
 	private Integer id; //id SERIAL PRIMARY KEY,
   
-	private float total_despesas; //total_despesa  FLOAT, 
-	private float total_lucro; //total_lucro FLOAT,
+	private Float total_despesas; //total_despesa  FLOAT, 
+	private Float total_lucro; //total_lucro FLOAT,
 	private String ano_coberto; //ano_coberto VARCHAR(20) UNIQUE
 	private List<Contrato> contratos;
 	private List<Receita> receitas;

@@ -2,6 +2,7 @@ package br.com.sga.controle;
 
 import java.util.Date;
 
+import br.com.sga.app.App;
 import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Receita;
@@ -84,8 +85,22 @@ public class ControleFinanceiro extends Controle {
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
-		// TODO Stub de método gerado automaticamente
 
+		if (object instanceof Financeiro) {
+			Financeiro financeiro = (Financeiro) object;
+			
+			if (financeiro.getId() == this.financeiro.getId()) {
+				
+				lblDespesas.setText("Total De Despesas: "+financeiro.getTotal_despesas());
+				lblReceitas.setText("Total De Receitas: "+financeiro.getTotal_lucro());
+				
+				if(financeiro.getDespesas() != null)
+					tblDespesas.getItems().setAll(financeiro.getDespesas());
+				if(financeiro.getReceitas() != null)
+					tblReceitas.getItems().setAll(financeiro.getReceitas());
+				
+			}
+		}
 	}
 
 	@Override
@@ -133,13 +148,14 @@ public class ControleFinanceiro extends Controle {
 				lblAno.setText("Ano: "+financeiro.getAno_coberto());
 				lblDespesas.setText("Total De Despesas: "+financeiro.getTotal_despesas());
 				lblReceitas.setText("Total De Receitas: "+financeiro.getTotal_lucro());
-				System.out.println(financeiro);
 
 			}catch (BusinessException | NumberFormatException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Dados Financeiros!!!", e.getMessage());
 			}
 		}
+		if(obj == btnAddReceita)
+			App.notificarOuvintes(Tela.Cadastro_Receita_Despesa, financeiro);
 
 	}
 

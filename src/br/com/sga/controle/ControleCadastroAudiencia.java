@@ -87,6 +87,7 @@ public class ControleCadastroAudiencia extends Controle {
 				fachada.salvarEditarAudiencia(audiencia);
 				Alerta.getInstance().showMensagem("Salvo", "", "Audiencia Cadastrada Com Sucesso");
 				App.notificarOuvintes(Tela.cadastro_audiencia,audiencia);
+				limparCampos();
 			} catch (BusinessException | ParseException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Audiencia", e.getMessage());
@@ -97,6 +98,15 @@ public class ControleCadastroAudiencia extends Controle {
 			App.notificarOuvintes(Tela.detalhes_processo);
 		
 
+	}
+
+	private void limparCampos() {
+		
+		tfdData.getEditor().setText("");
+		tfdOrgao.setText("");
+		tfdProcesso.setText("");
+		tfdVara.setText("");
+		
 	}
 
 	private Audiencia criarAudiencia() throws ParseException {

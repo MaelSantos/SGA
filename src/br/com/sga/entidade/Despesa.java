@@ -2,6 +2,8 @@ package br.com.sga.entidade;
 
 import java.util.Date;
 
+import br.com.sga.entidade.enums.TipoPagamento;
+
 public class Despesa {
 
 	private Integer id; //id SERIAL PRIMARY KEY,
@@ -10,37 +12,11 @@ public class Despesa {
 	private String centro_custo; //centro_custo VARCHAR(255), de onde foi gastado
 	private String descricao; //descricao  VARCHAR(255) NOT NULL,
 	private Float valor; //valor FLOAT NOT NULL,
-	private String tipo_gasto; //tipo_gasto VARCHAR(50) NOT NULL, posivel enum
+	private TipoPagamento tipo_gasto; //tipo_gasto VARCHAR(50) NOT NULL, posivel enum
 	private Date vencimento; //vencimento DATE NOT NULL,
 
 //	financeiro_id INTEGER REFERENCES FINANCEIRO(id)
 	
-	public Despesa(Integer id, Date data_retirada, Boolean status, String centro_custo, String descricao, float valor,
-			String tipo_gasto, Date vencimento) {
-		super();
-		this.id = id;
-		this.data_retirada = data_retirada;
-		this.status = status;
-		this.centro_custo = centro_custo;
-		this.descricao = descricao;
-		this.valor = valor;
-		this.tipo_gasto = tipo_gasto;
-		this.vencimento = vencimento;
-	}
-	public Despesa(Date data_retirada, Boolean status, String centro_custo, String descricao, float valor,
-			String tipo_gasto, Date vencimento) {
-		super();
-		this.data_retirada = data_retirada;
-		this.status = status;
-		this.centro_custo = centro_custo;
-		this.descricao = descricao;
-		this.valor = valor;
-		this.tipo_gasto = tipo_gasto;
-		this.vencimento = vencimento;
-	}
-	public Despesa() {
-		// TODO Stub de construtor gerado automaticamente
-	}
 	public Integer getId() {
 		return id;
 	}
@@ -77,11 +53,11 @@ public class Despesa {
 	public void setValor(float valor) {
 		this.valor = valor;
 	}
-	public String getTipo_gasto() {
+	public TipoPagamento getTipo_gasto() {
 		return tipo_gasto;
 	}
-	public void setTipo_gasto(String tipo_gasto) {
-		this.tipo_gasto = tipo_gasto;
+	public void setTipo_gasto(TipoPagamento tipoPagamento) {
+		this.tipo_gasto = tipoPagamento;
 	}
 	public Date getVencimento() {
 		return vencimento;

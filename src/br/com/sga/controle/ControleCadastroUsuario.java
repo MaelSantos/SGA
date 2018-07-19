@@ -67,52 +67,12 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 							tfdSenha.getText().trim(), //senha
 							tfdNumeroOab.getText().trim()); //numero OAB
 						fachada.salvarEditarUsuario(funcionario);
-						System.out.println("Salvo com sucesso");
 						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...", "Salvo Com Sucesso!");
+						limparCampos();
 				}
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem("Erro!!!", "Erro ao Salvar!!!", e.getMessage());
 			}
-			
-			
-			//verifico se tem algum campo vazio
-//			if(! (tfdNome.getText().trim().equals("") ||
-//					tfdNumeroOab.getText().trim().equals("") ||
-//					tfdSenha.getText().trim().equals("") ||
-//					tfdConfirmar.getText().trim().equals("") ||
-//					tfdLogin.getText().trim().equals("")) )
-//			{
-//				//			verifico se o campo senha e confirmar são iguais 
-//				if(tfdSenha.getText().equals(
-//						tfdConfirmar.getText()) && tfdSenha.getText().length() >= 8 )
-//				{
-//					
-//					if(DaoUsuario.getInstance().addUsuario(new Funcionario(
-//							tfdNome.getText().trim(), //nome
-//							tfdNumeroOab.getText().trim(), //sobrenome
-//							tfdEmail.getText().trim(), //email 
-//							tfdLogin.getText().trim(), //login 
-//							tfdSenha.getText().trim()))) //senha
-//					{
-//						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Erro!!", "Salvando...", "Salvo Com Sucesso!");
-//					}
-//					else
-//					{
-//						Alerta.getInstance().showMensagem("Erro!!!", "Erro ao Salvar!!!", "Login Já Existente");
-//					}
-//				}
-//				else
-//				{
-//					Alerta.getInstance().showMensagem("Erro!!!", "Senha Diferente Ou Muito Curta", "Confira Se As Senhas Informadas São Iguais");
-//				}
-//
-//			}
-//			else
-//			{
-//				Alerta.getInstance().showMensagem("Erro!!!", "Campos Vazios", "Alguns Campos Se Encontram Vazios");
-//			}
-//
-			Alerta.getInstance().setAlertType(AlertType.ERROR);
 		}
 		if(event.getSource() == btnCancelar)
 		{
@@ -133,6 +93,17 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 			funcionario = (Funcionario) usuario;
 			
 		}
+	}
+	
+	private void limparCampos() {
+		
+		tfdConfirmar.setText("");
+		tfdEmail.setText("");
+		tfdLogin.setText("");
+		tfdNome.setText("");
+		tfdNumeroOab.setText("");
+		tfdSenha.setText("");
+		
 	}
 
 }

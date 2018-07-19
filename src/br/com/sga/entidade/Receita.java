@@ -17,35 +17,6 @@ public class Receita {
 	
 //	financeiro_id INTEGER REFERENCES FINANCEIRO(id)
 	
-	public Receita(Integer id, Date data_entrada, Boolean status, String centro_custo, String descricao, float valor,
-			TipoPagamento tipo_pagamento, Date vencimento) {
-		super();
-		this.id = id;
-		this.data_entrada = data_entrada;
-		this.status = status;
-		this.centro_custo = centro_custo;
-		this.descricao = descricao;
-		this.valor = valor;
-		this.tipo_pagamento = tipo_pagamento;
-		this.vencimento = vencimento;
-	}
-	
-	public Receita(Date data_entrada, Boolean status, String centro_custo, String descricao, float valor,
-			TipoPagamento tipo_pagamento, Date vencimento) {
-		super();
-		this.data_entrada = data_entrada;
-		this.status = status;
-		this.centro_custo = centro_custo;
-		this.descricao = descricao;
-		this.valor = valor;
-		this.tipo_pagamento = tipo_pagamento;
-		this.vencimento = vencimento;
-	}
-
-	public Receita() {
-		// TODO Stub de construtor gerado automaticamente
-	}
-
 	public Integer getId() {
 		return id;
 	}

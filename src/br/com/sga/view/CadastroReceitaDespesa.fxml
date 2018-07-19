@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroReceitaDespesa">
+   <children>
+      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <buttons>
+                  <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#actionButton" text="Voltar">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </Button>
+                <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#actionButton" text="Adicionar">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </Button>
+              </buttons>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </ButtonBar>
+         </bottom>
+         <center>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" vgap="40.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ComboBox fx:id="cbxTipo" onAction="#actionButton" prefWidth="174.0" promptText="Tipo" />
+                  <ComboBox fx:id="cbxTipoPagamentoGasto" prefWidth="174.0" promptText="Tipo Pagamento" />
+                  <DatePicker fx:id="tfdEntradaRetirada" promptText="Data De Entrada" />
+                  <DatePicker fx:id="tfdVencimento" promptText="Vencimento" />
+                  <TextField fx:id="tfdValor" promptText="Valor">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="tfdCentroCusto" promptText="Centro Custo">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="tfdDescricao" promptText="Descrição">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </FlowPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

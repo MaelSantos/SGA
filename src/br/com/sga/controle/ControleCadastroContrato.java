@@ -1,22 +1,16 @@
 package br.com.sga.controle;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
-
-import org.controlsfx.control.textfield.TextFields;
 
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.enums.Andamento;
-import br.com.sga.entidade.enums.Area;
-import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
@@ -26,25 +20,19 @@ import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 
 public class ControleCadastroContrato {
-
 
     @FXML
     private TextField valorTotalField;
@@ -220,6 +208,7 @@ public class ControleCadastroContrato {
 				    	
 						fachada.salvarEditarContrato(new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, consulta.getArea(), dados_banco, partes,parcelas, consulta,financeiro));
 						Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
+						limparCampos();
 					} catch (BusinessException e1) {
 						e1.printStackTrace();
 						Alerta.getInstance().showMensagem("Alerta","",e1.getMessage());
@@ -231,8 +220,8 @@ public class ControleCadastroContrato {
 		}else
 			Alerta.getInstance().showMensagem("Alerta","","Nenhuma consulta com o cliente foi selecionada");
     }
-    
-    private void buscarConsultas() {
+ 
+	private void buscarConsultas() {
 		String dadoBusca = nomeClienteField.getText().trim();
 		if(dadoBusca.length() >0)
 			try {
@@ -278,4 +267,19 @@ public class ControleCadastroContrato {
         
         dadosBancoArea.setVisible(false);
     }
+    
+    private void limparCampos() {
+		
+    	dadosBancoArea.setText("");
+    	dataAtualRadio.setSelected(false);
+    	dataContratoPicker.getEditor().setText("");
+    	jurosField.setText("");
+		multaField.setText("");
+		nomeClienteField.setText("");
+		nomeParteField.setText("");
+		objetoField.setText("");
+		valorTotalField.setText("");
+		
+	}
+
 }

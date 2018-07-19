@@ -11,11 +11,11 @@ import br.com.sga.interfaces.IDaoFinanceiro;
 
 public class BusinessFinanceiro implements IBusinessFinanceiro {
 	private IDaoFinanceiro daoFinanceiro;
-	
+
 	public BusinessFinanceiro() {
 		daoFinanceiro = new DaoFinanceiro();
 	}
-	
+
 	@Override
 	public Financeiro buscarPorAno(Integer ano) throws BusinessException {
 		try {
@@ -29,9 +29,9 @@ public class BusinessFinanceiro implements IBusinessFinanceiro {
 	public void salvarEditar(Financeiro financeiro) throws BusinessException {
 		try {
 			if(financeiro.getId() == null)
-					daoFinanceiro.salvar(financeiro);
+				daoFinanceiro.salvar(financeiro);
 			else
-					daoFinanceiro.editar(financeiro);
+				daoFinanceiro.editar(financeiro);
 		} catch (DaoException e) {
 			throw new BusinessException(e.getMessage());
 		}

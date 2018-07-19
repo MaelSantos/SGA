@@ -15,12 +15,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu" prefHeight="620.0" prefWidth="900.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleMenu">
+<AnchorPane fx:id="menu" prefHeight="620.0" prefWidth="900.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleMenu">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -127,18 +128,7 @@
                               <DropShadow blurType="GAUSSIAN" />
                            </effect>
                         </Button>
-                        <Button fx:id="btnContatos" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="17.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Contatos" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <effect>
-                              <DropShadow blurType="GAUSSIAN" />
-                           </effect>
-                        </Button>
-                        <Button fx:id="btnProcessos" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Processos e Casos" textFill="WHITE">
+                        <Button fx:id="btnProcessos" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Processos" textFill="WHITE">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
@@ -204,14 +194,18 @@
                               <DropShadow blurType="GAUSSIAN" />
                            </effect>
                         </Button>
-                        <Button fx:id="btnInformacoes" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Informações" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                           <effect>
-                              <DropShadow blurType="GAUSSIAN" />
-                           </effect>
-                        </Button>
+                        <FlowPane alignment="BOTTOM_CENTER" columnHalignment="CENTER" prefHeight="168.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="btnInformacoes" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Informações" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                                 <effect>
+                                    <DropShadow blurType="GAUSSIAN" />
+                                 </effect>
+                              </Button>
+                           </children>
+                        </FlowPane>
                      </children>
                      <padding>
                         <Insets top="10.0" />

@@ -2,7 +2,6 @@ package br.com.sga.controle;
 
 import java.net.URL;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,12 +10,9 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import br.com.sga.app.App;
-import br.com.sga.dao.DaoCliente;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Endereco;
-import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Telefone;
-import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.EstadoCivil;
 import br.com.sga.entidade.enums.Sexo;
@@ -24,19 +20,14 @@ import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.entidade.enums.TipoTelefone;
 import br.com.sga.exceptions.BusinessException;
-import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
-import br.com.sga.interfaces.IDaoCliente;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.view.Alerta;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -160,6 +151,7 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 				telefones.clear();
 
 				Alerta.getInstance().showMensagem("Salvando...", "Salvo Com Sucesso", "Salvando...");
+				limparCampos();
 			}
 			if(obj == btnVoltar)
 				App.notificarOuvintes(Tela.clientes);
@@ -192,6 +184,28 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 		System.out.println(telefones);
 	}
 
+
+	private void limparCampos() {
+		
+		tfdBairro.setText("");
+		tfdCep.setText("");
+		tfdCidade.setText("");
+		tfdComplemento.setText("");
+		tfdCpfCnpj.setText("");
+		tfdEmail.setText("");
+		tfdNascimento.getEditor().setText("");
+		tfdNome.setText("");
+		tfdNumero.setText("");
+		tfdPais.setText("");
+		tfdPrefixo.setText("");
+		tfdPrefixoResponsavel.setText("");
+		tfdProfissao.setText("");
+		tfdResponsavel.setText("");
+		tfdRg.setText("");
+		tfdRua.setText("");
+		tfdTelefone.setText("");
+		tfdTelefoneResponsavel.setText("");
+	}
 
 	@Override
 	public void atualizar(Tela tela, Object object) {

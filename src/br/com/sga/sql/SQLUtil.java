@@ -30,6 +30,7 @@ public class SQLUtil {
     public static class Financeiro{
     	public static final String INSERT_ALL = "INSERT INTO FINANCEIRO(total_lucro,total_despesa,ano_coberto) VALUES(?,?,?)";
     	public static final String SELECT_ANO = "SELECT * FROM FINANCEIRO WHERE ANO_COBERTO = ?";
+    	public static final String UPDATE_ALL = "UPDATE FINANCEIRO SET ano_coberto = ?, total_despesa = ? , total_lucro = ? where id = ?";
     }
     
     public static class Receita{

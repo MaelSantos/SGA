@@ -262,7 +262,7 @@ public class DaoCommun implements IDaoCommun{
 			statement.setString(3,despesa.getDescricao());
 			statement.setFloat(4,despesa.getValor());
 			statement.setBoolean(5,despesa.getStatus());
-			statement.setString(6,despesa.getTipo_gasto());
+			statement.setString(6,despesa.getTipo_gasto().name());
 			statement.setDate(7,new Date(despesa.getVencimento().getTime()));
 			statement.setInt(8,financeiro_id);
 			statement.execute();
@@ -372,7 +372,7 @@ public class DaoCommun implements IDaoCommun{
 				despesa.setData_retirada(resultSet.getDate("data_retirada"));
 				despesa.setDescricao(resultSet.getString("descricao"));
 				despesa.setStatus(resultSet.getBoolean("status"));
-				despesa.setTipo_gasto(resultSet.getString("tipo_gasto"));
+				despesa.setTipo_gasto(TipoPagamento.getTipoPagamento(resultSet.getString("tipo_gasto")));
 				despesa.setValor(resultSet.getFloat("valor"));
 				despesa.setVencimento(resultSet.getDate("vencimento"));
 				
