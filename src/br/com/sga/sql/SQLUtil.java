@@ -34,12 +34,13 @@ public class SQLUtil {
     
     public static class Receita{
     	public static final String INSERT_ALL = "INSERT INTO RECEITA(data_entrada,centro_custo,descricao,valor,status,tipo_pagamento,vencimento,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
+    	public static final String SELECT_ID_FINANCEIRO = "SELECT * FROM RECEITA WHERE financeiro_id = ?";
     
     }
 
     public static class Despesa{
     	public static final String INSERT_ALL = "INSERT INTO DESPESA(data_retirada,centro_custo,descricao,valor,status,tipo_gasto,vencimento,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
-    
+    	public static final String SELECT_ID_FINANCEIRO = "SELECT * FROM DESPESA WHERE financeiro_id = ?";
     }
     
     public static class Contrato{

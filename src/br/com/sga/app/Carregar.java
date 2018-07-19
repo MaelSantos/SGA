@@ -53,7 +53,7 @@ public class Carregar implements Initializable{
 						updateProgress(porcentagem, 1);
 						System.out.println(texto);
 
-						App.cadastro = carregarArquivo("../view/Cadastro.fxml");
+						App.cadastro = carregarArquivo("../view/CadastroUsuario.fxml");
 						updateMessage(texto);
 						porcentagem = 0.125;
 						updateProgress(porcentagem, 1);

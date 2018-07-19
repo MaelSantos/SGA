@@ -137,7 +137,7 @@ public class ControleFinanceiro extends Controle {
 
 			}catch (BusinessException | NumberFormatException e) {
 				e.printStackTrace();
-				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Dados Finaceiros!!!", e.getMessage());
+				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Dados Financeiros!!!", e.getMessage());
 			}
 		}
 

@@ -38,6 +38,9 @@ public class Despesa {
 		this.tipo_gasto = tipo_gasto;
 		this.vencimento = vencimento;
 	}
+	public Despesa() {
+		// TODO Stub de construtor gerado automaticamente
+	}
 	public Integer getId() {
 		return id;
 	}

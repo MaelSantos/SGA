@@ -2,6 +2,8 @@ package br.com.sga.entidade;
 
 import java.util.Date;
 
+import br.com.sga.entidade.enums.TipoPagamento;
+
 public class Receita {
 
 	private Integer id; //id SERIAL PRIMARY KEY,
@@ -10,13 +12,13 @@ public class Receita {
 	private String descricao; //descricao VARCHAR(255),
 	private Float valor; //valor  FLOAT NOT NULL, 
 	private Boolean status; //status VARCHAR(255), possivel enum
-	private String tipo_pagamento; //tipo_pagamento VARCHAR(50) NOT NULL,  posivel enum
+	private TipoPagamento tipo_pagamento; //tipo_pagamento VARCHAR(50) NOT NULL,  posivel enum
 	private Date vencimento;// vencimento DATE NOT NULL,
 	
 //	financeiro_id INTEGER REFERENCES FINANCEIRO(id)
 	
 	public Receita(Integer id, Date data_entrada, Boolean status, String centro_custo, String descricao, float valor,
-			String tipo_pagamento, Date vencimento) {
+			TipoPagamento tipo_pagamento, Date vencimento) {
 		super();
 		this.id = id;
 		this.data_entrada = data_entrada;
@@ -29,7 +31,7 @@ public class Receita {
 	}
 	
 	public Receita(Date data_entrada, Boolean status, String centro_custo, String descricao, float valor,
-			String tipo_pagamento, Date vencimento) {
+			TipoPagamento tipo_pagamento, Date vencimento) {
 		super();
 		this.data_entrada = data_entrada;
 		this.status = status;
@@ -38,6 +40,10 @@ public class Receita {
 		this.valor = valor;
 		this.tipo_pagamento = tipo_pagamento;
 		this.vencimento = vencimento;
+	}
+
+	public Receita() {
+		// TODO Stub de construtor gerado automaticamente
 	}
 
 	public Integer getId() {
@@ -54,12 +60,12 @@ public class Receita {
 		this.data_entrada = data_entrada;
 	}
 
-	public String getTipo_pagamento() {
+	public TipoPagamento getTipo_pagamento() {
 		return tipo_pagamento;
 	}
 
-	public void setTipo_pagamento(String tipo_pagamento) {
-		this.tipo_pagamento = tipo_pagamento;
+	public void setTipo_pagamento(TipoPagamento tipoPagamento) {
+		this.tipo_pagamento = tipoPagamento;
 	}
 
 	public Boolean getStatus() {

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.sga.entidade.enums.Tabela;
+import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
 
@@ -238,7 +239,7 @@ public class DaoCommun implements IDaoCommun{
 			statement.setString(3,receita.getDescricao());
 			statement.setFloat(4,receita.getValor());
 			statement.setBoolean(5,receita.getStatus());
-			statement.setString(6,receita.getTipo_pagamento());
+			statement.setString(6,receita.getTipo_pagamento().name());
 			statement.setDate(7,new Date(receita.getVencimento().getTime()));
 			statement.setInt(8,financeiro_id);
 			statement.execute();
@@ -315,14 +316,75 @@ public class DaoCommun implements IDaoCommun{
 
 	@Override
 	public List<Receita> getReceita(Integer financeiro_id) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		
+		List<Receita> receitas = new ArrayList<>();
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Receita.SELECT_ID_FINANCEIRO);
+			statement.setInt(1, financeiro_id);
+			
+			this.resultSet = statement.executeQuery();
+			
+			Receita receita;
+			while(resultSet.next())
+			{
+				receita = new Receita();
+				receita.setId(resultSet.getInt("id"));
+				receita.setCentro_custo(resultSet.getString("centro_custo"));
+				receita.setData_entrada(resultSet.getDate("data_entrada"));
+				receita.setDescricao(resultSet.getString("descricao"));
+				receita.setStatus(resultSet.getBoolean("status"));
+				receita.setTipo_pagamento(TipoPagamento.getTipoPagamento(resultSet.getString("tipo_pagamento")));
+				receita.setValor(resultSet.getFloat("valor"));
+				receita.setVencimento(resultSet.getDate("vencimento"));
+				
+				receitas.add(receita);
+				
+			}
+			
+			this.connection.close();
+			
+			return receitas;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO SALVAR AUDIENCIA - Contate o ADM");
+		}
 	}
 
 	@Override
 	public List<Despesa> getDespesa(Integer financeiro_id) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
-	}
+		
+		List<Despesa> despesas = new ArrayList<>();
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Despesa.SELECT_ID_FINANCEIRO);
+			
+			statement.setInt(1, financeiro_id);
+			
+			Despesa despesa;
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				despesa = new Despesa();
+				
+				despesa.setId(resultSet.getInt("id"));
+				despesa.setCentro_custo(resultSet.getString("centro_custo"));
+				despesa.setData_retirada(resultSet.getDate("data_retirada"));
+				despesa.setDescricao(resultSet.getString("descricao"));
+				despesa.setStatus(resultSet.getBoolean("status"));
+				despesa.setTipo_gasto(resultSet.getString("tipo_gasto"));
+				despesa.setValor(resultSet.getFloat("valor"));
+				despesa.setVencimento(resultSet.getDate("vencimento"));
+				
+				despesas.add(despesa);
+			}
+			
+			this.connection.close();
+			
+			return despesas;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO SALVAR AUDIENCIA - Contate o ADM");
+		}	}
 	
 }
