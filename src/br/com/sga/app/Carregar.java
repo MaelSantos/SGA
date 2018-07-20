@@ -45,7 +45,7 @@ public class Carregar implements Initializable{
 					public void updateData()
 					{
 						updateMessage(texto);
-						porcentagem += 5.5555555556;
+						porcentagem += 5.52631578947;
 						updateProgress(porcentagem, 100);
 						System.out.println(texto);
 					}
@@ -106,6 +106,9 @@ public class Carregar implements Initializable{
 						updateData();
 						
 						App.cadastroConsulta = carregarArquivo("../view/CadastroConsulta.fxml");
+						updateData();
+						
+						App.agenda = carregarArquivo("../view/Agenda.fxml");
 						updateData();
 						
 						App.loginScene = new Scene(App.login);
