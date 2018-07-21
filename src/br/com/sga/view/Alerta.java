@@ -33,6 +33,7 @@ public class Alerta extends Alert {
 	}
 	public void showMensagem(String titulo, String header, String content)
 	{
+		setAlertType(AlertType.NONE);
 		setTitle(titulo);
 		setHeaderText(header);
 		setContentText(content);

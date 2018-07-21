@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.view.Dialogo;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -113,7 +117,6 @@ public class Carregar implements Initializable{
 						
 						App.loginScene = new Scene(App.login);
 						App.menuScene = new Scene(App.menu);
-
 						return null;
 					}
 					@Override

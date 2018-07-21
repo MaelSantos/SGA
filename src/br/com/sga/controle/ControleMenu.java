@@ -1,5 +1,6 @@
 package br.com.sga.controle;
 
+import org.controlsfx.control.Notifications;
 import org.controlsfx.control.textfield.TextFields;
 
 import br.com.sga.app.App;
@@ -7,6 +8,7 @@ import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -109,8 +111,11 @@ public class ControleMenu extends Controle{
     		atualizarTela(App.changePane(Tela.buscar_contrato));
 		else if(e.getSource() == consultaButton) 
     		atualizarTela(App.changePane(Tela.cadastro_consulta));
-		else if(e.getSource() == btnSair)
+		else if(e.getSource() == btnSair) {
+			funcionario = null;
 			App.changeStage(Tela.login);
+			
+		}
 		
 	}
 	
@@ -144,19 +149,20 @@ public class ControleMenu extends Controle{
 	
 	@Override
 	public void init() {
-		
 		TextFields.bindAutoCompletion(tfdPesquisar,Tela.values());
-		
 	}
 	
 	@Override
 	public void atualizar(Tela tela, Object object) {
+		
 		if(object != null)
 		{
 			if (object instanceof Funcionario) {
+				if(this.funcionario == null)
+					Notifications.create().title("Olá!").text("Bem vindo "+((Funcionario) (object)).getNome()).action().position(Pos.BOTTOM_RIGHT).showInformation();
 				this.funcionario = (Funcionario) object;
-			String nome_completo = funcionario.getNome();
-			mnbNome.setText((nome_completo.contains(" ")) ? nome_completo.substring(0,nome_completo.indexOf(" ")): nome_completo);
+				String nome_completo = funcionario.getNome();
+				mnbNome.setText((nome_completo.contains(" ")) ? nome_completo.substring(0,nome_completo.indexOf(" ")): nome_completo);
 			}
 		}
 		atualizarTela(App.changePane(tela));
