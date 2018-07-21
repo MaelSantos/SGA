@@ -70,6 +70,8 @@ public class SQLUtil {
     			+ "notificacao n where n.estado != 'COMPLETO' and n.id =  v.notificacao_id and v.funcionario_id ="
     			+ " f.id and f.numero_oab = ?";
     	public static final String SELECT_DATA = "SELECT * FROM NOTIFICACAO WHERE CAST(data_aviso AS DATE) = ? ";
+    	public static final String SELECT_ADAPTER_DATA = "SELECT ID,TIPO,ESTADO FROM NOTIFICACAO WHERE CAST(data_aviso AS DATE) = ?";
+    	public static final String SELECT_DATA_MES_ANO = "SELECT DISTINCT CAST(data_aviso AS DATE) FROM NOTIFICACAO WHERE (SELECT EXTRACT(MONTH FROM data_aviso)) = ? AND (SELECT EXTRACT(YEAR FROM data_aviso)) = ?;";
     }
    
     public static class VinculoFuncionario{

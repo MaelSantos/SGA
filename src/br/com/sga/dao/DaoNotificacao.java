@@ -11,6 +11,7 @@ import java.util.List;
 
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Prioridade;
 import br.com.sga.entidade.enums.Tabela;
@@ -162,4 +163,62 @@ public class DaoNotificacao implements IDaoNotificacao {
 		
 	}
 
+	@Override
+	public List<NotificacaoAdapter> BuscarAdapterPorData(Date data) throws DaoException {
+
+		try {
+            this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Notificacao.SELECT_ADAPTER_DATA);
+            statement.setDate(1, new java.sql.Date(data.getTime()));
+
+            resultSet = statement.executeQuery();
+         
+            List<NotificacaoAdapter> adapters = new ArrayList<>();
+            NotificacaoAdapter adapter;
+            while(resultSet.next()) {
+            	adapter = new NotificacaoAdapter();
+            	
+            	adapter.setId(resultSet.getInt("id"));
+            	adapter.setEstado(Andamento.getTipo(resultSet.getString("estado")));
+            	adapter.setTipoNotificacao(TipoNotificacao.getTipo(resultSet.getString("tipo")));
+            	
+            	adapters.add(adapter);
+            }
+            this.connection.close();
+            this.statement.close();
+            this.resultSet.close();
+            
+            return adapters;
+		} catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO BUSCAR NOTIFICAÇÕES - CONTATE O ADM");
+        }
+	}
+
+	@Override
+	public List<Date> BuscarAllDataPorMes(int mes, int ano) throws DaoException {
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Notificacao.SELECT_DATA_MES_ANO);
+			statement.setInt(1, mes);
+			statement.setInt(2, ano);
+
+			resultSet = statement.executeQuery();
+			List<Date> dates = new ArrayList<Date>();
+			Date date;
+			while(resultSet.next()) {
+				date = resultSet.getDate("data_aviso");
+
+				dates.add(date);
+			}
+			this.connection.close();
+			this.statement.close();
+			this.resultSet.close();
+
+			return dates;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO BUSCAR DATAS - CONTATE O ADM");
+		}	
+	}
 }

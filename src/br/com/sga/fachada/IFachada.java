@@ -12,12 +12,11 @@ import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.exceptions.BusinessException;
 
 public interface IFachada {
-	
-	
 	
 	//usuario
 	public Funcionario buscarPorLogin(String login, String senha) throws BusinessException;
@@ -62,4 +61,6 @@ public interface IFachada {
     public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException;
     public List<Notificacao> buscarNotificacaoPorFuncionario(Funcionario funcionario) throws BusinessException;
     public List<Notificacao> buscarNotificacaoPorData(Date data) throws BusinessException;
+    public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException;
+    public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorData(Date data) throws BusinessException;
 }

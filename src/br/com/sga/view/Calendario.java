@@ -12,19 +12,16 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.sga.entidade.Notificacao;
 import br.com.sga.fachada.Fachada;
 
 public class Calendario {
 
-	private ArrayList<AnchorPaneDate> allCalendarioDias = new ArrayList<>(35);
+	private ArrayList<DateItem> allCalendarioDias = new ArrayList<>(35);
 	private VBox view;
 	private Text calendarioTitulo;
 	private YearMonth correnteMesAno;
 	
-	/**
-	 * Create a calendar view
-	 * @param MesAno year month to create the calendar of
-	 */
 	public Calendario(YearMonth MesAno) {
 		
 		correnteMesAno = MesAno;
@@ -34,13 +31,13 @@ public class Calendario {
 		// Create rows and columns with anchor panes for the calendar
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 7; j++) {
-				AnchorPaneDate ap = new AnchorPaneDate();
-//				ap.setPrefSize(200,200);
+				DateItem ap = new DateItem();
 				calendario.add(ap,j,i);
 				allCalendarioDias.add(ap);
 			}
-		}
+		}		
 		calendario.setGridLinesVisible(true);
+				
 		// Days of the week labels
 		Text[] dayNames = new Text[]{
 				new Text("Domingo"), new Text("Segunda"), new Text("Terça"),
@@ -52,24 +49,25 @@ public class Calendario {
 		for (Text txt : dayNames) {
 			AnchorPane ap = new AnchorPane();
 			ap.setPrefSize(200, 10);
-			txt.setFont(new Font("Verdana", 14)); 
-			txt.setFill(Paint.valueOf("white"));
+			txt.setFont(new Font("Verdana", 14));
+			if(txt.getText().equals("Domingo"))
+				txt.setFill(Paint.valueOf("#FF0000"));
+			else
+				txt.setFill(Paint.valueOf("black"));			
 			ap.setBottomAnchor(txt, 5.0);
 			ap.getChildren().add(txt);
 			diasLabels.add(ap, col++, 0);
 		}
+		
+		diasLabels.setStyle("-fx-background-color: #DCDCDC;");
+		diasLabels.setGridLinesVisible(true);
+		
 		// Create calendarTitle and buttons to change current month
 		calendarioTitulo = new Text();
-//		Button btnVoltarMes = new Button("<<");
-//		btnVoltarMes.setOnAction(e -> AnteriorMes());
-//		Button btnAvancarMes = new Button(">>");
-//		btnAvancarMes.setOnAction(e -> ProximoMes());
-//		HBox tituloBar = new HBox(btnVoltarMes, calendarioTitulo, btnAvancarMes);
-//		tituloBar.setAlignment(Pos.BASELINE_CENTER);
-		// Populate calendar with the appropriate day numbers
+		DateItem.updateDates(MesAno);
 		populateCalendar(MesAno);
 		// Create the calendar view
-		view = new VBox(diasLabels, calendario);
+		view = new VBox(diasLabels, calendario);	
 	}
 
 	/**
@@ -77,38 +75,23 @@ public class Calendario {
 	 * @param MesAno year and month of month to render
 	 */
 	public void populateCalendar(YearMonth MesAno) {
-		// Get the date we want to start with on the calendar
+		// Pego a data referente o mes e o ano 
 		LocalDate calendarioData = LocalDate.of(MesAno.getYear(), MesAno.getMonthValue(), 1);
-		// Dial back the day until it is SUNDAY (unless the month starts on a sunday)
+		
+		// Veririfico os dias que caem no domingo
 		while (!calendarioData.getDayOfWeek().toString().equals("SUNDAY") ) {
 			calendarioData = calendarioData.minusDays(1);
 		}
-		// Populate the calendar with day numbers
-		for (AnchorPaneDate ap : allCalendarioDias) {
-			if (ap.getChildren().size() != 0) {
-				ap.getChildren().remove(0);
-			}
-			Text txt = new Text(String.valueOf(calendarioData.getDayOfMonth()));
+		
+		// Atualizo os dados do calendario (texto e numeros)
+		for (DateItem ap : allCalendarioDias) {
 			
-			ap.getText().setText(String.valueOf(calendarioData.getDayOfMonth()));
-			
-//			ap.setText(txt);
-			
-			txt.setFont(new Font("Verdana", 13));
-			if(calendarioData.getDayOfWeek().toString().equals("SUNDAY"))
-				txt.setFill(Paint.valueOf("#FF0000"));
 			ap.setDate(calendarioData);
-			if(ap.getDate().getDayOfYear() == LocalDate.now().getDayOfYear())
-				ap.setStyle("-fx-background-color: #DC143C;");
-			else
-				ap.setStyle("-fx-background-color: #DCDCDC;");
-			ap.setTopAnchor(txt, 5.0);
-			ap.setLeftAnchor(txt, 5.0);
-			ap.getChildren().add(txt);
+			ap.updateText(String.valueOf(calendarioData.getDayOfMonth()));
 			calendarioData = calendarioData.plusDays(1);
 		}
 		
-		// Change the title of the calendar
+		//atualizo a o titulo com mes e ano
 		calendarioTitulo.setText(MesAno.getMonth().toString() + " " + String.valueOf(MesAno.getYear()));
 	}
 
@@ -117,6 +100,7 @@ public class Calendario {
 	 */
 	public void AnteriorMes() {
 		correnteMesAno = correnteMesAno.minusMonths(1);
+		DateItem.updateDates(correnteMesAno);
 		populateCalendar(correnteMesAno);
 	}
 
@@ -125,25 +109,19 @@ public class Calendario {
 	 */
 	public void ProximoMes() {
 		correnteMesAno = correnteMesAno.plusMonths(1);
+		DateItem.updateDates(correnteMesAno);
 		populateCalendar(correnteMesAno);
 	}
 
-	public void updateDescricao(YearMonth yearMonth)
-	{
-		
-		
-		
-	}
-	
 	public VBox getView() {
 		return view;
 	}
 
-	public ArrayList<AnchorPaneDate> getAllCalendarioDias() {
+	public ArrayList<DateItem> getAllCalendarioDias() {
 		return allCalendarioDias;
 	}
 
-	public void setAllCalendarioDias(ArrayList<AnchorPaneDate> allCalendarioDias) {
+	public void setAllCalendarioDias(ArrayList<DateItem> allCalendarioDias) {
 		this.allCalendarioDias = allCalendarioDias;
 	}
 

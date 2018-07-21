@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.sga.dao.DaoNotificacao;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
@@ -60,6 +61,26 @@ public class BusinessNotificacao implements IBusinessNotificacao{
 	public List<Notificacao> buscarPorData(Date data) throws BusinessException {
 		try {
 			return daoNotificacao.buscarPorData(data);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<NotificacaoAdapter> BuscarAdapterPorData(Date data) throws BusinessException {
+		try {
+			return daoNotificacao.BuscarAdapterPorData(data);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException {
+		try {
+			return daoNotificacao.BuscarAllDataPorMes(mes, ano);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());

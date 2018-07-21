@@ -11,21 +11,18 @@ import br.com.sga.business.BusinessFinanceiro;
 import br.com.sga.business.BusinessNotificacao;
 import br.com.sga.business.BusinessProcesso;
 import br.com.sga.business.BusinessUsuario;
-import br.com.sga.dao.DaoNotificacao;
 import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
-import br.com.sga.business.BusinessUsuario;
-import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.exceptions.BusinessException;
-import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IBusinessAudiencia;
 import br.com.sga.interfaces.IBusinessConsulta;
 import br.com.sga.interfaces.IBusinessContrato;
@@ -211,6 +208,16 @@ public class Fachada implements IFachada {
 	@Override
 	public List<Notificacao> buscarNotificacaoPorData(Date data) throws BusinessException {
 		return businessNotificacao.buscarPorData(data);
+	}
+
+	@Override
+	public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorData(Date data) throws BusinessException {
+		return businessNotificacao.BuscarAdapterPorData(data);
+	}
+
+	@Override
+	public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException {
+		return businessNotificacao.BuscarAllDataPorMes(mes, ano);
 	}
 
 }

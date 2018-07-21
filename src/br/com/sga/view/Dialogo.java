@@ -1,10 +1,14 @@
 package br.com.sga.view;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.adapter.NotificacaoAdapter;
+import br.com.sga.exceptions.BusinessException;
+import br.com.sga.fachada.Fachada;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -75,7 +79,7 @@ public class Dialogo {
 		
 	}
 	
-	public Notificacao DetalhesData(LocalDate date, List<Notificacao> list)
+	public Notificacao DetalhesData(LocalDate date)
 	{
 		System.out.println("Data do panel é: " + date);
 		Dialog<Notificacao> dialog = new Dialog<>();
@@ -84,9 +88,16 @@ public class Dialogo {
 		VBox v = new VBox();
 		v.setPrefSize(500, 300);
 		
-		ListView<Notificacao> view = new ListView<>(FXCollections.observableArrayList(list));
+		ListView<Notificacao> view = new ListView<Notificacao>();
+		try {
+			view.getItems().setAll(FXCollections.observableArrayList(
+					Fachada.getInstance().buscarNotificacaoPorData(Date.valueOf(date))));
+			v.getChildren().addAll(new Label(date.toString()), view);
+		} catch (BusinessException e) {
+			// TODO Bloco catch gerado automaticamente
+			e.printStackTrace();
+		}
 		
-		v.getChildren().addAll(new Label(date.toString()), view);
 		dialog.getDialogPane().setContent(v);
 		
 		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);

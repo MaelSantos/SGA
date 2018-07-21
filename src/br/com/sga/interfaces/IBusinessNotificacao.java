@@ -5,10 +5,14 @@ import java.util.List;
 
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.exceptions.BusinessException;
+import br.com.sga.exceptions.DaoException;
 
 public interface IBusinessNotificacao {
 	public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException;
     public List<Notificacao> buscarPorNotificaoesPorFuncionario(Funcionario funcionario) throws BusinessException;
     public List<Notificacao> buscarPorData(Date data) throws BusinessException;
+    public List<NotificacaoAdapter> BuscarAdapterPorData(Date data) throws BusinessException;
+    public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException;
 }
