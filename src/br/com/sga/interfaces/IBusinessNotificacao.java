@@ -10,4 +10,5 @@ import br.com.sga.exceptions.BusinessException;
 public interface IBusinessNotificacao {
 	public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException;
     public List<Notificacao> buscarPorNotificaoesPorFuncionario(Funcionario funcionario) throws BusinessException;
+    public List<Notificacao> buscarPorData(Date data) throws BusinessException;
 }

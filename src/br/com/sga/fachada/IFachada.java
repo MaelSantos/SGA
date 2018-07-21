@@ -1,5 +1,6 @@
 package br.com.sga.fachada;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.sga.entidade.Audiencia;
@@ -60,4 +61,5 @@ public interface IFachada {
     // notificacao
     public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException;
     public List<Notificacao> buscarNotificacaoPorFuncionario(Funcionario funcionario) throws BusinessException;
+    public List<Notificacao> buscarNotificacaoPorData(Date data) throws BusinessException;
 }

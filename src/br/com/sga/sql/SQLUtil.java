@@ -69,6 +69,7 @@ public class SQLUtil {
     	public static final String BUSCA_POR_FUNCIONARIO ="select n.* from funcionario f, vinculo_funcionario v , "
     			+ "notificacao n where n.estado != 'COMPLETO' and n.id =  v.notificacao_id and v.funcionario_id ="
     			+ " f.id and f.numero_oab = ?";
+    	public static final String SELECT_DATA = "SELECT * FROM NOTIFICACAO WHERE CAST(data_aviso AS DATE) = ? ";
     }
    
     public static class VinculoFuncionario{

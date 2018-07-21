@@ -88,14 +88,14 @@ public class ControleEditarPerfil implements Initializable,Ouvinte{
 	    		}
 		    	else if(event.getSource() == atualizarLoginButton)
 		    	{
-		    		sucesso =atualizarLogin(copiaFuncionario);
+		    		sucesso = atualizarLogin(copiaFuncionario);
 		    		feedback = "Login";
 		    		if(sucesso) 
 		    			loginField.setText("");
 		    	}
 		    	else if(event.getSource() == atualizarSenhaButton) 
 		    	{
-		    		sucesso =atualizarSenha(copiaFuncionario);
+		    		sucesso = atualizarSenha(copiaFuncionario);
 		    		feedback = "Senha";
 		    		if(sucesso) {
 		    			senhaAtualField.setText("");

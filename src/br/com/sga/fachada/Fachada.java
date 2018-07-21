@@ -1,5 +1,6 @@
 package br.com.sga.fachada;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.sga.business.BusinessAudiencia;
@@ -205,6 +206,11 @@ public class Fachada implements IFachada {
 	@Override
 	public List<Audiencia> buscarAudienciaPorIdProcesso(int id) throws BusinessException {
 		return businessAudiencia.buscarPorIdProcesso(id);
+	}
+
+	@Override
+	public List<Notificacao> buscarNotificacaoPorData(Date data) throws BusinessException {
+		return businessNotificacao.buscarPorData(data);
 	}
 
 }

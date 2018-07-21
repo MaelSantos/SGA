@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.sga.entidade.Funcionario;
@@ -21,6 +21,7 @@ import br.com.sga.sql.SQLConnection;
 import br.com.sga.sql.SQLUtil;
 
 public class DaoNotificacao implements IDaoNotificacao {
+	
 	Connection  connection ;
 	ResultSet resultSet;
 	PreparedStatement statement;
@@ -124,6 +125,41 @@ public class DaoNotificacao implements IDaoNotificacao {
             ex.printStackTrace();
             throw new DaoException("PROBLEMA AO NOTIFICACOES DE FUNCIONARIO - CONTATE O ADM");
         }
+	}
+
+	@Override
+	public List<Notificacao> buscarPorData(Date data) throws DaoException {
+
+		try {
+            this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Notificacao.SELECT_DATA);
+            statement.setDate(1, new java.sql.Date(data.getTime()));
+            
+            resultSet = statement.executeQuery();
+            List<Notificacao> notificacoes = new ArrayList<>();
+            Notificacao notificacao;
+            while(resultSet.next()) {
+            	notificacao = new Notificacao();
+            	
+            	notificacao.setId(resultSet.getInt("id"));
+            	notificacao.setAviso_data(resultSet.getDate("data_aviso"));
+            	notificacao.setDescricao(resultSet.getString("descricao"));
+            	notificacao.setEstado(Andamento.getTipo(resultSet.getString("estado")));
+            	notificacao.setPrioridade(Prioridade.getTipo(resultSet.getString("prioridade")));
+            	notificacao.setTipoNotificacao(TipoNotificacao.getTipo(resultSet.getString("tipo")));
+            	
+            	notificacoes.add(notificacao);
+            }
+            this.connection.close();
+            this.statement.close();
+            this.resultSet.close();
+            return notificacoes;
+		} catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+//            throw new DaoException("PROBLEMA AO BUSCAR NOTIFICAÇÕES - CONTATE O ADM");
+        }
+		
 	}
 
 }

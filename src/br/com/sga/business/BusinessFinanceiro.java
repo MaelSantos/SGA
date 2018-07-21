@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.sga.dao.DaoFinanceiro;
 import br.com.sga.entidade.Financeiro;
+import br.com.sga.entidade.Notificacao;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IBusinessFinanceiro;
