@@ -58,8 +58,6 @@ public class ControleCadastroContrato {
     @FXML
     private DatePicker dataContratoPicker;
 
-    @FXML
-    private RadioButton dataAtualRadio;
 
     @FXML
     private TableView<Parte> parteTableView;
@@ -170,9 +168,7 @@ public class ControleCadastroContrato {
     	
     	// pegandoa data caso esteja selecionado a data atual a data do date picker é desconsiderada
     	Date data_contrato = null;
-    	if(dataAtualRadio.isSelected())
-    		data_contrato = Calendar.getInstance().getTime();
-    	else if (dataContratoPicker.getValue() != null){
+    	if (dataContratoPicker.getValue() != null){
     		LocalDate ld = dataContratoPicker.getValue();
         	Calendar c =  Calendar.getInstance();
         	c.set(ld.getYear(), ld.getMonthValue(), ld.getDayOfMonth());
@@ -264,14 +260,13 @@ public class ControleCadastroContrato {
        // tipoParticipacaoParteTableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(tipoParticipcaoBox.getItems()));
         
         parteTableView.setItems(FXCollections.observableArrayList());
-        
+        dataContratoPicker.setValue(LocalDate.now());
         dadosBancoArea.setVisible(false);
     }
     
     private void limparCampos() {
 		
     	dadosBancoArea.setText("");
-    	dataAtualRadio.setSelected(false);
     	dataContratoPicker.getEditor().setText("");
     	jurosField.setText("");
 		multaField.setText("");
@@ -279,6 +274,7 @@ public class ControleCadastroContrato {
 		nomeParteField.setText("");
 		objetoField.setText("");
 		valorTotalField.setText("");
+		dataContratoPicker.setValue(LocalDate.now());
 		
 	}
 

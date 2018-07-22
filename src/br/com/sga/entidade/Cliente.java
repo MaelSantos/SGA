@@ -30,6 +30,16 @@ public class Cliente {
 	public Cliente() {
 	}
 
+	
+	public Cliente(Integer id, String nome, String cpf_cnpj, String email) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cpf_cnpj = cpf_cnpj;
+		this.email = email;
+	}
+
+
 	public Cliente(String nome, List<Telefone> telefones) {
 		super();
 		this.nome = nome;

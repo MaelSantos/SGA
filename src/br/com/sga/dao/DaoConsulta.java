@@ -40,8 +40,8 @@ public class DaoConsulta implements IDaoConsulta {
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = connection.prepareStatement(SQLUtil.Consulta.INSERT_ALL);
-	        // valor_honorario,descricao,area,indicacao,data_consulta,cliente_id,funcionario_id
-	        statement.setFloat(1,entidade.getValor_honorario());
+	        
+			statement.setFloat(1,entidade.getValor_honorario());
 			statement.setString(2,entidade.getDescricao());
 			statement.setString(3,entidade.getArea().toString());
 			statement.setString(4,entidade.getIndicacao());

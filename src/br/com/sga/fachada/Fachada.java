@@ -102,7 +102,7 @@ public class Fachada implements IFachada {
 
 	@Override
 	public void salvarEditarConsulta(Consulta consulta) throws BusinessException {
-		businessConsulta.salvar(consulta);
+		businessConsulta.salvarEditar(consulta);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
+import br.com.sga.exceptions.ValidacaoException;
 import br.com.sga.interfaces.IBusinessConsulta;
 import br.com.sga.interfaces.IDaoConsulta;
 
@@ -17,8 +18,16 @@ public class BusinessConsulta implements IBusinessConsulta{
 		daoConsulta = new DaoConsulta();
 	}
 	@Override
-	public void salvar(Consulta consulta) throws BusinessException {
-		
+	public void salvarEditar(Consulta consulta) throws BusinessException {
+		try {
+			if(consulta.getId() == null)
+				daoConsulta.salvar(consulta);
+			else
+				daoConsulta.editar(consulta);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
