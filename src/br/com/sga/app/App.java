@@ -1,28 +1,16 @@
 package br.com.sga.app;
 
-import java.awt.SystemTray;
 import java.util.ArrayList;
 
-import org.controlsfx.control.Notifications;
-
 import br.com.sga.interfaces.Ouvinte;
-import br.com.sga.view.Dialogo;
 import br.com.sga.entidade.enums.Tela;
 import javafx.application.Application;
-import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class App extends Application{
 	
