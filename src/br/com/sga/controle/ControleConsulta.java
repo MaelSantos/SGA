@@ -32,6 +32,12 @@ public class ControleConsulta {
 
     @FXML
     private Button buscarButton;
+    
+    @FXML
+    private Button informacoesButton;
+    
+    @FXML
+    private Button editarButton;
 
     @FXML
     private TableView<Consulta> contratosTableView;
