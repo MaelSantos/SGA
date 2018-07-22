@@ -110,7 +110,7 @@ public class ControleMenu extends Controle{
 		else if(e.getSource() == contratoButton) 
     		atualizarTela(App.changePane(Tela.buscar_contrato));
 		else if(e.getSource() == consultaButton) 
-    		atualizarTela(App.changePane(Tela.cadastro_consulta));
+    		atualizarTela(App.changePane(Tela.Consulta));
 		else if(e.getSource() == btnSair) {
 			funcionario = null;
 			App.changeStage(Tela.login);

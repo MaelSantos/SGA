@@ -186,11 +186,51 @@ public class DaoCliente implements IDaoCliente {
 	@Override
 	public List<Cliente> buscarPorBusca(String busca) throws DaoException {
 
-		List<Cliente> clientes = new ArrayList<>();
 		
 		try {
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			this.statement = conexao.prepareStatement(SQLUtil.Cliente.SELECT_ALL);
+			this.statement = conexao.prepareStatement(SQLUtil.Cliente.BUSCAR_ALL);
+			this.statement.setString(1,"%"+busca+"%");
+			this.statement.setString(2,busca);
+			this.statement.setString(3,busca);
+			this.statement.setString(4,"%"+busca+"%");
+			this.statement.setString(5,busca);
+			this.statement.setString(6,busca);
+			resultSet = this.statement.executeQuery();
+			List<Cliente> clientes = new ArrayList<>();
+			
+			while(resultSet.next()) {
+				Cliente cliente = new Cliente();
+				cliente.setId(resultSet.getInt("id"));
+				cliente.setNome(resultSet.getString("nome"));
+				cliente.setNascimento(resultSet.getDate("data_nascimento"));
+				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
+				cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
+				cliente.setRg(resultSet.getString("rg"));
+				cliente.setEmail(resultSet.getString("email"));
+				cliente.setEstado_civil(resultSet.getString("estado_civil"));
+				cliente.setProfissao(resultSet.getString("profissao"));
+				cliente.setFilhos(resultSet.getBoolean("filhos"));
+				cliente.setResponsavel(resultSet.getString("responsavel"));
+				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
+//				end = new Endereco();
+//				end.setId(resultSet.getInt("id_endereco"));
+//				end.setBairro(resultSet.getString("bairro"));
+//				end.setCidade(resultSet.getString("cidade"));
+//				end.setRua(resultSet.getString("rua"));
+//				end.setEstado(resultSet.getString("estado"));
+//				end.setNumero(resultSet.getString("numero"));
+//				end.setComplemento(resultSet.getString("complemento"));
+//				end.setCep(resultSet.getString("cep"));
+//				end.setPais(resultSet.getString("pais"));
+//				cliente.setEndereco(end);
+				
+				List<Telefone> list = daoCommun.getContatos(cliente.getId());
+				cliente.setTelefones(list);
+				clientes.add(cliente);	
+			}if(clientes.isEmpty())
+				new DaoException("NÃO HÁ CLIENTES CADASTRADOS COM ESSES DADOS");
+			/*this.statement = conexao.prepareStatement(SQLUtil.Cliente.SELECT_ALL);
 //			this.statement.setString(1, cpf_cnpj);
 
 			resultSet = this.statement.executeQuery();
@@ -227,15 +267,16 @@ public class DaoCliente implements IDaoCliente {
 				List<Telefone> list = daoCommun.getContatos(cliente.getId());
 				cliente.setTelefones(list);
 				
-				clientes.add(cliente);				
+				clientes.add(cliente);	
 			}
+				*/	
 			this.conexao.close();			
-
+			return clientes;
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
 		}
 		
-		return clientes;
+		
 
 	}
 

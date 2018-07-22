@@ -5,8 +5,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Consulta;
+import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
-import br.com.sga.entidade.adapter.NotificacaoAdapter;
+import br.com.sga.entidade.enums.Area;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import javafx.collections.FXCollections;
@@ -16,7 +19,10 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 public class Dialogo {
@@ -65,7 +71,113 @@ public class Dialogo {
 			return cadastroNotificacao;
 		return null;
 	}
+	public Cliente selecaoCliente(List<Cliente> clientes) {
+		Dialog<String> dialog = new Dialog<>();
+		dialog.setTitle("Selecione um cliente");
+		dialog.setHeaderText("Lista com todos os clientes para a busca");
+		dialog.setResizable(true);
+		
+		TableView<Cliente> clienteTable = new TableView<>();
+	    TableColumn<Cliente, String> nomeColumn = new TableColumn<>("Nome");
+	    TableColumn<Cliente, String> cpfCnpjColumn = new TableColumn<>("CPF / CPNJ");
+	    TableColumn<Cliente, String> emailColumn = new TableColumn<>("Email");
+	    
+	    clienteTable.getColumns().addAll(nomeColumn,cpfCnpjColumn,emailColumn);
+	    clienteTable.setPrefSize(600,300);	    
+	   
+	    nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+    	nomeColumn.setPrefWidth(200);
+	    
+    	cpfCnpjColumn.setCellValueFactory(new PropertyValueFactory<>("cpf_cnpj"));
+    	cpfCnpjColumn.setPrefWidth(200);
+	   
+    	emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+    	emailColumn.setPrefWidth(200);
+    	
+    	clienteTable.getItems().addAll(clientes);
+		
+    	dialog.getDialogPane().setContent(clienteTable);
+		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+		
+		Optional<String> result = dialog.showAndWait();
+		if(result.isPresent())
+			return clienteTable.getSelectionModel().getSelectedItem();
+		return null;
+	}
+	public Funcionario selecaoFuncionario(List<Funcionario> funcionarios) {
+		Dialog<String> dialog = new Dialog<>();
+		dialog.setTitle("Selecione um cliente");
+		dialog.setHeaderText("Lista com todos os clientes para a busca");
+		dialog.setResizable(true);
+		
+		TableView<Funcionario> funcionarioTable = new TableView<>();
+	    TableColumn<Funcionario, String> nomeColumn = new TableColumn<>("Nome");
+	    TableColumn<Funcionario, String> numeroOABColumn = new TableColumn<>("Número na OAB");
+	    TableColumn<Funcionario, String> emailColumn = new TableColumn<>("Email");
+	    
+	    funcionarioTable.getColumns().addAll(nomeColumn,numeroOABColumn,emailColumn);
+	   
+	    funcionarioTable.setPrefSize(600,300);	    
+	   
+	    nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+    	nomeColumn.setPrefWidth(200);
+	    
+    	numeroOABColumn.setCellValueFactory(new PropertyValueFactory<>("numero_oab"));
+    	numeroOABColumn.setPrefWidth(200);
+	   
+    	emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+    	emailColumn.setPrefWidth(200);
+    	
+    	funcionarioTable.getItems().addAll(funcionarios);
+		
+    	dialog.getDialogPane().setContent(funcionarioTable);
+		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+		
+		Optional<String> result = dialog.showAndWait();
+		if(result.isPresent())
+			return funcionarioTable.getSelectionModel().getSelectedItem();
+		return null;
+	}
 	
+	public Consulta selecaoConsulta(List<Consulta> consultas) {
+		Dialog<String> dialog = new Dialog<>();
+		dialog.setTitle("Selecione uma Consulta");
+		dialog.setHeaderText("Lista com todos as consultas: \nSeleciona uma consulta ");
+		dialog.setResizable(true);
+		
+		TableView<Consulta> consultaTable = new TableView<>();
+	    TableColumn<Consulta, Date> dataColumn = new TableColumn<>("Data");
+	    TableColumn<Consulta, String> descricaoColumn = new TableColumn<>("Descrição");
+	    TableColumn<Consulta, Area> areaColumn = new TableColumn<>("Area");
+	    
+	    consultaTable.getColumns().addAll(dataColumn,descricaoColumn,areaColumn);
+	    consultaTable.setPrefSize(600,300);	    
+	   
+	    dataColumn.setCellValueFactory(new PropertyValueFactory<>("data_consulta"));
+	    dataColumn.setPrefWidth(200);
+	    
+    	descricaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+    	descricaoColumn.setPrefWidth(200);
+	   
+    	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
+    	areaColumn.setPrefWidth(200);
+    	
+    	consultaTable.getItems().addAll(consultas);
+		
+    	dialog.getDialogPane().setContent(consultaTable);
+		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+		
+		Optional<String> result = dialog.showAndWait();
+		if(result.isPresent())
+			return consultaTable.getSelectionModel().getSelectedItem();
+		return null;
+	}
+
+
+
 	public String dialogoDeEntradaText(String titulo,String cabecario,String msg) {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle(titulo);

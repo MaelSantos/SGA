@@ -5,7 +5,7 @@ public enum Tela{
 	login, cadastro, perfil, pesquisa, menu, informacoes, configuracoes, alertas, historico,
 	estatiticas, financeiro, documentos, processos, clientes, agenda, editar_perfil,
 	cadastro_cliente,cadastro_contrato, cadastro_processo, detalhes_processo,buscar_contrato, 
-	cadastro_audiencia,cadastro_consulta,Cadastro_Receita_Despesa;
+	cadastro_audiencia,cadastro_consulta,Cadastro_Receita_Despesa,Consulta;
 
 	public static Tela getTela(String tela)
 	{
