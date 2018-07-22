@@ -54,11 +54,6 @@
                                     <Font name="Verdana" size="12.0" />
                                  </font>
                               </TextField>
-                              <Label layoutX="80.0" layoutY="104.0" text="Selecione uma consulta" textFill="WHITE">
-                                 <font>
-                                    <Font name="Verdana" size="12.0" />
-                                 </font>
-                              </Label>
                               <Label layoutX="43.0" layoutY="35.0" text="Dados para selecionar consulta que levou ao contrato" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana Bold" size="14.0" />
@@ -120,7 +115,7 @@
                                     <Font name="Verdana" size="12.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="buscarConsultaButton" layoutX="524.0" layoutY="67.0" mnemonicParsing="false" onAction="#actionButton" text="Buscar Cliente">
+                              <Button fx:id="buscarConsultaButton" layoutX="514.0" layoutY="67.0" mnemonicParsing="false" onAction="#actionButton" text="Buscar consultas">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
                                  </font>
@@ -157,7 +152,11 @@
                                  </font>
                               </Label>
                               <ComboBox fx:id="quantidadeParcelasBox" layoutX="102.0" layoutY="387.0" prefHeight="25.0" prefWidth="166.0" promptText="Quantidade parcelas" />
-                              <ComboBox fx:id="consultaBox" layoutX="232.0" layoutY="99.0" prefHeight="25.0" prefWidth="182.0" promptText="Consulta com o cliente" />
+                              <Label fx:id="dadosConsultaLabel" layoutX="128.0" layoutY="106.0">
+                                 <font>
+                                    <Font name="Verdana Bold" size="12.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </content>

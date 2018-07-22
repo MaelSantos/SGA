@@ -21,13 +21,14 @@ import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
+import br.com.sga.view.Dialogo;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -46,7 +47,7 @@ public class ControleCadastroContrato {
     private TextField nomeClienteField;
 
     @FXML
-    private ComboBox<String> consultaBox;
+    private Label dadosConsultaLabel;
 
     @FXML
     private ComboBox<String> tipoPagamamentoBox;
@@ -106,7 +107,7 @@ public class ControleCadastroContrato {
     @FXML
 	private Button voltarButton;
     
-    List<Consulta> consultas; 
+    Consulta consulta;
     IFachada fachada ;
 
     @FXML
@@ -125,126 +126,95 @@ public class ControleCadastroContrato {
     		     quantidadeParcelasBox.setVisible(false);
     		}
     	}
-    	else if(event.getSource() == buscarConsultaButton)
-    		buscarConsultas();
+    	else if(event.getSource() == buscarConsultaButton) 
+    	{
+    		String dadoBusca = nomeClienteField.getText().trim();
+			if(nomeClienteField.getText().trim().length() >0)
+				try {
+					List<Consulta> consultas = Fachada.getInstance().buscarConsultaPorCliente(dadoBusca);
+					consulta = Dialogo.getInstance().selecaoConsulta(consultas);
+					dadosConsultaLabel.setText(consulta.toString());
+				} catch (BusinessException e) {
+					e.printStackTrace();
+					Alerta.getInstance().showMensagem("Erro","",e.getMessage());
+				}
+			else {
+				Alerta.getInstance().showMensagem("Alerta","","Campo para buscar está vazio");
+			}
+    	}
     	else if(addParteButton == event.getSource())
-    		addParte();
+    		if(nomeParteField.getText().trim().length() >1 && tipoParteBox.getSelectionModel().getSelectedItem() != null
+    			&& tipoParticipcaoBox.getSelectionModel().getSelectedItem() != null)
+    		{
+    			String nome = nomeParteField.getText().trim();
+	        	TipoParte tipo_parte = tipoParteBox.getSelectionModel().getSelectedItem();
+	        	TipoParticipacao tipo_participacao = tipoParticipcaoBox.getSelectionModel().getSelectedItem();
+	        	parteTableView.getItems().add(new Parte(tipo_parte, tipo_participacao, nome));
+    		}else
+    			Alerta.getInstance().showMensagem("Alerta","","Não foi possivel adicionar parte:\nHá campos obrigatorios vazios");
+    		
     	else if(gerarDocumentoButton == event.getSource()) {}
     	else if(salvarContratoButton == event.getSource())
     		salvarContrato();
     	
     }
-    
-    private void addParte(){
-    	String nome = nomeParteField.getText().trim();
-    	TipoParte tipo_parte = tipoParteBox.getSelectionModel().getSelectedItem();
-    	TipoParticipacao tipo_participacao = tipoParticipcaoBox.getSelectionModel().getSelectedItem();
-    	if(nome.length() <1 || tipo_parte == null || tipo_participacao == null)
-    		Alerta.getInstance().showMensagem("Alerta","","Não foi possivel adicionar parte: Há campos vazios");
-    	parteTableView.getItems().add(new Parte(tipo_parte, tipo_participacao, nome));
-    }
-    
+
     private void salvarContrato() {
-    	Financeiro financeiro = null;
     	try {
-			financeiro = fachada.buscarFinanceiroPorAno( Calendar.getInstance().get(Calendar.YEAR));
-		} catch (BusinessException e2) {
-			e2.printStackTrace();
-			Alerta.getInstance().showMensagem("Alerta","",e2.getMessage());
-			return;
-		}
-    	// pegando valores da tela
-    	String objeto = objetoField.getText().trim();
-    	String dados_consulta = consultaBox.getSelectionModel().getSelectedItem();
-    	Float valor_total = null;
-    	Float juros = null;
-    	Float multa = null;
-    	Integer quantidade_parcelas = null;
-    	
-    	try {
-	    	valor_total = Float.parseFloat(valorTotalField.getText().trim());
-	    	juros = Float.parseFloat(jurosField.getText());
-	    	multa = Float.parseFloat(multaField.getText());
-	    	quantidade_parcelas = quantidadeParcelasBox.getSelectionModel().getSelectedItem();
+	    	Financeiro financeiro = fachada.buscarFinanceiroPorAno( Calendar.getInstance().get(Calendar.YEAR));
+	    	Float valor_total = Float.parseFloat(valorTotalField.getText().trim());
+		    Float juros = Float.parseFloat(jurosField.getText());
+		    Float multa = Float.parseFloat(multaField.getText());
+		    Integer quantidade_parcelas = quantidadeParcelasBox.getSelectionModel().getSelectedItem();
+	    	Integer dia_pagamento = diaPagamentoBox.getSelectionModel().getSelectedItem();
+	    	TipoPagamento tipo_pagamento = TipoPagamento.getTipoPagamento(tipoPagamamentoBox.getSelectionModel().getSelectedItem());
+	    	String objeto = objetoField.getText().trim();
 	    	
+	    	// pegando dados do banco caso seja diferente de a vista
+	    	String dados_banco = "";
+	    	if(tipo_pagamento != TipoPagamento.A_VISTA)
+	    		dados_banco = dadosBancoArea.getText().trim();
+	    	else
+	    		quantidade_parcelas = 1;
+	    	
+	    	
+	    	if(dadosConsultaLabel.getText().length() >0 && consulta != null) {
+				if(dataContratoPicker.getValue() != null) {
+					if(objeto.length() >0  && tipo_pagamento != null && dia_pagamento != null 
+							&& quantidade_parcelas != null) {
+							
+							// pegando data da tela
+							LocalDate ld = dataContratoPicker.getValue();
+				        	Calendar c =  Calendar.getInstance();
+				        	c.set(ld.getYear(), ld.getMonthValue(), ld.getDayOfMonth());
+				        	Date data_contrato  = c.getTime();
+						
+							//gerando as parecelas
+							List<Parcela> parcelas = new ArrayList<>();
+					    	for(int i =0 ; i < quantidade_parcelas; i ++)
+					    		parcelas.add(new Parcela((Float)(valor_total/quantidade_parcelas),juros, multa,"CONTRATO",Andamento.PENDENTE,dia_pagamento));
+					    	
+					    	fachada.salvarEditarContrato(new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, consulta.getArea(), 
+					    			dados_banco, parteTableView.getItems(),parcelas, consulta,financeiro));
+					    	
+							Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
+							limparCampos();
+					}else
+						Alerta.getInstance().showMensagem("Alerta","","Há campos obrigatorios vazios ou não selecionados");
+				}else
+					Alerta.getInstance().showMensagem("Alerta","","Nenhuma data selecionada : possivelmente a data escolhida é invalida");
+			}else
+				Alerta.getInstance().showMensagem("Alerta","","Nenhuma consulta com o cliente foi selecionada");
+    	
     	}catch (NumberFormatException e) {
     		Alerta.getInstance().showMensagem("Alerta","","Entrada invalida para campos numericos ");
-    		return;
-    	}
-    	Integer dia_pagamento = diaPagamentoBox.getSelectionModel().getSelectedItem();
-    	TipoPagamento tipo_pagamento = TipoPagamento.getTipoPagamento(tipoPagamamentoBox.getSelectionModel().getSelectedItem());
-    	
-    	// pegandoa data caso esteja selecionado a data atual a data do date picker é desconsiderada
-    	Date data_contrato = null;
-    	if (dataContratoPicker.getValue() != null){
-    		LocalDate ld = dataContratoPicker.getValue();
-        	Calendar c =  Calendar.getInstance();
-        	c.set(ld.getYear(), ld.getMonthValue(), ld.getDayOfMonth());
-        	data_contrato = c.getTime();
-    	}
-    	// pegando dados do banco caso seja diferente de a vista
-    	String dados_banco = "";
-    	if(tipo_pagamento != TipoPagamento.A_VISTA)
-    		dados_banco = dadosBancoArea.getText().trim();
-    	else
-    		quantidade_parcelas = 1;
-    	
-    	// pegando lista de partes
-    	List<Parte> partes = new ArrayList<>();
-    	partes.addAll(parteTableView.getItems());
-    	
-    	// pegando consulta selecionada
-    	Consulta consulta = null;
-    	for(Consulta e :consultas) {
-    		if(dados_consulta.contains(e.getData_consulta().toString())) {
-    			consulta = e;
-    		}
-    	}
-		// pegando id do contrato referente ao ano corrente
-    	if(dados_consulta != null) {
-			if(data_contrato != null) {
-				if(objeto.length()>0  || tipo_pagamento != null || dia_pagamento != null || quantidade_parcelas != null)
-					try {
-						//gerando as parecelas
-				    	List<Parcela> parcelas = new ArrayList<>();
-				    	for(int i =0 ; i < quantidade_parcelas; i ++)
-				    		parcelas.add(new Parcela((Float)(valor_total/quantidade_parcelas),juros, multa,"CONTRATO",Andamento.PENDENTE,dia_pagamento));
-				    	
-						fachada.salvarEditarContrato(new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, consulta.getArea(), dados_banco, partes,parcelas, consulta,financeiro));
-						Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
-						limparCampos();
-					} catch (BusinessException e1) {
-						e1.printStackTrace();
-						Alerta.getInstance().showMensagem("Alerta","",e1.getMessage());
-					}
-				else
-					Alerta.getInstance().showMensagem("Alerta","","Há campos vazios ou não selecionados");
-			}else
-				Alerta.getInstance().showMensagem("Alerta","","Nenhuma data selecionada : selecione a data atual ou especifica");
-		}else
-			Alerta.getInstance().showMensagem("Alerta","","Nenhuma consulta com o cliente foi selecionada");
-    }
- 
-	private void buscarConsultas() {
-		String dadoBusca = nomeClienteField.getText().trim();
-		if(dadoBusca.length() >0)
-			try {
-				consultaBox.getItems().clear();
-				consultas = Fachada.getInstance().buscarConsultaPorCliente(dadoBusca);
-				ArrayList<String> feedBack = new ArrayList<>();
-				for(Consulta e : consultas)
-					feedBack.add(e.toString());
-				System.out.println(feedBack);
-				consultaBox.getItems().addAll(feedBack);
-			} catch (BusinessException e) {
-				e.printStackTrace();
-				Alerta.getInstance().showMensagem("Alerta","",e.getMessage());
-			}
-		else {
-			
+    	}catch (BusinessException e) {
+			e.printStackTrace();
+			Alerta.getInstance().showMensagem("Erro","",e.getMessage());
 		}
+    	
     }
-    
+
     @FXML
     void initialize() {
     	fachada = Fachada.getInstance();
@@ -283,6 +253,9 @@ public class ControleCadastroContrato {
 		objetoField.setText("");
 		valorTotalField.setText("");
 		dataContratoPicker.setValue(LocalDate.now());
+		consulta = null;
+		dadosConsultaLabel.setText("");
+		
 		
 	}
 

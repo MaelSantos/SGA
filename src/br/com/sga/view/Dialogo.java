@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.enums.Area;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import javafx.collections.FXCollections;
@@ -136,6 +138,41 @@ public class Dialogo {
 		Optional<String> result = dialog.showAndWait();
 		if(result.isPresent())
 			return funcionarioTable.getSelectionModel().getSelectedItem();
+		return null;
+	}
+	
+	public Consulta selecaoConsulta(List<Consulta> consultas) {
+		Dialog<String> dialog = new Dialog<>();
+		dialog.setTitle("Selecione uma Consulta");
+		dialog.setHeaderText("Lista com todos as consultas: \nSeleciona uma consulta ");
+		dialog.setResizable(true);
+		
+		TableView<Consulta> consultaTable = new TableView<>();
+	    TableColumn<Consulta, Date> dataColumn = new TableColumn<>("Data");
+	    TableColumn<Consulta, String> descricaoColumn = new TableColumn<>("Descrição");
+	    TableColumn<Consulta, Area> areaColumn = new TableColumn<>("Area");
+	    
+	    consultaTable.getColumns().addAll(dataColumn,descricaoColumn,areaColumn);
+	    consultaTable.setPrefSize(600,300);	    
+	   
+	    dataColumn.setCellValueFactory(new PropertyValueFactory<>("data_consulta"));
+	    dataColumn.setPrefWidth(200);
+	    
+    	descricaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+    	descricaoColumn.setPrefWidth(200);
+	   
+    	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
+    	areaColumn.setPrefWidth(200);
+    	
+    	consultaTable.getItems().addAll(consultas);
+		
+    	dialog.getDialogPane().setContent(consultaTable);
+		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+		
+		Optional<String> result = dialog.showAndWait();
+		if(result.isPresent())
+			return consultaTable.getSelectionModel().getSelectedItem();
 		return null;
 	}
 
