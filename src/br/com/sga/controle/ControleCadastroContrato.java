@@ -6,11 +6,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import br.com.sga.app.App;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
@@ -101,13 +103,19 @@ public class ControleCadastroContrato {
     @FXML
     private TextField multaField;
     
+    @FXML
+	private Button voltarButton;
+    
     List<Consulta> consultas; 
     IFachada fachada ;
 
     @FXML
     void actionButton(ActionEvent event) {
     	// condição para tirar da tela quando não for necessário o campo para add informações do banco
-    	if(event.getSource() == tipoPagamamentoBox) {
+    	if(voltarButton == event.getSource() ) {
+    		App.notificarOuvintes(Tela.buscar_contrato);
+    	}
+    	else if(event.getSource() == tipoPagamamentoBox) {
     		if(!tipoPagamamentoBox.getSelectionModel().getSelectedItem().equals(TipoPagamento.A_VISTA.toString())) {
     		     dadosBancoArea.setVisible(true);
     		     quantidadeParcelasBox.setVisible(true);

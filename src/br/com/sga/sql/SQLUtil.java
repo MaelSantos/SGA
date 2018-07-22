@@ -60,7 +60,7 @@ public class SQLUtil {
     
     public static class Consulta{
     	public static final String INSERT_ALL = "INSERT INTO CONSULTA(valor_honorario,descricao,area,indicacao,data_consulta,cliente_id,funcionario_id) VALUES(?,?,?,?,?,?,?)";
-    	public static final String BUSCA_POR_CLIENTE ="select con.id, con.area, con.data_consulta from cliente cli, consulta con where con.cliente_id = cli.id and cli.nome like ? or cli.email like ?"
+    	public static final String BUSCA_POR_CLIENTE ="select con.id, con.area, con.data_consulta ,con.descricao from cliente cli, consulta con where con.cliente_id = cli.id and cli.nome like ? or cli.email like ?"
     			 +" or cli.cpf_cnpj like ? or cli.rg like ?";
     }
     

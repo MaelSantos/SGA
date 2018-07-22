@@ -115,6 +115,9 @@ public class Carregar implements Initializable{
 						App.agenda = carregarArquivo("../view/Agenda.fxml");
 						updateData();
 						
+						App.consulta = carregarArquivo("../view/Consulta.fxml");
+						updateData();
+						
 						App.loginScene = new Scene(App.login);
 						App.menuScene = new Scene(App.menu);
 						return null;

@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
+import br.com.sga.app.App;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
@@ -39,11 +39,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControleCadastroConsulta extends Controle{
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField honorarioField;
@@ -86,6 +81,9 @@ public class ControleCadastroConsulta extends Controle{
 
     @FXML
     private Button buscarFuncionarioButton;
+    
+    @FXML
+    private Button voltarButton;
 
     @FXML
     private RadioButton funcionarioLogadoRadio;
@@ -142,7 +140,11 @@ public class ControleCadastroConsulta extends Controle{
     
     public void actionButton(ActionEvent event) {
     	System.out.println("evento");
-    	if(event.getSource() == outroFuncionarioRadio) 
+    	
+    	if(voltarButton == event.getSource() ) {
+    		App.notificarOuvintes(Tela.Consulta);
+    	}
+    	else if(event.getSource() == outroFuncionarioRadio) 
     	{
     		buscarFuncionarioButton.setVisible(true);
     		dadoFuncionarioField.setVisible(true);
@@ -219,6 +221,7 @@ public class ControleCadastroConsulta extends Controle{
 				    	fachada.salvarEditarConsulta(new Consulta(area, descricao, data_consulta, valor_honorario, indicacao,
 								cliente, funcionario,testemunhaTableView.getItems()));
 				    	Alerta.getInstance().showMensagem("Consulta inserida","","Consulta com cadastrada com sucesso!");
+				    	limparCamposConsulta();
 					}catch (NumberFormatException e) {
 						Alerta.getInstance().showMensagem("Erro","","Campo númerico invalido:\nHá um ou mais campos com entradas invalidas");
 					}catch (BusinessException e) {
@@ -232,30 +235,6 @@ public class ControleCadastroConsulta extends Controle{
 				
 		}
 		else  if(event.getSource() == gerarDocumentoButton) {}
-    }
-    
-    private void limparCamposTestemunha() {
-    	nomeTestemunhaColumn.setText("");
-		telefonePreField.setText("");
-		telefoneNumeroField.setText("");
-		ruaField.setText("");
-		numeroField.setText("");
-		bairroField.setText("");
-		cidadeField.setText("");
-		cepField.setText("");
-		paisField.setText("");
-		complementoField.setText("");
-    }
-    private void limparCamposContrato() {
-    	dadoClienteField.setText("");
-    	cliente = null;
-    	dadoFuncionarioField.setText("");
-    	outroFuncionario = null;
-    	descricaoArea.setText("");
-    	nomeIndicacaoField.setText("");
-    	honorarioField.setText("");
-    	System.gc();
-    	
     }
 
 	@Override
@@ -283,4 +262,28 @@ public class ControleCadastroConsulta extends Controle{
 		funcionarioLogadoRadio.setSelected(true);
 		outroFuncionarioRadio.setToggleGroup(tg);
 	}
+	  
+    private void limparCamposTestemunha() {
+    	nomeTestemunhaColumn.setText("");
+		telefonePreField.setText("");
+		telefoneNumeroField.setText("");
+		ruaField.setText("");
+		numeroField.setText("");
+		bairroField.setText("");
+		cidadeField.setText("");
+		cepField.setText("");
+		paisField.setText("");
+		complementoField.setText("");
+    }
+    private void limparCamposConsulta() {
+    	dadoClienteField.setText("");
+    	cliente = null;
+    	dadoFuncionarioField.setText("");
+    	outroFuncionario = null;
+    	descricaoArea.setText("");
+    	nomeIndicacaoField.setText("");
+    	honorarioField.setText("");
+    	System.gc();
+    	
+    }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="br.com.sga.controle.ControleConsulta">
+   <children>
+      <Label layoutX="62.0" layoutY="35.0" text="Consultas" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="buscarField" layoutX="157.0" layoutY="67.0" prefHeight="25.0" prefWidth="336.0" />
+      <Button fx:id="buscarButton" layoutX="507.0" layoutY="67.0" mnemonicParsing="false" onAction="#actionButton" text="Buscar Consulta" />
+      <AnchorPane layoutX="32.0" layoutY="123.0" prefHeight="460.0" prefWidth="650.0" style="-fx-background-color: #077272;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0">
+         <children>
+            <TableView fx:id="contratosTableView" layoutX="9.0" layoutY="50.0" prefHeight="300.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+               <columns>
+                  <TableColumn fx:id="dataColumn" minWidth="-Infinity" prefWidth="137.0" text="Data" />
+                  <TableColumn fx:id="descricaoColumn" minWidth="9.0" prefWidth="375.0" text="Descição" />
+                  <TableColumn fx:id="areaColumn" minWidth="0.0" prefWidth="147.0" text="Area" />
+               </columns>
+            </TableView>
+            <Button fx:id="cadastrarConsultaButton" layoutX="526.0" layoutY="368.0" mnemonicParsing="false" onAction="#actionButton" text="Cadastrar novo consulta" AnchorPane.rightAnchor="10.0" />
+            <Label layoutX="14.0" layoutY="14.0" text="Consulta com o cliente  de nome : Nome Completo com consulta no dia : dd/mm/yyyy" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

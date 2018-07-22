@@ -129,9 +129,8 @@ public class DaoConsulta implements IDaoConsulta {
            
             List<Consulta> lista = new ArrayList<>();
             while(resultSet.next()) {
-            	lista.add(new Consulta(resultSet.getInt("id"),
-            			Area.getArea(resultSet.getString("area")),
-            			resultSet.getDate("data_consulta")));
+            	lista.add(new Consulta(resultSet.getInt("id"),resultSet.getString("descricao"),
+            			Area.getArea(resultSet.getString("area")),resultSet.getDate("data_consulta")));
             }if(lista.isEmpty()){
             	throw new DaoException("Não existe consultas para esse usuario, com esses dados");
             }

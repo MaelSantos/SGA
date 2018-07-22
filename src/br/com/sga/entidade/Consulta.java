@@ -35,8 +35,9 @@ public class Consulta {
 	}
 	
 	
-	public Consulta(Integer id, Area area, Date data_consulta) {
+	public Consulta(Integer id, String descricao ,Area area, Date data_consulta) {
 		this.id = id;
+		this.descricao = descricao;
 		this.area = area;
 		this.data_consulta = data_consulta;
 	}
