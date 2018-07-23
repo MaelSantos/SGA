@@ -110,6 +110,8 @@ public class SQLUtil {
 	    public static final String SELECT_CEP = "SELECT * FROM ENDERECO WHERE cep = ?";
 	    
 	    public static final String SELECT_CLIENTE_ENDERECO_CPF = "SELECT * FROM CLIENTE a, ENDERECO e where a.endereco_id=e.id AND cpf_cnpj = ?";
+	    
+	    public static final String SELECT_ID_CLIENTE = "SELECT d.* FROM ENDERECO d, CLIENTE c WHERE c.id_endereco = ? AND c.id_endereco = d.id";
     }
     
 //    id ,cliente_id, numero, prefixo

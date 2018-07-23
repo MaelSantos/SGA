@@ -35,7 +35,7 @@ public class ControleInformacoes {
 	    else if(event.getSource() == emailM) {
 		    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
 		        try {
-		            desktop.browse(new URI("https://maelsantos.github.io/"));
+		            desktop.browse(new URI("https://MaelSantos.github.io/"));
 		        } catch (Exception e) {
 		            e.printStackTrace();
 		        }

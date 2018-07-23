@@ -385,6 +385,44 @@ public class DaoCommun implements IDaoCommun{
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO SALVAR AUDIENCIA - Contate o ADM");
-		}	}
+		}	
+	}
+
+	@Override
+	public Endereco getEndereco(int cliente_id) throws DaoException {
+		
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Endereco.SELECT_ID_CLIENTE);
+	
+			statement.setInt(1, cliente_id);
+			resultSet = statement.executeQuery();
+			
+			Endereco endereco = null;
+			if(resultSet.next())
+			{
+				endereco = new Endereco();
+				
+				endereco.setId(resultSet.getInt("id"));
+				endereco.setBairro(resultSet.getString("bairro"));
+				endereco.setCep(resultSet.getString("cep"));
+				endereco.setCidade(resultSet.getString("cidade"));
+				endereco.setComplemento(resultSet.getString("complemento"));
+				endereco.setEstado(resultSet.getString("estado"));
+				endereco.setNumero(resultSet.getString("numero"));
+				endereco.setPais(resultSet.getString("pais"));
+				endereco.setRua(resultSet.getString("rua"));
+
+			}
+			
+			this.connection.close();
+			
+			return endereco;
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO BUSCAR ENDERECO - Contate o ADM");
+		}
+	}
 	
 }
