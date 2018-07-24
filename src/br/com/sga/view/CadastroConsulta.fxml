@@ -60,7 +60,7 @@
                                     <Font name="Verdana Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="43.0" layoutY="229.0" text="Dados do contrato" textFill="WHITE">
+                              <Label layoutX="43.0" layoutY="229.0" text="Dados da consulta" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana Bold" size="14.0" />
                                  </font>
