@@ -10,7 +10,9 @@ import java.util.List;
 
 import br.com.sga.business.BusinessCliente;
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Endereco;
+import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
@@ -74,7 +76,39 @@ public class DaoCliente implements IDaoCliente {
 
 	@Override
 	public void editar(Cliente entidade) throws DaoException {
-		// TODO Stub de método gerado automaticamente
+		
+		try {
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Cliente.UPDATE_ALL);
+
+			
+//			UPDATE CLIENTE SET nome = ?, data_nascimento = ?, cpf_cnpj = ?, genero = ?, rg = ?, email = ?, 
+//			estado_civil = ?, profissao = ?, filhos = ?, responsavel = ?, tipo = ? where id = ?";
+			
+			statement.setString(1,entidade.getNome());
+			statement.setDate(2,new Date(entidade.getNascimento().getTime()));
+			statement.setString(3,entidade.getCpf_cnpj());
+			statement.setString(4,entidade.getGenero().name());
+			statement.setString(5,entidade.getRg());
+			statement.setString(6,entidade.getEmail());
+			statement.setString(7,entidade.getEstado_civil());
+			statement.setString(8,entidade.getProfissao());
+			statement.setBoolean(9,entidade.isFilhos());
+			statement.setString(10,entidade.getResponsavel());
+			statement.setString(11,entidade.getTipoCliente().name());
+			statement.setInt(12,entidade.getId());
+						
+			statement.executeUpdate();
+
+			daoCommun.EditarEndereco(entidade.getEndereco());
+			
+			this.conexao.close();
+
+		}catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO ATUALIZAR DADOS FINANCEIROS - CONTATE O ADM");
+		}
+
 
 	}
 

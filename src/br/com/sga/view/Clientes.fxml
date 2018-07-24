@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -45,12 +46,12 @@
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
-                  <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#actionButton" text="Editar Cliente">
+                  <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#actionButton" text="Salvar Alterações">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#actionButton" text="Adicionar Cliente">
+                  <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#actionButton" text="Cadastrar Cliente">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font></Button>
@@ -77,52 +78,37 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="tfdNome" editable="false" promptText="Nome" GridPane.rowIndex="1">
+                        <TextField fx:id="tfdNome" promptText="Nome" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfdCpfCnpj" editable="false" promptText="CPF/CNPJ" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="tfdCpfCnpj" promptText="CPF/CNPJ" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfdRg" editable="false" promptText="RG" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <TextField fx:id="tfdRg" promptText="RG" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfdNascimento" editable="false" promptText="Data De Nascimento" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <TextField fx:id="tfdGenero" promptText="Gênero" GridPane.rowIndex="5">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfdGenero" editable="false" promptText="Gênero" GridPane.rowIndex="5">
+                        <TextField fx:id="tfdProfissao" promptText="Profissão" GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfdEstadoCivil" editable="false" promptText="Estado Civil" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <TextField fx:id="tfdEmail" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfdProfissao" editable="false" promptText="Profissão" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="tfdFilhos" editable="false" promptText="Flhos" GridPane.columnIndex="3" GridPane.rowIndex="5">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="tfdEmail" editable="false" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="tfdResponsavel" editable="false" promptText="Responsavel" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                        <TextField fx:id="tfdResponsavel" promptText="Responsavel" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
@@ -183,16 +169,15 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfdTipo" editable="false" promptText="Tipo" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
                         <Label text="Tipo" textFill="WHITE" GridPane.rowIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Label>
+                        <ComboBox fx:id="cbxTipo" prefWidth="150.0" promptText="Tipo" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="cbxEstadoCivil" prefWidth="150.0" promptText="Estado Civil" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ComboBox fx:id="cbxFilhos" prefWidth="150.0" promptText="Filhos" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                        <DatePicker fx:id="tfdNascimento" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -213,14 +198,38 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="tfdRua" editable="false" promptText="Rua" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfdNumero" editable="false" promptText="Numero" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfdBairro" editable="false" promptText="Bairro" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfdCidade" editable="false" promptText="Cidade" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfdEstado" editable="false" promptText="Estado" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfdPais" editable="false" promptText="Pais" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfdCep" editable="false" promptText="CEP" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfdComplemento" editable="false" promptText="Complemento" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <TextField fx:id="tfdRua" promptText="Rua" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font></TextField>
+                        <TextField fx:id="tfdNumero" promptText="Numero" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font></TextField>
+                        <TextField fx:id="tfdBairro" promptText="Bairro" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font></TextField>
+                        <TextField fx:id="tfdCidade" promptText="Cidade" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font></TextField>
+                        <TextField fx:id="tfdEstado" promptText="Estado" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font></TextField>
+                        <TextField fx:id="tfdPais" promptText="Pais" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font></TextField>
+                        <TextField fx:id="tfdCep" promptText="CEP" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font></TextField>
+                        <TextField fx:id="tfdComplemento" promptText="Complemento" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font></TextField>
                         <Label text="Rua" textFill="WHITE">
                            <font>
                               <Font name="Verdana" size="13.0" />

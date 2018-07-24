@@ -424,5 +424,34 @@ public class DaoCommun implements IDaoCommun{
 			throw new DaoException("PROBLEMA AO BUSCAR ENDERECO - Contate o ADM");
 		}
 	}
+
+	@Override
+	public void EditarEndereco(Endereco entidade) throws DaoException {
+		
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Endereco.UPDATE_ALL);
+			
+//			rua = ?, numero = ?, bairro = ?, cidade = ?, cep = ?, pais = ?, estado = ?, complemento = ? where id = ?
+			statement.setString(1,entidade.getRua());
+			statement.setString(2,entidade.getNumero());
+			statement.setString(3,entidade.getBairro());
+			statement.setString(4,entidade.getCidade());
+			statement.setString(5,entidade.getCep());
+			statement.setString(6,entidade.getPais());
+			statement.setString(7,entidade.getEstado());
+			statement.setString(8,entidade.getComplemento());
+			statement.setInt(9,entidade.getId());
+			statement.executeUpdate();
+
+			this.connection.close();
+
+		}catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO ATUALIZAR DADOS FINANCEIROS - CONTATE O ADM");
+		}
+
+		
+	}
 	
 }
