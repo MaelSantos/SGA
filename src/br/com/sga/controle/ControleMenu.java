@@ -150,6 +150,8 @@ public class ControleMenu extends Controle{
 	@Override
 	public void init() {
 		TextFields.bindAutoCompletion(tfdPesquisar,Tela.values());
+		
+
 	}
 	
 	@Override
