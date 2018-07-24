@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 
 public class Dialogo {
 	
-	public static Dialogo instance;
+	private static Dialogo instance;
 	
 	private Dialogo() {}
 	

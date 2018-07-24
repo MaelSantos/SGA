@@ -2,7 +2,6 @@ package br.com.sga.app;
 
 import java.util.ArrayList;
 
-
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.enums.Tela;
 import javafx.application.Application;

@@ -20,18 +20,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class ControleCadastroAudiencia extends Controle {
 
 	@FXML
+	private Label lblProcesso;
+	
+	@FXML
 	private ComboBox<TipoAudiencia> cbxTipo;
 	
 	@FXML
 	private ComboBox<StatusAudiencia> cbxStatus;
-
-	@FXML
-	private TextField tfdProcesso;
 
 	@FXML
 	private TextField tfdVara;
@@ -59,7 +60,7 @@ public class ControleCadastroAudiencia extends Controle {
 			
 			audiencia = new Audiencia();
 			audiencia.setProcesso(processo);
-			tfdProcesso.setText(processo.toString());
+			lblProcesso.setText("Processo: "+processo.toString());
 			
 		}
 
@@ -67,6 +68,7 @@ public class ControleCadastroAudiencia extends Controle {
 
 	@Override
 	public void init() {
+		
 		fachada = Fachada.getInstance();
 		
 		cbxStatus.getItems().addAll(StatusAudiencia.values());
@@ -104,14 +106,11 @@ public class ControleCadastroAudiencia extends Controle {
 		
 		tfdData.getEditor().setText("");
 		tfdOrgao.setText("");
-		tfdProcesso.setText("");
 		tfdVara.setText("");
 		
 	}
 
 	private Audiencia criarAudiencia() throws ParseException {
-
-//		audiencia = new Audiencia();
 		
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = df.parse(tfdData.getEditor().getText());
@@ -121,8 +120,6 @@ public class ControleCadastroAudiencia extends Controle {
 		audiencia.setOrgao(tfdOrgao.getText().trim());
 		audiencia.setTipo(cbxTipo.getValue());
 		audiencia.setVara(tfdVara.getText().trim());
-		
-//		audiencia.setProcesso();
 		
 		return audiencia;
 	}

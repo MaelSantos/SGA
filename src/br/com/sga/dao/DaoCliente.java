@@ -186,7 +186,6 @@ public class DaoCliente implements IDaoCliente {
 	@Override
 	public List<Cliente> buscarPorBusca(String busca) throws DaoException {
 
-		
 		try {
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = conexao.prepareStatement(SQLUtil.Cliente.BUSCAR_ALL);
@@ -197,8 +196,9 @@ public class DaoCliente implements IDaoCliente {
 			this.statement.setString(5,busca);
 			this.statement.setString(6,busca);
 			resultSet = this.statement.executeQuery();
-			List<Cliente> clientes = new ArrayList<>();
 			
+			List<Cliente> clientes = new ArrayList<>();
+			Endereco endereco;
 			while(resultSet.next()) {
 				Cliente cliente = new Cliente();
 				cliente.setId(resultSet.getInt("id"));
@@ -213,113 +213,21 @@ public class DaoCliente implements IDaoCliente {
 				cliente.setFilhos(resultSet.getBoolean("filhos"));
 				cliente.setResponsavel(resultSet.getString("responsavel"));
 				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
-//				end = new Endereco();
-//				end.setId(resultSet.getInt("id_endereco"));
-//				end.setBairro(resultSet.getString("bairro"));
-//				end.setCidade(resultSet.getString("cidade"));
-//				end.setRua(resultSet.getString("rua"));
-//				end.setEstado(resultSet.getString("estado"));
-//				end.setNumero(resultSet.getString("numero"));
-//				end.setComplemento(resultSet.getString("complemento"));
-//				end.setCep(resultSet.getString("cep"));
-//				end.setPais(resultSet.getString("pais"));
-//				cliente.setEndereco(end);
+				
+				endereco = daoCommun.getEndereco(resultSet.getInt("id_endereco"));
+				cliente.setEndereco(endereco);
 				
 				List<Telefone> list = daoCommun.getContatos(cliente.getId());
 				cliente.setTelefones(list);
 				clientes.add(cliente);	
 			}if(clientes.isEmpty())
 				new DaoException("NÃO HÁ CLIENTES CADASTRADOS COM ESSES DADOS");
-			/*this.statement = conexao.prepareStatement(SQLUtil.Cliente.SELECT_ALL);
-//			this.statement.setString(1, cpf_cnpj);
 
-			resultSet = this.statement.executeQuery();
-			Cliente cliente;
-//			Endereco end;
-			while(resultSet.next()) {
-				cliente = new Cliente();
-				System.out.println(cliente);
-//				nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	
-				cliente.setId(resultSet.getInt("id"));
-				cliente.setNome(resultSet.getString("nome"));
-				cliente.setNascimento(resultSet.getDate("data_nascimento"));
-				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
-				cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
-				cliente.setRg(resultSet.getString("rg"));
-				cliente.setEmail(resultSet.getString("email"));
-				cliente.setEstado_civil(resultSet.getString("estado_civil"));
-				cliente.setProfissao(resultSet.getString("profissao"));
-				cliente.setFilhos(resultSet.getBoolean("filhos"));
-				cliente.setResponsavel(resultSet.getString("responsavel"));
-				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
-//				end = new Endereco();
-//				end.setId(resultSet.getInt("id_endereco"));
-//				end.setBairro(resultSet.getString("bairro"));
-//				end.setCidade(resultSet.getString("cidade"));
-//				end.setRua(resultSet.getString("rua"));
-//				end.setEstado(resultSet.getString("estado"));
-//				end.setNumero(resultSet.getString("numero"));
-//				end.setComplemento(resultSet.getString("complemento"));
-//				end.setCep(resultSet.getString("cep"));
-//				end.setPais(resultSet.getString("pais"));
-//				cliente.setEndereco(end);
-				
-				List<Telefone> list = daoCommun.getContatos(cliente.getId());
-				cliente.setTelefones(list);
-				
-				clientes.add(cliente);	
-			}
-				*/	
 			this.conexao.close();			
 			return clientes;
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
 		}
-		
-		
 
-	}
-
-//	public static void main(String[] args) {
-//		
-//		Cliente cliente = new Cliente();
-//		
-//		cliente.setNome("Mael");
-//		cliente.setCpf_cnpj("07551074384");
-//		cliente.setEmail("maelsantos777@gmail.com");
-//		cliente.setEstado_civil("solteiro");
-//		cliente.setFilhos(true);
-//		cliente.setGenero(Sexo.MASCULINO);
-//		cliente.setNascimento(new java.util.Date(02, 9, 1998));
-//		cliente.setProfissao("Estudante/Monitor");
-//		cliente.setResponsavel("Deus");
-//		cliente.setRg("000000000000");
-//		cliente.setTipoCliente(TipoCliente.FISICO);
-//		
-//		Endereco endereco = new Endereco();
-//		
-//		endereco.setBairro("AABB");
-//		endereco.setCep("540670000");
-//		endereco.setCidade("Serra Talhada");
-//		endereco.setComplemento("Perto Da Academia Das Cidades");
-//		endereco.setEstado("PE");
-//		endereco.setNumero("4012");
-//		endereco.setPais("Brasil");
-//		endereco.setRua("Quirino Cordeiro Magalhães");
-//		
-//		cliente.setEndereco(endereco);
-//		
-//		try {
-//			
-//			BusinessCliente.getInstance().salvar(cliente);
-//		//	System.out.println("Cliente: "+BusinessCliente.getInstance().buscarPorCodigo(cliente.getCpf_cnpj()));
-//			
-//		} catch (BusinessException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		
-//	}
-	
+	}	
 }

@@ -65,7 +65,7 @@ public class DateItem extends AnchorPane {
 
 		//atualiza a cor do pane que for referente ao dia atual
 		if(date.getDayOfYear() == LocalDate.now().getDayOfYear() && date.getDayOfWeek() == LocalDate.now().getDayOfWeek())
-			setStyle("-fx-background-color: #DC143C;");
+			setStyle("-fx-background-color: #00BFFF;");
 		else if(! (getStyle().equalsIgnoreCase("-fx-background-color: #DCDCDC;")))// comparação para evitar atualizar todos 
 			setStyle("-fx-background-color: #DCDCDC;");
 		

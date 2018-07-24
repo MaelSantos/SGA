@@ -30,7 +30,6 @@ public class Cliente {
 	public Cliente() {
 	}
 
-	
 	public Cliente(Integer id, String nome, String cpf_cnpj, String email) {
 		super();
 		this.id = id;

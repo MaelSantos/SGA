@@ -91,7 +91,7 @@ public class ControleProcesso extends Controle{
 		if(obj == btnDetalhes)
 			App.notificarOuvintes(Tela.detalhes_processo, tbl1Vara.getSelectionModel().getSelectedItem());
 	}
-
+	
 	public void init() {
 
 		fachada = Fachada.getInstance();
@@ -141,7 +141,21 @@ public class ControleProcesso extends Controle{
 			Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Carregar Processos", e.getMessage());
 		}
 
+		tbl1Vara.setOnMouseClicked(e -> {
+			if(e.getClickCount() > 1)
+				if(tbl1Vara.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.detalhes_processo, tbl1Vara.getSelectionModel().getSelectedItem());});
+		tbl2Vara.setOnMouseClicked(e -> {
+			if(e.getClickCount() > 1)
+				if(tbl2Vara.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.detalhes_processo, tbl2Vara.getSelectionModel().getSelectedItem());});
+		tbl3Vara.setOnMouseClicked(e -> {
+			if(e.getClickCount() > 1)
+				if(tbl3Vara.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.detalhes_processo, tbl3Vara.getSelectionModel().getSelectedItem());});
+
 	}
+	
 
 	@Override
 	public void atualizar(Tela tela, Object object) {

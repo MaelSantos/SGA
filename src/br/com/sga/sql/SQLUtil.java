@@ -8,7 +8,7 @@ public class SQLUtil {
     
     public static class Processo{
     	public static final String INSERT_ALL = "INSERT INTO PROCESSO(numero,tipo_participacao,tipo_processo,fase,descricao,decisao,comarca,orgao_julgador,classe_judicial,data_atuacao,status,contrato_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-    	public static final String SELECT_TIPO = "SELECT p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase FROM PROCESSO p WHERE p.tipo_processo = ?";
+    	public static final String SELECT_TIPO = "SELECT p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase,p.contrato_id FROM PROCESSO p WHERE p.tipo_processo = ?";
     	public static final String SELECT_ID = "SELECT P.*,C.valor_total, E.nome FROM PROCESSO P, CONTRATO C,CONSULTA D, CLIENTE E WHERE P.ID = ? AND P.CONTRATO_ID=C.ID AND C.CONSULTA_ID=D.ID AND D.CLIENTE_ID = E.ID";
     
     }
@@ -36,12 +36,14 @@ public class SQLUtil {
     public static class Receita{
     	public static final String INSERT_ALL = "INSERT INTO RECEITA(data_entrada,centro_custo,descricao,valor,status,tipo_pagamento,vencimento,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
     	public static final String SELECT_ID_FINANCEIRO = "SELECT * FROM RECEITA WHERE financeiro_id = ?";
+    	public static final String SELECT_INTERVALO = "SELECT R.* FROM FINANCEIRO F, RECEITA R WHERE (R.data_entrada BETWEEN '2018-06-10' AND '2018-12-30')";
     
     }
 
     public static class Despesa{
     	public static final String INSERT_ALL = "INSERT INTO DESPESA(data_retirada,centro_custo,descricao,valor,status,tipo_gasto,vencimento,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
     	public static final String SELECT_ID_FINANCEIRO = "SELECT * FROM DESPESA WHERE financeiro_id = ?";
+    	public static final String SELECT_INTERVALO = "SELECT D.* FROM FINANCEIRO F, DESPESA D WHERE (D.data_retirada BETWEEN ? AND ?)";
     }
     
     public static class Contrato{
@@ -49,7 +51,7 @@ public class SQLUtil {
     	public static final String BUSCAR_ATIVOS = "SELECT * FROM CONTRATO WHERE STATUS = TRUE";
     	public static final String SELECT_CONTRATO_ID = "SELECT * FROM CONTRATO WHERE id = ?";
     	public static final String BUSCA_POR_CLIENTE ="select cont.* from contrato cont, consulta cons, cliente clie "
-    			+ "where clie.id = cons.cliente_id and cons.id = cont.consulta_id and clie.nome = ? or clie.email = ? "
+    			+ "where clie.id = cons.cliente_id and cons.id = cont.consulta_id and unaccent(clie.nome) = unaccent(?) or unaccent(clie.email) = unaccent(?) "
     			+ "or clie.cpf_cnpj = ? or clie.rg = ?";
     	public static final String SELECT_CONTRATO_ADAPTER = "SELECT C.id,D.nome,C.data_contrato,C.valor_total FROM CONTRATO C, CLIENTE D, CONSULTA E WHERE C.CONSULTA_ID = E.ID AND D.ID = E.CLIENTE_ID";
     }
@@ -60,8 +62,9 @@ public class SQLUtil {
     
     public static class Consulta{
     	public static final String INSERT_ALL = "INSERT INTO CONSULTA(valor_honorario,descricao,area,indicacao,data_consulta,cliente_id,funcionario_id) VALUES(?,?,?,?,?,?,?)";
-    	public static final String BUSCA_POR_CLIENTE ="select con.id, con.area, con.data_consulta ,con.descricao from cliente cli, consulta con where con.cliente_id = cli.id and cli.nome like ? or cli.email like ?"
-    			 +" or cli.cpf_cnpj like ? or cli.rg like ?";
+    	public static final String BUSCA_POR_CLIENTE ="select con.id, con.area, con.data_consulta ,con.descricao from cliente cli,"
+    			+ " consulta con where con.cliente_id = cli.id and unaccent(cli.nome) ilike unaccent(?) or unaccent(cli.email) ilike unaccent(?)"
+    			 +" or cli.cpf_cnpj ilike ? or cli.rg ilike ?";
     }
     
     public static class Notificacao{
@@ -84,7 +87,9 @@ public class SQLUtil {
 	    
 	    public static final String SELECT_LOGIN_SENHA = "SELECT * FROM FUNCIONARIO WHERE login = ? AND senha = ?";
 	    public static final String SELECT_NOME = "SELECT ID FROM FUNCIONARIO WHERE NOME = ?";
-	    public static final String SELECT_ALL_BUSCA_ALL = "select * from funcionario where nome like ? or senha like ? or login like  ? or numero_oab like ? or email like ?";
+	    public static final String SELECT_ALL_BUSCA_ALL = "select * from funcionario where unaccent(nome) ilike unaccent(?) "
+	    		+ "or senha ilike ? or login ilike ? or numero_oab ilike ? "
+	    		+ "or unaccent(email) ilike unaccent(?)";
     	/* para depois : pesquisar colunas especificas )
     	 *  select * from funcionario where nome like '%_%' and 	senha like '%_%' and login like 'wan'and numero_oab like '%_%' and email like '%_%'
     	 */
@@ -95,7 +100,7 @@ public class SQLUtil {
     public static class Cliente {
         public static final String SELECT_ID = "SELECT * FROM CLIENTE WHERE id = ?";
         public static final String SELECT_ALL = "SELECT * FROM CLIENTE";
-        public static final String BUSCAR_ALL ="Select * from cliente where nome like ? or genero = ? or cpf_cnpj = ?  or email like ? or estado_civil = ? or tipo = ?";
+        public static final String BUSCAR_ALL ="Select * from cliente where unaccent(nome) ilike unaccent(?) or genero = ? or cpf_cnpj = ?  or unaccent(email) ilike unaccent(?) or unaccent(estado_civil) = unaccent(?) or tipo = ?";
 
 	    public static final String INSERT_ALL = "INSERT INTO CLIENTE(nome, data_nascimento, cpf_cnpj, genero, rg, email,"
 	    		+ "estado_civil, profissao, filhos, responsavel, tipo, id_endereco) "
@@ -110,6 +115,8 @@ public class SQLUtil {
 	    public static final String SELECT_CEP = "SELECT * FROM ENDERECO WHERE cep = ?";
 	    
 	    public static final String SELECT_CLIENTE_ENDERECO_CPF = "SELECT * FROM CLIENTE a, ENDERECO e where a.endereco_id=e.id AND cpf_cnpj = ?";
+	    
+	    public static final String SELECT_ID_CLIENTE = "SELECT d.* FROM ENDERECO d, CLIENTE c WHERE c.id_endereco = ? AND c.id_endereco = d.id";
     }
     
 //    id ,cliente_id, numero, prefixo

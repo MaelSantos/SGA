@@ -19,6 +19,7 @@ public interface IDaoCommun {
 
 	//Endereco
 	public void salvarEndereco(Endereco endereco) throws DaoException;
+	public Endereco getEndereco(int cliente_Id) throws DaoException;
 	
     //Telefone 
     public void salvarContato(Telefone telefone, int id,Tabela tabela) throws DaoException;

@@ -171,7 +171,6 @@ public class DaoProcesso implements IDaoProcesso {
 			resultSet = this.statement.executeQuery();
 			
 			ProcessoAdapter processo;
-			Contrato contrato;
 			while(resultSet.next()) {
 
 				processo = new ProcessoAdapter();				
@@ -183,9 +182,13 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setComarca(resultSet.getString("comarca"));
 				processo.setDecisao(resultSet.getString("decisao"));
 				
-				int contrato_id = resultSet.getInt(5);
+				int contrato_id = resultSet.getInt("contrato_id");
 				
 				processo.setPartes(daoCommun.getPartes(contrato_id).toString());
+				
+				System.out.println(contrato_id);
+				System.out.println(processo.getPartes());
+				
 				
 				processos.add(processo);
 			}
