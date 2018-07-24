@@ -1,11 +1,15 @@
 package br.com.sga.controle;
 
+import java.util.Calendar;
+
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.textfield.TextFields;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -17,6 +21,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 public class ControleMenu extends Controle{
 
@@ -158,8 +163,13 @@ public class ControleMenu extends Controle{
 		if(object != null)
 		{
 			if (object instanceof Funcionario) {
-				if(this.funcionario == null)
-					Notifications.create().title("Olá!").text("Bem vindo "+((Funcionario) (object)).getNome()).action().position(Pos.BOTTOM_RIGHT).showInformation();
+				if(this.funcionario == null) {
+					Timeline oneMinuteTimeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+						Notifications.create().title("Olá!").text("teste").action().position(Pos.BOTTOM_RIGHT).showInformation();
+						}));
+						oneMinuteTimeline.setCycleCount(Timeline.INDEFINITE); // Executar indefinidamente.
+						oneMinuteTimeline.play();
+				}
 				this.funcionario = (Funcionario) object;
 				String nome_completo = funcionario.getNome();
 				mnbNome.setText((nome_completo.contains(" ")) ? nome_completo.substring(0,nome_completo.indexOf(" ")): nome_completo);
