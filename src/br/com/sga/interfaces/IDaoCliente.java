@@ -3,6 +3,7 @@ package br.com.sga.interfaces;
 import java.util.List;
 
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.exceptions.DaoException;
 
 public interface IDaoCliente extends IDao<Cliente> {
@@ -16,5 +17,7 @@ public interface IDaoCliente extends IDao<Cliente> {
 	public Cliente buscarPorCodigo(String codigo) throws DaoException;
 
 	public List<Cliente> buscarPorBusca(String busca) throws DaoException;
+	
+	public List<ClienteAdapter> buscarAdapterPorBusca(String busca) throws DaoException;
 
 }

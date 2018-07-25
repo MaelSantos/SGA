@@ -5,13 +5,12 @@ import java.util.List;
 import br.com.sga.entidade.Testemunha;
 
 public class ConsultaAdapter {
+	
+	private Integer id;
 	private String descricao;
 	private String indicacao;
 	private String nomeFuncionario,numeroOAB;
 	private List<br.com.sga.entidade.Testemunha> Testemunhas;
-	
-	
-	
 	
 	public ConsultaAdapter(String descricao, String indicacao, String nomeFuncionario, String numeroOAB) {
 		this.descricao = descricao;
@@ -54,6 +53,14 @@ public class ConsultaAdapter {
 	}
 	public void setNumeroOAB(String numeroOAB) {
 		this.numeroOAB = numeroOAB;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

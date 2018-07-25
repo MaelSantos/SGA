@@ -214,9 +214,6 @@ public class Dialogo {
 		return null;
 	}
 
-
-
-
 	public String dialogoDeEntradaText(String titulo,String cabecario,String msg) {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle(titulo);
@@ -260,5 +257,31 @@ public class Dialogo {
 			return view.getSelectionModel().getSelectedItem();			
 		return null;
 	}
+
+	public <T> T selecao(List<T> list)
+	{
+		Dialog<T> dialog = new Dialog<>();
+		dialog.setTitle("Seleção: ");
+		
+		VBox v = new VBox();
+		v.setPrefSize(500, 300);
+		
+		ListView<T> view = new ListView<T>();
+		
+		view.getItems().setAll(list);
+		v.getChildren().addAll(new Label("Seleção: "), view);
+		
+		dialog.getDialogPane().setContent(v);
+		
+		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+		
+		Optional<T> optional = dialog.showAndWait();
+		
+		if(optional.isPresent())
+			return view.getSelectionModel().getSelectedItem();			
+		return null;
+	}
+
 	
 }

@@ -14,6 +14,7 @@ import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoCliente;
@@ -263,5 +264,39 @@ public class DaoCliente implements IDaoCliente {
 			throw new DaoException(e.getMessage());
 		}
 
+	}
+
+	@Override
+	public List<ClienteAdapter> buscarAdapterPorBusca(String busca) throws DaoException {
+		try {
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Cliente.BUSCAR_ALL_ADAPTER);
+			this.statement.setString(1,"%"+busca+"%");
+			this.statement.setString(2,busca);
+			this.statement.setString(3,busca);
+			this.statement.setString(4,"%"+busca+"%");
+			this.statement.setString(5,busca);
+			this.statement.setString(6,busca);
+			resultSet = this.statement.executeQuery();
+			
+			List<ClienteAdapter> clientes = new ArrayList<>();
+			
+			while(resultSet.next()) {
+				
+				ClienteAdapter cliente = new ClienteAdapter();
+				cliente.setId(resultSet.getInt("id"));
+				cliente.setNome(resultSet.getString("nome"));
+				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
+				cliente.setEmail(resultSet.getString("email"));
+				
+				clientes.add(cliente);	
+			}if(clientes.isEmpty())
+				new DaoException("NÃO HÁ CLIENTES CADASTRADOS COM ESSES DADOS");
+
+			this.conexao.close();			
+			return clientes;
+		} catch (Exception e) {
+			throw new DaoException(e.getMessage());
+		}
 	}	
 }

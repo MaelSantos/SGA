@@ -163,7 +163,7 @@ public class Contrato {
 	
 	@Override
 	public String toString() {
-		return "CLIENTE: ["+consulta.getCliente().getNome()+"] - DATA: ["+data_contrato+"] - VALOR: ["+valor_total+"]";
+		return "AREA: ["+consulta.getArea()+"] - DATA: ["+data_contrato+"] - VALOR: ["+valor_total+"]";
 	}
 	
 	public static void main(String[] args) {

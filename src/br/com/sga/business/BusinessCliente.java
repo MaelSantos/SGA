@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.sga.dao.DaoCliente;
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
@@ -67,6 +68,16 @@ public class BusinessCliente implements IBussinessCliente{
 			throw new ValidacaoException("CPF/CNPJ NÃO EXISTENTE/ACEITO!!!");
 //		if(daoCliente.buscarPorCodigo(cliente.getCpf_cnpj()) != null)
 //			throw new ValidacaoException("CPF/CNPJ JÁ EXISTENTE NO BANCO DE DADOS!!!");			
+	}
+
+	@Override
+	public List<ClienteAdapter> buscarAdapterPorBusca(String busca) throws BusinessException {
+		try {
+			return daoCliente.buscarAdapterPorBusca(busca);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 	
 }

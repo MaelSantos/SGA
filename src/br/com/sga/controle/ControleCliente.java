@@ -8,6 +8,7 @@ import java.util.Date;
 import br.com.sga.app.App;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.enums.EstadoCivil;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tela;
@@ -141,7 +142,8 @@ public class ControleCliente extends Controle{
 		if(obj == btnBuscar)
 		{
 			try {
-				cliente = dialogo.selecaoCliente(fachada.buscarClientePorBusca(tfdBusca.getText().trim()));
+				ClienteAdapter adapter = dialogo.selecao(fachada.buscarAdapterPorBusca(tfdBusca.getText()));
+				cliente = fachada.buscarClientePorId(adapter.getId());
 				modificarCampos();
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem("Erro!", "", e.getMessage());
@@ -152,7 +154,11 @@ public class ControleCliente extends Controle{
 			App.notificarOuvintes(Tela.cadastro_cliente);
 		else if(obj == btnContratos)
 		{
-			//			App.notificarOuvintes(Tela.cadastro_consulta, fachada.buscarContratoPorCliente(cliente.getNome()));
+			try {
+				dialogo.selecao(fachada.buscarContratoPorCliente(cliente.getNome()));
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
 		}
 		else if(obj == btnProcessos)
 		{
