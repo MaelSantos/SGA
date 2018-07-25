@@ -19,6 +19,7 @@ import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
+import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
@@ -218,6 +219,11 @@ public class Fachada implements IFachada {
 	@Override
 	public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException {
 		return businessNotificacao.BuscarAllDataPorMes(mes, ano);
+	}
+
+	@Override
+	public ConsultaAdapter buscarConsultaPorIdAdapter(int id) throws BusinessException {
+		return businessConsulta.buscarPorIdAdapter(id); 
 	}
 
 }

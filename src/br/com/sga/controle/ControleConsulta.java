@@ -11,6 +11,7 @@ import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
+import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -46,7 +47,7 @@ public class ControleConsulta {
     private TableColumn<Consulta,Date> dataColumn;
 
     @FXML
-    private TableColumn<Consulta,String> descricaoColumn;
+    private TableColumn<Consulta,Float> valorColumn;
 
     @FXML
     private TableColumn<Consulta,Area> areaColumn;
@@ -70,6 +71,14 @@ public class ControleConsulta {
     	}
     	else if(cadastrarConsultaButton == event.getSource()) 
     		App.notificarOuvintes(Tela.cadastro_consulta);
+    	else if(informacoesButton == event.getSource()) {
+    		Consulta consulta = contratosTableView.getSelectionModel().getSelectedItem();
+    		if(consulta  != null) {
+    			App.notificarOuvintes(Tela.Detalhes_consulta,consulta); // informando que vou para tela de detalhes de consulta e mando uma consulta selecionada
+    		}else {
+    			Alerta.getInstance().showMensagem("Alerta","","Não há nenhuma consulta selecionada ,\ncom isso não é possivel ver detalhes de consulta");
+    		}
+    	}
     }
 
     @FXML
@@ -77,7 +86,7 @@ public class ControleConsulta {
     	fachada  = Fachada.getInstance();
     	
     	dataColumn.setCellValueFactory(new PropertyValueFactory<>("data_consulta"));
-    	descricaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+    	valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_honorario"));
     	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
     }
 }

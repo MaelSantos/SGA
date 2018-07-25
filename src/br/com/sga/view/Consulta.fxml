@@ -8,6 +8,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleConsulta">
@@ -35,13 +38,23 @@
             </ImageView>
          </graphic>
       </Button>
-      <TableView fx:id="contratosTableView" layoutX="20.0" layoutY="190.0" prefHeight="300.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-         <columns>
-            <TableColumn fx:id="dataColumn" minWidth="-Infinity" prefWidth="137.0" text="Data" />
-            <TableColumn fx:id="descricaoColumn" minWidth="9.0" prefWidth="375.0" text="Descição" />
-            <TableColumn fx:id="areaColumn" minWidth="0.0" prefWidth="147.0" text="Area" />
-         </columns>
-      </TableView>
+      <GridPane layoutX="8.0" layoutY="129.0" prefHeight="345.0" prefWidth="674.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TableView fx:id="contratosTableView" prefHeight="300.0">
+               <columns>
+                  <TableColumn fx:id="dataColumn" minWidth="140.0" prefWidth="-1.0" text="Data" />
+                  <TableColumn fx:id="areaColumn" minWidth="200.0" prefWidth="-1.0" text="Area" />
+                  <TableColumn fx:id="valorColumn" minWidth="342.0" prefWidth="-1.0" text="Valor Honorario" />
+               </columns>
+            </TableView>
+         </children>
+      </GridPane>
       <Button fx:id="cadastrarConsultaButton" layoutX="620.0" layoutY="508.0" mnemonicParsing="false" onAction="#actionButton" style="-fx-background-color: #008B8B;" AnchorPane.rightAnchor="14.0">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0">
@@ -51,7 +64,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="24.0" layoutY="154.0" text="Consulta com o cliente  de nome : Nome Completo com consulta no dia : dd/mm/yyyy" textFill="WHITE" />
       <Button fx:id="informacoesButton" layoutX="484.0" layoutY="508.0" mnemonicParsing="false" onAction="#actionButton" style="-fx-background-color: #008B8B;" AnchorPane.rightAnchor="175.0">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0">

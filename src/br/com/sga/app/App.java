@@ -22,7 +22,7 @@ public class App extends Application{
 	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
 	clientes, cadastroCliente, cadastroContrato, processo, cadastrarProcesso, detalhesProcesso,
 	buscarContrato, cadastrarAudiencia, financeiro,cadastroConsulta, cadastroReceitaDespesa, agenda,
-	consulta;
+	consulta,detalhesConsulta;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -95,6 +95,8 @@ public class App extends Application{
 			return agenda;
 		case Consulta:
 			return consulta;
+		case Detalhes_consulta:
+			return detalhesConsulta;
 		default:
 			System.err.println("Valor Não Correspondente");
 			break;

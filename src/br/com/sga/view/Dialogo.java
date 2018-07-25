@@ -7,12 +7,16 @@ import java.util.Optional;
 
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
+import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -149,17 +153,17 @@ public class Dialogo {
 		
 		TableView<Consulta> consultaTable = new TableView<>();
 	    TableColumn<Consulta, Date> dataColumn = new TableColumn<>("Data");
-	    TableColumn<Consulta, String> descricaoColumn = new TableColumn<>("Descrição");
 	    TableColumn<Consulta, Area> areaColumn = new TableColumn<>("Area");
+	    TableColumn<Consulta, Float> valorColumn = new TableColumn<>("Valor honorario");
 	    
-	    consultaTable.getColumns().addAll(dataColumn,descricaoColumn,areaColumn);
+	    consultaTable.getColumns().addAll(dataColumn,areaColumn,valorColumn);
 	    consultaTable.setPrefSize(600,300);	    
 	   
 	    dataColumn.setCellValueFactory(new PropertyValueFactory<>("data_consulta"));
 	    dataColumn.setPrefWidth(200);
 	    
-    	descricaoColumn.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-    	descricaoColumn.setPrefWidth(200);
+    	valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_honorario"));
+    	valorColumn.setPrefWidth(200);
 	   
     	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
     	areaColumn.setPrefWidth(200);
@@ -175,6 +179,41 @@ public class Dialogo {
 			return consultaTable.getSelectionModel().getSelectedItem();
 		return null;
 	}
+	public Testemunha selecionarTestemunha(List<Testemunha> testemunhas) {
+		Dialog<String> dialog = new Dialog<>();
+		dialog.setTitle("Selecione uma testemunha");
+		dialog.setHeaderText("Lista com todos as consultas: \nSeleciona uma testemunha para mais detalhes ");
+		dialog.setResizable(true);
+		
+
+		TableView<Testemunha> testemunhaTable = new TableView<>();
+	    TableColumn<Testemunha,String> nomeTestemunhaColumn = new TableColumn<>("Nome da Testemunha");
+	    TableColumn<Testemunha,Telefone> telefoneTestemunhaColumn = new TableColumn<>("Telefone");
+	    TableColumn<Testemunha,Endereco> enderecoTestemunhaColumn = new TableColumn<>("Endereco");
+	    testemunhaTable.getColumns().addAll(nomeTestemunhaColumn,telefoneTestemunhaColumn,enderecoTestemunhaColumn);
+	    testemunhaTable.setPrefSize(600,300);	    
+	   
+	    nomeTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+	    nomeTestemunhaColumn.setPrefWidth(200);
+	    
+    	telefoneTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+    	telefoneTestemunhaColumn.setPrefWidth(200);
+	   
+    	enderecoTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+    	enderecoTestemunhaColumn.setPrefWidth(200);
+    	
+    	testemunhaTable.getItems().addAll(testemunhas);
+		
+    	dialog.getDialogPane().setContent(testemunhaTable);
+		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+		
+		Optional<String> result = dialog.showAndWait();
+		if(result.isPresent())
+			return testemunhaTable.getSelectionModel().getSelectedItem();
+		return null;
+	}
+
 
 
 

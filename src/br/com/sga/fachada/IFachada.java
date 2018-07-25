@@ -11,6 +11,7 @@ import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
+import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
@@ -33,6 +34,7 @@ public interface IFachada {
     public void salvarEditarConsulta(Consulta consulta) throws BusinessException;
     public Consulta buscarConsultaPorId(int id) throws BusinessException;
     public List<Consulta> buscarConsultaPorCliente(String busca) throws BusinessException;
+    public ConsultaAdapter buscarConsultaPorIdAdapter(int id) throws BusinessException;
     
     //contrato
     public void salvarEditarContrato(Contrato entidade) throws BusinessException;

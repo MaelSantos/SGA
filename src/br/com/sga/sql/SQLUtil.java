@@ -58,11 +58,17 @@ public class SQLUtil {
     
     public static class Testemunha{
     	public static final String INSERT_ALL = "INSERT INTO TESTEMUNHA(nome,endereco_id,consulta_id) VALUES(?,?,?)";
+    	public static final String SELECT_ID_CONSULTA = "SELECT * FROM TESTEMUNHA WHERE consulta_id = ?";
     }
     
     public static class Consulta{
     	public static final String INSERT_ALL = "INSERT INTO CONSULTA(valor_honorario,descricao,area,indicacao,data_consulta,cliente_id,funcionario_id) VALUES(?,?,?,?,?,?,?)";
-    	public static final String BUSCA_POR_CLIENTE ="select con.id, con.area, con.data_consulta ,con.descricao from cliente cli,"
+    	public static final String SELECT_ID_CONSULTA=" SELECT * FROM CONSULTA WHERE ID = ? ";
+    	public static final String SELECT_ID_CONSULTA_FUNCIONARIO_ADAPTETER= "SELECT CON.DESCRICAO,CON.INDICACAO,FUN.NOME,FUN.NUMERO_OAB \r\n" + 
+														"FROM CONSULTA CON, FUNCIONARIO FUN\r\n" + 
+														"WHERE CON.FUNCIONARIO_ID  =FUN.ID \r\n" + 
+														"AND CON.ID = ?";
+    	public static final String BUSCA_POR_CLIENTE ="select con.id, con.area, con.data_consulta ,con.valor_honorario from cliente cli,"
     			+ " consulta con where con.cliente_id = cli.id and unaccent(cli.nome) ilike unaccent(?) or unaccent(cli.email) ilike unaccent(?)"
     			 +" or cli.cpf_cnpj ilike ? or cli.rg ilike ?";
     }
@@ -116,7 +122,7 @@ public class SQLUtil {
 	    
 	    public static final String SELECT_CLIENTE_ENDERECO_CPF = "SELECT * FROM CLIENTE a, ENDERECO e where a.endereco_id=e.id AND cpf_cnpj = ?";
 	    
-	    public static final String SELECT_ID_CLIENTE = "SELECT d.* FROM ENDERECO d, CLIENTE c WHERE c.id_endereco = ? AND c.id_endereco = d.id";
+	    public static final String SELECT_ID = "SELECT * FROM ENDERECO WHERE ID = ?";
     }
     
 //    id ,cliente_id, numero, prefixo
@@ -124,6 +130,7 @@ public class SQLUtil {
 	    public static final String INSERT_ALL_PARA_CLIENTE = "INSERT INTO TELEFONE(numero, prefixo, cliente_id) VALUES (?, ?, ?)";
 	    public static final String INSERT_ALL_PARA_TESTEMUNHA = "INSERT INTO TELEFONE(numero, prefixo, testemunha_id) VALUES (?, ?, ?)";
 	    public static final String SELECT_TELEFONE_CLIENTE = "SELECT * FROM TELEFONE WHERE cliente_id = ?";
+	    public static final String SELECT_TELEFONE_TESTEMUNHA = "SELECT * FROM TELEFONE WHERE testemunha_id = ?";
 	    public static final String SELECT_NUMERO = "SELECT * FROM TELEFONE WHERE numero = ?";
     }
     

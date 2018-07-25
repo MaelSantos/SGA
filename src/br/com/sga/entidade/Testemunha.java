@@ -6,6 +6,7 @@ public class Testemunha {
 	private Telefone telefone;
 	private String nome;
 	
+	public Testemunha() {};
 	public Testemunha(Integer id, Endereco endereco, Telefone telefone, String nome) {
 		super();
 		this.id = id;

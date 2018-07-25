@@ -175,6 +175,28 @@ public class DaoCommun implements IDaoCommun{
 		}
 
 	}
+	public Telefone getContatosTestemunha(Integer testemunha_id) throws DaoException {
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Telefone.SELECT_TELEFONE_TESTEMUNHA);
+			this.statement.setInt(1, testemunha_id);
+
+			resultSet = this.statement.executeQuery();
+			Telefone telefone = null;
+			if(resultSet.next()) {
+				telefone = new Telefone();
+				telefone.setId(resultSet.getInt(1));
+				telefone.setPrefixo(resultSet.getInt(2));
+				telefone.setNumero(resultSet.getInt(3));
+			}
+			this.connection.close();
+			return telefone;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO CONSULTAR CONTATOS - Contate o ADM");
+		}
+
+	}
 
 	@Override
 	public List<Parte> getPartes(Integer id) throws DaoException {
@@ -389,20 +411,19 @@ public class DaoCommun implements IDaoCommun{
 	}
 
 	@Override
-	public Endereco getEndereco(int cliente_id) throws DaoException {
+	public Endereco getEndereco(int id) throws DaoException {
 		
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			this.statement = connection.prepareStatement(SQLUtil.Endereco.SELECT_ID_CLIENTE);
+			this.statement = connection.prepareStatement(SQLUtil.Endereco.SELECT_ID);
 	
-			statement.setInt(1, cliente_id);
+			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
 			
 			Endereco endereco = null;
 			if(resultSet.next())
 			{
 				endereco = new Endereco();
-				
 				endereco.setId(resultSet.getInt("id"));
 				endereco.setBairro(resultSet.getString("bairro"));
 				endereco.setCep(resultSet.getString("cep"));
@@ -423,6 +444,40 @@ public class DaoCommun implements IDaoCommun{
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO BUSCAR ENDERECO - Contate o ADM");
 		}
+	}
+	public List<Testemunha> getTestemunhas(int consulta_id) throws DaoException {
+		try {
+			System.out.println("Tudo certo");
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Testemunha.SELECT_ID_CONSULTA);
+			statement.setInt(1, consulta_id);
+			resultSet = statement.executeQuery();
+			List<Testemunha> testemunhas = new ArrayList<>();
+			ArrayList<Integer> endereco_ids = new ArrayList<>();
+			
+			while(resultSet.next())
+			{
+				Testemunha testemunha = new Testemunha();
+				testemunha.setId(resultSet.getInt("id"));
+				testemunha.setNome(resultSet.getString("nome"));
+				endereco_ids.add(resultSet.getInt("endereco_id"));
+				testemunhas.add(testemunha);
+			}
+			System.out.println(testemunhas);
+			this.connection.close();
+			
+			int i =0;
+			for(Testemunha t: testemunhas)
+				t.setEndereco(getEndereco(endereco_ids.get(i++)));
+			for(Testemunha t: testemunhas)
+				t.setTelefone(getContatosTestemunha(t.getId()));
+			
+			
+			return testemunhas;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO BUSCAR TESTEMUNHA - Contate o ADM");
+		}	
 	}
 	
 }

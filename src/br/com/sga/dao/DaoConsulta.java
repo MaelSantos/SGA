@@ -6,20 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
-import br.com.sga.entidade.Endereco;
-import br.com.sga.entidade.Funcionario;
-import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
+import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.enums.Area;
-import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
-import br.com.sga.entidade.enums.TipoCliente;
-import br.com.sga.entidade.enums.TipoTelefone;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoConsulta;
 import br.com.sga.sql.SQLConnection;
@@ -110,6 +103,34 @@ public class DaoConsulta implements IDaoConsulta {
 	public Consulta buscarPorId(int id) throws DaoException {
 		return null;
 	}
+	public ConsultaAdapter buscarPorIdAdapter(int id) throws DaoException {
+		try {
+			List<Testemunha> testemunhas = daoCommun.getTestemunhas(id);
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+	        this.statement = connection.prepareStatement(SQLUtil.Consulta.SELECT_ID_CONSULTA_FUNCIONARIO_ADAPTETER);
+	        statement.setInt(1,id);
+	        resultSet = statement.executeQuery();
+	        //CON.*,FUN.NOME,FUN.NUMERO_OAB
+	        ConsultaAdapter consulta = null;
+	        if(resultSet.next()) {
+	        	consulta = new ConsultaAdapter(resultSet.getString("descricao"),resultSet.getString("indicacao")
+	        			,resultSet.getString("nome"),resultSet.getString("NUMERO_OAB"));
+	        	consulta.setTestemunhas(testemunhas);
+	        }
+	        if(consulta == null){
+	        	throw new DaoException("Não existe consultas com ess id");
+	        }
+	        this.connection.close();
+	        this.statement.close();
+	        this.resultSet.close();
+	        
+	        
+	        return consulta;
+	} catch (SQLException ex) {
+        ex.printStackTrace();
+        throw new DaoException("PROBLEMA AO BUSCAR CONSULTAS DO USUARIO - CONTATE O ADM");
+    }
+	}
 
 	@Override
 	public List<Consulta> buscarPorBusca(String busca) throws DaoException {
@@ -129,7 +150,7 @@ public class DaoConsulta implements IDaoConsulta {
            
             List<Consulta> lista = new ArrayList<>();
             while(resultSet.next()) {
-            	lista.add(new Consulta(resultSet.getInt("id"),resultSet.getString("descricao"),
+            	lista.add(new Consulta(resultSet.getInt("id"),resultSet.getFloat("valor_honorario"),
             			Area.getArea(resultSet.getString("area")),resultSet.getDate("data_consulta")));
             }if(lista.isEmpty()){
             	throw new DaoException("Não existe consultas para esse usuario, com esses dados");

@@ -1,6 +1,5 @@
 package br.com.sga.controle;
 
-import java.util.Calendar;
 
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.textfield.TextFields;
@@ -166,11 +165,11 @@ public class ControleMenu extends Controle{
 		{
 			if (object instanceof Funcionario) {
 				if(this.funcionario == null) {
-					Timeline oneMinuteTimeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+					/*Timeline oneMinuteTimeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
 						Notifications.create().title("Olá!").text("teste").action().position(Pos.BOTTOM_RIGHT).showInformation();
 						}));
 						oneMinuteTimeline.setCycleCount(Timeline.INDEFINITE); // Executar indefinidamente.
-						oneMinuteTimeline.play();
+						oneMinuteTimeline.play();*/
 				}
 				this.funcionario = (Funcionario) object;
 				String nome_completo = funcionario.getNome();

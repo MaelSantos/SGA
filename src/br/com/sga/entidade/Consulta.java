@@ -1,6 +1,5 @@
 package br.com.sga.entidade;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -35,9 +34,9 @@ public class Consulta {
 	}
 	
 	
-	public Consulta(Integer id, String descricao ,Area area, Date data_consulta) {
+	public Consulta(Integer id, float valor_honorario ,Area area, Date data_consulta) {
 		this.id = id;
-		this.descricao = descricao;
+		this.valor_honorario = valor_honorario;
 		this.area = area;
 		this.data_consulta = data_consulta;
 	}
