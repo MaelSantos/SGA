@@ -1,5 +1,6 @@
 package br.com.sga.business;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.sga.dao.DaoFinanceiro;
@@ -48,6 +49,16 @@ public class BusinessFinanceiro implements IBusinessFinanceiro {
 	public List<Financeiro> buscarPorBusca(String busca) throws BusinessException {
 		// TODO Stub de método gerado automaticamente
 		return null;
+	}
+
+	@Override
+	public Financeiro buscarPorIntervalo(Date de, Date ate) throws BusinessException {
+		try {
+			return daoFinanceiro.buscarPorIntervalo(de, ate);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 }

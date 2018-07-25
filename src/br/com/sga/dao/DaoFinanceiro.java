@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.postgresql.util.PSQLException;
@@ -13,6 +15,7 @@ import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.exceptions.DaoException;
+import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.interfaces.IDaoFinanceiro;
 import br.com.sga.sql.SQLConnection;
 import br.com.sga.sql.SQLUtil;
@@ -21,7 +24,7 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 	Connection  connection ;
 	ResultSet resultSet;
 	PreparedStatement statement;
-	DaoCommun daoCommun;
+	IDaoCommun daoCommun;
 
 	public DaoFinanceiro() {
 		daoCommun = DaoCommun.getInstance();
@@ -127,6 +130,39 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO BUSCAR FINANCEIRO - CONTATE O ADM");
 		}
+	}
+	@Override
+	public Financeiro buscarPorIntervalo(Date de, Date ate) throws DaoException {
+		
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Financeiro.SELECT_ANO);
+			SimpleDateFormat ano = new SimpleDateFormat("yyyy");
+			statement.setString(1, ano.format(ate));
+			resultSet = statement.executeQuery();
+			System.out.println(ate.getYear());
+			
+			
+			Financeiro financeiro = null;
+			if(resultSet.next()) {
+				financeiro = new Financeiro(resultSet.getInt("id"));
+				financeiro.setAno_coberto(resultSet.getString("ano_coberto"));
+				financeiro.setTotal_despesas(resultSet.getFloat("total_despesa"));
+				financeiro.setTotal_lucro(resultSet.getFloat("total_lucro"));
+
+				financeiro.setReceitas(daoCommun.getReceitaPorIntervalo(de, ate));
+				financeiro.setDespesas(daoCommun.getDespesaIntervalo(de, ate));
+
+			}
+			this.connection.close();
+			this.statement.close();
+			this.resultSet.close();
+			return financeiro;	
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO BUSCAR FINANCEIRO - CONTATE O ADM");
+		}
+
 	}
 
 }

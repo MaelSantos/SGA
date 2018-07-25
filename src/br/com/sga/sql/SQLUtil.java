@@ -36,7 +36,7 @@ public class SQLUtil {
     public static class Receita{
     	public static final String INSERT_ALL = "INSERT INTO RECEITA(data_entrada,centro_custo,descricao,valor,status,tipo_pagamento,vencimento,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
     	public static final String SELECT_ID_FINANCEIRO = "SELECT * FROM RECEITA WHERE financeiro_id = ?";
-    	public static final String SELECT_INTERVALO = "SELECT R.* FROM FINANCEIRO F, RECEITA R WHERE (R.data_entrada BETWEEN '2018-06-10' AND '2018-12-30')";
+    	public static final String SELECT_INTERVALO = "SELECT R.* FROM FINANCEIRO F, RECEITA R WHERE (R.data_entrada BETWEEN ? AND ?)";
     
     }
 

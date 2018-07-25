@@ -1,5 +1,6 @@
 package br.com.sga.interfaces;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.sga.exceptions.DaoException;
@@ -39,6 +40,8 @@ public interface IDaoCommun {
     public void salvarVinculoFuncionario(Integer notificacao_id,Integer funcionario_id) throws DaoException;
     public List<Receita> getReceita(Integer financeiro_id)throws DaoException;
     public List<Despesa> getDespesa(Integer financeiro_id)throws DaoException;
+    public List<Receita> getReceitaPorIntervalo(Date de, Date ate)throws DaoException;
+    public List<Despesa> getDespesaIntervalo(Date de, Date ate)throws DaoException;
     
     //processo
     public void salvarAudiencia(Audiencia audiencia, Integer processo_id) throws DaoException;

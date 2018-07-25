@@ -1,5 +1,6 @@
 package br.com.sga.interfaces;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.sga.entidade.Financeiro;
@@ -12,5 +13,6 @@ public interface IBusinessFinanceiro {
 	public void salvarEditar(Financeiro financeiro) throws BusinessException;
     public Financeiro buscarPorId(int id) throws BusinessException;
     public List<Financeiro> buscarPorBusca(String busca) throws BusinessException;
+    public Financeiro buscarPorIntervalo(Date de, Date ate) throws BusinessException;
  
 }

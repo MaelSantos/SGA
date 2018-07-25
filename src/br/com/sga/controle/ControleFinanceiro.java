@@ -1,5 +1,7 @@
 package br.com.sga.controle;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import br.com.sga.app.App;
@@ -14,22 +16,26 @@ import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControleFinanceiro extends Controle {
 
 	@FXML
-	private Label lblAno;
-
-	@FXML
-	private TextField tfdAno;
+	private Label lblData;
 
 	@FXML
 	private Button btnBuscar;
+
+	@FXML
+	private DatePicker tfdDe;
+
+	@FXML
+	private DatePicker tfdAte;
 
 	@FXML
 	private TableView<Receita> tblReceitas;
@@ -79,7 +85,6 @@ public class ControleFinanceiro extends Controle {
 	@FXML
 	private Label lblDespesas;
 
-	
 	private IFachada fachada;
 	private Financeiro financeiro;
 
@@ -140,18 +145,28 @@ public class ControleFinanceiro extends Controle {
 		{
 			try {
 
-				financeiro = fachada.buscarFinanceiroPorAno(Integer.parseInt(tfdAno.getText().trim()));
+				financeiro = fachada.buscarFinanceiroPorIntervalo(
+						Date.from(tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+						Date.from(tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 				if(financeiro.getDespesas() != null)
 					tblDespesas.getItems().setAll(financeiro.getDespesas());
 				if(financeiro.getReceitas() != null)
 					tblReceitas.getItems().setAll(financeiro.getReceitas());
-				lblAno.setText("Ano: "+financeiro.getAno_coberto());
-				lblDespesas.setText("Total De Despesas: "+financeiro.getTotal_despesas());
-				lblReceitas.setText("Total De Receitas: "+financeiro.getTotal_lucro());
+				lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim());
+				float total_despesas = 0, total_receita = 0;
+				for(Receita r : financeiro.getReceitas())
+					total_receita += r.getValor();
+				for(Despesa d : financeiro.getDespesas())
+					total_despesas += d.getValor();
+				lblDespesas.setText("Total De Despesas: "+total_despesas);
+				lblReceitas.setText("Total De Receitas: "+total_receita);
 
 			}catch (BusinessException | NumberFormatException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Dados Financeiros!!!", e.getMessage());
+			}
+			catch (NullPointerException e) {
+				Alerta.getInstance().showMensagem("Erro!", "Preencha Todos os Dados !!!", e.getMessage());
 			}
 		}
 		if(obj == btnAddReceita)

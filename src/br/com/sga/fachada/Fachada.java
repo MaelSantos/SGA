@@ -232,4 +232,9 @@ public class Fachada implements IFachada {
 		return businessCliente.buscarAdapterPorBusca(busca);
 	}
 
+	@Override
+	public Financeiro buscarFinanceiroPorIntervalo(Date de, Date ate) throws BusinessException {
+		return businessFinanceiro.buscarPorIntervalo(de, ate);
+	}
+
 }
