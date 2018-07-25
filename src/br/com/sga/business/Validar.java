@@ -22,12 +22,11 @@ public class Validar {
 		return null;
 	}
 	public boolean isEmail(String email) {
+		System.out.println(email);
 		if(!email.matches("\\w+@\\w+.com|.com.br"))
 			return false;
 		if(email.length() == 0)
 			return false;
-		return true;
-		
 //		boolean isEmailIdValid = false;
 //        if (email != null && email.length() > 0) {
 //            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
@@ -36,8 +35,9 @@ public class Validar {
 //            if (matcher.matches()) {
 //                isEmailIdValid = true;
 //            }
+//            return isEmailIdValid;
 //        }
-//        return isEmailIdValid;
+        return true;
 	}
 	
 

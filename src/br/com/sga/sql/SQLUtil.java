@@ -112,17 +112,22 @@ public class SQLUtil {
 	    		+ "estado_civil, profissao, filhos, responsavel, tipo, id_endereco) "
 	    		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	    public static final String SELECT_CPF_CNPJ = "SELECT * FROM CLIENTE e, ENDERECO d WHERE e.cpf_cnpj = ? AND d.id = e.id_endereco";
+	    
+	    public static final String UPDATE_ALL = "UPDATE CLIENTE SET nome = ?, data_nascimento = ?, cpf_cnpj = ?, genero = ?, rg = ?, email = ?, estado_civil = ?, profissao = ?, filhos = ?, responsavel = ?, tipo = ? where id = ?";
     }
     
 //    id, estado, numero, cep, cidade, bairro, complemento, pais, rua;
     public static class Endereco {
-	    public static final String INSERT_ALL = "INSERT INTO ENDERECO(rua, numero, bairro, cidade, cep, pais, estado, complemento ) "
+	    public static final String INSERT_ALL = "INSERT INTO ENDERECO(rua, numero, bairro, cidade, cep, pais, estado, complemento) "
 	    		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 	    public static final String SELECT_CEP = "SELECT * FROM ENDERECO WHERE cep = ?";
 	    
 	    public static final String SELECT_CLIENTE_ENDERECO_CPF = "SELECT * FROM CLIENTE a, ENDERECO e where a.endereco_id=e.id AND cpf_cnpj = ?";
 	    
 	    public static final String SELECT_ID = "SELECT * FROM ENDERECO WHERE ID = ?";
+	    public static final String SELECT_ID_CLIENTE = "SELECT d.* FROM ENDERECO d, CLIENTE c WHERE c.id_endereco = ? AND c.id_endereco = d.id";
+	    
+	    public static final String UPDATE_ALL = "UPDATE ENDERECO SET rua = ?, numero = ?, bairro = ?, cidade = ?, cep = ?, pais = ?, estado = ?, complemento = ? where id = ?";
     }
     
 //    id ,cliente_id, numero, prefixo

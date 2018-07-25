@@ -80,7 +80,7 @@ public class Carregar implements Initializable{
 						updateData();
 						
 						App.clientes = carregarArquivo("../view/Clientes.fxml");
-						updateData();
+						updateData();														
 						
 						App.cadastroCliente = carregarArquivo("../view/CadastroCliente.fxml");
 						updateData();

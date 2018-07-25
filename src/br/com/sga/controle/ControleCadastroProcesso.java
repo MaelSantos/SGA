@@ -1,17 +1,12 @@
 package br.com.sga.controle;
 
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ResourceBundle;
-
-import org.controlsfx.control.textfield.TextFields;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Contrato;
-import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.enums.Tela;
