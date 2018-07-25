@@ -228,7 +228,7 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public List<ClienteAdapter> buscarAdapterPorBusca(String busca) throws BusinessException {
+	public List<ClienteAdapter> buscarClienteAdapterPorBusca(String busca) throws BusinessException {
 		return businessCliente.buscarAdapterPorBusca(busca);
 	}
 

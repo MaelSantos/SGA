@@ -142,8 +142,12 @@ public class ControleCliente extends Controle{
 		if(obj == btnBuscar)
 		{
 			try {
-				ClienteAdapter adapter = dialogo.selecao(fachada.buscarAdapterPorBusca(tfdBusca.getText()));
+				ClienteAdapter adapter = dialogo.selecao(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()));
 				cliente = fachada.buscarClientePorId(adapter.getId());
+				System.out.println(adapter);
+				System.out.println(adapter.getId());
+				System.out.println(cliente);
+				System.out.println(cliente.getEndereco());
 				modificarCampos();
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem("Erro!", "", e.getMessage());

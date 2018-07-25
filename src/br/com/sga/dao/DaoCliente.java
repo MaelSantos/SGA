@@ -138,16 +138,10 @@ public class DaoCliente implements IDaoCliente {
 				cliente.setFilhos(resultSet.getBoolean("filhos"));
 				cliente.setResponsavel(resultSet.getString("responsavel"));
 				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
-				end = new Endereco();
-				end.setId(resultSet.getInt("id_endereco"));
-				end.setBairro(resultSet.getString("bairro"));
-				end.setCidade(resultSet.getString("cidade"));
-				end.setRua(resultSet.getString("rua"));
-				end.setEstado(resultSet.getString("estado"));
-				end.setNumero(resultSet.getString("numero"));
-				end.setComplemento(resultSet.getString("complemento"));
-				end.setCep(resultSet.getString("cep"));
-				end.setPais(resultSet.getString("pais"));
+//				end = new Endereco();
+
+				end = daoCommun.getEndereco(cliente.getId());
+				
 				cliente.setEndereco(end);
 				
 				List<Telefone> list = daoCommun.getContatos(cliente.getId());
