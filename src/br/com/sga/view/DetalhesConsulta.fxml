@@ -294,14 +294,18 @@
             </VBox>
          </center>
          <top>
-            <FlowPane prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <FlowPane hgap="10.0" prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
+                  <Button fx:id="voltarButton" mnemonicParsing="false" onAction="#actionButton" text="Voltar" />
                   <Label contentDisplay="CENTER" text="Detalhes de consultas" textFill="WHITE">
                      <font>
                         <Font name="Verdana" size="18.0" />
                      </font>
                   </Label>
                </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
             </FlowPane>
          </top>
       </BorderPane>

@@ -32,6 +32,9 @@ public class ControleCliente extends Controle{
 
 	@FXML
 	private Button btnBuscar;
+	
+	@FXML
+	private Button btnConsultas;
 
 	@FXML
 	private Button btnSalvar;
@@ -145,17 +148,23 @@ public class ControleCliente extends Controle{
 				e.printStackTrace();
 			}
 		}
-		if(obj == btnAdd)
+		else if(obj == btnAdd)
 			App.notificarOuvintes(Tela.cadastro_cliente);
-		if(obj == btnContratos)
+		else if(obj == btnContratos)
 		{
 			//			App.notificarOuvintes(Tela.cadastro_consulta, fachada.buscarContratoPorCliente(cliente.getNome()));
 		}
-		if(obj == btnProcessos)
+		else if(obj == btnProcessos)
 		{
 			//			App.notificarOuvintes(Tela.detalhes_processo, fachada.buscaproc);
 		}
-		if(obj == btnSalvar)
+		else if(obj == btnConsultas ) {
+			if(cliente != null)
+				App.notificarOuvintes(Tela.Detalhes_consulta,cliente);
+			else
+				Alerta.getInstance().showMensagem("Alerta", "", "Nehum cliente selecionado : \nfavor selecionar um clientes e após clikar para visualizar seus contratos");
+		}
+		else if(obj == btnSalvar)
 		{
 			try {
 				alterarCiente();
@@ -166,6 +175,7 @@ public class ControleCliente extends Controle{
 				e.printStackTrace();
 			}
 		}
+		
 
 
 	}

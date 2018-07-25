@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.com.sga.app.App;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
@@ -48,6 +49,9 @@ public class ControleDetelhesConsulta extends Controle{
 
     @FXML
     private Button selectConButton;
+    
+    @FXML
+    private Button voltarButton;
 
     @FXML
     private TextField nomeFuncionarioField;
@@ -101,7 +105,15 @@ public class ControleDetelhesConsulta extends Controle{
 
 	@Override
 	public void actionButton(ActionEvent event) {
-		if(selectConButton == event.getSource()) {
+		
+		if(voltarButton == event.getSource() ) {
+			if(selectConButton.isVisible()) { // siginifica ter vindo da tela de cliente
+				App.notificarOuvintes(Tela.clientes);
+			}else {// siginifica ter vindo da tela de consulta
+				App.notificarOuvintes(Tela.Consulta);
+			}
+		}
+		else if(selectConButton == event.getSource()) {
 			try {
 				List<Consulta> consultas = fachada.buscarConsultaPorCliente(cliente.getCpf_cnpj());
 				consulta = Dialogo.getInstance().selecaoConsulta(consultas);
