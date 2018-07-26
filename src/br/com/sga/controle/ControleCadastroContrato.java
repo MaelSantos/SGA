@@ -17,6 +17,7 @@ import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.entidade.Parte;
+import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
@@ -131,9 +132,13 @@ public class ControleCadastroContrato {
     		String dadoBusca = nomeClienteField.getText().trim();
 			if(nomeClienteField.getText().trim().length() >0)
 				try {
-					List<Consulta> consultas = Fachada.getInstance().buscarConsultaPorCliente(dadoBusca);
-					consulta = Dialogo.getInstance().selecaoConsulta(consultas);
-					dadosConsultaLabel.setText(consulta.toString());
+					List<ConsultaAdapter> consultas = Fachada.getInstance().buscarConsultaPorClienteAdapter(dadoBusca);
+					ConsultaAdapter consultaBasica = Dialogo.getInstance().selecaoConsulta(consultas);
+					consulta = new Consulta();
+					consulta.setArea(consultaBasica.getArea());
+					consulta.setData_consulta(consultaBasica.getData());
+					consulta.setValor_honorario(consultaBasica.getValor_honorario());
+					dadosConsultaLabel.setText(consultaBasica.toString());
 				} catch (BusinessException e) {
 					e.printStackTrace();
 					Alerta.getInstance().showMensagem("Erro","",e.getMessage());

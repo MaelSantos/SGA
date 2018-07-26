@@ -11,6 +11,7 @@ import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
+import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
@@ -24,7 +25,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class ControleDetelhesConsulta extends Controle{
+public class ControleDetalhesConsulta extends Controle{
 
     @FXML
     private ResourceBundle resources;
@@ -115,8 +116,10 @@ public class ControleDetelhesConsulta extends Controle{
 		}
 		else if(selectConButton == event.getSource()) {
 			try {
-				List<Consulta> consultas = fachada.buscarConsultaPorCliente(cliente.getCpf_cnpj());
-				consulta = Dialogo.getInstance().selecaoConsulta(consultas);
+				List<ConsultaAdapter> consultas = fachada.buscarConsultaPorClienteAdapter(cliente.getCpf_cnpj());
+				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecaoConsulta(consultas);
+				consulta = new Consulta();
+				consulta.setId(consultaBasica.getId());
 				atualizarDadosConsulta();
 				
 			} catch (BusinessException e) {
@@ -127,7 +130,6 @@ public class ControleDetelhesConsulta extends Controle{
 			Telefone t = testemunha.getTelefone();
 			Endereco e = testemunha.getEndereco();
 			nomeTestemunhaField.setText(testemunha.getNome());
-			
 			telPreField.setText(t.getPrefixo().toString());
 			telNumField.setText(t.getNumero().toString());
 			ruaField.setText(e.getRua());
@@ -144,21 +146,45 @@ public class ControleDetelhesConsulta extends Controle{
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		if(tela == Tela.Detalhes_consulta) {
+			limparCampos();
 			if(object instanceof Cliente) {
-				this.cliente = (Cliente) object;
+				Cliente cliente = (Cliente) object;
+				if(this.cliente == null || !this.cliente.equals(cliente) )
+					this.cliente = cliente;
 				selectConButton.setVisible(true);
-			}else if(object instanceof Consulta) {
-				this.consulta = (Consulta) object;
+			}else if(object instanceof ConsultaAdapter) {
+				this.consulta = new Consulta(); 
+				this.consulta.setId(((ConsultaAdapter)(object)).getId());
 				selectConButton.setVisible(false);
 				atualizarDadosConsulta();
 			}
 		}else {
-			cliente = null;
 			consulta = null;
 		}
 			
 	}
 
+	private void limparCampos() {
+		
+		dataConsultaField.setText("");
+		honorarioField.setText("");
+		descricaoField.setText("");
+		indicacaoField.setText("");
+		areaField.setText("");
+		
+		nomeTestemunhaField.setText("");
+		telPreField.setText("");
+		telNumField.setText("");
+		ruaField.setText("");
+		numField.setText("");
+		bairroField.setText("");
+		cidadeField.setText("");
+		estadoBox.setPromptText("");
+		paisField.setText("");
+		compField.setText("");
+		cepField.setText("");
+		
+	}
 	@Override
 	public void init() {
 		fachada = Fachada.getInstance(); 
@@ -168,16 +194,12 @@ public class ControleDetelhesConsulta extends Controle{
 	private void atualizarDadosConsulta() {
 		try {
 			// pegando demais dados da consulta;
-			ConsultaAdapter conAdapter;
-			conAdapter = fachada.buscarConsultaPorIdAdapter(consulta.getId());
-			//a atribuindo a consulta esses dados (para caso de edição futura);
-			consulta.setIndicacao(conAdapter.getIndicacao());
-			consulta.setDescricao(conAdapter.getDescricao());
-			consulta.setTestemunhas(conAdapter.getTestemunhas());
+			consulta = fachada.buscarConsultaPorId(consulta.getId());
+			FuncionarioAdapter f = fachada.buscarPorConsultaAdapter(consulta.getId());
 			// adicionando dados que não podem ser editador tais nome e numero do funcionario advindos do consulta adapter
-			nomeFuncionarioField.setText(conAdapter.getNomeFuncionario());
-			numeroOabField.setText(conAdapter.getNumeroOAB());
-			//atribuindo itens restantes de consulta a tela
+			nomeFuncionarioField.setText(f.getNome());
+			numeroOabField.setText(f.getNumero());
+			
 			dataConsultaField.setText(consulta.getData_consulta().toString());
 			honorarioField.setText(consulta.getValor_honorario()+"");
 			descricaoField.setText(consulta.getDescricao());

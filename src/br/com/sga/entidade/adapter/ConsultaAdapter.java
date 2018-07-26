@@ -1,67 +1,43 @@
 package br.com.sga.entidade.adapter;
 
-import java.util.List;
+import java.util.Date;
 
-import br.com.sga.entidade.Testemunha;
+import br.com.sga.entidade.enums.Area;
 
 public class ConsultaAdapter {
-	
-	private Integer id;
-	private String descricao;
-	private String indicacao;
-	private String nomeFuncionario,numeroOAB;
-	private List<br.com.sga.entidade.Testemunha> Testemunhas;
-	
-	public ConsultaAdapter(String descricao, String indicacao, String nomeFuncionario, String numeroOAB) {
-		this.descricao = descricao;
-		this.indicacao = indicacao;
-		this.nomeFuncionario = nomeFuncionario;
-		this.numeroOAB = numeroOAB;
+   	private Integer id;
+   	private Area area;
+   	private Date data;
+   	private Float valor_honorario;
+	public ConsultaAdapter(Integer id, Area area, Date data, Float valor_honorario) {
+		super();
+		this.id = id;
+		this.area = area;
+		this.valor_honorario = valor_honorario;
 	}
-	
-	
-	public List<br.com.sga.entidade.Testemunha> getTestemunhas() {
-		return Testemunhas;
-	}
-
-
-	public void setTestemunhas(List<br.com.sga.entidade.Testemunha> testemunhas) {
-		Testemunhas = testemunhas;
-	}
-
-
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	public String getIndicacao() {
-		return indicacao;
-	}
-	public void setIndicacao(String indicacao) {
-		this.indicacao = indicacao;
-	}
-	public String getNomeFuncionario() {
-		return nomeFuncionario;
-	}
-	public void setNomeFuncionario(String nomeFuncionario) {
-		this.nomeFuncionario = nomeFuncionario;
-	}
-	public String getNumeroOAB() {
-		return numeroOAB;
-	}
-	public void setNumeroOAB(String numeroOAB) {
-		this.numeroOAB = numeroOAB;
-	}
-
 	public Integer getId() {
 		return id;
 	}
-	
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
+	public Area getArea() {
+		return area;
+	}
+	public void setArea(Area area) {
+		this.area = area;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
+	public Float getValor_honorario() {
+		return valor_honorario;
+	}
+	public void setValor_honorario(Float valor_honorario) {
+		this.valor_honorario = valor_honorario;
+	}
+       	
 }

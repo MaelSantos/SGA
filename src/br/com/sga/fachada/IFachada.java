@@ -13,7 +13,9 @@ import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
+import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.exceptions.BusinessException;
@@ -26,6 +28,7 @@ public interface IFachada {
 	public void salvarEditarUsuario(Funcionario usuario) throws BusinessException;
     public Funcionario buscarUsuarioPorId(int id) throws BusinessException;
     public List<Funcionario> buscarUsuarioPorBusca(String busca) throws BusinessException;
+    public FuncionarioAdapter buscarPorConsultaAdapter(Integer consulta_id) throws BusinessException;
 
     //cliente
     public void salvarEditarCliente(Cliente cliente)throws BusinessException;
@@ -36,14 +39,13 @@ public interface IFachada {
     // consulta
     public void salvarEditarConsulta(Consulta consulta) throws BusinessException;
     public Consulta buscarConsultaPorId(int id) throws BusinessException;
-    public List<Consulta> buscarConsultaPorCliente(String busca) throws BusinessException;
-    public ConsultaAdapter buscarConsultaPorIdAdapter(int id) throws BusinessException;
+    public List<ConsultaAdapter> buscarConsultaPorClienteAdapter(String busca) throws BusinessException;
     
     //contrato
     public void salvarEditarContrato(Contrato entidade) throws BusinessException;
     public Contrato buscarContratoPorId(int id) throws BusinessException;
     public List<Contrato> buscarContratoPorBusca(String busca) throws BusinessException;
-    public List<Contrato> buscarContratoPorCliente(String busca) throws BusinessException;
+    public List<ContratoAdapter> buscarContratoPorClienteAdapter(String busca) throws BusinessException;
     public List<ContratoAdapter> buscaAllContratoAdapter() throws BusinessException;
     
     //processo

@@ -142,7 +142,7 @@ public class ControleCliente extends Controle{
 		if(obj == btnBuscar)
 		{
 			try {
-				ClienteAdapter adapter = dialogo.selecao(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()));
+				ClienteAdapter adapter = dialogo.selecao(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()),"Seleção de cliente","Selcione um cliente para mais detalhes");
 				cliente = fachada.buscarClientePorId(adapter.getId());
 				System.out.println(adapter);
 				System.out.println(adapter.getId());
@@ -158,11 +158,10 @@ public class ControleCliente extends Controle{
 			App.notificarOuvintes(Tela.cadastro_cliente);
 		else if(obj == btnContratos)
 		{
-			try {
-				dialogo.selecao(fachada.buscarContratoPorCliente(cliente.getNome()));
-			} catch (BusinessException e) {
-				e.printStackTrace();
-			}
+			if(cliente != null)
+				App.notificarOuvintes(Tela.Detalhes_contrato,cliente);
+			else
+				Alerta.getInstance().showMensagem("Alerta", "", "Nehum cliente selecionado : \nfavor selecionar um clientes e após clikar para visualizar suas contratos");
 		}
 		else if(obj == btnProcessos)
 		{
@@ -172,7 +171,7 @@ public class ControleCliente extends Controle{
 			if(cliente != null)
 				App.notificarOuvintes(Tela.Detalhes_consulta,cliente);
 			else
-				Alerta.getInstance().showMensagem("Alerta", "", "Nehum cliente selecionado : \nfavor selecionar um clientes e após clikar para visualizar seus contratos");
+				Alerta.getInstance().showMensagem("Alerta", "", "Nehum cliente selecionado : \nfavor selecionar um clientes e após clikar para visualizar suas consultas");
 		}
 		else if(obj == btnSalvar)
 		{

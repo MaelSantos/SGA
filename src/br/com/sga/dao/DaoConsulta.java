@@ -56,44 +56,6 @@ public class DaoConsulta implements IDaoConsulta {
         
 	}
 	
-//	public static void main(String[] args) {
-//		//Salvar consulta
-//		// * 1 - testemunhas - > dados da testemunha , endereço , telefone e nome
-//		// * 2 - demais dados da consulta,
-//		// * 3 - buscar cliente e funcionario correspondente (para fins de teste irei por já o id)
-//		 
-//		Endereco e1 = new Endereco( "Andrelino Jose ","412", "AAVV","Pesqueira", "TA", "Brasil","casa","50230-550");
-//		Telefone tel1 = new Telefone(3213123,32,TipoTelefone.PESSOAL);
-//		Testemunha t1 = new Testemunha(e1, tel1,"zèsin");
-//		
-//		Endereco e2 = new Endereco( "Jose P","232", "Coa","Pesqueira", "TA", "Brasil","Ca","50230-550");
-//		Telefone tel2 = new Telefone(3213123,32,TipoTelefone.RESIDENCIAL);
-//		Testemunha t2 = new Testemunha(e2, tel2,"Pedro pereira");
-//		
-//		List<Testemunha> testemunhas = new ArrayList<>();
-//		testemunhas.add(t1);
-//		testemunhas.add(t2);
-//		
-//		List<Telefone> telefonesCliente = new ArrayList<>();
-//		telefonesCliente.add(tel2);
-//		Cliente cliente = new Cliente("Jose2",Calendar.getInstance().getTime(),"12343",Sexo.MASCULINO,"123343","zé@Hmail2","sar","Babado",false,"Não",TipoCliente.FISICO,e2, telefonesCliente);
-//		cliente.setEndereco(e2);
-//		try {
-//			DaoCliente.getInstance().salvar(cliente);
-//		} catch (DaoException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		Funcionario funcionario = new Funcionario();
-//		funcionario.setId(2); // <---------------------------------------------------------
-//		Consulta consulta = new Consulta(Area.TRABALHISTA,"Descrição do caso entrada por funcionario",Calendar.getInstance().getTime(),13000f,"Maria", cliente, funcionario, testemunhas);
-//		try {
-//			new DaoConsulta().salvar(consulta);
-//		} catch (DaoException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 	@Override
 	public void editar(Consulta entidade) throws DaoException {
 
@@ -101,44 +63,43 @@ public class DaoConsulta implements IDaoConsulta {
 
 	@Override
 	public Consulta buscarPorId(int id) throws DaoException {
-		return null;
+			try {
+				List<Testemunha> testemunhas = daoCommun.getTestemunhas(id);
+				
+				this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+		        this.statement = connection.prepareStatement(SQLUtil.Consulta.SELECT_ID_CONSULTA);
+		        statement.setInt(1,id);
+		        resultSet = statement.executeQuery();
+		        Consulta consulta = null;
+		        if(resultSet.next()) {
+		        	consulta = new Consulta();
+		        	consulta.setId(id);
+		        	consulta.setArea(Area.getArea(resultSet.getString("area")));
+		        	consulta.setDescricao(resultSet.getString("descricao"));
+		        	consulta.setData_consulta(resultSet.getDate("data_consulta"));
+		        	consulta.setValor_honorario(resultSet.getFloat("valor_honorario"));
+		        	consulta.setIndicacao(resultSet.getString("indicacao"));
+		        	consulta.setTestemunhas(testemunhas);
+		        }
+		        if(consulta == null){
+		        	throw new DaoException("Não existe consultas com ess id");
+		        }
+		        this.connection.close();
+		        this.statement.close();
+		        this.resultSet.close();
+		        return consulta;
+		} catch (SQLException ex) {
+	        ex.printStackTrace();
+	        throw new DaoException("PROBLEMA AO BUSCAR CONSULTAS DO USUARIO - CONTATE O ADM");
+	    }
 	}
-	public ConsultaAdapter buscarPorIdAdapter(int id) throws DaoException {
-		try {
-			List<Testemunha> testemunhas = daoCommun.getTestemunhas(id);
-			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-	        this.statement = connection.prepareStatement(SQLUtil.Consulta.SELECT_ID_CONSULTA_FUNCIONARIO_ADAPTETER);
-	        statement.setInt(1,id);
-	        resultSet = statement.executeQuery();
-	        //CON.*,FUN.NOME,FUN.NUMERO_OAB
-	        ConsultaAdapter consulta = null;
-	        if(resultSet.next()) {
-	        	consulta = new ConsultaAdapter(resultSet.getString("descricao"),resultSet.getString("indicacao")
-	        			,resultSet.getString("nome"),resultSet.getString("NUMERO_OAB"));
-	        	consulta.setTestemunhas(testemunhas);
-	        }
-	        if(consulta == null){
-	        	throw new DaoException("Não existe consultas com ess id");
-	        }
-	        this.connection.close();
-	        this.statement.close();
-	        this.resultSet.close();
-	        
-	        
-	        return consulta;
-	} catch (SQLException ex) {
-        ex.printStackTrace();
-        throw new DaoException("PROBLEMA AO BUSCAR CONSULTAS DO USUARIO - CONTATE O ADM");
-    }
-	}
-
 	@Override
 	public List<Consulta> buscarPorBusca(String busca) throws DaoException {
 		return null;
 	}
 
 	@Override
-	public List<Consulta> buscaPorCliente(String busca) throws DaoException {
+	public List<ConsultaAdapter> buscaPorClienteAdapter(String busca) throws DaoException {
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
             this.statement = connection.prepareStatement(SQLUtil.Consulta.BUSCA_POR_CLIENTE);
@@ -148,10 +109,10 @@ public class DaoConsulta implements IDaoConsulta {
             statement.setString(4,busca);
             resultSet = statement.executeQuery();
            
-            List<Consulta> lista = new ArrayList<>();
+            List<ConsultaAdapter> lista = new ArrayList<>();
             while(resultSet.next()) {
-            	lista.add(new Consulta(resultSet.getInt("id"),resultSet.getFloat("valor_honorario"),
-            			Area.getArea(resultSet.getString("area")),resultSet.getDate("data_consulta")));
+            	lista.add(new ConsultaAdapter(resultSet.getInt("id"),Area.getArea(resultSet.getString("area")),
+            			resultSet.getDate("data_consulta"),resultSet.getFloat("valor_honorario")));
             }if(lista.isEmpty()){
             	throw new DaoException("Não existe consultas para esse usuario, com esses dados");
             }

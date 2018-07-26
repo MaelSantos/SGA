@@ -12,7 +12,7 @@ public interface IBusinessContrato {
 	public void salvarEditar(Contrato entidade) throws BusinessException;
     public Contrato buscarPorId(int id) throws BusinessException;
     public List<Contrato> buscarPorBusca(String busca) throws BusinessException;
-    public List<Contrato> buscarPorCliente(String busca) throws BusinessException;
+    public List<ContratoAdapter> buscarPorClienteAdapter(String busca) throws BusinessException;
     public List<ContratoAdapter> buscaAllAdapter() throws BusinessException;
     
 }

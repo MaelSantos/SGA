@@ -10,6 +10,7 @@ import java.util.List;
 import org.postgresql.util.PSQLException;
 
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoUsuario;
@@ -124,7 +125,33 @@ public class DaoUsuario implements IDaoUsuario{
 		// TODO Stub de método gerado automaticamente
 		return null;
 	}
-
+	
+	public FuncionarioAdapter buscarPorConsultaAdapter(Integer consulta_id) throws DaoException{
+		try {
+            this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_ID_CONSULTA_ADAPTER);
+            statement.setInt(1,consulta_id);
+            resultSet = statement.executeQuery();
+            FuncionarioAdapter funcionario = null;
+            
+            if(resultSet.next()) {
+            	funcionario = new FuncionarioAdapter();
+            	funcionario.setId(resultSet.getInt("id"));
+            	funcionario.setNome(resultSet.getString("nome"));
+            	funcionario.setEmail(resultSet.getString("email"));
+            	funcionario.setNumero(resultSet.getString("numero_oab"));
+            }else {
+            	throw new DaoException("Não existe funcionario para essa consulta");
+            }
+            this.conexao.close();
+            this.statement.close();
+            this.resultSet.close();
+            return funcionario;	
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO BUSCAR USUARIO - CONTATE O ADM");
+        }
+	}
 
 	@Override
 	public List<Funcionario> buscarPorBusca(String busca) throws DaoException {
@@ -155,31 +182,4 @@ public class DaoUsuario implements IDaoUsuario{
         }
 	}
 
-/*
-
-	@Override
-	public Funcionario buscarPorNome(String nome) throws DaoException {
-		try {
-            this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-            this.statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_NOME);
-            statement.setString(1,nome);
-            resultSet = statement.executeQuery();
-            
-            Funcionario f = null;
-            while(resultSet.next()) {
-            	f = new Funcionario(resultSet.getInt("id"));
-            }
-            this.conexao.close();
-            this.statement.close();
-            this.resultSet.close();
-            return f;	
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new DaoException("PROBLEMA AO SALVAR USUARIO - Contate o ADM");
-        }
-	}
-	*/
-
-	
 }

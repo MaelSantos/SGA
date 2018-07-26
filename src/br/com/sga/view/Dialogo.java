@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
@@ -12,11 +13,11 @@ import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
+import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -145,21 +146,21 @@ public class Dialogo {
 		return null;
 	}
 	
-	public Consulta selecaoConsulta(List<Consulta> consultas) {
+	public ConsultaAdapter selecaoConsulta(List<ConsultaAdapter> consultas) {
 		Dialog<String> dialog = new Dialog<>();
 		dialog.setTitle("Selecione uma Consulta");
 		dialog.setHeaderText("Lista com todos as consultas: \nSeleciona uma consulta ");
 		dialog.setResizable(true);
 		
-		TableView<Consulta> consultaTable = new TableView<>();
-	    TableColumn<Consulta, Date> dataColumn = new TableColumn<>("Data");
-	    TableColumn<Consulta, Area> areaColumn = new TableColumn<>("Area");
-	    TableColumn<Consulta, Float> valorColumn = new TableColumn<>("Valor honorario");
+		TableView<ConsultaAdapter> consultaTable = new TableView<>();
+	    TableColumn<ConsultaAdapter, Date> dataColumn = new TableColumn<>("Data");
+	    TableColumn<ConsultaAdapter, Area> areaColumn = new TableColumn<>("Area");
+	    TableColumn<ConsultaAdapter, Float> valorColumn = new TableColumn<>("Valor honorario");
 	    
 	    consultaTable.getColumns().addAll(dataColumn,areaColumn,valorColumn);
 	    consultaTable.setPrefSize(600,300);	    
 	   
-	    dataColumn.setCellValueFactory(new PropertyValueFactory<>("data_consulta"));
+	    dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
 	    dataColumn.setPrefWidth(200);
 	    
     	valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_honorario"));
@@ -258,10 +259,10 @@ public class Dialogo {
 		return null;
 	}
 
-	public <T> T selecao(List<T> list)
+	public <T> T selecao(List<T> list,String titulo,String descricao)
 	{
 		Dialog<T> dialog = new Dialog<>();
-		dialog.setTitle("Seleção: ");
+		dialog.setTitle(titulo);
 		
 		VBox v = new VBox();
 		v.setPrefSize(500, 300);
@@ -269,7 +270,7 @@ public class Dialogo {
 		ListView<T> view = new ListView<T>();
 		
 		view.getItems().setAll(list);
-		v.getChildren().addAll(new Label("Seleção: "), view);
+		v.getChildren().addAll(new Label(descricao), view);
 		
 		dialog.getDialogPane().setContent(v);
 		

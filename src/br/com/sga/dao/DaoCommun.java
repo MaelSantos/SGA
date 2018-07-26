@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
@@ -217,7 +218,7 @@ public class DaoCommun implements IDaoCommun{
 				parte.setNome(resultSet.getString("nome"));
 				parte.setTipo_parte(TipoParte.getTipoParte(resultSet.getString("tipo_parte")));
 				parte.setTipo_participacao(TipoParticipacao.getValue(resultSet.getString("tipo_participacao")));
-				parte.setSituacao(resultSet.getString("situacao"));
+				//parte.setSituacao(resultSet.getString("situacao"));
 			
 				partes.add(parte);
 				
@@ -314,6 +315,35 @@ public class DaoCommun implements IDaoCommun{
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO SALVAR DESPESA - Contate o ADM");
+		}
+	}
+	
+	public List<Parcela> getParcelas(Integer contrato_id) throws DaoException{
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Parcela.SELECT_ID_CONTRATO);
+			statement.setInt(1, contrato_id);
+			resultSet = statement.executeQuery();
+			
+			List<Parcela> parcelas = new ArrayList<>();
+			while (resultSet.next())
+			{
+				Parcela parcela = new Parcela();
+				parcela.setId(resultSet.getInt("id"));
+				parcela.setValor(resultSet.getFloat("valor"));
+				parcela.setVencimento(resultSet.getDate("vencimento"));
+				parcela.setJuros(resultSet.getFloat("juros"));
+				parcela.setMulta(resultSet.getFloat("multa"));
+				parcela.setTipo(resultSet.getString("tipo"));
+				parcela.setEstado(Andamento.getTipo(resultSet.getString("estado")));
+				parcelas.add(parcela);
+			}
+			
+			this.connection.close();
+			return parcelas;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO BUSCAR ENDERECO - Contate o ADM");
 		}
 	}
 	@Override

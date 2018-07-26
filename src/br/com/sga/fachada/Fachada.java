@@ -21,7 +21,9 @@ import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
+import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.exceptions.BusinessException;
@@ -113,8 +115,8 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public List<Consulta> buscarConsultaPorCliente(String busca) throws BusinessException {
-		return businessConsulta.buscarPorCliente(busca);
+	public List<ConsultaAdapter> buscarConsultaPorClienteAdapter(String busca) throws BusinessException {
+		return businessConsulta.buscaPorClienteAdapter(busca);
 	}
 	
 	public void salvarEditarProcesso(Processo entidade) throws BusinessException {
@@ -165,8 +167,8 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public List<Contrato> buscarContratoPorCliente(String busca) throws BusinessException {
-		return businessContrato.buscarPorCliente(busca);
+	public List<ContratoAdapter> buscarContratoPorClienteAdapter(String busca) throws BusinessException {
+		return businessContrato.buscarPorClienteAdapter(busca);
 	}
 
 	@Override
@@ -222,10 +224,6 @@ public class Fachada implements IFachada {
 		return businessNotificacao.BuscarAllDataPorMes(mes, ano);
 	}
 
-	@Override
-	public ConsultaAdapter buscarConsultaPorIdAdapter(int id) throws BusinessException {
-		return businessConsulta.buscarPorIdAdapter(id); 
-	}
 
 	@Override
 	public List<ClienteAdapter> buscarClienteAdapterPorBusca(String busca) throws BusinessException {
@@ -235,6 +233,11 @@ public class Fachada implements IFachada {
 	@Override
 	public Financeiro buscarFinanceiroPorIntervalo(Date de, Date ate) throws BusinessException {
 		return businessFinanceiro.buscarPorIntervalo(de, ate);
+	}
+
+	@Override
+	public FuncionarioAdapter buscarPorConsultaAdapter(Integer consulta_id) throws BusinessException {
+		return businessUsuario.buscarPorConsultaAdapter(consulta_id);
 	}
 
 }

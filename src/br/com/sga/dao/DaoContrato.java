@@ -67,35 +67,6 @@ public class DaoContrato implements IDaoContrato{
 		}
 	}
 	
-	public static void main(String[] args) {
-		/* testando salvar contrato
-		 * 1- preciso de antemão uma consulta com id(ou seja ela já vai estar cadastrada no banco, no meu a duas consultas cadastradas com id 5 e 6 utulizarei da mesma)
-		 * 2- crio um processo com seus dados e sua partes e parcelas
-		 * 3- inserir novo contrato no banco
-		 */
-		List<Parte> partes = new ArrayList<>();
-		partes.add(new Parte(TipoParte.PASSIVO,TipoParticipacao.EXECUTADO,"Jão Migué"));
-		partes.add(new Parte(TipoParte.ATIVO,TipoParticipacao.EXEQUENTE,"Frederico Evandro"));
-		List<Parcela> parcelas = new ArrayList<>();
-		for(int i =0 ; i < 10; i ++) {
-			Calendar c = Calendar.getInstance();
-			c.set(Calendar.MONTH,i);
-			parcelas.add(new Parcela(100.0f,c.getTime(),0.4f,0.1f,"tipo1",Andamento.PENDENTE));
-		}
-		Consulta consulta = new Consulta();
-		consulta.setId(5); // criando consulta apenas para teste, esse id corresponde a uma consulta que cadastrei antes
-		// adicionado todas as parcelas e partes agora associar ao contrato
-		Financeiro financeiro = new Financeiro();
-		financeiro.setId(4);
-		Contrato c = new Contrato("a",1000f,TipoPagamento.BOLETO,Calendar.getInstance().getTime(),Area.CIVIL,"Banco conta tal ", partes, parcelas,consulta,financeiro);
-		System.out.println(c);
-		try {
-			new DaoContrato().salvar(c);
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public void editar(Contrato entidade) throws DaoException {
 		// TODO Stub de método gerado automaticamente
@@ -106,6 +77,9 @@ public class DaoContrato implements IDaoContrato{
 	public Contrato buscarPorId(int id) throws DaoException {
 		
 		try {
+			List<Parte> partes  = daoCommun.getPartes(id);
+			List<Parcela> parcelas = daoCommun.getParcelas(id);
+			
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
             this.statement = connection.prepareStatement(SQLUtil.Contrato.SELECT_CONTRATO_ID);
             this.statement.setInt(1, id);
@@ -113,14 +87,17 @@ public class DaoContrato implements IDaoContrato{
             resultSet = statement.executeQuery();
            
             Contrato contrato = null;
-            while(resultSet.next()) {
-            	
+            if(resultSet.next()) {
             	contrato = new Contrato();
             	contrato.setId(resultSet.getInt("id"));
-//            	contrato.setNome_cliente(resultSet.getString("nome"));
             	contrato.setData_contrato(resultSet.getDate("data_contrato"));
             	contrato.setValor_total(resultSet.getFloat("valor_total"));
-            	
+            	contrato.setObjeto(resultSet.getString("objeto"));
+            	contrato.setTipo_pagamento(TipoPagamento.getTipoPagamento(resultSet.getString("tipo_pagamento")));
+            	contrato.setArea(Area.getArea(resultSet.getString("area")));
+            	contrato.setDados_banco(resultSet.getString("dados_banco"));
+            	contrato.setPartes(partes);
+            	contrato.setParcelas(parcelas);
             }
             this.connection.close();
             this.statement.close();
@@ -142,23 +119,24 @@ public class DaoContrato implements IDaoContrato{
 	
 	}
 	@Override
-	public List<Contrato> buscaPorCliente(String busca) throws DaoException {
+	public List<ContratoAdapter> buscaPorClienteAdapter(String busca) throws DaoException {
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-            this.statement = connection.prepareStatement(SQLUtil.Contrato.BUSCA_POR_CLIENTE);
+            this.statement = connection.prepareStatement(SQLUtil.Contrato.BUSCA_POR_CLIENTE_ADAPTER);
             statement.setString(1,busca);
             statement.setString(2,busca);
             statement.setString(3,busca);
             statement.setString(4,busca);
             resultSet = statement.executeQuery();
-           
-            List<Contrato> lista = new ArrayList<>();
+            
+            List<ContratoAdapter> lista = new ArrayList<>();
             while(resultSet.next()) {
-            	lista.add(new Contrato(resultSet.getInt("id"),
-            			resultSet.getString("objeto"),resultSet.getFloat("valor_total"),
-            			TipoPagamento.getTipoPagamento(resultSet.getString("tipo_pagamento")),
-            			resultSet.getDate("data_contrato"),Area.getArea(resultSet.getString("area")),
-            			resultSet.getString("dados_banco")));
+            	ContratoAdapter adapter =new ContratoAdapter();
+    			adapter.setId(resultSet.getInt("id"));
+            	adapter.setNome_cliente(resultSet.getString("nome"));
+            	adapter.setData_contrato(resultSet.getDate("data_contrato"));
+            	adapter.setValor_total(resultSet.getFloat("valor_total"));
+	            lista.add(adapter);
             }if(lista.isEmpty()){
             	throw new DaoException("Não existe contratos cadastrados com esse cliente");
             }
@@ -188,7 +166,6 @@ public class DaoContrato implements IDaoContrato{
             	adapter.setNome_cliente(resultSet.getString("nome"));
             	adapter.setData_contrato(resultSet.getDate("data_contrato"));
             	adapter.setValor_total(resultSet.getFloat("valor_total"));
-            	
             	adapters.add(adapter);
             	
             }

@@ -52,6 +52,11 @@ public class Parcela {
 
 
 
+	public Parcela() {
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}

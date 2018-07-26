@@ -7,6 +7,6 @@ import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.exceptions.DaoException;
 
 public interface IDaoContrato extends IDao<Contrato> {
-	public List<Contrato> buscaPorCliente(String busca) throws DaoException;
+	public List<ContratoAdapter> buscaPorClienteAdapter(String busca) throws DaoException;
 	public List<ContratoAdapter> buscarAllAdapter() throws DaoException;
 }

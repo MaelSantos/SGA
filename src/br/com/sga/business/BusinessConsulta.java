@@ -6,6 +6,7 @@ import br.com.sga.dao.DaoConsulta;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
+import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
@@ -31,24 +32,20 @@ public class BusinessConsulta implements IBusinessConsulta{
 		}
 	}
 
-	@Override
-	public Consulta buscarPorId(int id) throws BusinessException {
-		return null;
-	}
 
 	@Override
-	public List<Consulta> buscarPorCliente(String busca) throws BusinessException {
+	public List<ConsultaAdapter> buscaPorClienteAdapter(String busca) throws BusinessException {
 		try {
-			return daoConsulta.buscaPorCliente(busca);
+			return daoConsulta.buscaPorClienteAdapter(busca);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());
 		}
 	}
 	@Override
-	public ConsultaAdapter buscarPorIdAdapter(int id) throws BusinessException {
+	public Consulta buscarPorId(int id) throws BusinessException {
 		try {
-			return daoConsulta.buscarPorIdAdapter(id);
+			return daoConsulta.buscarPorId(id);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());

@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
@@ -18,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleDetalhesConsulta">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleDetalhesContrato">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -44,7 +43,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="dataConsultaField" promptText="Data" GridPane.rowIndex="2">
+                        <TextField fx:id="dataField" promptText="Data" GridPane.rowIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
@@ -54,7 +53,7 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="indicacaoField" prefHeight="23.0" prefWidth="174.0" promptText="Nome de quem indicol" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                        <TextField fx:id="tipoPagaField" prefHeight="23.0" prefWidth="174.0" promptText="Tipo pagamento" GridPane.rowIndex="4">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
@@ -64,12 +63,12 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Indicação" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label text="Tipo pagamento" textFill="WHITE" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Descrição" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Label text="Objeto" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
@@ -79,32 +78,38 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="honorarioField" promptText="Valor definido" GridPane.rowIndex="4">
+                        <TextField fx:id="valorTotalField" promptText="Valor definido" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Label text="Honorario" textFill="WHITE" GridPane.rowIndex="3">
+                        <Label text="Valor total" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="descricaoField" prefHeight="200.0" prefWidth="200.0" promptText="Descrição da consulta" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextArea>
                         <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                        <Label text="Dados da consulta selecionada" textFill="WHITE" GridPane.columnSpan="2">
+                        <Label text="Dados do contrato Selecionado" textFill="WHITE" GridPane.columnSpan="2">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Button fx:id="selectConButton" mnemonicParsing="false" onAction="#actionButton" text="Selecionar Consulta" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
+                        <Button fx:id="selectConButton" mnemonicParsing="false" onAction="#actionButton" prefWidth="160.0" text="Selecione Contrato" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Button>
+                        <TextField fx:id="objetofField" promptText="Objeto" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Label text="Dados banco" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="bancoField" prefHeight="200.0" prefWidth="200.0" promptText="dados informados sobre o banco" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -122,33 +127,70 @@
                         <RowConstraints />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="nomeFuncionarioField" editable="false" promptText="Nome" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <Label text="Parcelas" textFill="WHITE" GridPane.columnSpan="2">
                            <font>
                               <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="valorField" promptText="Calor da parcela" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="numeroOabField" editable="false" promptText="Número OAB" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <Label text="Valor" textFill="WHITE" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label text="juros" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="jurosField" promptText="Juros" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Label text="Nùmero OAB" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Button fx:id="selectParcelaButton" mnemonicParsing="false" onAction="#actionButton" prefWidth="160.0" text="Selecione Parcela" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Button>
+                        <Label text="multa" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Nome" textFill="WHITE" GridPane.rowIndex="1">
+                        <TextField fx:id="multaField" promptText="Multa" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Label text="Tipo da parcela" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Dados do funcionario que fez a consulta" textFill="WHITE" GridPane.columnSpan="2">
+                        <TextField fx:id="andamentoField" promptText="Andamento" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Label text="Andamento" textFill="WHITE" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
+                        <TextField fx:id="tipoParcelaField" promptText="Tipo" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </GridPane>
                   <Separator prefWidth="200.0" />
@@ -163,29 +205,14 @@
                         <RowConstraints />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label text="Responsavel" textFill="WHITE" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                        <Label text="Partes" textFill="WHITE" GridPane.columnSpan="2">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="cepField" promptText="CEP" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Label text="Testemunhas" textFill="WHITE" GridPane.columnSpan="2">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="nomeTestemunhaField" promptText="Nome completo da testemunha" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <TextField fx:id="nomeParteField" promptText="Nome completo da parte" GridPane.columnSpan="2" GridPane.rowIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
@@ -195,101 +222,31 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Telefone" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Label text="Tipo da parte" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
-                           <children>
-                              <TextField fx:id="telPreField" prefWidth="34.0" promptText="Pre">
-                                 <font>
-                                    <Font name="Verdana" size="12.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="telNumField" promptText="Telefone">
-                                 <font>
-                                    <Font name="Verdana" size="12.0" />
-                                 </font>
-                              </TextField>
-                           </children>
-                        </FlowPane>
-                        <Label text="Rua" textFill="WHITE" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="ruaField" prefHeight="23.0" prefWidth="320.0" promptText="Rua" GridPane.rowIndex="5">
+                        <TextField fx:id="tipoParteField" promptText="Tipo da parte" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Label text="Número" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="numField" promptText="Numero" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Label text="CEP" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label text="Bairro" textFill="WHITE" GridPane.rowIndex="6">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="bairroField" prefHeight="23.0" prefWidth="191.0" promptText="Bairro" GridPane.rowIndex="7">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Label text="Cidade" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="cidadeField" prefHeight="23.0" prefWidth="232.0" promptText="Cidade" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="paisField" promptText="País" GridPane.columnIndex="2" GridPane.rowIndex="7">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Label text="País" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="6">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="estadoBox" prefWidth="150.0" promptText="Estado" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                        <Label text="Endereço da testemunha " textFill="WHITE" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label text="Complemento" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="compField" promptText="Complemento" GridPane.columnIndex="3" GridPane.rowIndex="5">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Button fx:id="selectTestmunhaButton" mnemonicParsing="false" onAction="#actionButton" text="Selecione uma testemunha" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT">
+                        <Button fx:id="selectParteButton" mnemonicParsing="false" onAction="#actionButton" prefWidth="160.0" text="Selecione uma parte" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Button>
+                        <Label text="Tipo participação" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tipoParticiField" promptText="Participação" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </GridPane>
                </children>
@@ -298,7 +255,7 @@
          <top>
             <FlowPane hgap="10.0" prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="voltarButton" mnemonicParsing="false" onAction="#actionButton" style="-fx-background-color: #008B8B;">
+                  <Button fx:id="voltarButton" alignment="CENTER" mnemonicParsing="false" onAction="#actionButton" style="-fx-background-color: #008B8B;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -306,7 +263,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Label contentDisplay="CENTER" text="Detalhes de consultas" textFill="WHITE">
+                  <Label contentDisplay="CENTER" text="Detalhes Contrato" textFill="WHITE">
                      <font>
                         <Font name="Verdana" size="18.0" />
                      </font>

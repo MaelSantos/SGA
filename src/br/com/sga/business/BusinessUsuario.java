@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.sga.dao.DaoUsuario;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
@@ -61,6 +62,15 @@ public class BusinessUsuario implements IBusinessUsuario {
 	public Funcionario buscarPorLogin(String login, String senha) throws BusinessException {
 		try {
 			return  daoUsuario.buscarPorLogin(login, senha);
+		} catch (DaoException e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public FuncionarioAdapter buscarPorConsultaAdapter(Integer consulta_id) throws BusinessException {
+		try {
+			return  daoUsuario.buscarPorConsultaAdapter(consulta_id);
 		} catch (DaoException e) {
 			throw new BusinessException(e.getMessage());
 		}

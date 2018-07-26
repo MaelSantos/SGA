@@ -161,7 +161,8 @@ public class ControleCadastroConsulta extends Controle{
     	{
     		try {
 				List<Cliente> clientes = fachada.buscarClientePorBusca(dadoClienteField.getText().trim());
-    			cliente = Dialogo.getInstance().selecaoCliente(clientes);
+    			//cliente = Dialogo.getInstance().selecaoCliente(clientes);
+				cliente = Dialogo.getInstance().selecao(clientes,"Selecione de cliente","Selecione o cliente já cadastrado para consulta");
     			dadoClienteField.setText(cliente.getNome());
 			} catch (BusinessException e) {
 				e.printStackTrace();

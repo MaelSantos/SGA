@@ -20,6 +20,7 @@ public class SQLUtil {
     
     public static class Parcela{
     	public static final String INSERT_ALL = "INSERT INTO PARCELA(valor,tipo,estado,juros,multa,vencimento,contrato_id) VALUES(?,?,?,?,?,?,?)";    
+    	public static final String SELECT_ID_CONTRATO = "SELECT * FROM PARCELA  WHERE  CONTRATO_ID = ? ";    
     }
     
     public static class Parte{
@@ -50,8 +51,8 @@ public class SQLUtil {
     	public static final String INSERT_ALL = "INSERT INTO CONTRATO(objeto,valor_total,tipo_pagamento,data_contrato,area,dados_banco,consulta_id,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
     	public static final String BUSCAR_ATIVOS = "SELECT * FROM CONTRATO WHERE STATUS = TRUE";
     	public static final String SELECT_CONTRATO_ID = "SELECT * FROM CONTRATO WHERE id = ?";
-    	public static final String BUSCA_POR_CLIENTE ="select cont.* from contrato cont, consulta cons, cliente clie "
-    			+ "where clie.id = cons.cliente_id and cons.id = cont.consulta_id and unaccent(clie.nome) = unaccent(?) or unaccent(clie.email) = unaccent(?) "
+    	public static final String BUSCA_POR_CLIENTE_ADAPTER ="select cont.id, clie.nome, cont.data_contrato, cont.valor_total from contrato cont, consulta cons, cliente clie "
+    			+ "where clie.id = cons.cliente_id and cons.id = cont.consulta_id and unaccent(clie.nome) ilike unaccent(?) or unaccent(clie.email) ilike unaccent(?) "
     			+ "or clie.cpf_cnpj = ? or clie.rg = ?";
     	public static final String SELECT_CONTRATO_ADAPTER = "SELECT C.id,D.nome,C.data_contrato,C.valor_total FROM CONTRATO C, CLIENTE D, CONSULTA E WHERE C.CONSULTA_ID = E.ID AND D.ID = E.CLIENTE_ID";
     }
@@ -64,10 +65,10 @@ public class SQLUtil {
     public static class Consulta{
     	public static final String INSERT_ALL = "INSERT INTO CONSULTA(valor_honorario,descricao,area,indicacao,data_consulta,cliente_id,funcionario_id) VALUES(?,?,?,?,?,?,?)";
     	public static final String SELECT_ID_CONSULTA=" SELECT * FROM CONSULTA WHERE ID = ? ";
-    	public static final String SELECT_ID_CONSULTA_FUNCIONARIO_ADAPTETER= "SELECT CON.DESCRICAO,CON.INDICACAO,FUN.NOME,FUN.NUMERO_OAB \r\n" + 
+    	/*public static final String SELECT_ID_CONSULTA_FUNCIONARIO_ADAPTETER= "SELECT CON.DESCRICAO,CON.INDICACAO,FUN.NOME,FUN.NUMERO_OAB \r\n" + 
 														"FROM CONSULTA CON, FUNCIONARIO FUN\r\n" + 
 														"WHERE CON.FUNCIONARIO_ID  =FUN.ID \r\n" + 
-														"AND CON.ID = ?";
+														"AND CON.ID = ?";*/
     	public static final String BUSCA_POR_CLIENTE ="select con.id, con.area, con.data_consulta ,con.valor_honorario from cliente cli,"
     			+ " consulta con where con.cliente_id = cli.id and unaccent(cli.nome) ilike unaccent(?) or unaccent(cli.email) ilike unaccent(?)"
     			 +" or cli.cpf_cnpj ilike ? or cli.rg ilike ?";
@@ -96,6 +97,7 @@ public class SQLUtil {
 	    public static final String SELECT_ALL_BUSCA_ALL = "select * from funcionario where unaccent(nome) ilike unaccent(?) "
 	    		+ "or senha ilike ? or login ilike ? or numero_oab ilike ? "
 	    		+ "or unaccent(email) ilike unaccent(?)";
+	    public static final String SELECT_ID_CONSULTA_ADAPTER = "SELECT F.ID, F.NOME, F.NUMERO_OAB, F.EMAIL FROM FUNCIONARIO F, CONSULTA C WHERE C.FUNCIONARIO_ID = F.ID AND C.ID = ?";
     	/* para depois : pesquisar colunas especificas )
     	 *  select * from funcionario where nome like '%_%' and 	senha like '%_%' and login like 'wan'and numero_oab like '%_%' and email like '%_%'
     	 */
