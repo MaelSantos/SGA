@@ -151,7 +151,7 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 				financeiro.setTotal_lucro(resultSet.getFloat("total_lucro"));
 
 				financeiro.setReceitas(daoCommun.getReceitaPorIntervalo(de, ate));
-				financeiro.setDespesas(daoCommun.getDespesaIntervalo(de, ate));
+				financeiro.setDespesas(daoCommun.getDespesaPorIntervalo(de, ate));
 
 			}
 			this.connection.close();
