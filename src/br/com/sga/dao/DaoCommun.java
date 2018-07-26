@@ -579,7 +579,7 @@ public class DaoCommun implements IDaoCommun{
 	}
 
 	@Override
-	public List<Despesa> getDespesaIntervalo(java.util.Date de, java.util.Date ate) throws DaoException {
+	public List<Despesa> getDespesaPorIntervalo(java.util.Date de, java.util.Date ate) throws DaoException {
 		List<Despesa> despesas = new ArrayList<>();
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);

@@ -41,7 +41,7 @@ public interface IDaoCommun {
     public List<Receita> getReceita(Integer financeiro_id)throws DaoException;
     public List<Despesa> getDespesa(Integer financeiro_id)throws DaoException;
     public List<Receita> getReceitaPorIntervalo(Date de, Date ate)throws DaoException;
-    public List<Despesa> getDespesaIntervalo(Date de, Date ate)throws DaoException;
+    public List<Despesa> getDespesaPorIntervalo(Date de, Date ate)throws DaoException;
     
     //processo
     public void salvarAudiencia(Audiencia audiencia, Integer processo_id) throws DaoException;
