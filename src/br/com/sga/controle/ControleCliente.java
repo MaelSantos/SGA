@@ -142,7 +142,9 @@ public class ControleCliente extends Controle{
 		if(obj == btnBuscar)
 		{
 			try {
-				ClienteAdapter adapter = dialogo.selecao(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()),"Seleção de cliente","Selcione um cliente para mais detalhes");
+//				ClienteAdapter adapter = dialogo.selecao(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()),"Seleção de cliente","Selcione um cliente para mais detalhes");
+				ClienteAdapter adapter = dialogo.selecionar(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()));
+				
 				cliente = fachada.buscarClientePorId(adapter.getId());
 				System.out.println(adapter);
 				System.out.println(adapter.getId());

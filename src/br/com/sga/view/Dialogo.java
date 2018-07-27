@@ -1,8 +1,10 @@
 package br.com.sga.view;
 
+import java.lang.reflect.Field;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 
@@ -13,22 +15,27 @@ import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
+import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import net.sf.jasperreports.engine.util.DeduplicableRegistry;
 
 public class Dialogo {
 	
@@ -76,40 +83,41 @@ public class Dialogo {
 			return cadastroNotificacao;
 		return null;
 	}
-	public Cliente selecaoCliente(List<Cliente> clientes) {
-		Dialog<String> dialog = new Dialog<>();
-		dialog.setTitle("Selecione um cliente");
-		dialog.setHeaderText("Lista com todos os clientes para a busca");
-		dialog.setResizable(true);
-		
-		TableView<Cliente> clienteTable = new TableView<>();
-	    TableColumn<Cliente, String> nomeColumn = new TableColumn<>("Nome");
-	    TableColumn<Cliente, String> cpfCnpjColumn = new TableColumn<>("CPF / CPNJ");
-	    TableColumn<Cliente, String> emailColumn = new TableColumn<>("Email");
-	    
-	    clienteTable.getColumns().addAll(nomeColumn,cpfCnpjColumn,emailColumn);
-	    clienteTable.setPrefSize(600,300);	    
-	   
-	    nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-    	nomeColumn.setPrefWidth(200);
-	    
-    	cpfCnpjColumn.setCellValueFactory(new PropertyValueFactory<>("cpf_cnpj"));
-    	cpfCnpjColumn.setPrefWidth(200);
-	   
-    	emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-    	emailColumn.setPrefWidth(200);
-    	
-    	clienteTable.getItems().addAll(clientes);
-		
-    	dialog.getDialogPane().setContent(clienteTable);
-		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-		
-		Optional<String> result = dialog.showAndWait();
-		if(result.isPresent())
-			return clienteTable.getSelectionModel().getSelectedItem();
-		return null;
-	}
+//	public Cliente selecaoCliente(List<Cliente> clientes) {
+//		Dialog<String> dialog = new Dialog<>();
+//		dialog.setTitle("Selecione um cliente");
+//		dialog.setHeaderText("Lista com todos os clientes para a busca");
+//		dialog.setResizable(true);
+//		
+//		TableView<Cliente> clienteTable = new TableView<>();
+//	    TableColumn<Cliente, String> nomeColumn = new TableColumn<>("Nome");
+//	    TableColumn<Cliente, String> cpfCnpjColumn = new TableColumn<>("CPF / CPNJ");
+//	    TableColumn<Cliente, String> emailColumn = new TableColumn<>("Email");
+//	    
+//	    clienteTable.getColumns().addAll(nomeColumn,cpfCnpjColumn,emailColumn);
+//	    clienteTable.setPrefSize(600,300);	    
+//	   
+//	    nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+//    	nomeColumn.setPrefWidth(200);
+//	    
+//    	cpfCnpjColumn.setCellValueFactory(new PropertyValueFactory<>("cpf_cnpj"));
+//    	cpfCnpjColumn.setPrefWidth(200);
+//	   
+//    	emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+//    	emailColumn.setPrefWidth(200);
+//    	
+//    	clienteTable.getItems().addAll(clientes);
+//		
+//    	dialog.getDialogPane().setContent(clienteTable);
+//		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+//		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+//		
+//		Optional<String> result = dialog.showAndWait();
+//		if(result.isPresent())
+//			return clienteTable.getSelectionModel().getSelectedItem();
+//		return null;
+//	}
+	
 	public Funcionario selecaoFuncionario(List<Funcionario> funcionarios) {
 		Dialog<String> dialog = new Dialog<>();
 		dialog.setTitle("Selecione um cliente");
@@ -264,10 +272,20 @@ public class Dialogo {
 		Dialog<T> dialog = new Dialog<>();
 		dialog.setTitle(titulo);
 		
+		ListView<T> view = new ListView<T>();
+		ListCell<T> cell = new ListCell<T>();
+		
+//		view.setCellFactory(param -> cell);
+		
+		ObservableList<T> nomes = FXCollections
+		        .observableArrayList ();
+		
+		nomes.addAll(list);
+		
+		view.setCellFactory(ComboBoxListCell.forListView(nomes));
+		
 		VBox v = new VBox();
 		v.setPrefSize(500, 300);
-		
-		ListView<T> view = new ListView<T>();
 		
 		view.getItems().setAll(list);
 		v.getChildren().addAll(new Label(descricao), view);
@@ -284,5 +302,34 @@ public class Dialogo {
 		return null;
 	}
 
+	public <T> T selecionar(List<T> list) {
+				
+		Dialog<T> dialog = new Dialog<>();
+		dialog.setTitle("Selecione: ");
+		dialog.setHeaderText("Lista com todos os(a) "+list.get(0).getClass().getSimpleName().replace("Adapter", "").toUpperCase()+" : \nSeleciona um(a) para mais detalhes");
+		dialog.setResizable(true);
+		
+		TableView<T> table = new TableView<>();
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+	    table.setPrefSize(600,300);	    
+   	
+    	for(Field f : list.get(0).getClass().getDeclaredFields())
+    	{
+    		TableColumn<T, ?> column = new TableColumn<>(f.getName().toUpperCase());
+    		column.setCellValueFactory(new PropertyValueFactory<>(f.getName()));
+    		table.getColumns().add(column);
+    	}
+    	
+    	table.getItems().addAll(list);
+	
+    	dialog.getDialogPane().setContent(table);
+		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+		
+		Optional<T> result = dialog.showAndWait();
+		if(result.isPresent())
+			return table.getSelectionModel().getSelectedItem();
+		return null;
+	}
 	
 }

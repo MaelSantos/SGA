@@ -1,7 +1,9 @@
 package br.com.sga.view;
 
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class Alerta extends Alert {
 
@@ -12,6 +14,8 @@ public class Alerta extends Alert {
 		setTitle(titulo);
 		setHeaderText(header);
 		setContentText(content);
+		
+		((Stage) this.getDialogPane().getScene().getWindow()).getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("Icon.png")));
 		
 		initModality(Modality.APPLICATION_MODAL);
 	}
@@ -30,6 +34,7 @@ public class Alerta extends Alert {
 		setHeaderText(header);
 		setContentText(content);
 		this.show();
+		
 	}
 	public void showMensagem(String titulo, String header, String content)
 	{

@@ -12,6 +12,7 @@ import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoDocumento;
 import br.com.sga.exceptions.DaoException;
+import br.com.sga.exceptions.ValidacaoException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.interfaces.IDaoCommun;
@@ -82,7 +83,7 @@ public class ControleDocumentos extends Controle {
 		if(obj == btnGerar)
 		{
 			try {
-				if(list != null && arquivo != null)
+				if(list != null && arquivo != null && !(list.isEmpty()))
 					gerarDocumento(list, arquivo);
 				else
 					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!", "Verifique Se Todos Os Dados Estão Corretos");
@@ -94,26 +95,15 @@ public class ControleDocumentos extends Controle {
 		if(obj == btnBuscar)
 		{
 			try {
-				if(cbxTipo.getValue() == TipoDocumento.DESPESA)
-				{
-					list = daoCommun.getDespesaPorIntervalo(Date.from(tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-							Date.from(tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
-					Alerta.getInstance().showMensagem("Concluido", "Dados Carregados Com Sucesso!!!","");
-				}
-				else if(cbxTipo.getValue() == TipoDocumento.RECEITA)
-				{
-					list = daoCommun.getReceitaPorIntervalo(Date.from(tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-							Date.from(tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-					Alerta.getInstance().showMensagem("Concluido", "Dados Carregados Com Sucesso!!!","");
-				}
+				list = carregarLista(cbxTipo.getValue());
+				if(!list.isEmpty())
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido!","Dados Carregados Com Sucesso!!!", "Pronto Para Gerar Arquivo");
 				else
-					Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Ação Nescessaria!!!", "Escolha Um Tipo De Documento","");
-
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Não Encontrado!","Dados Não Encontrados!!!", "Tente Novamente Procurando Por Outros Dados!!!");
 			} catch (Exception e) {
 				Alerta.getInstance().showMensagem("Erro!","Erro ao Carregar Arquivos!!!", e.getMessage());
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		if(obj == cbxTipo)
@@ -124,6 +114,28 @@ public class ControleDocumentos extends Controle {
 				arquivo = "Receitas.jrxml";
 		}
 
+	}
+
+	public List<? extends Object> carregarLista(TipoDocumento documento) throws ValidacaoException
+	{
+		try {
+			switch (documento) {
+			case DESPESA:
+				return daoCommun.getDespesaPorIntervalo(Date.from(tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+						Date.from(tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			case RECEITA:
+				return daoCommun.getReceitaPorIntervalo(Date.from(tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+						Date.from(tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			default:
+			}			
+		}		
+		catch (NullPointerException e) {
+			throw new ValidacaoException("Dados Incompletos!!! - Informe Todos os Dados Necessarios!!!");
+		}catch (DaoException e) {
+			throw new ValidacaoException(e.getMessage());
+		}
+		
+		throw new ValidacaoException("Dados Não Encontrados!!! - Tente Procurar Informando Outro Dado");					
 	}
 
 	@SuppressWarnings("deprecation")
