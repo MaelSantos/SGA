@@ -115,7 +115,7 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public List<ConsultaAdapter> buscarConsultaPorClienteAdapter(String busca) throws BusinessException {
+	public List<ConsultaAdapter> buscarConsultaPorClienteAdapter(String[] busca) throws BusinessException {
 		return businessConsulta.buscaPorClienteAdapter(busca);
 	}
 	

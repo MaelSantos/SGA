@@ -103,7 +103,7 @@ public class ControleDetalhesConsulta extends Controle{
     private IFachada fachada ;
     
     private Dialogo dialogo;
-
+    private static 	String campoCliente[] = {"NOME","EMAIL","CPF/CNPJ","RG"};
 	@Override
 	public void actionButton(ActionEvent event) {
 		
@@ -116,7 +116,13 @@ public class ControleDetalhesConsulta extends Controle{
 		}
 		else if(selectConButton == event.getSource()) {
 			try {
-				List<ConsultaAdapter> consultas = fachada.buscarConsultaPorClienteAdapter(cliente.getCpf_cnpj());
+				StringBuffer busca = new StringBuffer();
+				for(String e: campoCliente) {
+					busca.append(cliente.getCpf_cnpj());
+				}
+				busca.append("%_%;%_%;");
+				
+				List<ConsultaAdapter> consultas = fachada.buscarConsultaPorClienteAdapter(busca.toString().split(";"));
 				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecaoConsulta(consultas);
 				consulta = new Consulta();
 				consulta.setId(consultaBasica.getId());

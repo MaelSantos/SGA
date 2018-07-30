@@ -12,5 +12,5 @@ import br.com.sga.exceptions.DaoException;
 public interface IBusinessConsulta {
 	public void salvarEditar(Consulta consulta) throws BusinessException;
     public Consulta buscarPorId(int id) throws BusinessException;
-    public List<ConsultaAdapter> buscaPorClienteAdapter(String busca) throws BusinessException;
+    public List<ConsultaAdapter> buscaPorClienteAdapter(String[] busca) throws BusinessException;
 }

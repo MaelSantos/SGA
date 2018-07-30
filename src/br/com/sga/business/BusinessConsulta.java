@@ -34,7 +34,7 @@ public class BusinessConsulta implements IBusinessConsulta{
 
 
 	@Override
-	public List<ConsultaAdapter> buscaPorClienteAdapter(String busca) throws BusinessException {
+	public List<ConsultaAdapter> buscaPorClienteAdapter(String[] busca) throws BusinessException {
 		try {
 			return daoConsulta.buscaPorClienteAdapter(busca);
 		} catch (DaoException e) {

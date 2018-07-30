@@ -99,20 +99,21 @@ public class DaoConsulta implements IDaoConsulta {
 	}
 
 	@Override
-	public List<ConsultaAdapter> buscaPorClienteAdapter(String busca) throws DaoException {
+	public List<ConsultaAdapter> buscaPorClienteAdapter(String[] busca) throws DaoException {
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-            this.statement = connection.prepareStatement(SQLUtil.Consulta.BUSCA_POR_CLIENTE);
-            statement.setString(1,busca);
-            statement.setString(2,busca);
-            statement.setString(3,busca);
-            statement.setString(4,busca);
+            this.statement = connection.prepareStatement(SQLUtil.Consulta.BUSCA_POR_BUSCA);
+            
+            int i = 1;
+            for(String e : busca)
+            	statement.setString(i++,e);
+            	
             resultSet = statement.executeQuery();
            
             List<ConsultaAdapter> lista = new ArrayList<>();
             while(resultSet.next()) {
             	lista.add(new ConsultaAdapter(resultSet.getInt("id"),Area.getArea(resultSet.getString("area")),
-            			resultSet.getDate("data_consulta"),resultSet.getFloat("valor_honorario")));
+            			resultSet.getDate("data_consulta"),resultSet.getFloat("valor_honorario"),(resultSet.getString("nome"))));
             }if(lista.isEmpty()){
             	throw new DaoException("Não existe consultas para esse usuario, com esses dados");
             }

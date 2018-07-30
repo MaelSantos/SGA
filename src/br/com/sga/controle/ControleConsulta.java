@@ -1,13 +1,12 @@
 package br.com.sga.controle;
 
-import java.net.URL;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
@@ -15,6 +14,7 @@ import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,29 +22,35 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControleConsulta  extends Controle{
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
+ @FXML
     private TextField buscarField;
 
     @FXML
     private Button buscarButton;
-    
+
     @FXML
     private Button informacoesButton;
-    
+
     @FXML
-    private Button editarButton;
+    private TextField totalField;
+
+    @FXML
+    private ComboBox<String> clienteBox;
+
+    @FXML
+    private ComboBox<String> tipoPessoaBox;
+
+    @FXML
+    private ComboBox<String> areaBox;
 
     @FXML
     private TableView<ConsultaAdapter> contratosTableView;
 
     @FXML
     private TableColumn<ConsultaAdapter,Date> dataColumn;
+
+    @FXML
+    private TableColumn<ConsultaAdapter,String> nomeColumn;
 
     @FXML
     private TableColumn<ConsultaAdapter,Float> valorColumn;
@@ -57,13 +63,41 @@ public class ControleConsulta  extends Controle{
     
     private IFachada fachada;
     
+    private static 	String campoCliente[] = {"NOME","EMAIL","CPF/CNPJ","RG"};
+    
 
     public void actionButton(ActionEvent event) {
     	if(buscarButton == event.getSource()) 
     	{
     		contratosTableView.getItems().clear();
     		try {
-				contratosTableView.getItems().addAll(fachada.buscarConsultaPorClienteAdapter((buscarField.getText().trim())));
+				StringBuffer busca = new StringBuffer();
+				
+				for(String e: campoCliente) {
+					
+					if(clienteBox.getSelectionModel().getSelectedItem().equals(e)) {
+						if(e.equals("NOME") || e.equals("EMAIL"))
+							busca.append("%"+buscarField.getText().trim()+"%;");
+						else
+							busca.append(buscarField.getText().trim()+";");
+					}else 
+						busca.append(" ;");
+				}
+				if(tipoPessoaBox.getSelectionModel().getSelectedItem() != null 
+						&& !tipoPessoaBox.getSelectionModel().getSelectedItem().equals("TODOS")) {
+					busca.append(tipoPessoaBox.getSelectionModel().getSelectedItem()+";");
+				}else {
+					busca.append("%_%;");
+				}
+				
+				if(areaBox.getSelectionModel().getSelectedItem() != null 
+						&& !areaBox.getSelectionModel().getSelectedItem().equals("TODAS")) {
+					busca.append(areaBox.getSelectionModel().getSelectedItem()+";");
+				}else {
+					busca.append("%_%;");
+				}
+				
+    			contratosTableView.getItems().addAll(fachada.buscarConsultaPorClienteAdapter(busca.toString().split(";")));
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
@@ -91,6 +125,17 @@ public class ControleConsulta  extends Controle{
     	dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
     	valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_honorario"));
     	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
+    	nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome_cliente"));
+    	
+    	clienteBox.getItems().addAll(campoCliente);
+    	
+    	areaBox.getItems().add("TODAS");
+    	for(Area e : Area.values())
+    		areaBox.getItems().add(e.toString());
+    	
+    	tipoPessoaBox.getItems().add("TODOS");
+    	for(TipoCliente e : TipoCliente.values())
+    		tipoPessoaBox.getItems().add(e.toString());    	
 		
 	}
 }

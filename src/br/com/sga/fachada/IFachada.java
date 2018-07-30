@@ -39,7 +39,7 @@ public interface IFachada {
     // consulta
     public void salvarEditarConsulta(Consulta consulta) throws BusinessException;
     public Consulta buscarConsultaPorId(int id) throws BusinessException;
-    public List<ConsultaAdapter> buscarConsultaPorClienteAdapter(String busca) throws BusinessException;
+    public List<ConsultaAdapter> buscarConsultaPorClienteAdapter(String[] busca) throws BusinessException;
     
     //contrato
     public void salvarEditarContrato(Contrato entidade) throws BusinessException;

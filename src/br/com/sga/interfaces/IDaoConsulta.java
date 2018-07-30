@@ -8,6 +8,6 @@ import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.exceptions.DaoException;
 
 public interface IDaoConsulta extends IDao<Consulta> {
-	public List<ConsultaAdapter> buscaPorClienteAdapter(String busca) throws DaoException;
+	public List<ConsultaAdapter> buscaPorClienteAdapter(String[] busca) throws DaoException;
 	public Consulta buscarPorId(int id) throws DaoException ;
 }

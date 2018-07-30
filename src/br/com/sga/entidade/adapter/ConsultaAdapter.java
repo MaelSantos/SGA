@@ -9,11 +9,15 @@ public class ConsultaAdapter {
    	private Area area;
    	private Date data;
    	private Float valor_honorario;
-	public ConsultaAdapter(Integer id, Area area, Date data, Float valor_honorario) {
+   	private String nome_cliente;
+	
+   	public ConsultaAdapter(Integer id, Area area, Date data, Float valor_honorario,String nome_cliente) {
 		super();
 		this.id = id;
 		this.area = area;
+		this.data = data;
 		this.valor_honorario = valor_honorario;
+		this.nome_cliente = nome_cliente;
 	}
 	public Integer getId() {
 		return id;
@@ -39,5 +43,12 @@ public class ConsultaAdapter {
 	public void setValor_honorario(Float valor_honorario) {
 		this.valor_honorario = valor_honorario;
 	}
+	public String getNome_cliente() {
+		return nome_cliente;
+	}
+	public void setNome_cliente(String nome_cliente) {
+		this.nome_cliente = nome_cliente;
+	}
        	
+	
 }

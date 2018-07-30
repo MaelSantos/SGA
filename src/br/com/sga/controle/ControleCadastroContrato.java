@@ -110,6 +110,7 @@ public class ControleCadastroContrato {
     
     Consulta consulta;
     IFachada fachada ;
+    private static 	String campoCliente[] = {"NOME","EMAIL","CPF/CNPJ","RG"};
 
     @FXML
     void actionButton(ActionEvent event) {
@@ -132,7 +133,14 @@ public class ControleCadastroContrato {
     		String dadoBusca = nomeClienteField.getText().trim();
 			if(nomeClienteField.getText().trim().length() >0)
 				try {
-					List<ConsultaAdapter> consultas = Fachada.getInstance().buscarConsultaPorClienteAdapter(dadoBusca);
+					StringBuffer busca = new StringBuffer();
+					
+					for(String e: campoCliente) {
+						busca.append(dadoBusca);
+					}
+					busca.append("%_%;%_%;");
+					
+					List<ConsultaAdapter> consultas = Fachada.getInstance().buscarConsultaPorClienteAdapter(busca.toString().split(";"));
 					ConsultaAdapter consultaBasica = Dialogo.getInstance().selecaoConsulta(consultas);
 					consulta = new Consulta();
 					consulta.setArea(consultaBasica.getArea());
