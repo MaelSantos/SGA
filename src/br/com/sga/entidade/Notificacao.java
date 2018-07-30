@@ -8,6 +8,7 @@ import br.com.sga.entidade.enums.Prioridade;
 import br.com.sga.entidade.enums.TipoNotificacao;
 
 public class Notificacao implements Comparable<Notificacao>{
+	
 	private TipoNotificacao tipoNotificacao;
 	private Andamento estado;
 	private String descricao;

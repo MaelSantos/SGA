@@ -19,7 +19,7 @@ public class App extends Application{
 	static Scene loginScene;
 	static Scene menuScene;
 	
-	static Pane login, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
+	static Pane login, home, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
 	clientes, cadastroCliente, cadastroContrato, processo, cadastrarProcesso, detalhesProcesso,
 	buscarContrato, cadastrarAudiencia, financeiro,cadastroConsulta, cadastroReceitaDespesa, agenda,
 	consulta,detalhesConsulta,detalhesContrato,documentos;
@@ -59,6 +59,8 @@ public class App extends Application{
 	public static Pane changePane(Tela tela)
 	{
 		switch (tela) {
+		case home:
+			return home;
 		case informacoes:
 			return informacoes;
 		case cadastro:
