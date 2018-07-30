@@ -125,8 +125,10 @@ public class Carregar implements Initializable{
 						App.detalhesContrato = carregarArquivo("../view/DetalhesContrato.fxml");
 						updateData();
 						
-						
 						App.documentos = carregarArquivo("../view/Documentos.fxml");
+						updateData();
+						
+						App.home = carregarArquivo("../view/Home.fxml");
 						updateData();
 						
 						App.loginScene = new Scene(App.login);
