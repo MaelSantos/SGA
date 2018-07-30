@@ -1,17 +1,12 @@
 package br.com.sga.controle;
 
-
-import org.controlsfx.control.Notifications;
 import org.controlsfx.control.textfield.TextFields;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -20,7 +15,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 
 public class ControleMenu extends Controle{
 
@@ -67,7 +61,7 @@ public class ControleMenu extends Controle{
     private Button btnHistorico;
 
     @FXML
-    private Button btnAlertas;
+    private Button btnHome;
 
     @FXML
     private AnchorPane pane;
@@ -103,8 +97,8 @@ public class ControleMenu extends Controle{
 			atualizarTela(App.changePane(Tela.estatiticas));
 		else if(e.getSource() == btnHistorico)
 			atualizarTela(App.changePane(Tela.historico));
-		else if(e.getSource() == btnAlertas)
-			atualizarTela(App.changePane(Tela.alertas));
+		else if(e.getSource() == btnHome)
+			atualizarTela(App.changePane(Tela.home));
 		else if(e.getSource() == btnInformacoes)
 			atualizarTela(App.changePane(Tela.informacoes));
 		else if(e.getSource() == btnPerfil)

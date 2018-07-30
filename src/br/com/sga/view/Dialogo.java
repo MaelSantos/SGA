@@ -20,22 +20,28 @@ import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import net.sf.jasperreports.engine.util.DeduplicableRegistry;
 
 public class Dialogo {
 	
@@ -330,6 +336,55 @@ public class Dialogo {
 		if(result.isPresent())
 			return table.getSelectionModel().getSelectedItem();
 		return null;
+	}
+	
+	public <T> Dialog<T> carregar(Service<T> service)
+	{
+		Dialog<T> dialog = new Dialog<>();
+		BorderPane pane = new BorderPane();
+		
+		ProgressIndicator pgiDados = new ProgressIndicator();
+		pane.setCenter(pgiDados);
+		dialog.getDialogPane().setContent(pane);
+		pane.setPrefSize(200, 200);
+		
+		pgiDados.progressProperty().bind(service.progressProperty());
+		pgiDados.setPrefSize(150, 150);
+		
+		dialog.setTitle(service.getTitle());
+		dialog.setContentText(service.getMessage());
+		
+		dialog.setOnShown(e -> {
+			
+		        Task<String> close = new Task<String>() {
+
+		            @Override
+		            protected String call() throws Exception {
+		            	while(service.getProgress() < 10)
+		            	{
+		            		if(!service.isRunning())
+		            			service.restart();
+		            			
+		            		System.out.println(service.getProgress());
+		            		System.out.println("Em Execução");
+		            		
+		            	}
+						return null;
+		            }
+		        };
+		        close.setOnSucceeded(c ->{
+		        	dialog.close();
+		        });
+		        
+		        System.out.println("start");
+		        new Thread(close).start();
+		        
+		});
+		
+		dialog.show();
+		
+		return dialog;
+		
 	}
 	
 }
