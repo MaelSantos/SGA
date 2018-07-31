@@ -55,6 +55,15 @@ public class Notificacao implements Comparable<Notificacao>{
 		this.funcionarios = funcionarios;
 	}
 	
+	public Notificacao(TipoNotificacao tipoNotificacao, Prioridade prioridade, String descricao, Andamento estado, Date aviso_data) {
+		this.tipoNotificacao = tipoNotificacao;
+		this.prioridade = prioridade;
+		this.descricao = descricao;
+		this.estado = estado;
+		this.aviso_data = aviso_data;
+	}
+	
+	
 	public Notificacao() {
 		// TODO Stub de construtor gerado automaticamente
 	}

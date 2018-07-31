@@ -7,6 +7,7 @@ import java.util.List;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.view.Calendario;
+import br.com.sga.view.DateItem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,6 +34,12 @@ public class ControleAgenda extends Controle {
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
+		if (object instanceof Notificacao) {
+			Notificacao notificacao = (Notificacao) object;
+		
+			calendario.AtualizarMes();
+		}
+		
 	}
 
 	@Override

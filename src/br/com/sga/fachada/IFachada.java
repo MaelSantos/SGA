@@ -53,13 +53,7 @@ public interface IFachada {
     public Processo buscarProcessoPorId(int id) throws BusinessException;
     public List<Processo> buscarProcessoPorBusca(String busca) throws BusinessException;
     public List<ProcessoAdapter> buscaAllProcessoAdapter(String tipo) throws BusinessException;
-    
-    //audiencia
-    public void salvarEditarAudiencia(Audiencia entidade) throws BusinessException;
-    public Audiencia buscarAudienciaPorId(int id) throws BusinessException;
-    public List<Audiencia> buscarAudienciaPorBusca(String busca) throws BusinessException;
-    public List<Audiencia> buscarAudienciaPorIdProcesso(int id) throws BusinessException;
-    
+     
     //financeiro
     public void salvarEditarFinanceiro(Financeiro entidade) throws BusinessException;
     public Financeiro buscarFinanceiroPorAno(Integer ano) throws BusinessException;

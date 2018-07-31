@@ -83,23 +83,15 @@ public class DateItem extends AnchorPane {
 	public boolean compare()
 	{
 		for(java.util.Date d : dates)
-		{
 			if(d.toString().equals(date.toString()))
-			{
-				System.out.println(date.toString()+" == "+ date.toString());
 				return true;
-			}
-			
-		}
 		return false;
 	}
 	
 	public static void updateDates(YearMonth correnteMesAno)
 	{
-		System.out.println("Mes: "+correnteMesAno.getMonthValue()+" - Ano:"+ correnteMesAno.getYear());
 		try {
 			dates = Fachada.getInstance().BuscarAllDataPorMes(correnteMesAno.getMonthValue(), correnteMesAno.getYear());
-			System.out.println(dates);
 		} catch (BusinessException e) {
 			// TODO Bloco catch gerado automaticamente
 			e.printStackTrace();

@@ -6,14 +6,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import br.com.sga.app.App;
+import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Audiencia;
+import br.com.sga.entidade.Despesa;
+import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
+import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.Estado;
+import br.com.sga.entidade.enums.Prioridade;
 import br.com.sga.entidade.enums.StatusAudiencia;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoAudiencia;
+import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.BusinessException;
+import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
+import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,8 +59,10 @@ public class ControleCadastroAudiencia extends Controle {
     private Button btnVoltar;
 	
 	private IFachada fachada;
+	private IDaoCommun daoCommun;
 	private Audiencia audiencia;
-
+	private Notificacao notificacao;
+		
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		
@@ -70,6 +81,7 @@ public class ControleCadastroAudiencia extends Controle {
 	public void init() {
 		
 		fachada = Fachada.getInstance();
+		daoCommun = DaoCommun.getInstance();
 		
 		cbxStatus.getItems().addAll(StatusAudiencia.values());
 		cbxTipo.getItems().addAll(TipoAudiencia.values());
@@ -83,14 +95,22 @@ public class ControleCadastroAudiencia extends Controle {
 		
 		if(obj == btnCadastrar)
 		{
-			
 			try {
 				Audiencia audiencia = criarAudiencia();
-				fachada.salvarEditarAudiencia(audiencia);
+				daoCommun.salvarAudiencia(audiencia, audiencia.getProcesso().getId());
 				Alerta.getInstance().showMensagem("Salvo", "", "Audiencia Cadastrada Com Sucesso");
-				App.notificarOuvintes(Tela.cadastro_audiencia,audiencia);
+				App.notificarOuvintes(Tela.cadastro_audiencia, audiencia);
+				
+				notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
+						audiencia.getProcesso().getDescricao(), Andamento.PENDENTE, audiencia.getData_audiencia());
+				
+				fachada.salvarEditarNotificacao(notificacao);
+				
+				App.notificarOuvintes(Tela.cadastro_audiencia, notificacao);
+				
 				limparCampos();
-			} catch (BusinessException | ParseException e) {
+				
+			} catch (ParseException | DaoException | BusinessException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Audiencia", e.getMessage());
 			}

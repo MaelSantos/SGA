@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.StatusAudiencia;
 import br.com.sga.entidade.enums.Tabela;
+import br.com.sga.entidade.enums.TipoAudiencia;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
@@ -613,6 +615,42 @@ public class DaoCommun implements IDaoCommun{
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO BUSCAR DESPESAS POR INTERVALO - Contate o ADM");
 		}	
+
+	}
+
+	@Override
+	public List<Audiencia> buscarAudienciaPorIdProcesso(int processo_id) throws DaoException {
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Audiencia.SELECT_PROCESSO_ID);
+			this.statement.setInt(1, processo_id);
+
+			resultSet = this.statement.executeQuery();
+
+			List<Audiencia> audiencias = new ArrayList<>();
+			Audiencia audiencia;
+			
+			while(resultSet.next()) {
+
+				audiencia = new Audiencia();
+				
+//				data_audiencia,tipo,vara,orgao,status,processo_id
+				audiencia.setId(resultSet.getInt("id"));
+				audiencia.setData_audiencia(resultSet.getDate("data_audiencia"));
+				audiencia.setOrgao(resultSet.getString("orgao"));
+				audiencia.setStatus(StatusAudiencia.getValor(resultSet.getString("status")));
+				audiencia.setTipo(TipoAudiencia.getValor(resultSet.getString("tipo")));
+				audiencia.setVara(resultSet.getString("vara"));
+				
+				audiencias.add(audiencia);
+			}
+
+			this.connection.close();
+			return audiencias;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("PROBLEMA AO BUSCAR AUDIENCIA - CONTATE O ADM");
+		}
 
 	}
 	

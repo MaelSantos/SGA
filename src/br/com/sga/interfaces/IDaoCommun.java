@@ -47,7 +47,6 @@ public interface IDaoCommun {
     public void salvarAudiencia(Audiencia audiencia, Integer processo_id) throws DaoException;
     public void salvarTestemunha(Testemunha entidade,Integer consulta_id) throws DaoException;
 	public List<Testemunha> getTestemunhas(int consulta_id) throws DaoException;
-    
-    
+	public List<Audiencia> buscarAudienciaPorIdProcesso(int processo_id) throws DaoException;
     
 }

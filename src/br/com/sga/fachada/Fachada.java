@@ -3,7 +3,6 @@ package br.com.sga.fachada;
 import java.util.Date;
 import java.util.List;
 
-import br.com.sga.business.BusinessAudiencia;
 import br.com.sga.business.BusinessCliente;
 import br.com.sga.business.BusinessConsulta;
 import br.com.sga.business.BusinessContrato;
@@ -21,13 +20,11 @@ import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
-import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.exceptions.BusinessException;
-import br.com.sga.interfaces.IBusinessAudiencia;
 import br.com.sga.interfaces.IBusinessConsulta;
 import br.com.sga.interfaces.IBusinessContrato;
 import br.com.sga.interfaces.IBusinessFinanceiro;
@@ -45,7 +42,6 @@ public class Fachada implements IFachada {
     private IBusinessContrato businessContrato;
     private IBusinessFinanceiro businessFinanceiro;
     private IBusinessNotificacao businessNotificacao;
-    private IBusinessAudiencia businessAudiencia;
 
     private static Fachada fachada;
 
@@ -64,7 +60,6 @@ public class Fachada implements IFachada {
         businessContrato = new BusinessContrato();
         businessFinanceiro = new BusinessFinanceiro();
         businessNotificacao =  new BusinessNotificacao();
-        businessAudiencia = new BusinessAudiencia();
     }
 
 	@Override
@@ -187,26 +182,6 @@ public class Fachada implements IFachada {
 	}
 	public List<ProcessoAdapter> buscaAllProcessoAdapter(String tipo) throws BusinessException {
 		return businessProcesso.buscarAllAdapter(tipo);
-	}
-
-	@Override
-	public void salvarEditarAudiencia(Audiencia entidade) throws BusinessException {
-		businessAudiencia.salvar(entidade);
-	}
-
-	@Override
-	public Audiencia buscarAudienciaPorId(int id) throws BusinessException {
-		return businessAudiencia.buscarPorId(id);
-	}
-
-	@Override
-	public List<Audiencia> buscarAudienciaPorBusca(String busca) throws BusinessException {
-		return businessAudiencia.buscarPorBusca(busca);
-	}
-
-	@Override
-	public List<Audiencia> buscarAudienciaPorIdProcesso(int id) throws BusinessException {
-		return businessAudiencia.buscarPorIdProcesso(id);
 	}
 
 	@Override

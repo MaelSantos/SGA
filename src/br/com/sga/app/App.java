@@ -49,7 +49,7 @@ public class App extends Application{
 			break;
 		case menu:
 			stage.setScene(menuScene);
-			stage.centerOnScreen();
+			stage.centerOnScreen(); 
 			break;
 		default:
 			break;

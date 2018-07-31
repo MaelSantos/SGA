@@ -3,6 +3,7 @@ package br.com.sga.controle;
 import java.util.Date;
 
 import br.com.sga.app.App;
+import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
@@ -10,8 +11,10 @@ import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.exceptions.BusinessException;
+import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
+import br.com.sga.interfaces.IDaoCommun;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -85,6 +88,7 @@ public class ControleDetalhesProcesso extends Controle {
     @FXML
     private Button btnAdd;
 	
+    private IDaoCommun daoCommun;
     private IFachada fachada;
     private Processo processo;
 	
@@ -106,8 +110,9 @@ public class ControleDetalhesProcesso extends Controle {
 				tfdUsuario.setText(processo.getContrato().getConsulta().getCliente().getNome());
 				tfdValor.setText(processo.getContrato().getValor_total()+"");
 				
-				processo.setAudiencias(fachada.buscarAudienciaPorIdProcesso(processo.getId()));
-				tblAudiencias.getItems().setAll(processo.getAudiencias());
+				processo.setAudiencias(daoCommun.buscarAudienciaPorIdProcesso(processo.getId()));
+				if(processo.getAudiencias() != null)
+					tblAudiencias.getItems().setAll(processo.getAudiencias());
 				
 				tblAtivo.getItems().clear();
 				tblPassivo.getItems().clear();
@@ -121,7 +126,8 @@ public class ControleDetalhesProcesso extends Controle {
 				
 				this.processo = processo;
 				
-			} catch (BusinessException e) {
+			} catch (DaoException | BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
 			
@@ -153,6 +159,7 @@ public class ControleDetalhesProcesso extends Controle {
 	@Override
 	public void init() {
 		fachada = Fachada.getInstance();
+		daoCommun = DaoCommun.getInstance();
 		
 		colData.setCellValueFactory(
                 new PropertyValueFactory<>("data_audiencia"));
@@ -179,4 +186,7 @@ public class ControleDetalhesProcesso extends Controle {
                 new PropertyValueFactory<>("tipo_participacao"));
 	}
 
+	
+	
+	
 }

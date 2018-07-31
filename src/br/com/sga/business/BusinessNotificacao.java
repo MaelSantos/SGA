@@ -7,6 +7,9 @@ import br.com.sga.dao.DaoNotificacao;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
+import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.Prioridade;
+import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
@@ -43,9 +46,16 @@ public class BusinessNotificacao implements IBusinessNotificacao{
 	
 	private void validarNotificacao(Notificacao notificacao) throws ValidacaoException{
 		
-		if(notificacao.getDescricao().trim().length() <1) {
-			new ValidacaoException("DESCRIÇÃO INVALIDA");
-		}
+		if(notificacao.getDescricao().trim().length() < 1)
+			throw new ValidacaoException("DESCRIÇÃO FALTANDO OU INVALIDA!!!");
+		if(notificacao.getTipoNotificacao() == null)
+			throw new ValidacaoException("INFORME UM TIPO DE NOTIFICAÇÃO!!!");
+		if(notificacao.getEstado() == null)
+			throw new ValidacaoException("INFORME UM ESTADO INICIAL!!!");
+		if(notificacao.getPrioridade() == null)
+			throw new ValidacaoException("INFORME A PRIORIDADE!!!");
+		if(notificacao.getAviso_data() == null)
+			throw new ValidacaoException("INFORME UMA DATA!!!");
 	}
 
 	@Override

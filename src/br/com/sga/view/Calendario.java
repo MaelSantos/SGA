@@ -24,7 +24,7 @@ public class Calendario {
 	
 	public Calendario(YearMonth MesAno) {
 		
-		correnteMesAno = MesAno;
+		setCorrenteMesAno(MesAno);
 		// Create the calendar grid pane
 		GridPane calendario = new GridPane();
 		calendario.setPrefSize(600, 400);
@@ -99,18 +99,23 @@ public class Calendario {
 	 * Move the month back by one. Repopulate the calendar with the correct dates.
 	 */
 	public void AnteriorMes() {
-		correnteMesAno = correnteMesAno.minusMonths(1);
-		DateItem.updateDates(correnteMesAno);
-		populateCalendar(correnteMesAno);
+		setCorrenteMesAno(getCorrenteMesAno().minusMonths(1));
+		DateItem.updateDates(getCorrenteMesAno());
+		populateCalendar(getCorrenteMesAno());
 	}
 
+	public void AtualizarMes() {
+		DateItem.updateDates(getCorrenteMesAno());
+		populateCalendar(getCorrenteMesAno());
+	}
+	
 	/**
 	 * Move the month forward by one. Repopulate the calendar with the correct dates.
 	 */
 	public void ProximoMes() {
-		correnteMesAno = correnteMesAno.plusMonths(1);
-		DateItem.updateDates(correnteMesAno);
-		populateCalendar(correnteMesAno);
+		setCorrenteMesAno(getCorrenteMesAno().plusMonths(1));
+		DateItem.updateDates(getCorrenteMesAno());
+		populateCalendar(getCorrenteMesAno());
 	}
 
 	public VBox getView() {
@@ -127,6 +132,14 @@ public class Calendario {
 
 	public Text getCalendarioTitulo() {
 		return calendarioTitulo;
+	}
+
+	public YearMonth getCorrenteMesAno() {
+		return correnteMesAno;
+	}
+
+	public void setCorrenteMesAno(YearMonth correnteMesAno) {
+		this.correnteMesAno = correnteMesAno;
 	}
 	
 }
