@@ -29,13 +29,11 @@ public class ControleAgenda extends Controle {
     private Label lblAno;
     
     private Calendario calendario;
-	List<Notificacao> notificacoes;
     
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
 		if (object instanceof Notificacao) {
-			Notificacao notificacao = (Notificacao) object;
 		
 			calendario.AtualizarMes();
 		}
@@ -45,7 +43,6 @@ public class ControleAgenda extends Controle {
 	@Override
 	public void init() {
 		
-		notificacoes = new ArrayList<>();
 		calendario = new Calendario(YearMonth.now());
 		calendarioPane.setCenter(calendario.getView());
 		lblAno.setText(calendario.getCalendarioTitulo().getText());

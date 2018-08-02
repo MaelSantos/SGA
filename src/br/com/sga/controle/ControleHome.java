@@ -1,6 +1,11 @@
 package br.com.sga.controle;
 
+import java.util.Date;
+
+import br.com.sga.entidade.adapter.NotificacaoAdapter;
+import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoNotificacao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -9,51 +14,52 @@ import javafx.scene.control.TableView;
 public class ControleHome extends Controle {
 
 	@FXML
-    private TableView<?> tblSemana;
+    private TableView<NotificacaoAdapter> tblSemana;
 
     @FXML
-    private TableColumn<?, ?> colDescricao1;
+    private TableColumn<NotificacaoAdapter, String> colDescricao1;
 
     @FXML
-    private TableColumn<?, ?> colTipo1;
+    private TableColumn<NotificacaoAdapter, TipoNotificacao> colTipo1;
 
     @FXML
-    private TableColumn<?, ?> colEstado1;
+    private TableColumn<NotificacaoAdapter, Andamento> colEstado1;
 
     @FXML
-    private TableColumn<?, ?> colData1;
+    private TableColumn<NotificacaoAdapter, Date> colData1;
 
     @FXML
-    private TableView<?> tblAtrasados;
+    private TableView<NotificacaoAdapter> tblAtrasados;
 
     @FXML
-    private TableColumn<?, ?> colDescricao2;
+    private TableColumn<NotificacaoAdapter, String> colDescricao2;
 
     @FXML
-    private TableColumn<?, ?> colTipo2;
+    private TableColumn<NotificacaoAdapter, TipoNotificacao> colTipo2;
 
     @FXML
-    private TableColumn<?, ?> colEstado2;
+    private TableColumn<NotificacaoAdapter, Andamento> colEstado2;
 
     @FXML
-    private TableColumn<?, ?> colData2;
+    private TableColumn<NotificacaoAdapter, Date> colData2;
 	
 	
 	@Override
 	public void atualizar(Tela tela, Object object) {
-		// TODO Stub de método gerado automaticamente
+		
 
 	}
 
 	@Override
 	public void init() {
-		// TODO Stub de método gerado automaticamente
+		
+		
 
 	}
 
 	@Override
 	public void actionButton(ActionEvent event) {
-		// TODO Stub de método gerado automaticamente
+		
 
 	}
 

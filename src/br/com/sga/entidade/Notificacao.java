@@ -9,12 +9,12 @@ import br.com.sga.entidade.enums.TipoNotificacao;
 
 public class Notificacao implements Comparable<Notificacao>{
 	
+	private Integer id;
 	private TipoNotificacao tipoNotificacao;
 	private Andamento estado;
 	private String descricao;
 	private Prioridade prioridade;
 	private Date aviso_data;
-	private Integer id;
 	private List<Funcionario> funcionarios;
 	
 	/**
