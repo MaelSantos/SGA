@@ -7,9 +7,6 @@ import br.com.sga.dao.DaoNotificacao;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
-import br.com.sga.entidade.enums.Andamento;
-import br.com.sga.entidade.enums.Prioridade;
-import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
@@ -78,9 +75,9 @@ public class BusinessNotificacao implements IBusinessNotificacao{
 	}
 
 	@Override
-	public List<NotificacaoAdapter> BuscarAdapterPorData(Date data) throws BusinessException {
+	public List<NotificacaoAdapter> BuscarAdapterPorData(Date inicio, Date fim) throws BusinessException {
 		try {
-			return daoNotificacao.BuscarAdapterPorData(data);
+			return daoNotificacao.BuscarAdapterPorData(inicio, fim);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());
@@ -91,6 +88,16 @@ public class BusinessNotificacao implements IBusinessNotificacao{
 	public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException {
 		try {
 			return daoNotificacao.BuscarAllDataPorMes(mes, ano);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<NotificacaoAdapter> BuscarAdapterPorEstado(String estado) throws BusinessException {
+		try {
+			return daoNotificacao.BuscarAdapterPorEstado(estado);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());

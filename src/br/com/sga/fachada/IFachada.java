@@ -64,5 +64,6 @@ public interface IFachada {
     public List<Notificacao> buscarNotificacaoPorFuncionario(Funcionario funcionario) throws BusinessException;
     public List<Notificacao> buscarNotificacaoPorData(Date data) throws BusinessException;
     public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException;
-    public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorData(Date data) throws BusinessException;
+    public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorData(Date inicio, Date fim) throws BusinessException;
+    public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorEstado(String estado) throws BusinessException;
 }

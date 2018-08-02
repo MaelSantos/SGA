@@ -10,7 +10,6 @@ import br.com.sga.business.BusinessFinanceiro;
 import br.com.sga.business.BusinessNotificacao;
 import br.com.sga.business.BusinessProcesso;
 import br.com.sga.business.BusinessUsuario;
-import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
@@ -190,8 +189,8 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorData(Date data) throws BusinessException {
-		return businessNotificacao.BuscarAdapterPorData(data);
+	public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorData(Date inicio, Date fim) throws BusinessException {
+		return businessNotificacao.BuscarAdapterPorData(inicio, fim);
 	}
 
 	@Override
@@ -213,6 +212,11 @@ public class Fachada implements IFachada {
 	@Override
 	public FuncionarioAdapter buscarPorConsultaAdapter(Integer consulta_id) throws BusinessException {
 		return businessUsuario.buscarPorConsultaAdapter(consulta_id);
+	}
+
+	@Override
+	public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorEstado(String estado) throws BusinessException {
+		return businessNotificacao.BuscarAdapterPorEstado(estado);
 	}
 
 }

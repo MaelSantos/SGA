@@ -1,8 +1,6 @@
 package br.com.sga.business;
 
 import java.util.InputMismatchException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Validar {
 

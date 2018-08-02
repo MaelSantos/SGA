@@ -1,13 +1,10 @@
 package br.com.sga.controle;
 
 import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.view.Calendario;
-import br.com.sga.view.DateItem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

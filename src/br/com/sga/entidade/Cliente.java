@@ -18,7 +18,7 @@ public class Cliente {
 	private String email; //email VARCHAR(255) UNIQUE,
 	private String estado_civil; //	estado_civil  VARCHAR(255),
 	private String profissao; //profissao  VARCHAR(255),
-	private boolean filhos; //filhos  Boolean,
+	private Boolean filhos; //filhos  Boolean,
 	private String responsavel; //responsavel VARCHAR(255)
 	private TipoCliente tipoCliente; //tipo VARCHAR(255),
 	
@@ -147,8 +147,15 @@ public class Cliente {
 		this.profissao = profissao;
 	}
 	
-	public boolean isFilhos() {
+	public Boolean isFilhos() {
 		return filhos;
+	}
+	
+	public String getFilhos()
+	{
+		if(isFilhos())
+			return "SIM";
+		return "NÃO";
 	}
 	
 	public void setFilhos(boolean filhos) {

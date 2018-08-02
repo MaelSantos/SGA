@@ -11,5 +11,6 @@ public interface IDaoNotificacao extends IDao<Notificacao> {
 	public List<Notificacao> buscarPorFuncionario(String busca) throws DaoException;
 	public List<Notificacao> buscarPorData(Date data) throws DaoException;
 	public List<Date> BuscarAllDataPorMes(int mes, int ano) throws DaoException;
-	public List<NotificacaoAdapter> BuscarAdapterPorData(Date data) throws DaoException;
+	public List<NotificacaoAdapter> BuscarAdapterPorData(Date inicio, Date fim) throws DaoException;
+	public List<NotificacaoAdapter> BuscarAdapterPorEstado(String estado) throws DaoException;
 }
