@@ -110,7 +110,6 @@ public class ControleCadastroContrato {
     
     Consulta consulta;
     IFachada fachada ;
-    private static 	String campoCliente[] = {"NOME","EMAIL","CPF/CNPJ","RG"};
 
     @FXML
     void actionButton(ActionEvent event) {
@@ -130,30 +129,21 @@ public class ControleCadastroContrato {
     	}
     	else if(event.getSource() == buscarConsultaButton) 
     	{
-    		String dadoBusca = nomeClienteField.getText().trim();
-			if(nomeClienteField.getText().trim().length() >0)
-				try {
-					StringBuffer busca = new StringBuffer();
-					
-					for(String e: campoCliente) {
-						busca.append(dadoBusca);
-					}
-					busca.append("%_%;%_%;");
-					
-					List<ConsultaAdapter> consultas = Fachada.getInstance().buscarConsultaPorClienteAdapter(busca.toString().split(";"));
-					ConsultaAdapter consultaBasica = Dialogo.getInstance().selecaoConsulta(consultas);
-					consulta = new Consulta();
-					consulta.setArea(consultaBasica.getArea());
-					consulta.setData_consulta(consultaBasica.getData());
-					consulta.setValor_honorario(consultaBasica.getValor_honorario());
-					dadosConsultaLabel.setText(consultaBasica.toString());
-				} catch (BusinessException e) {
-					e.printStackTrace();
-					Alerta.getInstance().showMensagem("Erro","",e.getMessage());
-				}
-			else {
-				Alerta.getInstance().showMensagem("Alerta","","Campo para buscar está vazio");
+    		
+			try {
+				String busca[] = {nomeClienteField.getText().trim()};
+				List<ConsultaAdapter> consultas = Fachada.getInstance().buscarConsultaPorClienteAdapter(busca);
+				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecaoConsulta(consultas);
+				consulta = new Consulta();
+				consulta.setArea(consultaBasica.getArea());
+				consulta.setData_consulta(consultaBasica.getData());
+				consulta.setValor_honorario(consultaBasica.getValor_honorario());
+				dadosConsultaLabel.setText(consultaBasica.toString());
+			} catch (BusinessException e) {
+				e.printStackTrace();
+				Alerta.getInstance().showMensagem("Erro","",e.getMessage());
 			}
+			
     	}
     	else if(addParteButton == event.getSource())
     		if(nomeParteField.getText().trim().length() >1 && tipoParteBox.getSelectionModel().getSelectedItem() != null

@@ -34,7 +34,6 @@ public class App extends Application{
 		Scene scene = new Scene(parent);
 		stage.setScene(scene);
 		stage.show();
-		stage.centerOnScreen();
 		stage.setTitle("SGA - Sistema De Gerenciamento Advocativo");
 		stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(("Icon.png"))));
 	}
@@ -49,6 +48,7 @@ public class App extends Application{
 			break;
 		case menu:
 			stage.setScene(menuScene);
+			stage.setMaximized(true);
 			stage.centerOnScreen(); 
 			break;
 		default:

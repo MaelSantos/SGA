@@ -168,16 +168,21 @@ public class Dialogo {
 		
 		TableView<ConsultaAdapter> consultaTable = new TableView<>();
 	    TableColumn<ConsultaAdapter, Date> dataColumn = new TableColumn<>("Data");
+	    TableColumn<ConsultaAdapter, String> nomeColumn = new TableColumn<>("Nome Cliente");
 	    TableColumn<ConsultaAdapter, Area> areaColumn = new TableColumn<>("Area");
 	    TableColumn<ConsultaAdapter, Float> valorColumn = new TableColumn<>("Valor honorario");
 	    
-	    consultaTable.getColumns().addAll(dataColumn,areaColumn,valorColumn);
-	    consultaTable.setPrefSize(600,300);	    
+	    consultaTable.getColumns().addAll(dataColumn,nomeColumn,areaColumn,valorColumn);
+	    consultaTable.setPrefSize(800
+	    		,300);	    
 	   
 	    dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
-	    dataColumn.setPrefWidth(200);
+	    dataColumn.setPrefWidth(120);
 	    
-    	valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_honorario"));
+	    nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome_cliente"));
+	    nomeColumn.setPrefWidth(280);
+	    
+	    valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_honorario"));
     	valorColumn.setPrefWidth(200);
 	   
     	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));

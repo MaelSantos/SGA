@@ -21,8 +21,8 @@
          <children>
             <AnchorPane>
                <children>
-                  <TextField fx:id="buscarField" layoutX="13.0" layoutY="56.0" prefHeight="30.0" prefWidth="209.0" />
-                  <Button fx:id="buscarButton" layoutX="230.0" layoutY="54.0" onAction="#actionButton" style="-fx-background-color: #008B8B;">
+                  <TextField fx:id="buscarField" layoutX="13.0" layoutY="56.0" prefHeight="30.0" prefWidth="312.0" />
+                  <Button fx:id="buscarButton" layoutX="335.0" layoutY="53.0" onAction="#actionButton" style="-fx-background-color: #008B8B;">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
@@ -31,7 +31,6 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <ComboBox fx:id="clienteBox" layoutX="287.0" layoutY="59.0" prefHeight="25.0" prefWidth="97.0" promptText="Cliente" />
                   <ComboBox fx:id="tipoPessoaBox" layoutX="400.0" layoutY="59.0" prefHeight="25.0" prefWidth="120.0" promptText="Tipo pessoa" />
                   <ComboBox fx:id="areaBox" layoutX="532.0" layoutY="60.0" prefHeight="25.0" prefWidth="120.0" promptText="Area consulta" />
                   <Label layoutX="13.0" layoutY="14.0" text="Consultas" textFill="WHITE">

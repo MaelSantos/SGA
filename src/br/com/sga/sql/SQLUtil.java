@@ -73,8 +73,8 @@ public class SQLUtil {
     			+ " consulta con where con.cliente_id = cli.id and unaccent(cli.nome) ilike unaccent(?) or unaccent(cli.email) ilike unaccent(?)"
     			 +" or cli.cpf_cnpj ilike ? or cli.rg ilike ?";
     	public static final String BUSCA_POR_BUSCA = "select con.id, cli.nome ,con.area, con.data_consulta ,con.valor_honorario from cliente cli,\r\n" + 
-    	"    			consulta con where con.cliente_id = cli.id and unaccent(cli.nome) ilike unaccent(?) or unaccent(cli.email) ilike unaccent(?)\r\n" + 
-    	"    			 or cli.cpf_cnpj ilike ? or cli.rg ilike ? and cli.tipo = ? and con.area = ?";
+    	"    			consulta con where con.cliente_id = cli.id and ((unaccent(cli.nome) ilike unaccent(?) or unaccent(cli.email) ilike unaccent(?)\r\n" + 
+    	"    			 or cli.cpf_cnpj ilike ? or cli.rg ilike ?) and cli.tipo like ? and con.area like ?)";
     }
     
     public static class Notificacao{

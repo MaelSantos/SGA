@@ -34,8 +34,6 @@ public class ControleConsulta  extends Controle{
     @FXML
     private TextField totalField;
 
-    @FXML
-    private ComboBox<String> clienteBox;
 
     @FXML
     private ComboBox<String> tipoPessoaBox;
@@ -63,41 +61,29 @@ public class ControleConsulta  extends Controle{
     
     private IFachada fachada;
     
-    private static 	String campoCliente[] = {"NOME","EMAIL","CPF/CNPJ","RG"};
-    
-
     public void actionButton(ActionEvent event) {
     	if(buscarButton == event.getSource()) 
     	{
     		contratosTableView.getItems().clear();
     		try {
-				StringBuffer busca = new StringBuffer();
+				String[] busca = new String[3];
 				
-				for(String e: campoCliente) {
-					
-					if(clienteBox.getSelectionModel().getSelectedItem().equals(e)) {
-						if(e.equals("NOME") || e.equals("EMAIL"))
-							busca.append("%"+buscarField.getText().trim()+"%;");
-						else
-							busca.append(buscarField.getText().trim()+";");
-					}else 
-						busca.append(" ;");
-				}
+				busca[0] = buscarField.getText().trim();
+				
 				if(tipoPessoaBox.getSelectionModel().getSelectedItem() != null 
-						&& !tipoPessoaBox.getSelectionModel().getSelectedItem().equals("TODOS")) {
-					busca.append(tipoPessoaBox.getSelectionModel().getSelectedItem()+";");
-				}else {
-					busca.append("%_%;");
-				}
-				
+						&& !tipoPessoaBox.getSelectionModel().getSelectedItem().equals("TODOS"))
+					busca[1] = tipoPessoaBox.getSelectionModel().getSelectedItem();
+				else
+					busca[1] = "";
+		
 				if(areaBox.getSelectionModel().getSelectedItem() != null 
-						&& !areaBox.getSelectionModel().getSelectedItem().equals("TODAS")) {
-					busca.append(areaBox.getSelectionModel().getSelectedItem()+";");
-				}else {
-					busca.append("%_%;");
-				}
-				
-    			contratosTableView.getItems().addAll(fachada.buscarConsultaPorClienteAdapter(busca.toString().split(";")));
+						&& !areaBox.getSelectionModel().getSelectedItem().equals("TODAS")) 
+					busca[2] = areaBox.getSelectionModel().getSelectedItem();
+				else
+					busca[2] = "";
+				for(String s: busca)
+					System.out.println(s);
+    			contratosTableView.getItems().addAll(fachada.buscarConsultaPorClienteAdapter(busca));
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
@@ -126,8 +112,6 @@ public class ControleConsulta  extends Controle{
     	valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_honorario"));
     	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
     	nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome_cliente"));
-    	
-    	clienteBox.getItems().addAll(campoCliente);
     	
     	areaBox.getItems().add("TODAS");
     	for(Area e : Area.values())

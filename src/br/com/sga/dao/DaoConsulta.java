@@ -104,11 +104,20 @@ public class DaoConsulta implements IDaoConsulta {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
             this.statement = connection.prepareStatement(SQLUtil.Consulta.BUSCA_POR_BUSCA);
             
-            int i = 1;
-            for(String e : busca)
-            	statement.setString(i++,e);
-            	
-            resultSet = statement.executeQuery();
+			for(int i =1 ; i <=4; i++) // preparando o statemente referente a dados de cliente
+				statement.setString(i,"%"+busca[0]+"%");
+			
+			if(busca.length == 1) {
+				for(int i =5 ; i <=6 ; i++) // caso tenha sido passado apenas dados de cliente então deve-se ignorar os filtros
+	        		statement.setString(i,"%_%");
+			}else { // caso contrario cada um deve ser considerado
+				int aux = 5;
+				for(int i = 1 ; i < busca.length ; i++) 
+					statement.setString(aux++,(busca[i].length() >0)? busca[i] :"%_%"); // se a string não for vazia a adiciono a busca, se não desconsidero a mesma
+			}
+			System.out.println(statement.toString());
+			resultSet = statement.executeQuery();
+			
            
             List<ConsultaAdapter> lista = new ArrayList<>();
             while(resultSet.next()) {
