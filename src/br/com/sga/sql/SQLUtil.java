@@ -84,8 +84,9 @@ public class SQLUtil {
     			+ "notificacao n where n.estado != 'COMPLETO' and n.id =  v.notificacao_id and v.funcionario_id ="
     			+ " f.id and f.numero_oab = ?";
     	public static final String SELECT_DATA = "SELECT * FROM NOTIFICACAO WHERE CAST(data_aviso AS DATE) = ? ";
-    	public static final String SELECT_ADAPTER_DATA = "SELECT ID,TIPO,ESTADO,DATA_AVISO,DESCRICAO FROM NOTIFICACAO WHERE CAST(data_aviso AS DATE) = ? ;";
     	public static final String SELECT_DATA_MES_ANO = "SELECT DISTINCT CAST(data_aviso AS DATE) FROM NOTIFICACAO WHERE (SELECT EXTRACT(MONTH FROM data_aviso)) = ? AND (SELECT EXTRACT(YEAR FROM data_aviso)) = ?;";
+    	public static final String SELECT_ADAPTER_DATA = "SELECT ID,TIPO,ESTADO,DATA_AVISO,DESCRICAO FROM NOTIFICACAO WHERE (CAST(data_aviso AS DATE)) BETWEEN ? AND ?";
+    	public static final String SELECT_ADAPTER_ESTADO = "SELECT ID,TIPO,ESTADO,DATA_AVISO,DESCRICAO FROM NOTIFICACAO WHERE estado = ?";
     }
    
     public static class VinculoFuncionario{
@@ -130,7 +131,7 @@ public class SQLUtil {
 	    public static final String SELECT_CEP = "SELECT * FROM ENDERECO WHERE cep = ?";
 	    
 	    public static final String SELECT_CLIENTE_ENDERECO_CPF = "SELECT * FROM CLIENTE a, ENDERECO e where a.endereco_id=e.id AND cpf_cnpj = ?";
-	    
+
 	    public static final String SELECT_ID = "SELECT * FROM ENDERECO WHERE ID = ?";
 	    public static final String SELECT_ID_CLIENTE = "SELECT d.* FROM ENDERECO d, CLIENTE c WHERE c.id_endereco = ? AND c.id_endereco = d.id";
 	    

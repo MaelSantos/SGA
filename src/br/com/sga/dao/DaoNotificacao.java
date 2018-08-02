@@ -166,12 +166,13 @@ public class DaoNotificacao implements IDaoNotificacao {
 	}
 
 	@Override
-	public List<NotificacaoAdapter> BuscarAdapterPorData(Date data) throws DaoException {
+	public List<NotificacaoAdapter> BuscarAdapterPorData(Date inicio, Date fim) throws DaoException {
 
 		try {
             this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
             this.statement = connection.prepareStatement(SQLUtil.Notificacao.SELECT_ADAPTER_DATA);
-            statement.setDate(1, new java.sql.Date(data.getTime()));
+            statement.setDate(1, new java.sql.Date(inicio.getTime()));
+            statement.setDate(2, new java.sql.Date(fim.getTime()));
 
             resultSet = statement.executeQuery();
          
@@ -183,7 +184,7 @@ public class DaoNotificacao implements IDaoNotificacao {
             	adapter.setId(resultSet.getInt("id"));
             	adapter.setEstado(Andamento.getTipo(resultSet.getString("estado")));
             	adapter.setTipoNotificacao(TipoNotificacao.getTipo(resultSet.getString("tipo")));
-            	adapter.setAviso_data(resultSet.getDate("aviso_data"));
+            	adapter.setAviso_data(resultSet.getDate("data_aviso"));
             	adapter.setDescricao(resultSet.getString("descricao"));
             	
             	adapters.add(adapter);
@@ -224,5 +225,40 @@ public class DaoNotificacao implements IDaoNotificacao {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO BUSCAR DATAS - CONTATE O ADM");
 		}	
+	}
+
+	@Override
+	public List<NotificacaoAdapter> BuscarAdapterPorEstado(String estado) throws DaoException {
+		
+		try {
+            this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = connection.prepareStatement(SQLUtil.Notificacao.SELECT_ADAPTER_ESTADO);
+            statement.setString(1, estado);
+
+            resultSet = statement.executeQuery();
+         
+            List<NotificacaoAdapter> adapters = new ArrayList<>();
+            NotificacaoAdapter adapter;
+            while(resultSet.next()) {
+            	adapter = new NotificacaoAdapter();
+            	
+            	adapter.setId(resultSet.getInt("id"));
+            	adapter.setEstado(Andamento.getTipo(resultSet.getString("estado")));
+            	adapter.setTipoNotificacao(TipoNotificacao.getTipo(resultSet.getString("tipo")));
+            	adapter.setAviso_data(resultSet.getDate("data_aviso"));
+            	adapter.setDescricao(resultSet.getString("descricao"));
+            	
+            	adapters.add(adapter);
+            }
+            this.connection.close();
+            this.statement.close();
+            this.resultSet.close();
+            
+            return adapters;
+		} catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO BUSCAR NOTIFICAÇÕES - CONTATE O ADM");
+        }
+		
 	}
 }

@@ -75,7 +75,7 @@ public class DateItem extends AnchorPane {
 		
 		try {
 			if(compare()) {
-				list = Fachada.getInstance().BuscarNotificacaoAdapterPorData(Date.valueOf(date));
+				list = Fachada.getInstance().BuscarNotificacaoAdapterPorData(Date.valueOf(date), Date.valueOf(date));
 				
 				int quant;
 				List<TipoNotificacao> not = new ArrayList<>();

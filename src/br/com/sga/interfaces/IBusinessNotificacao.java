@@ -13,6 +13,7 @@ public interface IBusinessNotificacao {
 	public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException;
     public List<Notificacao> buscarPorNotificaoesPorFuncionario(Funcionario funcionario) throws BusinessException;
     public List<Notificacao> buscarPorData(Date data) throws BusinessException;
-    public List<NotificacaoAdapter> BuscarAdapterPorData(Date data) throws BusinessException;
+    public List<NotificacaoAdapter> BuscarAdapterPorData(Date inicio, Date fim) throws BusinessException;
     public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException;
+    public List<NotificacaoAdapter> BuscarAdapterPorEstado(String estado) throws BusinessException;
 }
