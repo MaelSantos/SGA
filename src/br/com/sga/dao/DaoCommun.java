@@ -540,7 +540,23 @@ public class DaoCommun implements IDaoCommun{
 
 		
 	}
+	
+	public void editarParcela(Parcela parcela)throws DaoException {
 
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Parcela.UPDATE_PARCELA);
+			
+			statement.setString(1,parcela.getEstado().toString());
+			statement.setInt(2,parcela.getId());
+			statement.executeUpdate();
+			this.connection.close();
+
+		}catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO ATUALIZAR PARCELA - CONTATE O ADM");
+		}
+	}
 	@Override
 	public List<Receita> getReceitaPorIntervalo(java.util.Date de, java.util.Date ate) throws DaoException {
 		List<Receita> receitas = new ArrayList<>();

@@ -33,6 +33,7 @@ public interface IDaoCommun {
     
     //Parcela
     public void salvarParcela(Parcela parcela, Integer contrato_id) throws DaoException;
+    public void editarParcela(Parcela parcela)throws DaoException;
     
     //Financeiro
     public void salvarReceita(Receita receita,Integer financeiro_id)throws DaoException;

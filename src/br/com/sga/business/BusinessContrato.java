@@ -1,25 +1,39 @@
 package br.com.sga.business;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import br.com.sga.dao.DaoCommun;
 import br.com.sga.dao.DaoContrato;
+import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Contrato;
+import br.com.sga.entidade.Despesa;
+import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Parcela;
+import br.com.sga.entidade.Parte;
+import br.com.sga.entidade.Receita;
+import br.com.sga.entidade.Telefone;
+import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.enums.Tabela;
+import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
 import br.com.sga.interfaces.IBusinessContrato;
+import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.interfaces.IDaoContrato;
 import br.com.sga.view.Alerta;
 
 public class BusinessContrato implements IBusinessContrato {
 
 	private IDaoContrato daoContrato;
+	private IDaoCommun daoCommun;
 	
 	public BusinessContrato() {
 		daoContrato = new DaoContrato();
+		daoCommun = DaoCommun.getInstance();
 	}
 
 	@Override
@@ -94,6 +108,17 @@ public class BusinessContrato implements IBusinessContrato {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());
 		}
+	}
+
+	@Override
+	public void editarParcela(Parcela parcela) throws BusinessException {
+		try {
+			daoCommun.editarParcela(parcela);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+		
 	}
 
 }

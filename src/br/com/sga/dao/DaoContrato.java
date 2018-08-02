@@ -123,8 +123,8 @@ public class DaoContrato implements IDaoContrato{
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
             this.statement = connection.prepareStatement(SQLUtil.Contrato.BUSCA_POR_CLIENTE_ADAPTER);
-            statement.setString(1,busca);
-            statement.setString(2,busca);
+            statement.setString(1,"%"+busca+"%");
+            statement.setString(2,"%"+busca+"%");
             statement.setString(3,busca);
             statement.setString(4,busca);
             resultSet = statement.executeQuery();

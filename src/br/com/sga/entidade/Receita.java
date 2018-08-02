@@ -17,8 +17,23 @@ public class Receita {
 	
 //	financeiro_id INTEGER REFERENCES FINANCEIRO(id)
 	
+	
 	public Integer getId() {
 		return id;
+	}
+	public Receita(Date data_entrada, String centro_custo, String descricao, Float valor, Boolean status,
+		TipoPagamento tipo_pagamento, Date vencimento) {
+	super();
+	this.data_entrada = data_entrada;
+	this.centro_custo = centro_custo;
+	this.descricao = descricao;
+	this.valor = valor;
+	this.status = status;
+	this.tipo_pagamento = tipo_pagamento;
+	this.vencimento = vencimento;
+}
+	public Receita() {
+		// TODO Stub de construtor gerado automaticamente
 	}
 	public void setId(Integer id) {
 		this.id = id;

@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class ControleConsulta  extends Controle{
 
@@ -83,7 +84,13 @@ public class ControleConsulta  extends Controle{
 					busca[2] = "";
 				for(String s: busca)
 					System.out.println(s);
+				
     			contratosTableView.getItems().addAll(fachada.buscarConsultaPorClienteAdapter(busca));
+    			Float sum = 0f;
+    			for(ConsultaAdapter e : contratosTableView.getItems()) {
+    				sum+= e.getValor_honorario();
+    			}
+    			totalField.setText(sum+"");
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
@@ -100,6 +107,15 @@ public class ControleConsulta  extends Controle{
     	}
     }
 
+    @FXML
+    void mouseEntered(MouseEvent event) {
+    	((Button)(event.getSource())).setStyle("-fx-background-color : #386a78");
+    }
+
+    @FXML
+    void mouseExited(MouseEvent event) {
+    	((Button)(event.getSource())).setStyle("-fx-background-color : #008B8B");
+    }
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		

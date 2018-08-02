@@ -10,6 +10,7 @@ import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
@@ -43,10 +44,12 @@ public interface IFachada {
     
     //contrato
     public void salvarEditarContrato(Contrato entidade) throws BusinessException;
+    public void editarParcela(Parcela parcela) throws BusinessException;
     public Contrato buscarContratoPorId(int id) throws BusinessException;
     public List<Contrato> buscarContratoPorBusca(String busca) throws BusinessException;
     public List<ContratoAdapter> buscarContratoPorClienteAdapter(String busca) throws BusinessException;
     public List<ContratoAdapter> buscaAllContratoAdapter() throws BusinessException;
+   
     
     //processo
     public void salvarEditarProcesso(Processo entidade) throws BusinessException;

@@ -17,6 +17,7 @@ import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
@@ -213,6 +214,11 @@ public class Fachada implements IFachada {
 	@Override
 	public FuncionarioAdapter buscarPorConsultaAdapter(Integer consulta_id) throws BusinessException {
 		return businessUsuario.buscarPorConsultaAdapter(consulta_id);
+	}
+
+	@Override
+	public void editarParcela(Parcela parcela) throws BusinessException {
+		businessContrato.editarParcela(parcela);
 	}
 
 }
