@@ -11,9 +11,13 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
+import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 
@@ -72,8 +76,19 @@ public class DateItem extends AnchorPane {
 		try {
 			if(compare()) {
 				list = Fachada.getInstance().BuscarNotificacaoAdapterPorData(Date.valueOf(date));
+				
+				int quant;
+				List<TipoNotificacao> not = new ArrayList<>();
 				for(NotificacaoAdapter n : list)
-					text.setText(text.getText() +"\n"+ n.getTipoNotificacao() + "["+ n.getEstado().toString()+"]");						
+				{
+					not.add(n.getTipoNotificacao());
+				}
+				for(TipoNotificacao t : TipoNotificacao.values())
+				{
+					quant =  Collections.frequency(not, t);
+					if(quant > 0)
+						text.setText(text.getText() +"\n"+ t + "["+ quant+"]");		
+				}
 			}
 		} catch (BusinessException e) {
 			e.printStackTrace();

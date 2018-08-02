@@ -183,6 +183,8 @@ public class DaoNotificacao implements IDaoNotificacao {
             	adapter.setId(resultSet.getInt("id"));
             	adapter.setEstado(Andamento.getTipo(resultSet.getString("estado")));
             	adapter.setTipoNotificacao(TipoNotificacao.getTipo(resultSet.getString("tipo")));
+            	adapter.setAviso_data(resultSet.getDate("aviso_data"));
+            	adapter.setDescricao(resultSet.getString("descricao"));
             	
             	adapters.add(adapter);
             }
