@@ -33,6 +33,7 @@ public class DaoCliente implements IDaoCliente {
 	private IDaoCommun daoCommun;
 	
 	public DaoCliente() {
+		
 		daoCommun = DaoCommun.getInstance();
 	}
 	

@@ -9,6 +9,7 @@ import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ClienteAdapter;
@@ -66,4 +67,12 @@ public interface IFachada {
     public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException;
     public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorData(Date inicio, Date fim) throws BusinessException;
     public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorEstado(String estado) throws BusinessException;
+    
+    //Log
+    public void salvarEditarLog(Log entidade) throws BusinessException;
+    public Log buscarLogPorId(int id) throws BusinessException;
+    public List<Log> buscarLogPorBusca(String busca) throws BusinessException;
+    public List<Log> buscarLogPorData(Date de, Date ate) throws BusinessException;
+	
+    
 }

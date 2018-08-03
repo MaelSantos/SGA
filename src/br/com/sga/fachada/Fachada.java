@@ -7,6 +7,7 @@ import br.com.sga.business.BusinessCliente;
 import br.com.sga.business.BusinessConsulta;
 import br.com.sga.business.BusinessContrato;
 import br.com.sga.business.BusinessFinanceiro;
+import br.com.sga.business.BusinessLog;
 import br.com.sga.business.BusinessNotificacao;
 import br.com.sga.business.BusinessProcesso;
 import br.com.sga.business.BusinessUsuario;
@@ -15,6 +16,7 @@ import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ClienteAdapter;
@@ -27,6 +29,7 @@ import br.com.sga.exceptions.BusinessException;
 import br.com.sga.interfaces.IBusinessConsulta;
 import br.com.sga.interfaces.IBusinessContrato;
 import br.com.sga.interfaces.IBusinessFinanceiro;
+import br.com.sga.interfaces.IBusinessLog;
 import br.com.sga.interfaces.IBusinessNotificacao;
 import br.com.sga.interfaces.IBusinessProcesso;
 import br.com.sga.interfaces.IBusinessUsuario;
@@ -41,6 +44,7 @@ public class Fachada implements IFachada {
     private IBusinessContrato businessContrato;
     private IBusinessFinanceiro businessFinanceiro;
     private IBusinessNotificacao businessNotificacao;
+    private IBusinessLog businessLog;
 
     private static Fachada fachada;
 
@@ -59,6 +63,7 @@ public class Fachada implements IFachada {
         businessContrato = new BusinessContrato();
         businessFinanceiro = new BusinessFinanceiro();
         businessNotificacao =  new BusinessNotificacao();
+        businessLog = new BusinessLog();
     }
 
 	@Override
@@ -217,6 +222,26 @@ public class Fachada implements IFachada {
 	@Override
 	public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorEstado(String estado) throws BusinessException {
 		return businessNotificacao.BuscarAdapterPorEstado(estado);
+	}
+
+	@Override
+	public void salvarEditarLog(Log entidade) throws BusinessException {
+		businessLog.salvarEditar(entidade);
+	}
+
+	@Override
+	public Log buscarLogPorId(int id) throws BusinessException {
+		return businessLog.buscarPorId(id);
+	}
+
+	@Override
+	public List<Log> buscarLogPorBusca(String busca) throws BusinessException {
+		return buscarLogPorBusca(busca);
+	}
+
+	@Override
+	public List<Log> buscarLogPorData(Date de, Date ate) throws BusinessException {
+		return businessLog.buscarPorData(de, ate);
 	}
 
 }

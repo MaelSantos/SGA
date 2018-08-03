@@ -146,6 +146,11 @@ public class SQLUtil {
 	    public static final String SELECT_NUMERO = "SELECT * FROM TELEFONE WHERE numero = ?";
     }
     
-    
+    public static class Log {
+    	
+    	public static final String SELECT_DATA_INTERVALO = "SELECT * FROM LOG WHERE (data BETWEEN (CAST(? AS DATE)) AND (CAST(? AS DATE)))";
+		public static final String INSERT_ALL = "INSERT INTO LOG(data, evento, remetente, destinatario, status) VALUES (?, ?, ?, ?, ?)";
+    	
+    }
     
 }

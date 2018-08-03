@@ -86,22 +86,16 @@ public class ControleHome extends Controle {
 		
 		try {
 			
-			Calendar calendar = new GregorianCalendar();
-//			calendar.setTime(data);
 			
-			calendar.setTime(new Date());
-			
-			calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-			
-			Date primeiro = calendar.getTime();
+			Date primeiro = resolvePrimeiroUltimo(new Date(), true);
 
-			calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-			Date ultimo = calendar.getTime();
+			Date ultimo = resolvePrimeiroUltimo(new Date(), false);
 			
 			System.out.println("Primeiro: "+primeiro+" Ultimo: "+ultimo);
 			
 			tblAtrasados.getItems().setAll(fachada.BuscarNotificacaoAdapterPorEstado(Andamento.VENCIDO.name()));
 			tblSemana.getItems().setAll(fachada.BuscarNotificacaoAdapterPorData(primeiro, ultimo));
+			
 		} catch (BusinessException e) {
 			
 			Alerta.getInstance().showMensagem("Erro!", "Erro Ao Carregar Notificações!!!", e.getMessage());
@@ -118,4 +112,30 @@ public class ControleHome extends Controle {
 
 	}
 
+	public Date resolvePrimeiroUltimo(Date data, boolean isPrimeiro)
+	{
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setFirstDayOfWeek(Calendar.MONDAY);
+		calendar.setTime(data);
+
+		if(isPrimeiro)
+		{
+			calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+			calendar.set(Calendar.AM_PM, Calendar.AM);
+			calendar.set(Calendar.HOUR, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.SECOND, 0);
+		}
+		else
+		{
+			calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			calendar.set(Calendar.AM_PM, Calendar.PM);
+			calendar.set(Calendar.HOUR, 11);
+			calendar.set(Calendar.MINUTE, 59);
+			calendar.set(Calendar.SECOND, 59);
+		}
+
+		return calendar.getTime();
+	}
+	
 }
