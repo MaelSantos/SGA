@@ -223,6 +223,8 @@ public class Fachada implements IFachada {
 	@Override
 	public void editarParcela(Parcela parcela) throws BusinessException {
 		businessContrato.editarParcela(parcela);
+	}
+	
 	public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorEstado(String estado) throws BusinessException {
 		return businessNotificacao.BuscarAdapterPorEstado(estado);
 	}

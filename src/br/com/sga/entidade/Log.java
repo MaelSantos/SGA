@@ -14,6 +14,17 @@ public class Log {
 	private String destinatario;//destinatario VARCHAR(255),
 	private StatusLog status;//status VARCHAR(255)
 	
+	public Log() {
+	}
+	
+	public Log(Date data, EventoLog evento, String remetente, String destinatario, StatusLog status) {
+		this.data = data;
+		this.evento = evento;
+		this.remetente = remetente;
+		this.destinatario = destinatario;
+		this.status = status;
+	}
+
 	public Integer getId() {
 		return id;
 	}
