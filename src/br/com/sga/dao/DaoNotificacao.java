@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.postgresql.util.PSQLException;
+
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
@@ -85,12 +87,25 @@ public class DaoNotificacao implements IDaoNotificacao {
 			e.printStackTrace();
 		}
 	}*/
+	
 	@Override
-	public void editar(Notificacao entidade) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		
+	public void editar(Notificacao entidade) throws DaoException { 
+	
 	}
-
+	
+	public void validarNotificacoes(Date date) throws DaoException  {
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Notificacao.UPDATE_ESTADO);
+            statement.setDate(1,new java.sql.Date(date.getTime()));
+            statement.executeUpdate();
+            this.connection.close();
+		}catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO VEERIFICAR NOTIFICAÇÕES ATRASADAS - CONTATE O ADM");
+        }
+	}
+	
 	@Override
 	public Notificacao buscarPorId(int id) throws DaoException {
 		// TODO Stub de método gerado automaticamente

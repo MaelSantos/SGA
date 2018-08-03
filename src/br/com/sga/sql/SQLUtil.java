@@ -87,6 +87,7 @@ public class SQLUtil {
     	public static final String SELECT_DATA_MES_ANO = "SELECT DISTINCT CAST(data_aviso AS DATE) FROM NOTIFICACAO WHERE (SELECT EXTRACT(MONTH FROM data_aviso)) = ? AND (SELECT EXTRACT(YEAR FROM data_aviso)) = ?;";
     	public static final String SELECT_ADAPTER_DATA = "SELECT ID,TIPO,ESTADO,DATA_AVISO,DESCRICAO FROM NOTIFICACAO WHERE (CAST(data_aviso AS DATE)) BETWEEN ? AND ?";
     	public static final String SELECT_ADAPTER_ESTADO = "SELECT ID,TIPO,ESTADO,DATA_AVISO,DESCRICAO FROM NOTIFICACAO WHERE estado = ?";
+    	public static final String UPDATE_ESTADO = "UPDATE NOTIFICACAO SET ESTADO = 'VENCIDO' WHERE CAST(data_aviso AS DATE) = ? ";
     }
    
     public static class VinculoFuncionario{

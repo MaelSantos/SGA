@@ -39,7 +39,7 @@ public class BusinessNotificacao implements IBusinessNotificacao{
 		}
 		
 	}
-
+	
 	
 	private void validarNotificacao(Notificacao notificacao) throws ValidacaoException{
 		
@@ -103,6 +103,14 @@ public class BusinessNotificacao implements IBusinessNotificacao{
 			throw new BusinessException(e.getMessage());
 		}
 	}
-	
+
+	@Override
+	public void validarNotificacoes(Date date) throws BusinessException {
+		try {
+			daoNotificacao.validarNotificacoes(date);
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

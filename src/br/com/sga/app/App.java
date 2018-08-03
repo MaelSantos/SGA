@@ -104,7 +104,6 @@ public class App extends Application{
 		case documentos:
 			return documentos;
 		default:
-			System.err.println("Valor Não Correspondente");
 			break;
 		}
 		

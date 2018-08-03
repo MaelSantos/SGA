@@ -16,4 +16,5 @@ public interface IBusinessNotificacao {
     public List<NotificacaoAdapter> BuscarAdapterPorData(Date inicio, Date fim) throws BusinessException;
     public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException;
     public List<NotificacaoAdapter> BuscarAdapterPorEstado(String estado) throws BusinessException;
+    public void validarNotificacoes(Date date) throws BusinessException;
 }

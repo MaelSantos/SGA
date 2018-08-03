@@ -13,4 +13,5 @@ public interface IDaoNotificacao extends IDao<Notificacao> {
 	public List<Date> BuscarAllDataPorMes(int mes, int ano) throws DaoException;
 	public List<NotificacaoAdapter> BuscarAdapterPorData(Date inicio, Date fim) throws DaoException;
 	public List<NotificacaoAdapter> BuscarAdapterPorEstado(String estado) throws DaoException;
+	public void validarNotificacoes(Date date) throws DaoException;
 }

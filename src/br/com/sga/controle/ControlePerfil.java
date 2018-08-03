@@ -67,9 +67,12 @@ public class ControlePerfil extends Controle{
     		if(hora != null && ld != null && prioridade != null) {
 	        	Calendar c =  Calendar.getInstance();
 	        	c.set(Calendar.YEAR,ld.getYear());
-	        	c.set(Calendar.MONTH,ld.getMonthValue());
+	        	c.set(Calendar.MONTH,ld.getMonthValue()-1);
 	        	c.set(Calendar.DAY_OF_MONTH,ld.getDayOfMonth());
 	        	c.set(Calendar.HOUR_OF_DAY,hora);
+	        	c.set(Calendar.SECOND,0);
+	        	c.set(Calendar.MILLISECOND,0);
+	        	c.set(Calendar.MINUTE,0);
 	        	Date aviso_data = c.getTime();
 	        	List<Funcionario> funcionarios = new ArrayList<>();
 	        	if(cadastroNotificacao.getApenasMinRadio().isSelected()) {

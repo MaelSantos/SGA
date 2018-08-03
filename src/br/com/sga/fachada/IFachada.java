@@ -69,4 +69,5 @@ public interface IFachada {
     public List<Date> BuscarAllDataPorMes(int mes, int ano) throws BusinessException;
     public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorData(Date inicio, Date fim) throws BusinessException;
     public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorEstado(String estado) throws BusinessException;
+    public void validarNotificacoes(Date date) throws BusinessException;
 }

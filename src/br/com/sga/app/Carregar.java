@@ -2,9 +2,12 @@ package br.com.sga.app;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.exceptions.BusinessException;
+import br.com.sga.fachada.Fachada;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -128,8 +131,16 @@ public class Carregar implements Initializable{
 						App.documentos = carregarArquivo("../view/Documentos.fxml");
 						updateData();
 						
+						try {
+							Fachada.getInstance().validarNotificacoes(Calendar.getInstance().getTime());
+						}catch(BusinessException e ) {
+							e.printStackTrace();
+						}
+						
 						App.home = carregarArquivo("../view/Home.fxml");
 						updateData();
+						
+						
 						
 						App.loginScene = new Scene(App.login);
 						App.menuScene = new Scene(App.menu);
