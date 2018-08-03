@@ -50,7 +50,7 @@ public class Carregar implements Initializable{
 					public void updateData()
 					{
 						updateMessage(texto);
-						porcentagem += 4.7619047619;
+						porcentagem += 100/24; //porcentagem total dividido por quantidade de telas
 						updateProgress(porcentagem, 100);
 						System.out.println(contador++);
 						System.out.println(texto);
@@ -140,7 +140,8 @@ public class Carregar implements Initializable{
 						App.home = carregarArquivo("../view/Home.fxml");
 						updateData();
 						
-						
+						App.historico = carregarArquivo("../view/Historico.fxml");
+						updateData();
 						
 						App.loginScene = new Scene(App.login);
 						App.menuScene = new Scene(App.menu);

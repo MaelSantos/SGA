@@ -151,7 +151,10 @@ public class ControleFinanceiro extends Controle {
 					tblDespesas.getItems().setAll(financeiro.getDespesas());
 				if(financeiro.getReceitas() != null)
 					tblReceitas.getItems().setAll(financeiro.getReceitas());
-				lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim());
+				if(tblDespesas.getItems().isEmpty() && tblReceitas.getItems().isEmpty())
+					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim()+"\nSEM RESULTADOS!!!");
+				else
+					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim());
 				float total_despesas = 0, total_receita = 0;
 				for(Receita r : financeiro.getReceitas())
 					total_receita += r.getValor();
@@ -160,6 +163,8 @@ public class ControleFinanceiro extends Controle {
 				lblDespesas.setText("Total De Despesas: "+total_despesas);
 				lblReceitas.setText("Total De Receitas: "+total_receita);
 
+				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso","");
+				
 			}catch (BusinessException | NumberFormatException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Dados Financeiros!!!", e.getMessage());
