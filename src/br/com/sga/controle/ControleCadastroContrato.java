@@ -10,9 +10,12 @@ import br.com.sga.app.App;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
+import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.Prioridade;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
@@ -135,6 +138,7 @@ public class ControleCadastroContrato {
 				List<ConsultaAdapter> consultas = Fachada.getInstance().buscarConsultaPorClienteAdapter(busca);
 				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecaoConsulta(consultas);
 				consulta = new Consulta();
+				consulta.setId(consultaBasica.getId());
 				consulta.setArea(consultaBasica.getArea());
 				consulta.setData_consulta(consultaBasica.getData());
 				consulta.setValor_honorario(consultaBasica.getValor_honorario());
@@ -197,8 +201,16 @@ public class ControleCadastroContrato {
 					    	for(int i =0 ; i < quantidade_parcelas; i ++)
 					    		parcelas.add(new Parcela((Float)(valor_total/quantidade_parcelas),juros, multa,"CONTRATO",Andamento.PENDENTE,dia_pagamento));
 					    	
-					    	fachada.salvarEditarContrato(new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, consulta.getArea(), 
-					    			dados_banco, parteTableView.getItems(),parcelas, consulta,financeiro));
+					    	Contrato contrato = new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, consulta.getArea(), 
+					    			dados_banco, parteTableView.getItems(),parcelas, consulta,financeiro);
+					    	
+					    	fachada.salvarEditarContrato(contrato);
+					    
+					    	for(Parcela parcela : contrato.getParcelas())
+					    		fachada.salvarEditarNotificacao
+					    		(new Notificacao(TipoNotificacao.FINANCEIRO,Prioridade.MEDIA,"Parcela de contrato ",
+					    				Andamento.PENDENTE,parcela.getVencimento(),fachada.buscarUsuarioPorBusca("%_%")));
+					    	
 					    	
 							Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
 							limparCampos();

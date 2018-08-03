@@ -5,6 +5,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -15,13 +17,23 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="buscarField" layoutX="147.0" layoutY="57.0" prefHeight="25.0" prefWidth="336.0" />
-      <Button fx:id="buscarButton" layoutX="497.0" layoutY="57.0" mnemonicParsing="false" onAction="#actionButton" text="Buscar Contrato" />
-      <AnchorPane layoutX="22.0" layoutY="113.0" prefHeight="460.0" prefWidth="650.0" style="-fx-background-color: #077272;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="120.0">
+      <TextField fx:id="buscarField" layoutX="147.0" layoutY="57.0" prefHeight="30.0" prefWidth="336.0">
+         <font>
+            <Font name="Verdana" size="12.0" />
+         </font></TextField>
+      <Button fx:id="buscarButton" layoutX="490.0" layoutY="53.0" mnemonicParsing="false" onAction="#actionButton" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-background-color: #008B8B;">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0">
+               <image>
+                  <Image url="@../../../../../res/icones/icons8_Search_50px_2.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <AnchorPane layoutX="22.0" layoutY="113.0" prefHeight="460.0" prefWidth="650.0" style="-fx-background-color: #008B8B;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="120.0">
          <children>
             <TableView fx:id="contratosTableView" layoutX="9.0" layoutY="50.0" prefHeight="304.0" prefWidth="662.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
               <columns>
-                <TableColumn fx:id="dataColumn" prefWidth="137.0" text="Data contrato" />
+                <TableColumn fx:id="dataColumn" maxWidth="180.0" minWidth="180.0" prefWidth="180.0" text="Data contrato" />
                 <TableColumn fx:id="nomeColumn" minWidth="9.0" prefWidth="355.0" text="Nome Cliente" />
                   <TableColumn fx:id="valorColumn" minWidth="0.0" prefWidth="167.0" text="Valor total" />
               </columns>
@@ -29,8 +41,22 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="cadastrarContratoButton" layoutX="526.0" layoutY="368.0" mnemonicParsing="false" onAction="#actionButton" text="Cadastrar novo contrato" AnchorPane.rightAnchor="10.0" />
-            <Button fx:id="detalhesButton" layoutX="421.0" layoutY="368.0" mnemonicParsing="false" onAction="#actionButton" text="Detalhes" />
+            <Button fx:id="cadastrarContratoButton" layoutX="526.0" layoutY="368.0" mnemonicParsing="false" onAction="#actionButton" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-background-color: #008B8B;" AnchorPane.rightAnchor="14.0">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0">
+                     <image>
+                        <Image url="@../../../../../res/icones/icons8_Add_List_50px.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="detalhesButton" layoutX="421.0" layoutY="368.0" mnemonicParsing="false" onAction="#actionButton" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-background-color: #008B8B;" AnchorPane.rightAnchor="90.0">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0">
+                     <image>
+                        <Image url="@../../../../../res/icones/icons8_Edit_Property_50px_1.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
       </AnchorPane>
    </children>

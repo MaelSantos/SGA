@@ -18,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class ControleBuscarContrato {
 
@@ -53,16 +54,13 @@ public class ControleBuscarContrato {
     void actionButton(ActionEvent event) {
     	if(event.getSource() == buscarButton) {
     		String busca = buscarField.getText().trim();
-    		if(busca.length() >0)
-				try {
-					contratosTableView.getItems().clear();
-					List<ContratoAdapter> contratos =fachada.buscarContratoPorClienteAdapter(busca);
-					contratosTableView.getItems().addAll(contratos);
-				} catch (BusinessException e) {
-					e.printStackTrace();
-				}
-			else
-    			Alerta.getInstance().showMensagem("Alerta","","Campo de pesquisa vazio, entre com dado de cliente");
+			try {
+				contratosTableView.getItems().clear();
+				List<ContratoAdapter> contratos =fachada.buscarContratoPorClienteAdapter(busca);
+				contratosTableView.getItems().addAll(contratos);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
     	}else if(event.getSource() == cadastrarContratoButton) 
     		App.notificarOuvintes(Tela.cadastro_contrato);
     	else if(event.getSource() == detalhesButton) {
@@ -74,6 +72,15 @@ public class ControleBuscarContrato {
     		}
     	}
     		
+    }
+    @FXML
+    void mouseEntered(MouseEvent event) {
+    	((Button)(event.getSource())).setStyle("-fx-background-color : #386a78");
+    }
+
+    @FXML
+    void mouseExited(MouseEvent event) {
+    	((Button)(event.getSource())).setStyle("-fx-background-color : #008B8B");
     }
     @FXML
     void initialize() {

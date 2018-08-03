@@ -20,7 +20,8 @@ public class SQLUtil {
     
     public static class Parcela{
     	public static final String INSERT_ALL = "INSERT INTO PARCELA(valor,tipo,estado,juros,multa,vencimento,contrato_id) VALUES(?,?,?,?,?,?,?)";    
-    	public static final String SELECT_ID_CONTRATO = "SELECT * FROM PARCELA  WHERE  CONTRATO_ID = ? ";    
+    	public static final String SELECT_ID_CONTRATO = "SELECT * FROM PARCELA  WHERE  CONTRATO_ID = ? ";  
+    	public static final String UPDATE_PARCELA = "UPDATE PARCELA SET ESTADO = ? WHERE ID= ?";
     }
     
     public static class Parte{
@@ -52,8 +53,8 @@ public class SQLUtil {
     	public static final String BUSCAR_ATIVOS = "SELECT * FROM CONTRATO WHERE STATUS = TRUE";
     	public static final String SELECT_CONTRATO_ID = "SELECT * FROM CONTRATO WHERE id = ?";
     	public static final String BUSCA_POR_CLIENTE_ADAPTER ="select cont.id, clie.nome, cont.data_contrato, cont.valor_total from contrato cont, consulta cons, cliente clie "
-    			+ "where clie.id = cons.cliente_id and cons.id = cont.consulta_id and unaccent(clie.nome) ilike unaccent(?) or unaccent(clie.email) ilike unaccent(?) "
-    			+ "or clie.cpf_cnpj = ? or clie.rg = ?";
+    			+ "where clie.id = cons.cliente_id and cons.id = cont.consulta_id and (unaccent(clie.nome) ilike unaccent(?) or unaccent(clie.email) ilike unaccent(?) "
+    			+ "or clie.cpf_cnpj = ? or clie.rg = ?)";
     	public static final String SELECT_CONTRATO_ADAPTER = "SELECT C.id,D.nome,C.data_contrato,C.valor_total FROM CONTRATO C, CLIENTE D, CONSULTA E WHERE C.CONSULTA_ID = E.ID AND D.ID = E.CLIENTE_ID";
     }
     

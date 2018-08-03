@@ -18,6 +18,7 @@ import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
@@ -220,6 +221,8 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
+	public void editarParcela(Parcela parcela) throws BusinessException {
+		businessContrato.editarParcela(parcela);
 	public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorEstado(String estado) throws BusinessException {
 		return businessNotificacao.BuscarAdapterPorEstado(estado);
 	}

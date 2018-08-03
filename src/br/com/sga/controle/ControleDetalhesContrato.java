@@ -1,18 +1,23 @@
 package  br.com.sga.controle;
 
-import java.net.URL;
+import java.util.Calendar;
 import java.util.List;
-import java.util.ResourceBundle;
 
 
 import br.com.sga.app.App;
+import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Contrato;
+import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
+import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.exceptions.BusinessException;
+import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
@@ -20,16 +25,11 @@ import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class ControleDetalhesContrato extends Controle{
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField dataField;
@@ -45,6 +45,9 @@ public class ControleDetalhesContrato extends Controle{
 
     @FXML
     private Button selectConButton;
+    
+    @FXML
+    private Button salvarButton;
 
     @FXML
     private TextField objetofField;
@@ -65,7 +68,7 @@ public class ControleDetalhesContrato extends Controle{
     private TextField multaField;
 
     @FXML
-    private TextField andamentoField;
+    private ComboBox<Andamento> andamentoBox;
 
     @FXML
     private TextField tipoParcelaField;
@@ -90,6 +93,7 @@ public class ControleDetalhesContrato extends Controle{
     private Contrato contrato;
     
     private IFachada fachada ;
+    private Parcela parcela ;
     
     private Dialogo dialogo;
 
@@ -112,15 +116,32 @@ public class ControleDetalhesContrato extends Controle{
 				e.printStackTrace();
 			}
     	}
+    	else if(andamentoBox == event.getSource() ) {
+    		if(andamentoBox.getSelectionModel().getSelectedItem()== Andamento.CONCLUIDO) {
+    			
+    			try {
+					parcela.setEstado(Andamento.CONCLUIDO);
+    				fachada.editarParcela(parcela);
+					
+    				DaoCommun.getInstance().salvarReceita(new Receita(Calendar.getInstance().getTime(),
+							"Parcela", "pagamento parcela", parcela.getValor(),false,TipoPagamento.A_VISTA, 
+							Calendar.getInstance().getTime()),
+    						fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
+    				
+    			} catch (BusinessException | DaoException e) {
+    				e.printStackTrace();
+    			}
+    		}
+    	}
     	else if(contrato!= null) {
     		if(selectParcelaButton == event.getSource() ) {
-    			Parcela parcela =   dialogo.selecao(contrato.getParcelas(),"Selecione Parcelas","Selecione uma parcela para mais detalhes");
+    			parcela =   dialogo.selecao(contrato.getParcelas(),"Selecione Parcelas","Selecione uma parcela para mais detalhes");
     			valorField.setText(parcela.getValor()+"");
     			tipoParcelaField.setText(parcela.getTipo().toString());
     			jurosField.setText(parcela.getJuros()+"");
     			multaField.setText(parcela.getMulta()+"");
-    			andamentoField.setText(parcela.getEstado().toString());
-    			
+    			andamentoBox.setValue(parcela.getEstado());
+    		
     		}else if(selectParteButton == event.getSource() ) {
 	    		Parte parte  = dialogo.selecao(contrato.getPartes(),"Seleção de parte","Selecione uma das partes para mais detalhes ");
 	    		nomeParteField.setText(parte.getNome());
@@ -129,6 +150,7 @@ public class ControleDetalhesContrato extends Controle{
     		}
     	}else
     		Alerta.getInstance().showMensagem("Alerta","Ação invilida","Não há contratos selecionados");
+    	
     }
 
  
@@ -184,7 +206,7 @@ public class ControleDetalhesContrato extends Controle{
 		tipoParcelaField.setText("");
 		jurosField.setText("");
 		multaField.setText("");
-		andamentoField.setText("");
+		andamentoBox.setValue(null);
 		
 		nomeParteField.setText("");
 		tipoParteField.setText("");
@@ -196,5 +218,6 @@ public class ControleDetalhesContrato extends Controle{
 	public void init() {
 		fachada = Fachada.getInstance(); 
 		dialogo = Dialogo.getInstance();
+		andamentoBox.getItems().addAll(Andamento.values());
 	}
 }

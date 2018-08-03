@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
@@ -176,11 +177,6 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="andamentoField" promptText="Andamento" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
                         <Label text="Andamento" textFill="WHITE" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="13.0" />
@@ -191,6 +187,7 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
+                        <ComboBox fx:id="andamentoBox" onAction="#actionButton" prefWidth="150.0" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                   <Separator prefWidth="200.0" />
