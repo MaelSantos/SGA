@@ -35,7 +35,7 @@
             </FlowPane>
          </center>
          <bottom>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <ButtonBar prefHeight="55.0" prefWidth="680.0" BorderPane.alignment="CENTER">
               <buttons>
                   <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#actionButton" text="Voltar">
                      <font>
