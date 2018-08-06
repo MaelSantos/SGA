@@ -143,6 +143,12 @@ public class Carregar implements Initializable{
 						App.historico = carregarArquivo("../view/Historico.fxml");
 						updateData();
 						
+						try {
+						App.estatistica = carregarArquivo("../view/Estatistica.fxml");
+						updateData();
+						}catch (Exception e) {
+							e.printStackTrace();
+						}
 						App.loginScene = new Scene(App.login);
 						App.menuScene = new Scene(App.menu);
 						return null;

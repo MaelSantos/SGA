@@ -26,6 +26,7 @@ import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
+import br.com.sga.entidade.adapter.ReceitaAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.interfaces.IBusinessConsulta;
 import br.com.sga.interfaces.IBusinessContrato;
@@ -250,6 +251,11 @@ public class Fachada implements IFachada {
 	@Override
 	public List<Log> buscarLogPorData(Date de, Date ate) throws BusinessException {
 		return businessLog.buscarPorData(de, ate);
+	}
+
+	@Override
+	public List<ReceitaAdapter> buscarReceitasTotalMesPorIntervalo(Date de, Date ate) throws BusinessException {
+		return businessFinanceiro.buscarReceitasTotalMesPorIntervalo(de, ate);
 	}
 
 }

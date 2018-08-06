@@ -94,7 +94,7 @@ public class ControleMenu extends Controle{
 		else if(e.getSource() == btnFinanceiro)
 			atualizarTela(App.changePane(Tela.financeiro));
 		else if(e.getSource() == btnEstatisticas)
-			atualizarTela(App.changePane(Tela.estatiticas));
+			atualizarTela(App.changePane(Tela.Estatistica));
 		else if(e.getSource() == btnHistorico)
 			atualizarTela(App.changePane(Tela.historico));
 		else if(e.getSource() == btnHome)

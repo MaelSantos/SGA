@@ -22,7 +22,7 @@ public class App extends Application{
 	static Pane login, home, cadastro, menu, informacoes, editarPerfil, perfil, pesquisa, configuracoes,
 	clientes, cadastroCliente, cadastroContrato, processo, cadastrarProcesso, detalhesProcesso,
 	buscarContrato, cadastrarAudiencia, financeiro,cadastroConsulta, cadastroReceitaDespesa, agenda,
-	consulta,detalhesConsulta,detalhesContrato,documentos, historico;
+	consulta,detalhesConsulta,detalhesContrato,documentos, historico,estatistica;
 	
 	@SuppressWarnings("static-access")
 	@Override
@@ -105,6 +105,8 @@ public class App extends Application{
 			return documentos;
 		case historico:
 			return historico;
+		case Estatistica:
+			return estatistica;
 		default:
 			break;
 		}

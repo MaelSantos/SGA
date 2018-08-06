@@ -16,6 +16,7 @@ import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Despesa;
@@ -25,6 +26,7 @@ import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
+import br.com.sga.entidade.adapter.ReceitaAdapter;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.sql.SQLConnection;
@@ -595,7 +597,37 @@ public class DaoCommun implements IDaoCommun{
 		}
 
 	}
+	public List<ReceitaAdapter> getReceitaTotalMesPorIntervalo(java.util.Date de, java.util.Date ate) throws DaoException{
 
+		List<ReceitaAdapter> receitas = new ArrayList<>();
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Receita.SELECT_INTERVALO_TOTAL_MES);
+			
+			statement.setDate(1, new Date(de.getTime()));
+			statement.setDate(2, new Date(ate.getTime()));
+			this.resultSet = statement.executeQuery();
+			
+			ReceitaAdapter receita;
+			Calendar calendar = Calendar.getInstance();
+			java.util.Date date;
+			while(resultSet.next())
+			{
+				date = new java.util.Date();
+				calendar.setTime(date);
+				calendar.set(Calendar.YEAR,resultSet.getInt("ano"));
+				calendar.set(Calendar.MONTH,resultSet.getInt("mes"));
+				receita = new ReceitaAdapter(resultSet.getFloat("total"),calendar.getTime());
+				receitas.add(receita);				
+			}
+			this.connection.close();
+			return receitas;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO BUSCAR RECEITA POR INTERVALO - Contate o ADM");
+		}
+		
+	}
 	@Override
 	public List<Despesa> getDespesaPorIntervalo(java.util.Date de, java.util.Date ate) throws DaoException {
 		List<Despesa> despesas = new ArrayList<>();

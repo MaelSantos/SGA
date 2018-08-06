@@ -12,6 +12,7 @@ import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
+import br.com.sga.entidade.adapter.ReceitaAdapter;
 import br.com.sga.entidade.enums.Tabela;
 
 public interface IDaoCommun {
@@ -43,6 +44,7 @@ public interface IDaoCommun {
     public List<Despesa> getDespesa(Integer financeiro_id)throws DaoException;
     public List<Receita> getReceitaPorIntervalo(Date de, Date ate)throws DaoException;
     public List<Despesa> getDespesaPorIntervalo(Date de, Date ate)throws DaoException;
+    public List<ReceitaAdapter> getReceitaTotalMesPorIntervalo(java.util.Date de, java.util.Date ate) throws DaoException;
     
     //processo
     public void salvarAudiencia(Audiencia audiencia, Integer processo_id) throws DaoException;

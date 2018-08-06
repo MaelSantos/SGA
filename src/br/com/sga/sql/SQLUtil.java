@@ -39,7 +39,8 @@ public class SQLUtil {
     	public static final String INSERT_ALL = "INSERT INTO RECEITA(data_entrada,centro_custo,descricao,valor,status,tipo_pagamento,vencimento,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
     	public static final String SELECT_ID_FINANCEIRO = "SELECT * FROM RECEITA WHERE financeiro_id = ?";
     	public static final String SELECT_INTERVALO = "SELECT R.* FROM FINANCEIRO F, RECEITA R WHERE (R.data_entrada BETWEEN ? AND ?)";
-    
+    	public static final String SELECT_INTERVALO_TOTAL_MES= "select sum(valor) as total,extract(year from data_entrada) as ano,extract( month from data_entrada)as mes from receita"
+    			+ " where data_entrada between ? and ? group by mes,ano order by mes,ano";
     }
 
     public static class Despesa{
