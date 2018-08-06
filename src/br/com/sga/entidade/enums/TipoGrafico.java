@@ -1,5 +1,5 @@
 package br.com.sga.entidade.enums;
 
 public enum TipoGrafico {
-	PIZZA
+	BARRA,COLUNA,LINHA,PIZZA
 }

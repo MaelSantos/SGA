@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import br.com.sga.entidade.adapter.ReceitaAdapter;
+import br.com.sga.entidade.enums.TipoEstatistica;
 import br.com.sga.entidade.enums.TipoGrafico;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
@@ -18,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -39,7 +39,7 @@ public class ControleEstatistica {
     private DatePicker atePicker;
 
     @FXML
-    private ComboBox<String> tipoBox;
+    private ComboBox<TipoEstatistica> tipoBox;
 
     @FXML
     private ComboBox<TipoGrafico> graficoBox;
@@ -61,7 +61,9 @@ public class ControleEstatistica {
     @FXML
     void actionButton(ActionEvent event) {
     	if(event.getSource() == attButton ) {
-	    	LocalDate ld = dePicker.getValue();
+    		barChart.getData().clear();
+    		
+    		LocalDate ld = dePicker.getValue();
 	    	Date de = new Date();
 	    	Calendar c =  Calendar.getInstance();
 	    	c.setTime(de);
@@ -109,6 +111,9 @@ public class ControleEstatistica {
         fachada = Fachada.getInstance();
         
         graficoBox.getItems().addAll(TipoGrafico.values());
+        tipoBox.getItems().addAll(TipoEstatistica.values());
+        graficoBox.setValue(TipoGrafico.BARRA);
+        tipoBox.setValue(TipoEstatistica.RECEITAS_POR_MES);
 
     }
 }
