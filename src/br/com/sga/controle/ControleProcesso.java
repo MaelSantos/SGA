@@ -13,9 +13,11 @@ import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class ControleProcesso extends Controle{
 
@@ -36,6 +38,15 @@ public class ControleProcesso extends Controle{
 
 	@FXML
 	private TableColumn<ProcessoAdapter, Date> colData1;
+
+	@FXML
+	private TableColumn<ProcessoAdapter, String> colAcoes1;
+
+	@FXML
+	private TableColumn<ProcessoAdapter, String> colAcoes2;
+
+	@FXML
+	private TableColumn<ProcessoAdapter, String> colAcoes3;
 
 	@FXML
 	private TableView<ProcessoAdapter> tbl2Vara;
@@ -79,19 +90,14 @@ public class ControleProcesso extends Controle{
 	private IFachada fachada;
 
 	@FXML
-	private Button btnDetalhes;
-
-	@FXML
 	public void actionButton(ActionEvent event) {
 
 		Object obj = event.getSource();
 
 		if(obj == btnCadastrar)
 			App.notificarOuvintes(Tela.cadastro_processo);
-		if(obj == btnDetalhes)
-			App.notificarOuvintes(Tela.detalhes_processo, tbl1Vara.getSelectionModel().getSelectedItem());
 	}
-	
+
 	public void init() {
 
 		fachada = Fachada.getInstance();
@@ -131,6 +137,85 @@ public class ControleProcesso extends Controle{
 		colProcesso3.setCellValueFactory(
 				new PropertyValueFactory<>("numero"));
 
+		colAcoes1.setCellValueFactory(
+				new PropertyValueFactory<>("numero"));
+		colAcoes2.setCellValueFactory(
+				new PropertyValueFactory<>("numero"));
+		colAcoes3.setCellValueFactory(
+				new PropertyValueFactory<>("numero"));
+
+		colAcoes1.setCellFactory(new Callback<TableColumn<ProcessoAdapter, String>, TableCell<ProcessoAdapter, String>>() {
+			@Override
+			public TableCell<ProcessoAdapter, String> call(TableColumn<ProcessoAdapter, String> column) {
+				return new TableCell<ProcessoAdapter, String>() {
+					Button b = new Button("Detalhes");
+					@Override
+					protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item == null || empty) {
+							setText(null);
+							setStyle("");
+						}else{
+							Button b = new Button("Detalhes");
+							b.setOnAction((a) ->{
+								App.notificarOuvintes(Tela.detalhes_processo, tbl1Vara.getSelectionModel().getSelectedItem());
+							});
+							setGraphic(b);
+						}
+					}
+				};
+
+			}
+		});
+
+		colAcoes2.setCellFactory(new Callback<TableColumn<ProcessoAdapter, String>, TableCell<ProcessoAdapter, String>>() {
+			@Override
+			public TableCell<ProcessoAdapter, String> call(TableColumn<ProcessoAdapter, String> column) {
+				return new TableCell<ProcessoAdapter, String>() {
+					Button b = new Button("Detalhes");
+					@Override
+					protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item == null || empty) {
+							setText(null);
+							setStyle("");
+						}else{
+							Button b = new Button("Detalhes");
+							b.setOnAction((a) ->{
+								App.notificarOuvintes(Tela.detalhes_processo, tbl2Vara.getSelectionModel().getSelectedItem());
+							});
+							setGraphic(b);
+						}
+					}
+				};
+
+			}
+		});
+
+		colAcoes3.setCellFactory(new Callback<TableColumn<ProcessoAdapter, String>, TableCell<ProcessoAdapter, String>>() {
+			@Override
+			public TableCell<ProcessoAdapter, String> call(TableColumn<ProcessoAdapter, String> column) {
+				return new TableCell<ProcessoAdapter, String>() {
+					Button b = new Button("Detalhes");
+					@Override
+					protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item == null || empty) {
+							setText(null);
+							setStyle("");
+						}else{
+							Button b = new Button("Detalhes");
+							b.setOnAction((a) ->{
+								App.notificarOuvintes(Tela.detalhes_processo, tbl3Vara.getSelectionModel().getSelectedItem());
+							});
+							setGraphic(b);
+						}
+					}
+				};
+
+			}
+		});
+
 		try {
 			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_1.toString()));
 			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_2.toString()));
@@ -155,7 +240,7 @@ public class ControleProcesso extends Controle{
 					App.notificarOuvintes(Tela.detalhes_processo, tbl3Vara.getSelectionModel().getSelectedItem());});
 
 	}
-	
+
 
 	@Override
 	public void atualizar(Tela tela, Object object) {

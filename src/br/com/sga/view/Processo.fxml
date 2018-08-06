@@ -36,6 +36,7 @@
                   <TableColumn fx:id="colPartes1" prefWidth="75.0" text="Partes" />
                   <TableColumn fx:id="colAndamento1" prefWidth="75.0" text="Andamento" />
                   <TableColumn fx:id="colData1" prefWidth="75.0" text="Data" />
+                  <TableColumn fx:id="colAcoes1" prefWidth="75.0" text="Ações" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -53,6 +54,7 @@
                   <TableColumn fx:id="colPartes2" prefWidth="75.0" text="Partes" />
                   <TableColumn fx:id="colAndamento2" prefWidth="75.0" text="Andamento" />
                   <TableColumn fx:id="colData2" prefWidth="75.0" text="Data" />
+                  <TableColumn fx:id="colAcoes2" prefWidth="75.0" text="Ações" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -70,18 +72,14 @@
                   <TableColumn fx:id="colPartes3" prefWidth="75.0" text="Partes" />
                   <TableColumn fx:id="colAndamento3" prefWidth="75.0" text="Andamento" />
                   <TableColumn fx:id="colData3" prefWidth="75.0" text="Data" />
+                  <TableColumn fx:id="colAcoes3" prefWidth="75.0" text="Ações" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+            <ButtonBar prefHeight="89.0" prefWidth="680.0">
               <buttons>
-                  <Button fx:id="btnDetalhes" mnemonicParsing="false" onAction="#actionButton" text="Detalhes Processo">
-                     <font>
-                        <Font name="Verdana" size="12.0" />
-                     </font>
-                  </Button>
                 <Button fx:id="btnCadastrar" mnemonicParsing="false" onAction="#actionButton" text="Cadastrar Processo">
                      <font>
                         <Font name="Verdana" size="12.0" />
