@@ -22,6 +22,11 @@
          <children>
             <FlowPane alignment="CENTER_LEFT" columnHalignment="CENTER" prefHeight="126.0" prefWidth="700.0">
                <children>
+                  <Label text="Financeiro: " textFill="WHITE">
+                     <font>
+                        <Font name="Verdana Bold" size="24.0" />
+                     </font>
+                  </Label>
                   <Label fx:id="lblData" text="De: - Até:" textFill="WHITE">
                      <font>
                         <Font name="Verdana Bold" size="24.0" />

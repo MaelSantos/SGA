@@ -183,7 +183,7 @@
                   <Font name="Verdana" size="12.0" />
                </font>
             </TitledPane>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+            <ButtonBar prefHeight="84.0" prefWidth="690.0">
               <buttons>
                 <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#actionButton" text="Voltar">
                      <font>
