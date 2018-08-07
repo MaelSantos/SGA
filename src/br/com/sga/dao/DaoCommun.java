@@ -271,6 +271,15 @@ public class DaoCommun implements IDaoCommun{
 			statement.setInt(8,financeiro_id);
 			statement.execute();
 			this.connection.close();
+			
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Financeiro.UPDATE_TOTAL_RECEITA);
+			statement.setFloat(1,receita.getValor());
+			statement.setInt(2,financeiro_id);
+			statement.executeUpdate();
+			
+			this.connection.close();
+			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO SALVAR RECEITA - Contate o ADM");
@@ -294,6 +303,13 @@ public class DaoCommun implements IDaoCommun{
 			statement.setInt(8,financeiro_id);
 			statement.execute();
 			this.connection.close();
+			
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Financeiro.UPDATE_TOTAL_DESPESA);
+			statement.setFloat(1,despesa.getValor());
+			statement.setInt(2,financeiro_id);
+			statement.executeUpdate();
+			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO SALVAR DESPESA - Contate o ADM");

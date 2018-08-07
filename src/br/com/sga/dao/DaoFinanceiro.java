@@ -112,13 +112,6 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 			Financeiro financeiro = null;
 			if(resultSet.next()) {
 				financeiro = new Financeiro(resultSet.getInt("id"));
-				financeiro.setAno_coberto(resultSet.getString("ano_coberto"));
-				financeiro.setTotal_despesas(resultSet.getFloat("total_despesa"));
-				financeiro.setTotal_lucro(resultSet.getFloat("total_lucro"));
-
-				financeiro.setReceitas(daoCommun.getReceita(financeiro.getId()));
-				financeiro.setDespesas(daoCommun.getDespesa(financeiro.getId()));
-
 			}else {
 				throw new DaoException("ANO NÃO CADASTRADO A BASE");
 			}
@@ -140,8 +133,6 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 			SimpleDateFormat ano = new SimpleDateFormat("yyyy");
 			statement.setString(1, ano.format(ate));
 			resultSet = statement.executeQuery();
-			System.out.println(ate.getYear());
-			
 			
 			Financeiro financeiro = null;
 			if(resultSet.next()) {

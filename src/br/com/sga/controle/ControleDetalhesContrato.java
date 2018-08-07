@@ -127,8 +127,9 @@ public class ControleDetalhesContrato extends Controle{
 							"Parcela", "pagamento parcela", parcela.getValor(),false,TipoPagamento.A_VISTA, 
 							Calendar.getInstance().getTime()),
     						fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
-    				
+    				Alerta.getInstance().showMensagem("Atualizado","","Estado da parcela atualizado para\n CONCLUIDO");
     			} catch (BusinessException | DaoException e) {
+    				Alerta.getInstance().showMensagem("Erro","",e.getMessage());
     				e.printStackTrace();
     			}
     		}
@@ -218,6 +219,6 @@ public class ControleDetalhesContrato extends Controle{
 	public void init() {
 		fachada = Fachada.getInstance(); 
 		dialogo = Dialogo.getInstance();
-		andamentoBox.getItems().addAll(Andamento.values());
+		andamentoBox.getItems().addAll(Andamento.CONCLUIDO,Andamento.PENDENTE);
 	}
 }

@@ -3,6 +3,7 @@ package br.com.sga.controle;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import br.com.sga.app.App;
@@ -127,11 +128,13 @@ public class ControleCadastroReceitaDespesa extends Controle{
 				receita.setValor(Float.parseFloat(tfdValor.getText().trim()));
 				
 				try {
-					financeiro.getReceitas().add(receita);
-					fachada.salvarEditarFinanceiro(financeiro);
-					daoCommun.salvarReceita(receita, financeiro.getId());
+					//financeiro.getReceitas().add(receita);
+					//fachada.salvarEditarFinanceiro(financeiro);
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTime(receita.getData_entrada());
+					daoCommun.salvarReceita(receita,  fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Salvo!", "", "Adicionado Com Sucesso");
-				} catch (BusinessException | DaoException e) {
+				} catch (BusinessException |DaoException e) {
 					e.printStackTrace();
 					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Receita", e.getMessage());
 				}
@@ -162,9 +165,11 @@ public class ControleCadastroReceitaDespesa extends Controle{
 				despesa.setValor(Float.parseFloat(tfdValor.getText().trim()));
 
 				try {
-					financeiro.getDespesas().add(despesa);
-					fachada.salvarEditarFinanceiro(financeiro);
-					daoCommun.salvarDespesa(despesa, financeiro.getId());
+					//financeiro.getDespesas().add(despesa);
+					//fachada.salvarEditarFinanceiro(financeiro);
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTime(despesa.getData_retirada());
+					daoCommun.salvarDespesa(despesa, fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Salvo!", "", "Adicionado Com Sucesso");
 				} catch (BusinessException | DaoException e) {
 					e.printStackTrace();

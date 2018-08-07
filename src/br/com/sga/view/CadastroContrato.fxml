@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -9,27 +10,75 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroContrato">
+<AnchorPane style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroContrato">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="40.0" style="-fx-background-color: #077272;">
+            <FlowPane hgap="10.0" prefHeight="0.0" prefWidth="700.0" vgap="10.0">
+               <padding>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </padding>
                <children>
-                  <Label text="Cadastro de novo contrato" textFill="WHITE" AnchorPane.leftAnchor="20.0">
+                  <Button fx:id="voltarButton" mnemonicParsing="false" onAction="#actionButton" style="-fx-background-color: #008B8B;">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../res/icones/icons8_Back_To_50px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Label text="Cadastro de novo contrato" textFill="WHITE">
                      <font>
                         <Font name="Verdana" size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="voltarButton" layoutX="638.0" layoutY="5.0" mnemonicParsing="false" onAction="#actionButton" prefWidth="80.0" text="Voltar" AnchorPane.rightAnchor="14.0" />
                </children>
-            </AnchorPane>
+            </FlowPane>
             <FlowPane alignment="CENTER">
                <children>
+                  <GridPane hgap="10.0" vgap="10.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Dados para selecionar consulta que levou ao contrato" textFill="WHITE" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Dado do cliente" textFill="WHITE" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="nomeClienteField" prefHeight="25.0" prefWidth="273.0" promptText="Nome, cpf ,rg ou email do cliente" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="buscarConsultaButton" mnemonicParsing="false" onAction="#actionButton" text="Buscar consultas" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </GridPane>
                   <ScrollPane hbarPolicy="NEVER" pannable="true" prefViewportHeight="585.0" style="-fx-background-color: #008B8B;" vbarPolicy="ALWAYS">
                      <content>
                         <AnchorPane prefHeight="850.0" prefWidth="685.0" style="-fx-background-color: #008B8B;">
@@ -42,21 +91,6 @@
                               <Label layoutX="55.0" layoutY="289.0" text="Valor total" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="126.0" layoutY="71.0" text="Dado do cliente" textFill="WHITE">
-                                 <font>
-                                    <Font name="Verdana" size="12.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="nomeClienteField" layoutX="232.0" layoutY="66.0" prefHeight="25.0" prefWidth="273.0" promptText="Nome, cpf ,rg ou email do cliente">
-                                 <font>
-                                    <Font name="Verdana" size="12.0" />
-                                 </font>
-                              </TextField>
-                              <Label layoutX="43.0" layoutY="35.0" text="Dados para selecionar consulta que levou ao contrato" textFill="WHITE">
-                                 <font>
-                                    <Font name="Verdana Bold" size="14.0" />
                                  </font>
                               </Label>
                               <Label layoutX="48.0" layoutY="144.0" text="Dados do contrato" textFill="WHITE">
@@ -111,11 +145,6 @@
                                  </font>
                               </Button>
                               <Button fx:id="salvarContratoButton" layoutX="295.0" layoutY="755.0" mnemonicParsing="false" onAction="#actionButton" text="Salvar contrato">
-                                 <font>
-                                    <Font name="Verdana" size="12.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="buscarConsultaButton" layoutX="514.0" layoutY="67.0" mnemonicParsing="false" onAction="#actionButton" text="Buscar consultas">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
                                  </font>
