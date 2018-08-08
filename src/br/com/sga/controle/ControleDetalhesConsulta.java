@@ -118,7 +118,7 @@ public class ControleDetalhesConsulta extends Controle{
 				String busca[] = {cliente.getCpf_cnpj()};
 				
 				List<ConsultaAdapter> consultas = fachada.buscarConsultaPorClienteAdapter(busca);
-				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecaoConsulta(consultas);
+				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecionar(consultas);
 				consulta = new Consulta();
 				consulta.setId(consultaBasica.getId());
 				atualizarDadosConsulta();
@@ -127,7 +127,7 @@ public class ControleDetalhesConsulta extends Controle{
 				e.printStackTrace();
 			}
 		}else if(selectTestmunhaButton== event.getSource()) {
-			Testemunha testemunha = dialogo.selecionarTestemunha(consulta.getTestemunhas());
+			Testemunha testemunha = dialogo.selecionar(consulta.getTestemunhas());
 			Telefone t = testemunha.getTelefone();
 			Endereco e = testemunha.getEndereco();
 			nomeTestemunhaField.setText(testemunha.getNome());

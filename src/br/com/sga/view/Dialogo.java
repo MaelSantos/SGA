@@ -124,115 +124,116 @@ public class Dialogo {
 //		return null;
 //	}
 	
-	public Funcionario selecaoFuncionario(List<Funcionario> funcionarios) {
-		Dialog<String> dialog = new Dialog<>();
-		dialog.setTitle("Selecione um cliente");
-		dialog.setHeaderText("Lista com todos os clientes para a busca");
-		dialog.setResizable(true);
-		
-		TableView<Funcionario> funcionarioTable = new TableView<>();
-	    TableColumn<Funcionario, String> nomeColumn = new TableColumn<>("Nome");
-	    TableColumn<Funcionario, String> numeroOABColumn = new TableColumn<>("Número na OAB");
-	    TableColumn<Funcionario, String> emailColumn = new TableColumn<>("Email");
-	    
-	    funcionarioTable.getColumns().addAll(nomeColumn,numeroOABColumn,emailColumn);
-	   
-	    funcionarioTable.setPrefSize(600,300);	    
-	   
-	    nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-    	nomeColumn.setPrefWidth(200);
-	    
-    	numeroOABColumn.setCellValueFactory(new PropertyValueFactory<>("numero_oab"));
-    	numeroOABColumn.setPrefWidth(200);
-	   
-    	emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-    	emailColumn.setPrefWidth(200);
-    	
-    	funcionarioTable.getItems().addAll(funcionarios);
-		
-    	dialog.getDialogPane().setContent(funcionarioTable);
-		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-		
-		Optional<String> result = dialog.showAndWait();
-		if(result.isPresent())
-			return funcionarioTable.getSelectionModel().getSelectedItem();
-		return null;
-	}
+//	public Funcionario selecaoFuncionario(List<Funcionario> funcionarios) {
+//		Dialog<String> dialog = new Dialog<>();
+//		dialog.setTitle("Selecione um cliente");
+//		dialog.setHeaderText("Lista com todos os clientes para a busca");
+//		dialog.setResizable(true);
+//		
+//		TableView<Funcionario> funcionarioTable = new TableView<>();
+//	    TableColumn<Funcionario, String> nomeColumn = new TableColumn<>("Nome");
+//	    TableColumn<Funcionario, String> numeroOABColumn = new TableColumn<>("Número na OAB");
+//	    TableColumn<Funcionario, String> emailColumn = new TableColumn<>("Email");
+//	    
+//	    funcionarioTable.getColumns().addAll(nomeColumn,numeroOABColumn,emailColumn);
+//	   
+//	    funcionarioTable.setPrefSize(600,300);	    
+//	   
+//	    nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+//    	nomeColumn.setPrefWidth(200);
+//	    
+//    	numeroOABColumn.setCellValueFactory(new PropertyValueFactory<>("numero_oab"));
+//    	numeroOABColumn.setPrefWidth(200);
+//	   
+//    	emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+//    	emailColumn.setPrefWidth(200);
+//    	
+//    	funcionarioTable.getItems().addAll(funcionarios);
+//		
+//    	dialog.getDialogPane().setContent(funcionarioTable);
+//		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+//		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+//		
+//		Optional<String> result = dialog.showAndWait();
+//		if(result.isPresent())
+//			return funcionarioTable.getSelectionModel().getSelectedItem();
+//		return null;
+//	}
 	
-	public ConsultaAdapter selecaoConsulta(List<ConsultaAdapter> consultas) {
-		Dialog<String> dialog = new Dialog<>();
-		dialog.setTitle("Selecione uma Consulta");
-		dialog.setHeaderText("Lista com todos as consultas: \nSeleciona uma consulta ");
-		dialog.setResizable(true);
-		
-		TableView<ConsultaAdapter> consultaTable = new TableView<>();
-	    TableColumn<ConsultaAdapter, Date> dataColumn = new TableColumn<>("Data");
-	    TableColumn<ConsultaAdapter, String> nomeColumn = new TableColumn<>("Nome Cliente");
-	    TableColumn<ConsultaAdapter, Area> areaColumn = new TableColumn<>("Area");
-	    TableColumn<ConsultaAdapter, Float> valorColumn = new TableColumn<>("Valor honorario");
-	    
-	    consultaTable.getColumns().addAll(dataColumn,nomeColumn,areaColumn,valorColumn);
-	    consultaTable.setPrefSize(800
-	    		,300);	    
-	   
-	    dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
-	    dataColumn.setPrefWidth(120);
-	    
-	    nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome_cliente"));
-	    nomeColumn.setPrefWidth(280);
-	    
-	    valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_honorario"));
-    	valorColumn.setPrefWidth(200);
-	   
-    	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
-    	areaColumn.setPrefWidth(200);
-    	
-    	consultaTable.getItems().addAll(consultas);
-		
-    	dialog.getDialogPane().setContent(consultaTable);
-		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-		
-		Optional<String> result = dialog.showAndWait();
-		if(result.isPresent())
-			return consultaTable.getSelectionModel().getSelectedItem();
-		return null;
-	}
-	public Testemunha selecionarTestemunha(List<Testemunha> testemunhas) {
-		Dialog<String> dialog = new Dialog<>();
-		dialog.setTitle("Selecione uma testemunha");
-		dialog.setHeaderText("Lista com todos as consultas: \nSeleciona uma testemunha para mais detalhes ");
-		dialog.setResizable(true);
-		
-
-		TableView<Testemunha> testemunhaTable = new TableView<>();
-	    TableColumn<Testemunha,String> nomeTestemunhaColumn = new TableColumn<>("Nome da Testemunha");
-	    TableColumn<Testemunha,Telefone> telefoneTestemunhaColumn = new TableColumn<>("Telefone");
-	    TableColumn<Testemunha,Endereco> enderecoTestemunhaColumn = new TableColumn<>("Endereco");
-	    testemunhaTable.getColumns().addAll(nomeTestemunhaColumn,telefoneTestemunhaColumn,enderecoTestemunhaColumn);
-	    testemunhaTable.setPrefSize(600,300);	    
-	   
-	    nomeTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-	    nomeTestemunhaColumn.setPrefWidth(200);
-	    
-    	telefoneTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
-    	telefoneTestemunhaColumn.setPrefWidth(200);
-	   
-    	enderecoTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("endereco"));
-    	enderecoTestemunhaColumn.setPrefWidth(200);
-    	
-    	testemunhaTable.getItems().addAll(testemunhas);
-		
-    	dialog.getDialogPane().setContent(testemunhaTable);
-		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-		
-		Optional<String> result = dialog.showAndWait();
-		if(result.isPresent())
-			return testemunhaTable.getSelectionModel().getSelectedItem();
-		return null;
-	}
+//	public ConsultaAdapter selecaoConsulta(List<ConsultaAdapter> consultas) {
+//		Dialog<String> dialog = new Dialog<>();
+//		dialog.setTitle("Selecione uma Consulta");
+//		dialog.setHeaderText("Lista com todos as consultas: \nSeleciona uma consulta ");
+//		dialog.setResizable(true);
+//		
+//		TableView<ConsultaAdapter> consultaTable = new TableView<>();
+//	    TableColumn<ConsultaAdapter, Date> dataColumn = new TableColumn<>("Data");
+//	    TableColumn<ConsultaAdapter, String> nomeColumn = new TableColumn<>("Nome Cliente");
+//	    TableColumn<ConsultaAdapter, Area> areaColumn = new TableColumn<>("Area");
+//	    TableColumn<ConsultaAdapter, Float> valorColumn = new TableColumn<>("Valor honorario");
+//	    
+//	    consultaTable.getColumns().addAll(dataColumn,nomeColumn,areaColumn,valorColumn);
+//	    consultaTable.setPrefSize(800
+//	    		,300);	    
+//	   
+//	    dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
+//	    dataColumn.setPrefWidth(120);
+//	    
+//	    nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome_cliente"));
+//	    nomeColumn.setPrefWidth(280);
+//	    
+//	    valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_honorario"));
+//    	valorColumn.setPrefWidth(200);
+//	   
+//    	areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
+//    	areaColumn.setPrefWidth(200);
+//    	
+//    	consultaTable.getItems().addAll(consultas);
+//		
+//    	dialog.getDialogPane().setContent(consultaTable);
+//		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+//		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+//		
+//		Optional<String> result = dialog.showAndWait();
+//		if(result.isPresent())
+//			return consultaTable.getSelectionModel().getSelectedItem();
+//		return null;
+//	}
+	
+//	public Testemunha selecionarTestemunha(List<Testemunha> testemunhas) {
+//		Dialog<String> dialog = new Dialog<>();
+//		dialog.setTitle("Selecione uma testemunha");
+//		dialog.setHeaderText("Lista com todos as consultas: \nSeleciona uma testemunha para mais detalhes ");
+//		dialog.setResizable(true);
+//		
+//
+//		TableView<Testemunha> testemunhaTable = new TableView<>();
+//	    TableColumn<Testemunha,String> nomeTestemunhaColumn = new TableColumn<>("Nome da Testemunha");
+//	    TableColumn<Testemunha,Telefone> telefoneTestemunhaColumn = new TableColumn<>("Telefone");
+//	    TableColumn<Testemunha,Endereco> enderecoTestemunhaColumn = new TableColumn<>("Endereco");
+//	    testemunhaTable.getColumns().addAll(nomeTestemunhaColumn,telefoneTestemunhaColumn,enderecoTestemunhaColumn);
+//	    testemunhaTable.setPrefSize(600,300);	    
+//	   
+//	    nomeTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+//	    nomeTestemunhaColumn.setPrefWidth(200);
+//	    
+//    	telefoneTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+//    	telefoneTestemunhaColumn.setPrefWidth(200);
+//	   
+//    	enderecoTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+//    	enderecoTestemunhaColumn.setPrefWidth(200);
+//    	
+//    	testemunhaTable.getItems().addAll(testemunhas);
+//		
+//    	dialog.getDialogPane().setContent(testemunhaTable);
+//		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+//		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+//		
+//		Optional<String> result = dialog.showAndWait();
+//		if(result.isPresent())
+//			return testemunhaTable.getSelectionModel().getSelectedItem();
+//		return null;
+//	}
 
 	public String dialogoDeEntradaText(String titulo,String cabecario,String msg) {
 		TextInputDialog dialog = new TextInputDialog();
@@ -278,52 +279,56 @@ public class Dialogo {
 		return null;
 	}
 
-	public <T> T selecao(List<T> list,String titulo,String descricao)
-	{
-		Dialog<T> dialog = new Dialog<>();
-		dialog.setTitle(titulo);
-		
-		ListView<T> view = new ListView<T>();
-		ListCell<T> cell = new ListCell<T>();
-		
-//		view.setCellFactory(param -> cell);
-		
-		ObservableList<T> nomes = FXCollections
-		        .observableArrayList ();
-		
-		nomes.addAll(list);
-		
-		view.setCellFactory(ComboBoxListCell.forListView(nomes));
-		
-		VBox v = new VBox();
-		v.setPrefSize(500, 300);
-		
-		view.getItems().setAll(list);
-		v.getChildren().addAll(new Label(descricao), view);
-		
-		dialog.getDialogPane().setContent(v);
-		
-		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-		
-		Optional<T> optional = dialog.showAndWait();
-		
-		if(optional.isPresent())
-			return view.getSelectionModel().getSelectedItem();			
-		return null;
-	}
+//	public <T> T selecao(List<T> list,String titulo,String descricao)
+//	{
+//		Dialog<T> dialog = new Dialog<>();
+//		dialog.setTitle(titulo);
+//		
+//		ListView<T> view = new ListView<T>();
+//		ListCell<T> cell = new ListCell<T>();
+//		
+////		view.setCellFactory(param -> cell);
+//		
+//		ObservableList<T> nomes = FXCollections
+//		        .observableArrayList ();
+//		
+//		nomes.addAll(list);
+//		
+//		view.setCellFactory(ComboBoxListCell.forListView(nomes));
+//		
+//		VBox v = new VBox();
+//		v.setPrefSize(500, 300);
+//		
+//		view.getItems().setAll(list);
+//		v.getChildren().addAll(new Label(descricao), view);
+//		
+//		dialog.getDialogPane().setContent(v);
+//		
+//		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
+//		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+//		
+//		Optional<T> optional = dialog.showAndWait();
+//		
+//		if(optional.isPresent())
+//			return view.getSelectionModel().getSelectedItem();			
+//		return null;
+//	}
 
 	public <T> T selecionar(List<T> list) {
 				
 		Dialog<T> dialog = new Dialog<>();
 		dialog.setTitle("Selecione: ");
-		dialog.setHeaderText("Lista com todos os(a) "+list.get(0).getClass().getSimpleName().replace("Adapter", "").toUpperCase()+" : \nSeleciona um(a) para mais detalhes");
+		if(!list.isEmpty())
+			dialog.setHeaderText("Lista com todos os(a) "+list.get(0).getClass().getSimpleName().replace("Adapter", "").toUpperCase()+" : \nSeleciona um(a) para mais detalhes");
+		else
+			dialog.setHeaderText("Lista com todos os(a) "+" : \nSeleciona um(a) para mais detalhes");
 		dialog.setResizable(true);
 		
 		TableView<T> table = new TableView<>();
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	    table.setPrefSize(600,300);	    
    	
+	    if(!list.isEmpty())
     	for(Field f : list.get(0).getClass().getDeclaredFields())
     	{
     		TableColumn<T, ?> column = new TableColumn<>(f.getName().toUpperCase());

@@ -162,7 +162,8 @@ public class ControleCadastroConsulta extends Controle{
     		try {
 				List<Cliente> clientes = fachada.buscarClientePorBusca(dadoClienteField.getText().trim());
     			//cliente = Dialogo.getInstance().selecaoCliente(clientes);
-				cliente = Dialogo.getInstance().selecao(clientes,"Selecione de cliente","Selecione o cliente já cadastrado para consulta");
+//				cliente = Dialogo.getInstance().selecao(clientes,"Selecione de cliente","Selecione o cliente já cadastrado para consulta");
+				cliente = Dialogo.getInstance().selecionar(clientes);
     			dadoClienteField.setText(cliente.getNome());
 			} catch (BusinessException e) {
 				e.printStackTrace();
@@ -173,7 +174,7 @@ public class ControleCadastroConsulta extends Controle{
 		{
 			try {
 				List<Funcionario> funcionarios = fachada.buscarUsuarioPorBusca(dadoFuncionarioField.getText().trim());
-    			outroFuncionario = Dialogo.getInstance().selecaoFuncionario(funcionarios);
+    			outroFuncionario = Dialogo.getInstance().selecionar(funcionarios);
     			dadoFuncionarioField.setText(outroFuncionario.getNome());
 			} catch (BusinessException e) {
 				e.printStackTrace();

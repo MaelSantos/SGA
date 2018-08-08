@@ -136,7 +136,7 @@ public class ControleCadastroContrato {
 			try {
 				String busca[] = {nomeClienteField.getText().trim()};
 				List<ConsultaAdapter> consultas = Fachada.getInstance().buscarConsultaPorClienteAdapter(busca);
-				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecaoConsulta(consultas);
+				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecionar(consultas);
 				consulta = new Consulta();
 				consulta.setId(consultaBasica.getId());
 				consulta.setArea(consultaBasica.getArea());

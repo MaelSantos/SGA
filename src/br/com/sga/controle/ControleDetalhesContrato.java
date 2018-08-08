@@ -109,7 +109,8 @@ public class ControleDetalhesContrato extends Controle{
     		try {
 				List<ContratoAdapter> contratos = fachada.buscarContratoPorClienteAdapter(cliente.getCpf_cnpj());
 				contrato = new Contrato();
-				ContratoAdapter adapter = dialogo.selecao(contratos,"Selecione Contrato","Selecione um contrato para mais detalhes");
+//				ContratoAdapter adapter = dialogo.selecao(contratos,"Selecione Contrato","Selecione um contrato para mais detalhes");
+				ContratoAdapter adapter = dialogo.selecionar(contratos);
 				contrato.setId(adapter.getId());
 				atualizarDadosContrato();
 			} catch (BusinessException e) {
@@ -136,7 +137,8 @@ public class ControleDetalhesContrato extends Controle{
     	}
     	else if(contrato!= null) {
     		if(selectParcelaButton == event.getSource() ) {
-    			parcela =   dialogo.selecao(contrato.getParcelas(),"Selecione Parcelas","Selecione uma parcela para mais detalhes");
+//    			parcela =   dialogo.selecao(contrato.getParcelas(),"Selecione Parcelas","Selecione uma parcela para mais detalhes");
+    			parcela =   dialogo.selecionar(contrato.getParcelas());
     			valorField.setText(parcela.getValor()+"");
     			tipoParcelaField.setText(parcela.getTipo().toString());
     			jurosField.setText(parcela.getJuros()+"");
@@ -144,7 +146,8 @@ public class ControleDetalhesContrato extends Controle{
     			andamentoBox.setValue(parcela.getEstado());
     		
     		}else if(selectParteButton == event.getSource() ) {
-	    		Parte parte  = dialogo.selecao(contrato.getPartes(),"Seleção de parte","Selecione uma das partes para mais detalhes ");
+//	    		Parte parte  = dialogo.selecao(contrato.getPartes(),"Seleção de parte","Selecione uma das partes para mais detalhes ");
+	    		Parte parte  = dialogo.selecionar(contrato.getPartes());
 	    		nomeParteField.setText(parte.getNome());
 	    		tipoParteField.setText(parte.getTipo_parte().toString());
 	    		tipoParticiField.setText(parte.getTipo_participacao().toString());
