@@ -152,7 +152,7 @@ public class ControleFinanceiro extends Controle {
 				if(financeiro.getReceitas() != null)
 					tblReceitas.getItems().setAll(financeiro.getReceitas());
 				if(tblDespesas.getItems().isEmpty() && tblReceitas.getItems().isEmpty())
-					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim()+"\nSEM RESULTADOS!!!");
+					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim()+" SEM RESULTADOS!!!");
 				else
 					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim());
 				float total_despesas = 0, total_receita = 0;

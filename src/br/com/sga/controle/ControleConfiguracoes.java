@@ -1,40 +1,37 @@
 package br.com.sga.controle;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import br.com.sga.app.App;
-import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class ControleConfiguracoes implements Initializable,Ouvinte{
+public class ControleConfiguracoes extends Controle{
 
-	@FXML
-    private Button btnAddAdm;
-	
 	@FXML
 	private Label lblNome;
 
+	@FXML
+	private Button editarPerfilButton;
+
+	@FXML
+	private Button btnAddAdm;
+
     private Funcionario usuario;
     
-    @FXML
-    void actionButton(ActionEvent event) {
+    @Override
+    public void actionButton(ActionEvent event) {
 
-    	if(event.getSource() == btnAddAdm)
+    	Object obj = event.getSource();
+    	
+    	if(obj == btnAddAdm)
     		App.notificarOuvintes(Tela.cadastro, usuario);
+    	if(obj == editarPerfilButton) 
+    		App.notificarOuvintes(Tela.editar_perfil, usuario);
     	
     }
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		App.addOuvinte(this);
-	}
 
 	@Override
 	public void atualizar(Tela tela, Object usuario) {
@@ -44,5 +41,11 @@ public class ControleConfiguracoes implements Initializable,Ouvinte{
 				lblNome.setText(this.usuario.getNome());			
 
 			}
+	}
+
+	@Override
+	public void init() {
+		// TODO Stub de método gerado automaticamente
+		
 	}
 }

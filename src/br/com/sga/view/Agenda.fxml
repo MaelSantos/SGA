@@ -13,10 +13,16 @@
    <children>
       <BorderPane fx:id="calendarioPane" layoutX="176.0" layoutY="179.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <ButtonBar prefHeight="63.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <ButtonBar prefHeight="91.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <padding>
                   <Insets right="10.0" />
                </padding>
+               <buttons>
+                  <Button fx:id="cadastrarTarefaButton" mnemonicParsing="false" onAction="#actionButton" text="Cadastrar nova tarefa">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font></Button>
+               </buttons>
             </ButtonBar>
          </bottom>
          <top>
@@ -32,6 +38,9 @@
                </children>
             </FlowPane>
          </top>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </BorderPane>
    </children>
 </AnchorPane>

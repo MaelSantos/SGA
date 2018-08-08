@@ -107,7 +107,7 @@ public class ControleHistorico extends Controle {
 				if(! (tblLogs.getItems().isEmpty()))
 					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim());
 				else
-					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim()+"\nSEM RESULTADOS!!!");
+					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim()+" SEM RESULTADOS!!!");
 				
 				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso","");
 			} catch (BusinessException e) {

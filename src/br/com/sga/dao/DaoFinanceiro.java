@@ -106,7 +106,7 @@ public class DaoFinanceiro implements IDaoFinanceiro {
 	public Financeiro buscarPorAno(Integer ano) throws DaoException {
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			this.statement = connection.prepareStatement(SQLUtil.Financeiro.SELECT_ANO);
+			this.statement = connection.prepareStatement(SQLUtil.Financeiro.SELECT_ID_ANO);
 			statement.setString(1,String.valueOf(ano));
 			resultSet = statement.executeQuery();
 			Financeiro financeiro = null;

@@ -191,6 +191,8 @@ public class ControleProcesso extends Controle{
 
 			}
 		});
+		
+//		tbl1Vara.setRowFactory(tv -> );
 
 		colAcoes3.setCellFactory(new Callback<TableColumn<ProcessoAdapter, String>, TableCell<ProcessoAdapter, String>>() {
 			@Override

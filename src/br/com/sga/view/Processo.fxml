@@ -19,7 +19,7 @@
                <children>
                   <Label text="Acompanhamento De Processos" textFill="WHITE">
                      <font>
-                        <Font name="Verdana" size="16.0" />
+                        <Font name="Verdana Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
@@ -78,7 +78,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <ButtonBar prefHeight="89.0" prefWidth="680.0">
+            <ButtonBar prefHeight="105.0" prefWidth="680.0">
               <buttons>
                 <Button fx:id="btnCadastrar" mnemonicParsing="false" onAction="#actionButton" text="Cadastrar Processo">
                      <font>

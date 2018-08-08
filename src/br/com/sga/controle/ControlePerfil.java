@@ -48,7 +48,6 @@ public class ControlePerfil extends Controle{
     @FXML
     private Pagination diasPagination;
 
-    
     private IFachada fachada;
     
     private Funcionario funcionario;
@@ -96,12 +95,6 @@ public class ControlePerfil extends Controle{
     			Alerta.getInstance().showMensagem("Alerta","","NADA FOI CADASTRADO");
     	}
     }	
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		super.initialize(location, resources);
-	
-	}
 	
 	@Override
 	public void init() {
@@ -122,7 +115,7 @@ public class ControlePerfil extends Controle{
 				       
 					public Node call(Integer pageIndex) {
 				    	   VBox v =  new VBox();
-				    	   List<Notificacao> notificacoes  =null;
+				    	   List<Notificacao> notificacoes = null;
 				    	   try {
 								notificacoes = fachada.buscarNotificacaoPorFuncionario(funcionario);
 								Collections.sort(notificacoes);
