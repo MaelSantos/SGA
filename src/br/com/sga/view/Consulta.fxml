@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -14,36 +15,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleConsulta">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="97.0" prefWidth="680.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="59.0" prefWidth="680.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Consultas" textFill="WHITE">
                      <font>
-                        <Font name="Verdana Bold" size="18.0" />
+                        <Font name="Verdana Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="buscarField" prefHeight="30.0" prefWidth="250.0" />
-                  <Button fx:id="buscarButton" onAction="#actionButton" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-background-color: #008B8B;">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../../../../../res/icones/icons8_Search_50px_2.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <ComboBox fx:id="tipoPessoaBox" prefHeight="25.0" prefWidth="120.0" promptText="Tipo pessoa" />
-                  <ComboBox fx:id="areaBox" prefHeight="25.0" prefWidth="120.0" promptText="Area consulta" />
+                  <Separator prefWidth="200.0" />
                </children>
-            </FlowPane>
+            </VBox>
          </top>
          <bottom>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" BorderPane.alignment="CENTER">
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="105.0" prefWidth="680.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Valor total : " textFill="WHITE">
                      <font>
@@ -83,25 +74,45 @@
                </children>
             </FlowPane>
          </bottom>
-         <center>
-            <TableView fx:id="contratosTableView" prefHeight="348.0" prefWidth="680.0" BorderPane.alignment="CENTER">
-               <columns>
-                  <TableColumn fx:id="dataColumn" minWidth="117.0" prefWidth="125.0" text="Data" />
-                  <TableColumn fx:id="nomeColumn" prefWidth="302.0" text="Nome do cliente" />
-                  <TableColumn fx:id="areaColumn" minWidth="71.0" prefWidth="124.0" text="Area da consulta" />
-                  <TableColumn fx:id="valorColumn" minWidth="128.0" prefWidth="128.0" text="Valor Honorario" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </TableView>
-         </center>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
+         <center>
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="74.0" prefWidth="680.0" vgap="10.0">
+                     <children>
+                        <TextField fx:id="buscarField" prefHeight="30.0" prefWidth="250.0" />
+                        <Button fx:id="buscarButton" onAction="#actionButton" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-background-color: #008B8B;">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0">
+                                 <image>
+                                    <Image url="@../../../../../res/icones/icons8_Search_50px_2.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <ComboBox fx:id="tipoPessoaBox" prefHeight="25.0" prefWidth="120.0" promptText="Tipo pessoa" />
+                        <ComboBox fx:id="areaBox" prefHeight="25.0" prefWidth="120.0" promptText="Area consulta" />
+                     </children>
+                  </FlowPane>
+                  <TableView fx:id="contratosTableView" prefHeight="373.0" prefWidth="680.0">
+                     <columns>
+                        <TableColumn fx:id="dataColumn" minWidth="117.0" prefWidth="125.0" text="Data" />
+                        <TableColumn fx:id="nomeColumn" prefWidth="302.0" text="Nome do cliente" />
+                        <TableColumn fx:id="areaColumn" minWidth="71.0" prefWidth="124.0" text="Area da consulta" />
+                        <TableColumn fx:id="valorColumn" minWidth="128.0" prefWidth="128.0" text="Valor Honorario" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </TableView>
+               </children>
+            </VBox>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>
