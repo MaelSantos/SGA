@@ -28,6 +28,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 
 public class ControleEstatistica extends Controle{
 
@@ -61,61 +62,72 @@ public class ControleEstatistica extends Controle{
     @FXML
     private BarChart<String, Number> barChart;
     
+    @FXML
+    private Label descricaoLabel;
+    
     private IFachada fachada;
     private Funcionario funcionario;
+    private TipoEstatistica tipoSelecionado;
+   // private TipoGrafico tipoGraficoSelecionado;
     
     @FXML
     public void actionButton(ActionEvent event) {
     	if(event.getSource() == attButton ) {
-    		barChart.getData().clear();
-    		
-    		LocalDate ld = dePicker.getValue();
-	    	Date de = new Date();
-	    	Calendar c =  Calendar.getInstance();
-	    	c.setTime(de);
-	    	c.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth());
-	    	de = c.getTime();
+    		if(dePicker.getValue() != null && atePicker.getValue() != null) {
+	    		if(tipoBox.getSelectionModel().getSelectedItem() != null ) { 
+	    			
+	    			barChart.getData().clear();
+	        		
+	        		LocalDate ld = dePicker.getValue();
+	    	    	Date de = new Date();
+	    	    	Calendar c =  Calendar.getInstance();
+	    	    	c.setTime(de);
+	    	    	c.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth());
+	    	    	de = c.getTime();
+	    	    	
+	    	    	LocalDate ld2 = atePicker.getValue();
+	    	    	Date ate = new Date();
+	    	    	c.setTime(ate);
+	    	    	c.set(ld2.getYear(), ld2.getMonthValue()-1, ld2.getDayOfMonth());
+	    	    	ate  = c.getTime();
+	    	    	
+	    	    	Log log = null;
+	    	    	if(tipoSelecionado == TipoEstatistica.RECEITAS_DESPESAS_POR_MES) {
+	    	    		try {
+	    		    		List<ReceitaAdapter> receitasPorMes  = fachada.buscarReceitasTotalMesPorIntervalo(de, ate);
+	    		    		yAxis.setLabel("VALOR");
+	    					xAxis.setLabel("MES/ANO");
+	    					for(ReceitaAdapter receitaAdapter: receitasPorMes) {
+	    						System.out.println(receitaAdapter.toString());
+	    						XYChart.Series<String, Number> p = new XYChart.Series<>();
+	    						c.setTime(receitaAdapter.getMesAno());
+	    						p.setName(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR));
+	    						p.getData().add(new XYChart.Data<String, Number>(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR),
+	    								receitaAdapter.getValorTotal()));
+	    						barChart.getData().add(p);
+	    					}
+	    					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: "+graficoBox.getValue()+" - "+tipoBox.getValue(), StatusLog.COLCLUIDO);
+	    		    	
+	    				} catch (Exception e) {
+	    					Alerta.getInstance().showMensagem("Erro","",e.getMessage());
+	    					e.printStackTrace();
+	    					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: Erro", StatusLog.ERRO);
+	    				}
+	    	    	}
+	    	    	try {
+	    	    		if(log != null)
+	    	    			fachada.salvarEditarLog(log);
+	    			} catch (BusinessException e) {
+	    				e.printStackTrace();
+	    			}
+	    		}else
+	  		    	Alerta.getInstance().showMensagem("Alerta","","Nâo há nenhum tipo de estatística selecionada");
+    		}else 
+	    		Alerta.getInstance().showMensagem("Alerta","","Selecione um periodo de tempo para pesquisa");
 	    	
-	    	LocalDate ld2 = atePicker.getValue();
-	    	Date ate = new Date();
-	    	c.setTime(ate);
-	    	c.set(ld2.getYear(), ld2.getMonthValue()-1, ld2.getDayOfMonth());
-	    	ate  = c.getTime();
-	    	
-	    	System.out.println(de.toString());
-	    	System.out.println(ate.toString());
-	    	
-	    	Log log;
-	    	try {
-	    		List<ReceitaAdapter> receitasPorMes  = fachada.buscarReceitasTotalMesPorIntervalo(de, ate);
-
-	    		yAxis.setLabel("VALOR");
-				xAxis.setLabel("MES/ANO");
-				for(ReceitaAdapter receitaAdapter: receitasPorMes) {
-					System.out.println(receitaAdapter.toString());
-					XYChart.Series<String, Number> p = new XYChart.Series<>();
-					c.setTime(receitaAdapter.getMesAno());
-					p.setName(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR));
-					p.getData().add(new XYChart.Data<String, Number>(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR),
-							receitaAdapter.getValorTotal()));
-					barChart.getData().add(p);
-				}
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: "+graficoBox.getValue()+" - "+tipoBox.getValue(), StatusLog.COLCLUIDO);
-	    	
-			} catch (Exception e) {
-				Alerta.getInstance().showMensagem("Erro","",e.getMessage());
-				e.printStackTrace();
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: Erro", StatusLog.ERRO);
-			}
-	    	
-	    	try {
-	    		if(log != null)
-	    			fachada.salvarEditarLog(log);
-			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
-				e.printStackTrace();
-			}
-	    	
+    	}else if(event.getSource() == tipoBox) {
+    		tipoSelecionado = tipoBox.getSelectionModel().getSelectedItem();
+    		descricaoLabel.setText(tipoSelecionado.toString().toLowerCase());
     	}
 	    	
     }
@@ -134,6 +146,5 @@ public class ControleEstatistica extends Controle{
         graficoBox.getItems().addAll(TipoGrafico.values());
         tipoBox.getItems().addAll(TipoEstatistica.values());
         graficoBox.setValue(TipoGrafico.BARRA);
-        tipoBox.setValue(TipoEstatistica.RECEITAS_POR_MES);
 	}
 }

@@ -2,7 +2,7 @@ package br.com.sga.entidade.enums;
 
 public enum TipoEstatistica {
 	
-	RECEITAS_POR_MES("RECEITAS POR MÊS");
+	RECEITAS_DESPESAS_POR_MES("RECEITAS E DESPESAS POR MÊS");
 	
 	private String value;
 	

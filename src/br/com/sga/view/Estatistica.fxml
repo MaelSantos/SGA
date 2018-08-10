@@ -18,17 +18,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleEstatistica">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleEstatistica">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <VBox alignment="CENTER" prefHeight="169.0" prefWidth="680.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Estatisticas" textFill="WHITE">
-                     <font>
-                        <Font name="Verdana Bold" size="24.0" />
-                     </font>
-                  </Label>
+                  <FlowPane alignment="CENTER" hgap="6.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Estatisticas" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="descricaoLabel" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </FlowPane>
                   <Separator prefWidth="650.0" />
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" vgap="20.0">
                      <children>
@@ -62,7 +71,7 @@
                                     <Font name="Verdana" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="tipoBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="tipoBox" onAction="#actionButton" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <Label text="Gráfico" textFill="WHITE" GridPane.columnIndex="3">
                                  <font>
                                     <Font name="Verdana" size="14.0" />

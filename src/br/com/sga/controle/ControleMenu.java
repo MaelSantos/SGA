@@ -1,17 +1,15 @@
 package br.com.sga.controle;
 
-import java.util.Date;
 
+import org.controlsfx.control.Notifications;
 import org.controlsfx.control.textfield.TextFields;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Funcionario;
-import br.com.sga.entidade.Log;
-import br.com.sga.entidade.enums.EventoLog;
-import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -167,6 +165,8 @@ public class ControleMenu extends Controle{
 						}));
 						oneMinuteTimeline.setCycleCount(Timeline.INDEFINITE); // Executar indefinidamente.
 						oneMinuteTimeline.play();*/
+					
+					Notifications.create().title("Olá!").text("Bem vindo "+((Funcionario) object).getNome()).action().position(Pos.BOTTOM_RIGHT).showInformation();
 				}
 				this.funcionario = (Funcionario) object;
 				String nome_completo = funcionario.getNome();
