@@ -4,8 +4,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.BusinessException;
@@ -53,6 +56,7 @@ public class ControleHome extends Controle {
 	
     private IFachada fachada;
     
+    
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		
@@ -84,8 +88,8 @@ public class ControleHome extends Controle {
 		colTipo2.setCellValueFactory(
                 new PropertyValueFactory<>("tipoNotificacao"));
 		
+		Log log;
 		try {
-			
 			
 			Date primeiro = resolvePrimeiroUltimo(new Date(), true);
 
@@ -96,14 +100,22 @@ public class ControleHome extends Controle {
 			tblAtrasados.getItems().setAll(fachada.BuscarNotificacaoAdapterPorEstado(Andamento.VENCIDO.name()));
 			tblSemana.getItems().setAll(fachada.BuscarNotificacaoAdapterPorData(primeiro, ultimo));
 			
-		} catch (BusinessException e) {
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: ", StatusLog.COLCLUIDO);
+			
+		} catch (Exception e) {
 			
 			Alerta.getInstance().showMensagem("Erro!", "Erro Ao Carregar Notificações!!!", e.getMessage());
-			
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: Erro ", StatusLog.ERRO);
 			e.printStackTrace();
 		}
 		
-		
+		try {
+			if(log != null)
+				fachada.salvarEditarLog(log);
+		} catch (BusinessException e) {
+			// TODO Bloco catch gerado automaticamente
+			e.printStackTrace();
+		}
 	}
 
 	@Override

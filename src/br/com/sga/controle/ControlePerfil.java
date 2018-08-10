@@ -1,23 +1,23 @@
 package br.com.sga.controle;
 
-import java.net.URL;
-import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
 import br.com.sga.view.Alerta;
 import br.com.sga.view.CadastroNotificacao;
 import br.com.sga.view.Dialogo;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.Prioridade;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.BusinessException;
@@ -29,9 +29,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class ControlePerfil extends Controle{
@@ -74,6 +72,8 @@ public class ControlePerfil extends Controle{
 	        	c.set(Calendar.MINUTE,0);
 	        	Date aviso_data = c.getTime();
 	        	List<Funcionario> funcionarios = new ArrayList<>();
+	        	
+	        	Log log;
 	        	if(cadastroNotificacao.getApenasMinRadio().isSelected()) {
 	        		funcionarios.add(funcionario);
 	        	}else {
@@ -87,12 +87,24 @@ public class ControlePerfil extends Controle{
 					fachada.salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade,cadastroNotificacao.getDescricaoArea().getText(),Andamento.PENDENTE, 
 					aviso_data, funcionarios));
 					Alerta.getInstance().showMensagem("Confirmação","","Nova notificacao cadastrada com exito");
-				} catch (BusinessException e) {
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.SALVAR, funcionario.getNome(), "Salvar Tarefa: ", StatusLog.COLCLUIDO);
+				} catch (Exception e) {
 					e.printStackTrace();
 					Alerta.getInstance().showMensagem("Alerta","",e.getMessage());
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.SALVAR, funcionario.getNome(), "Salvar Tarefa: Erro", StatusLog.ERRO);
 				}
+	    		
+	    		try {
+	    			if(log != null)
+	    				fachada.salvarEditarLog(log);
+				} catch (BusinessException e) {
+					// TODO Bloco catch gerado automaticamente
+					e.printStackTrace();
+				}
+	    		
     		}else
     			Alerta.getInstance().showMensagem("Alerta","","NADA FOI CADASTRADO");
+    		
     	}
     }	
 	

@@ -3,16 +3,11 @@ package br.com.sga.controle;
 import java.awt.Desktop;
 import java.net.URI;
 
-import br.com.sga.app.App;
-import br.com.sga.entidade.Funcionario;
-import br.com.sga.entidade.enums.Tela;
-import br.com.sga.interfaces.Ouvinte;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 
 public class ControleInformacoes {
-
 
     @FXML
     private Hyperlink emailM;

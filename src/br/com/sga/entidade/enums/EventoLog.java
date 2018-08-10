@@ -2,7 +2,7 @@ package br.com.sga.entidade.enums;
 
 public enum EventoLog {
 
-	PAGAMENTO, RECEBIMENTO, EDITAR, SALVAR, CADASTRAR, APAGAR, BUSCAR;
+	LOGIN, ENCERRAR, EDITAR, SALVAR, CADASTRAR, APAGAR, BUSCAR, GERAR;
 
 	public static EventoLog getEvento(String evento)
 	{

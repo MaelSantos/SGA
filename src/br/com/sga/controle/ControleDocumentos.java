@@ -9,8 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.sga.dao.DaoCommun;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoDocumento;
+import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
 import br.com.sga.fachada.Fachada;
@@ -64,10 +69,16 @@ public class ControleDocumentos extends Controle {
 	private Dialog<? extends Object> dialog;
 	private double porcentagem = 0;
 	private Service service;
+	
+	private Funcionario funcionario;
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
-
+		
+		if (object instanceof Funcionario) {
+			funcionario = (Funcionario) object;
+			
+		}
 
 	}
 
@@ -149,33 +160,63 @@ public class ControleDocumentos extends Controle {
 
 		if(obj == btnGerar)
 		{
+			Log log = null;
 			try {
 				if(list != null && arquivo != null && !(list.isEmpty()))
 				{
 					dialog = Dialogo.getInstance().carregar(service);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Documento: ", StatusLog.COLCLUIDO);
 //					service.restart();
 //					gerarDocumento(list, arquivo);					
 				}
 				else
+				{
 					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!", "Verifique Se Todos Os Dados Estão Corretos");
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Documento: Sem Resultados", StatusLog.SEM_RESULTADOS);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Documento: ", StatusLog.ERRO);
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!", "Verifique Se Todos Os Dados Estão Corretos");
 			}
+			
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
+			}
+			
 		}
 		if(obj == btnBuscar)
 		{
+			Log log;
 			try {
 
 				list = carregarLista(cbxTipo.getValue());
 				if(!list.isEmpty())
+				{
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido!","Dados Carregados Com Sucesso!!!", "Pronto Para Gerar Arquivo");
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar: "+cbxTipo.getValue(), StatusLog.COLCLUIDO);
+				}
 				else
+				{
 					Alerta.getInstance().showMensagem(AlertType.ERROR, "Não Encontrado!","Dados Não Encontrados!!!", "Tente Novamente Procurando Por Outros Dados!!!");
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar: "+cbxTipo.getValue()+" - Sem Resultados", StatusLog.SEM_RESULTADOS);
+				}
 			} catch (Exception e) {
 				Alerta.getInstance().showMensagem("Erro!","Erro ao Carregar Arquivos!!!", e.getMessage());
-				//				e.printStackTrace();
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar: "+cbxTipo.getValue()+" - Erro", StatusLog.ERRO);
 			}
+			
+			try {
+				fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
+			}
+			
 		}
 		if(obj == cbxTipo)
 		{

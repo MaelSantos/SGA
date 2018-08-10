@@ -2,7 +2,7 @@ package br.com.sga.entidade.enums;
 
 public enum TipoCliente {
 	
-	FISICO,JURIDICO;
+	FISICO, JURIDICO;
 	
 	public static TipoCliente getTipo(String tipo) {
 		if(tipo.equalsIgnoreCase(TipoCliente.FISICO.toString()))

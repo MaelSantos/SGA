@@ -20,7 +20,7 @@ public class Calendario {
 	private ArrayList<DateItem> allCalendarioDias = new ArrayList<>(35);
 	private VBox view;
 	private Text calendarioTitulo;
-	private YearMonth correnteMesAno;
+	public static YearMonth correnteMesAno;
 	
 	public Calendario(YearMonth MesAno) {
 		

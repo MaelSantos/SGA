@@ -5,9 +5,13 @@ import java.util.Date;
 import br.com.sga.app.App;
 import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Audiencia;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.exceptions.BusinessException;
@@ -91,7 +95,8 @@ public class ControleDetalhesProcesso extends Controle {
     private IDaoCommun daoCommun;
     private IFachada fachada;
     private Processo processo;
-	
+	private Funcionario funcionario;
+    
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		
@@ -102,7 +107,6 @@ public class ControleDetalhesProcesso extends Controle {
 			try {
 				
 				processo = fachada.buscarProcessoPorId(adapter.getId());
-				
 				tfdAtuacao.setText(processo.getData_atuacao().toString());
 				tfdClasse.setText(processo.getClasse_judicial());
 				tfdNumero.setText(processo.getNumero());
@@ -143,6 +147,11 @@ public class ControleDetalhesProcesso extends Controle {
 			}
 		}
 
+		if (object instanceof Funcionario) {
+			funcionario = (Funcionario) object;
+			
+		}
+		
 	}
 
 	@Override

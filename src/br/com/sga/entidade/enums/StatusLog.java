@@ -2,7 +2,7 @@ package br.com.sga.entidade.enums;
 
 public enum StatusLog {
 
-	COLCLUIDO, ERROR;
+	COLCLUIDO, ERRO, SEM_RESULTADOS;
 	
 	public static StatusLog getStatus(String evento)
 	{
@@ -12,4 +12,8 @@ public enum StatusLog {
 		return null;
 	}
 	
+	@Override
+	public String toString() {
+		return super.toString().replace("_"," ");
+	}
 }

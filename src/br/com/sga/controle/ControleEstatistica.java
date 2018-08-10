@@ -7,7 +7,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.adapter.ReceitaAdapter;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
+import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoEstatistica;
 import br.com.sga.entidade.enums.TipoGrafico;
 import br.com.sga.exceptions.BusinessException;
@@ -24,7 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 
-public class ControleEstatistica {
+public class ControleEstatistica extends Controle{
 
     @FXML
     private ResourceBundle resources;
@@ -57,9 +62,10 @@ public class ControleEstatistica {
     private BarChart<String, Number> barChart;
     
     private IFachada fachada;
-
+    private Funcionario funcionario;
+    
     @FXML
-    void actionButton(ActionEvent event) {
+    public void actionButton(ActionEvent event) {
     	if(event.getSource() == attButton ) {
     		barChart.getData().clear();
     		
@@ -78,14 +84,15 @@ public class ControleEstatistica {
 	    	
 	    	System.out.println(de.toString());
 	    	System.out.println(ate.toString());
+	    	
+	    	Log log;
 	    	try {
 	    		List<ReceitaAdapter> receitasPorMes  = fachada.buscarReceitasTotalMesPorIntervalo(de, ate);
-	    		for(ReceitaAdapter receitaAdapter: receitasPorMes) {
-	    			System.out.println(receitaAdapter.toString());
-	    		}
-				yAxis.setLabel("VALOR");
+
+	    		yAxis.setLabel("VALOR");
 				xAxis.setLabel("MES/ANO");
 				for(ReceitaAdapter receitaAdapter: receitasPorMes) {
+					System.out.println(receitaAdapter.toString());
 					XYChart.Series<String, Number> p = new XYChart.Series<>();
 					c.setTime(receitaAdapter.getMesAno());
 					p.setName(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR));
@@ -93,12 +100,22 @@ public class ControleEstatistica {
 							receitaAdapter.getValorTotal()));
 					barChart.getData().add(p);
 				}
-				
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: "+graficoBox.getValue()+" - "+tipoBox.getValue(), StatusLog.COLCLUIDO);
 	    	
-			} catch (BusinessException e) {
+			} catch (Exception e) {
 				Alerta.getInstance().showMensagem("Erro","",e.getMessage());
 				e.printStackTrace();
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: Erro", StatusLog.ERRO);
 			}
+	    	
+	    	try {
+	    		if(log != null)
+	    			fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
+			}
+	    	
     	}
 	    	
     }
@@ -116,4 +133,18 @@ public class ControleEstatistica {
         tipoBox.setValue(TipoEstatistica.RECEITAS_POR_MES);
 
     }
+	@Override
+	public void atualizar(Tela tela, Object object) {
+		
+		if (object instanceof Funcionario) {
+			if(object != null)
+				funcionario = (Funcionario) object;
+		}
+		
+	}
+	@Override
+	public void init() {
+		// TODO Stub de método gerado automaticamente
+		
+	}
 }

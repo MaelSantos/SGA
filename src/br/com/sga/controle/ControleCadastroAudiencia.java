@@ -8,13 +8,15 @@ import java.util.Date;
 import br.com.sga.app.App;
 import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Audiencia;
-import br.com.sga.entidade.Despesa;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.enums.Andamento;
-import br.com.sga.entidade.enums.Estado;
+import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.Prioridade;
 import br.com.sga.entidade.enums.StatusAudiencia;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoAudiencia;
 import br.com.sga.entidade.enums.TipoNotificacao;
@@ -62,6 +64,7 @@ public class ControleCadastroAudiencia extends Controle {
 	private IDaoCommun daoCommun;
 	private Audiencia audiencia;
 	private Notificacao notificacao;
+	private Funcionario funcionario;
 		
 	@Override
 	public void atualizar(Tela tela, Object object) {
@@ -72,6 +75,10 @@ public class ControleCadastroAudiencia extends Controle {
 			audiencia = new Audiencia();
 			audiencia.setProcesso(processo);
 			lblProcesso.setText("Processo: "+processo.toString());
+			
+		}
+		if (object instanceof Funcionario) {
+			this.funcionario = (Funcionario) object;
 			
 		}
 
@@ -95,6 +102,7 @@ public class ControleCadastroAudiencia extends Controle {
 		
 		if(obj == btnCadastrar)
 		{
+			Log log;
 			try {
 				Audiencia audiencia = criarAudiencia();
 				daoCommun.salvarAudiencia(audiencia, audiencia.getProcesso().getId());
@@ -110,9 +118,19 @@ public class ControleCadastroAudiencia extends Controle {
 				
 				limparCampos();
 				
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: "+audiencia.getTipo(), StatusLog.COLCLUIDO);
+				
 			} catch (ParseException | DaoException | BusinessException e) {
 				e.printStackTrace();
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: Erro", StatusLog.ERRO);
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Audiencia", e.getMessage());
+			}
+			
+			try {
+				fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
 			}
 			
 		}

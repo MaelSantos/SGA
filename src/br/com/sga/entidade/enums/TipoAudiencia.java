@@ -13,11 +13,5 @@ public enum TipoAudiencia {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		
-		for(TipoAudiencia a : values())
-			System.out.println(a.toString().toUpperCase());
-		
-	}
 	
 }

@@ -7,8 +7,12 @@ import java.util.Date;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Contrato;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.entidade.enums.TipoProcesso;
@@ -64,7 +68,8 @@ public class ControleCadastroProcesso extends Controle{
 
 	private IFachada fachada;
 	private Processo processo;
-
+	private Funcionario funcionario;
+	
 	@Override
 	public void init() {
 
@@ -89,19 +94,30 @@ public class ControleCadastroProcesso extends Controle{
 
 		if(obj == btnCadastrar)
 		{
+			Log log = null;
 			try {
 				processo = criarProcesso();
 				fachada.salvarEditarProcesso(processo);
 				App.notificarOuvintes(Tela.cadastro_processo, processo);
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...","Salvo Com Seucesso");
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Processo: "+processo.getNumero()+" - "+processo.getTipo_processo(), StatusLog.COLCLUIDO);
 				limparCampos();
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Ao Salvar", "Erro ao Salvar Processo", e.getMessage());
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Processo: Erro", StatusLog.ERRO);
 			} catch (ParseException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Nos Dados!", "Erro Algum Dado Pode Estar Faltando ou esta incorreto!!!", e.getMessage());
 			}
+			
+			try {
+				fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
+			}
+			
 		}
 		if(obj == btnVoltar)
 			App.notificarOuvintes(Tela.processos);

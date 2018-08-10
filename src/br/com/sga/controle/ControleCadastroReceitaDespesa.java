@@ -10,7 +10,11 @@ import br.com.sga.app.App;
 import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Financeiro;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Receita;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.exceptions.BusinessException;
@@ -56,6 +60,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 	@FXML
 	private TextField tfdDescricao;
 
+	private Funcionario funcionario;
 	private Financeiro financeiro;
 	private Receita receita;
 	private Despesa despesa;
@@ -72,6 +77,10 @@ public class ControleCadastroReceitaDespesa extends Controle{
 			this.financeiro = financeiro;
 			financeiro_id = financeiro.getId();
 			System.out.println(financeiro_id);
+		}
+		if (object instanceof Funcionario) {
+			funcionario = (Funcionario) object;
+			
 		}
 
 	}
@@ -106,6 +115,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 		}
 		if(obj == btnAdd)
 		{
+			Log log;
 			if(cbxTipo.getValue().equals("RECEITA"))
 			{
 				receita = new Receita();
@@ -134,12 +144,22 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					calendar.setTime(receita.getData_entrada());
 					daoCommun.salvarReceita(receita,  fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Salvo!", "", "Adicionado Com Sucesso");
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Receita: "+receita.getCentro_custo(), StatusLog.COLCLUIDO);
 				} catch (BusinessException |DaoException e) {
 					e.printStackTrace();
 					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Receita", e.getMessage());
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Receita: Erro", StatusLog.ERRO);
 				}
 				finally {
 					limparCampos();
+				}
+				
+				try {
+					if(log != null)
+						fachada.salvarEditarLog(log);
+				} catch (BusinessException e) {
+					// TODO Bloco catch gerado automaticamente
+					e.printStackTrace();
 				}
 				
 			}
@@ -171,15 +191,26 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					calendar.setTime(despesa.getData_retirada());
 					daoCommun.salvarDespesa(despesa, fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Salvo!", "", "Adicionado Com Sucesso");
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Despesa: "+despesa.getCentro_custo(), StatusLog.COLCLUIDO);
 				} catch (BusinessException | DaoException e) {
 					e.printStackTrace();
 					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Despesa", e.getMessage());
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Despesa: Erro", StatusLog.ERRO);
 				}
 				finally {
 					limparCampos();
 				}
 				
+				try {
+					if(log != null)
+						fachada.salvarEditarLog(log);
+				} catch (BusinessException e) {
+					// TODO Bloco catch gerado automaticamente
+					e.printStackTrace();
+				}
 			}
+			
+			
 		}
 		if(obj == btnVoltar)
 			App.notificarOuvintes(Tela.financeiro, financeiro);

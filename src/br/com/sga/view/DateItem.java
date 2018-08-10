@@ -23,12 +23,12 @@ import br.com.sga.fachada.Fachada;
 
 public class DateItem extends AnchorPane {
 	
-	public static List<java.util.Date> dates;
+	private static List<java.util.Date> dates;
 	
 	// Date e Texto Associados ao pane
 	private LocalDate date;
 	private Text text;
-	List<NotificacaoAdapter> list;
+	private List<NotificacaoAdapter> list;
 
 	public DateItem(Node... children) {
 		super(children);
@@ -64,8 +64,14 @@ public class DateItem extends AnchorPane {
 	public void updateText(String texto) {
 		
 		this.text.setText(texto);
-		if(date.getDayOfWeek().toString().equals("SUNDAY") && !this.text.getFill().equals(Paint.valueOf("#FF0000")))//evita modificar os que já etsão com a cor certa
+		if(date.getDayOfWeek().toString().equals("SUNDAY") && !this.text.getFill().equals(Paint.valueOf("#FF0000")))//evita modificar os que já estão com a cor certa
 			this.text.setFill(Paint.valueOf("#FF0000"));
+		
+		if( (date.getMonthValue() > Calendario.correnteMesAno.getMonthValue() || date.getMonthValue() < Calendario.correnteMesAno.getMonthValue()) 
+				&& !this.getStyle().equals("-fx-background-color: #008B8	'B;"))//evita modificar os que já estão com a cor certa
+			setStyle("-fx-background-color: #008B8B;");
+		else
+			setStyle("-fx-background-color: #DCDCDC;");
 
 		//atualiza a cor do pane que for referente ao dia atual
 		if(date.getDayOfYear() == LocalDate.now().getDayOfYear() && date.getDayOfWeek() == LocalDate.now().getDayOfWeek())
@@ -90,6 +96,7 @@ public class DateItem extends AnchorPane {
 						text.setText(text.getText() +"\n"+ t + "["+ quant+"]");		
 				}
 			}
+			
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

@@ -100,6 +100,7 @@ public class ControleHistorico extends Controle {
 		
 		if(obj == btnBuscar)
 		{
+			Log log;
 			try {
 				tblLogs.getItems().setAll(fachada.buscarLogPorData(
 						Date.from(tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
@@ -110,18 +111,22 @@ public class ControleHistorico extends Controle {
 					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim()+" SEM RESULTADOS!!!");
 				
 				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso","");
-			} catch (BusinessException e) {
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Historico: "+lblData.getText(), StatusLog.COLCLUIDO);
+			} catch (Exception e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Historico!!!", e.getMessage());
-				try {
-					fachada.salvarEditarLog(new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "HISTORICO", StatusLog.ERROR));
-				} catch (BusinessException e1) {
-					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Historico!!!", e.getMessage());
-					e1.printStackTrace();
-				}
-			}			
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Historico: Erro - "+lblData.getText(), StatusLog.ERRO);
+			}
+			
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
+			}
+			
 		}
-
 
 	}
 	

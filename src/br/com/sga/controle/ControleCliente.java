@@ -7,10 +7,14 @@ import java.util.Date;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.enums.EstadoCivil;
+import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.Sexo;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.exceptions.BusinessException;
@@ -115,10 +119,16 @@ public class ControleCliente extends Controle{
 	private IFachada fachada;
 	private Dialogo dialogo;
 	private Cliente cliente;
+	private Funcionario funcionario;
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
+		if (object instanceof Funcionario) {
+			
+			funcionario = (Funcionario) object;
+			
+		}
 
 	}
 
@@ -141,18 +151,29 @@ public class ControleCliente extends Controle{
 
 		if(obj == btnBuscar)
 		{
+			Log log;
 			try {
 //				ClienteAdapter adapter = dialogo.selecao(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()),"Seleção de cliente","Selcione um cliente para mais detalhes");
 				ClienteAdapter adapter = dialogo.selecionar(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()));
 				
 				cliente = fachada.buscarClientePorId(adapter.getId());
-				System.out.println(adapter);
-				System.out.println(adapter.getId());
-				System.out.println(cliente);
-				System.out.println(cliente.getEndereco());
+			
+				if(cliente != null)
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Cliente: "+cliente.getCpf_cnpj(), StatusLog.COLCLUIDO);
+				else
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Cliente: Não Encontrado", StatusLog.SEM_RESULTADOS);
 				modificarCampos();
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem("Erro!", "", e.getMessage());
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Cliente: Erro", StatusLog.ERRO);
+				e.printStackTrace();
+			}
+			
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
 		}
@@ -177,14 +198,26 @@ public class ControleCliente extends Controle{
 		}
 		else if(obj == btnSalvar)
 		{
+			Log log = null;
 			try {
 				alterarCiente();
 				fachada.salvarEditarCliente(cliente);
 				Alerta.getInstance().showMensagem("Salvo", "", "Cliente Editado Com Sucesso!!!");
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Cliente: "+cliente.getCpf_cnpj(), StatusLog.COLCLUIDO);
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Editar Cliente!!!", e.getMessage());
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Cliente: "+cliente.getCpf_cnpj(), StatusLog.ERRO);
 				e.printStackTrace();
 			}
+			
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
+			}
+			
 		}
 		
 

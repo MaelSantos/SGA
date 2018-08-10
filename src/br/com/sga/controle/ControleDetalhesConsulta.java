@@ -1,6 +1,7 @@
 package br.com.sga.controle;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -8,11 +9,15 @@ import br.com.sga.app.App;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.entidade.enums.Estado;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
@@ -97,12 +102,12 @@ public class ControleDetalhesConsulta extends Controle{
     private Button selectTestmunhaButton;
     
     private Cliente cliente;
-    
     private Consulta consulta;
-    
-    private IFachada fachada ;
-    
+    private IFachada fachada;
     private Dialogo dialogo;
+    
+    private Funcionario funcionario;
+    
 	@Override
 	public void actionButton(ActionEvent event) {
 		
@@ -114,16 +119,20 @@ public class ControleDetalhesConsulta extends Controle{
 			}
 		}
 		else if(selectConButton == event.getSource()) {
+			Log log;
 			try {
 				String busca[] = {cliente.getCpf_cnpj()};
 				
 				List<ConsultaAdapter> consultas = fachada.buscarConsultaPorClienteAdapter(busca);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: "+busca, StatusLog.COLCLUIDO);
 				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecionar(consultas);
 				consulta = new Consulta();
 				consulta.setId(consultaBasica.getId());
 				atualizarDadosConsulta();
 				
+				
 			} catch (BusinessException e) {
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: Erro", StatusLog.ERRO);
 				e.printStackTrace();
 			}
 		}else if(selectTestmunhaButton== event.getSource()) {
@@ -163,6 +172,11 @@ public class ControleDetalhesConsulta extends Controle{
 			consulta = null;
 		}
 			
+		if (object instanceof Funcionario) {
+			funcionario = (Funcionario) object;
+			
+		}
+		
 	}
 
 	private void limparCampos() {
@@ -193,9 +207,13 @@ public class ControleDetalhesConsulta extends Controle{
 	}
 
 	private void atualizarDadosConsulta() {
+		
+		Log log;
 		try {
 			// pegando demais dados da consulta;
 			consulta = fachada.buscarConsultaPorId(consulta.getId());
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: "+consulta.getArea(), StatusLog.COLCLUIDO);
+			
 			FuncionarioAdapter f = fachada.buscarPorConsultaAdapter(consulta.getId());
 			// adicionando dados que não podem ser editador tais nome e numero do funcionario advindos do consulta adapter
 			nomeFuncionarioField.setText(f.getNome());
@@ -207,6 +225,15 @@ public class ControleDetalhesConsulta extends Controle{
 			indicacaoField.setText(consulta.getIndicacao());
 			areaField.setText(consulta.getArea().toString());
 		} catch (BusinessException e) {
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: Erro", StatusLog.ERRO);
+			e.printStackTrace();
+		}
+		
+		try {
+			if(log != null)
+				fachada.salvarEditarLog(log);
+		} catch (BusinessException e) {
+			// TODO Bloco catch gerado automaticamente
 			e.printStackTrace();
 		}
 	}

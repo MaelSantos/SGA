@@ -10,10 +10,14 @@ import br.com.sga.app.App;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.Prioridade;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.entidade.enums.TipoPagamento;
@@ -111,8 +115,9 @@ public class ControleCadastroContrato {
     @FXML
 	private Button voltarButton;
     
-    Consulta consulta;
-    IFachada fachada ;
+    private Consulta consulta;
+    private IFachada fachada;
+    private Funcionario funcionario;
 
     @FXML
     void actionButton(ActionEvent event) {
@@ -167,6 +172,7 @@ public class ControleCadastroContrato {
     }
 
     private void salvarContrato() {
+    	Log log = null;
     	try {
 	    	Financeiro financeiro = fachada.buscarFinanceiroPorAno( Calendar.getInstance().get(Calendar.YEAR));
 	    	Float valor_total = Float.parseFloat(valorTotalField.getText().trim());
@@ -213,6 +219,7 @@ public class ControleCadastroContrato {
 					    	
 					    	
 							Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
+							log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Contrato: "+contrato.getArea(), StatusLog.COLCLUIDO);
 							limparCampos();
 					}else
 						Alerta.getInstance().showMensagem("Alerta","","Há campos obrigatorios vazios ou não selecionados");
@@ -225,7 +232,16 @@ public class ControleCadastroContrato {
     		Alerta.getInstance().showMensagem("Alerta","","Entrada invalida para campos numericos ");
     	}catch (BusinessException e) {
 			e.printStackTrace();
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Contrato: Erro", StatusLog.ERRO);
 			Alerta.getInstance().showMensagem("Erro","",e.getMessage());
+		}
+    	
+    	try {
+    		if(log != null)
+    			fachada.salvarEditarLog(log);
+		} catch (BusinessException e) {
+			// TODO Bloco catch gerado automaticamente
+			e.printStackTrace();
 		}
     	
     }

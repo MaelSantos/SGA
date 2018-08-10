@@ -1,41 +1,39 @@
 package br.com.sga.controle;
 
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Endereco;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.EstadoCivil;
+import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.Sexo;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.entidade.enums.TipoTelefone;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
-import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
 
-public class ControleCadastroCliente implements Initializable, Ouvinte{
+public class ControleCadastroCliente extends Controle{
 
 	@FXML
 	private ComboBox<TipoCliente> cbxTipoCliente;
@@ -128,30 +126,50 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 
 	private ToggleGroup group = new ToggleGroup();
 	private IFachada fachada;
+	private Funcionario funcionario;
 
 	@FXML
-	void actionButton(ActionEvent event) {
+	public void actionButton(ActionEvent event) {
 
 		Object obj = event.getSource();
-		try {
+		Log log;
 			if(obj == btnAdd)
 			{
-				telefones.add(new Telefone(Integer.parseInt(tfdTelefone.getText().trim()), 
-						Integer.parseInt(tfdPrefixo.getText().trim()), 
-						TipoTelefone.getTipo(cbxTipoTelefone.getValue().toString())));
-
-				tfdTelefone.setText("");
-				tfdPrefixo.setText("");
+				try {
+					
+					telefones.add(new Telefone(Integer.parseInt(tfdTelefone.getText().trim()), 
+							Integer.parseInt(tfdPrefixo.getText().trim()), 
+							TipoTelefone.getTipo(cbxTipoTelefone.getValue().toString())));
+					
+					tfdTelefone.setText("");
+					tfdPrefixo.setText("");
+					
+				} catch (Exception e) {
+					Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Adicionar Telefone!!!", e.getMessage());
+				}
 
 			}
 			if(obj == btnCadastrar)
 			{
-				Cliente cliente = criarCliente();	
-				fachada.salvarEditarCliente(cliente);
-				telefones.clear();
-
-				Alerta.getInstance().showMensagem("Salvando...", "Salvo Com Sucesso", "Salvando...");
-				limparCampos();
+				try {
+					Cliente cliente = criarCliente();	
+					fachada.salvarEditarCliente(cliente);
+					telefones.clear();					
+					Alerta.getInstance().showMensagem("Salvando...", "Salvo Com Sucesso", "Salvando...");
+					limparCampos();
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: "+cliente.getCpf_cnpj(), StatusLog.COLCLUIDO);
+				} catch (BusinessException e) {
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: Erro", StatusLog.ERRO);
+					e.printStackTrace();
+				}
+				
+				try {
+					fachada.salvarEditarLog(log);
+				} catch (BusinessException e) {
+					// TODO Bloco catch gerado automaticamente
+					e.printStackTrace();
+				}
+				
 			}
 			if(obj == btnVoltar)
 				App.notificarOuvintes(Tela.clientes);
@@ -172,16 +190,6 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 					tfdTelefoneResponsavel.setVisible(true);
 				}
 			}
-		} catch (BusinessException e) {
-			Alerta.getInstance().showMensagem("Erro Ao Salvar", "", e.getMessage());
-//			e.printStackTrace();
-		}catch (NullPointerException e2) {
-			Alerta.getInstance().showMensagem("Erro Ao Adicionar", "Informe Os Dados Necessarios", e2.getMessage());
-		}
-		catch (NumberFormatException e3) {
-			Alerta.getInstance().showMensagem("Erro Ao Adicionar Telefone", "Informe Algum Um Valor Valido", e3.getMessage());
-		}
-		System.out.println(telefones);
 	}
 
 
@@ -210,91 +218,11 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		App.addOuvinte(this);
-
-		telefones = new ArrayList<>();
-		fachada = Fachada.getInstance();
-
-		cbxTipoCliente.getItems().addAll(TipoCliente.values());
-		cbxEstado_civil.getItems().addAll(EstadoCivil.values());
-		cbxGenero.getItems().addAll(Sexo.values());
-		cbxTipoTelefone.getItems().addAll(TipoTelefone.values());
-		cbxTelefoneResposavel.getItems().addAll(TipoTelefone.values());
-		cbxEstado.getItems().addAll(Estado.values());
-
-		rbtNao.setToggleGroup(group);
-		rbtSim.setToggleGroup(group);
-
-		UnaryOperator<TextFormatter.Change> filter = new UnaryOperator<TextFormatter.Change>() {
-
-			@Override
-			public TextFormatter.Change apply(TextFormatter.Change t) {
-
-				if (t.isReplaced()) 
-					if(t.getText().matches("[^0-9]"))
-						t.setText(t.getControlText().substring(t.getRangeStart(), t.getRangeEnd()));
-
-
-				if (t.isAdded()) {
-					if (t.getControlText().contains(".")) {
-						if (t.getText().matches("[^0-9]")) {
-							t.setText("");
-						}
-					} else if (t.getText().matches("[^0-9.]")) {
-						t.setText("");
-					}
-				}
-
-				return t;
-			}
-		};
-
-		tfdCpfCnpj.setTextFormatter(new TextFormatter<>(filter));
-		tfdCep.setTextFormatter(new TextFormatter<>(filter));
-		tfdNumero.setTextFormatter(new TextFormatter<>(filter));
-		tfdPrefixo.setTextFormatter(new TextFormatter<>(filter));
-		tfdPrefixoResponsavel.setTextFormatter(new TextFormatter<>(filter));
-		tfdRg.setTextFormatter(new TextFormatter<>(filter));
-		tfdTelefone.setTextFormatter(new TextFormatter<>(filter));
-		tfdTelefoneResponsavel.setTextFormatter(new TextFormatter<>(filter));
-
-		tfdResponsavel.setVisible(false);
-		tfdPrefixoResponsavel.setVisible(false);
-		cbxTelefoneResposavel.setVisible(false);
-		tfdTelefoneResponsavel.setVisible(false);
+		if (object instanceof Funcionario) {
+			this.funcionario = (Funcionario) object;
+			
+		}
 		
-	}
-
-	public TextFormatter<?> criarMascara()
-	{
-		UnaryOperator<TextFormatter.Change> filter = new UnaryOperator<TextFormatter.Change>() {
-
-			@Override
-			public TextFormatter.Change apply(TextFormatter.Change t) {
-
-				if (t.isReplaced()) 
-					if(t.getText().matches("[^0-9]"))
-						t.setText(t.getControlText().substring(t.getRangeStart(), t.getRangeEnd()));
-
-				if (t.isAdded()) {
-					if (t.getControlText().contains(".")) {
-						if (t.getText().matches("[^0-9]")) {
-							t.setText("");
-						}
-					} else if (t.getText().matches("[^0-9.]")) {
-						t.setText("");
-					}
-				}
-
-				return t;
-			}
-		};
-
-		return new TextFormatter<>(filter);
 	}
 
 	public Cliente criarCliente()
@@ -340,6 +268,30 @@ public class ControleCadastroCliente implements Initializable, Ouvinte{
 		}
 		return cliente;
 
+	}
+
+
+	@Override
+	public void init() {
+		telefones = new ArrayList<>();
+		fachada = Fachada.getInstance();
+
+		cbxTipoCliente.getItems().addAll(TipoCliente.values());
+		cbxEstado_civil.getItems().addAll(EstadoCivil.values());
+		cbxGenero.getItems().addAll(Sexo.values());
+		cbxTipoTelefone.getItems().addAll(TipoTelefone.values());
+		cbxTelefoneResposavel.getItems().addAll(TipoTelefone.values());
+		cbxEstado.getItems().addAll(Estado.values());
+
+		rbtNao.setToggleGroup(group);
+		rbtSim.setToggleGroup(group);
+
+		tfdResponsavel.setVisible(false);
+		tfdPrefixoResponsavel.setVisible(false);
+		cbxTelefoneResposavel.setVisible(false);
+		tfdTelefoneResponsavel.setVisible(false);
+
+		
 	}
 
 }

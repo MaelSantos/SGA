@@ -1,13 +1,16 @@
 package br.com.sga.controle;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
 import br.com.sga.business.Validar;
-import br.com.sga.dao.DaoUsuario;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
@@ -24,7 +27,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class ControleEditarPerfil implements Initializable,Ouvinte{
+public class ControleEditarPerfil extends Controle{
 
     @FXML
     private TextField nomeField;
@@ -60,16 +63,16 @@ public class ControleEditarPerfil implements Initializable,Ouvinte{
     private Button voltarButton;
 
     private Funcionario funcionario;
-    
     private IFachada fachada;
 
     @FXML
-    private void actionButton(ActionEvent event) {
+    public void actionButton(ActionEvent event) {
     	if(event.getSource() == voltarButton) {
     		App.notificarOuvintes(Tela.perfil, funcionario);
     	}
     	else
     	{ 
+    		Log log = null;
 	    	if(funcionario.getSenha().equals(Dialogo.getInstance().dialogoDeEntradaSenha("Validação","Entre com senha","É necessário a confirmação da senha antes de editar dados de usuário"))) {
 	    		String feedback = null;
 		    	Boolean sucesso = false;
@@ -85,6 +88,7 @@ public class ControleEditarPerfil implements Initializable,Ouvinte{
 		    			emailField.setText("");
 		    			numero_oabField.setText("");
 		    		}
+	    			log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Perfil: ", StatusLog.COLCLUIDO);
 	    		}
 		    	else if(event.getSource() == atualizarLoginButton)
 		    	{
@@ -92,6 +96,7 @@ public class ControleEditarPerfil implements Initializable,Ouvinte{
 		    		feedback = "Login";
 		    		if(sucesso) 
 		    			loginField.setText("");
+		    		log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Login: ", StatusLog.COLCLUIDO);
 		    	}
 		    	else if(event.getSource() == atualizarSenhaButton) 
 		    	{
@@ -102,29 +107,39 @@ public class ControleEditarPerfil implements Initializable,Ouvinte{
 		    			confirmarSenhaField.setText("");
 		    			novaSenhaField.setText("");
 		    		}
+		    		log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Senha: ", StatusLog.COLCLUIDO);
 		    	}
 		    	try {
 					fachada.salvarEditarUsuario(copiaFuncionario);
 					if(sucesso) {
 						funcionario = copiaFuncionario;
-						App.notificarOuvintes(Tela.editar_perfil,funcionario);
+						App.notificarOuvintes(Tela.editar_perfil, funcionario);
 						new Alert(AlertType.INFORMATION,feedback+" atualizado com sucesso",ButtonType.OK).show();
 					}
 				} catch (BusinessException e) {
 					new Alert(AlertType.ERROR,e.getMessage(),ButtonType.OK).show();
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Erro: ", StatusLog.ERRO);
 				}
 	    	}else {
 	    		Alerta.getInstance().showMensagem("Alerta","Senha invalida","A senha informada está errada, nada foi alterado.\nfavor tente editar novamente");
+	    		log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Erro: ", StatusLog.ERRO);
+	    	}
+	    	
+	    	try {
+	    		if(log != null)
+	    			fachada.salvarEditarLog(log);
+	    	} catch (BusinessException e) {
+	    		
+	    		e.printStackTrace();
 	    	}
     	}
     }
-    
+       
     @Override
-  	public void initialize(URL location, ResourceBundle resources) {
-  		fachada = Fachada.getInstance();
-    	App.addOuvinte(this);
-  		
-  	}
+    public void init() {
+    	fachada = Fachada.getInstance();
+    	
+    }
     
     private Boolean atualizarSenha(Funcionario usuario) {
     	String senhaAtual,novaSenha,confirmarSenha;

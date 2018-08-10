@@ -6,7 +6,11 @@ import java.util.Date;
 import br.com.sga.app.App;
 import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Financeiro;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Receita;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
@@ -86,6 +90,7 @@ public class ControleFinanceiro extends Controle {
 
 	private IFachada fachada;
 	private Financeiro financeiro;
+	private Funcionario funcionario;
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
@@ -105,6 +110,12 @@ public class ControleFinanceiro extends Controle {
 				
 			}
 		}
+		
+		if (object instanceof Funcionario) {
+			if(object != null)
+				funcionario = (Funcionario) object;
+		}
+		
 	}
 
 	@Override
@@ -142,6 +153,7 @@ public class ControleFinanceiro extends Controle {
 
 		if(obj == btnBuscar)
 		{
+			Log log;
 			try {
 
 				financeiro = fachada.buscarFinanceiroPorIntervalo(
@@ -164,14 +176,26 @@ public class ControleFinanceiro extends Controle {
 				lblReceitas.setText("Total De Receitas: "+total_receita);
 
 				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso","");
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Financeiro: "+lblData.getText(), StatusLog.COLCLUIDO);
 				
 			}catch (BusinessException | NumberFormatException e) {
 				e.printStackTrace();
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Financeiro: Erro - "+lblData.getText(), StatusLog.ERRO);
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Dados Financeiros!!!", e.getMessage());
 			}
 			catch (NullPointerException e) {
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Financeiro: Erro - "+lblData.getText(), StatusLog.ERRO);
 				Alerta.getInstance().showMensagem("Erro!", "Preencha Todos os Dados !!!", e.getMessage());
 			}
+			
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
+			}
+			
 		}
 		if(obj == btnAddReceita)
 			App.notificarOuvintes(Tela.Cadastro_Receita_Despesa, financeiro);

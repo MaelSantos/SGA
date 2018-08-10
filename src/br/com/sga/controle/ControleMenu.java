@@ -1,9 +1,14 @@
 package br.com.sga.controle;
 
+import java.util.Date;
+
 import org.controlsfx.control.textfield.TextFields;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,7 +79,6 @@ public class ControleMenu extends Controle{
     
     @FXML
     private Button consultaButton;
-
 
     private Funcionario funcionario;
     

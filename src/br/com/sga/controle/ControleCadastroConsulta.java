@@ -12,10 +12,13 @@ import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.entidade.enums.Estado;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoTelefone;
 import br.com.sga.exceptions.BusinessException;
@@ -135,7 +138,7 @@ public class ControleCadastroConsulta extends Controle{
 
 
     private IFachada fachada ;
-    private Funcionario funcionario,outroFuncionario;
+    private Funcionario funcionario, outroFuncionario;
     private Cliente cliente;
     
     public void actionButton(ActionEvent event) {
@@ -159,6 +162,7 @@ public class ControleCadastroConsulta extends Controle{
     	}
     	else  if(event.getSource() == buscarClienteButton) 
     	{
+    		Log log;
     		try {
 				List<Cliente> clientes = fachada.buscarClientePorBusca(dadoClienteField.getText().trim());
     			//cliente = Dialogo.getInstance().selecaoCliente(clientes);
@@ -202,6 +206,7 @@ public class ControleCadastroConsulta extends Controle{
 		}
 		else  if(event.getSource() == salvarConsulta) 
 		{
+			Log log = null;
 			if(cliente  != null && dadoClienteField.getText().trim().length() !=0) {
 				if(areaBox.getSelectionModel().getSelectedItem() != null && descricaoArea.getText().trim().length() >0
 						&& honorarioField.getText().trim().length() >0) {
@@ -224,17 +229,27 @@ public class ControleCadastroConsulta extends Controle{
 								cliente, funcionario,testemunhaTableView.getItems()));
 				    	Alerta.getInstance().showMensagem("Consulta inserida","","Consulta com cadastrada com sucesso!");
 				    	limparCamposConsulta();
+				    	log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Consulta: "+area, StatusLog.COLCLUIDO);
 					}catch (NumberFormatException e) {
 						Alerta.getInstance().showMensagem("Erro","","Campo númerico invalido:\nHá um ou mais campos com entradas invalidas");
 					}catch (BusinessException e) {
 						e.printStackTrace();
 						Alerta.getInstance().showMensagem("Erro","",e.getMessage());
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Consulta: Erro", StatusLog.ERRO);
 					}
 				}else
 					Alerta.getInstance().showMensagem("Alerta","","Campos obrigatorios vazios: \nHá um ou mais campos obrigatorios sem entrada");
 			}else
 				Alerta.getInstance().showMensagem("Alerta","","Não há um cliente selecionado: \nfavor selecionar cliente antes de salvar");
 				
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
+			}
+			
 		}
 		else  if(event.getSource() == gerarDocumentoButton) {}
     }

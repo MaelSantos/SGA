@@ -8,9 +8,12 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.Prioridade;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.BusinessException;
@@ -112,15 +115,27 @@ public class ControleAgenda extends Controle {
 						e.printStackTrace();
 					}
 				}
+				Log log;
 				try {
-					fachada.salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade,cadastroNotificacao.getDescricaoArea().getText(),Andamento.PENDENTE, 
+					fachada.salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade, cadastroNotificacao.getDescricaoArea().getText(), Andamento.PENDENTE, 
 							aviso_data, funcionarios));
 					Alerta.getInstance().showMensagem("Confirmação","","Nova notificacao cadastrada com exito");
 					calendario.AtualizarMes();
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.SALVAR, funcionario.getNome(), "Nova Tarefa: "+aviso_data, StatusLog.COLCLUIDO);
 				} catch (BusinessException e) {
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.SALVAR, funcionario.getNome(), "Nova Tarefa:  Erro", StatusLog.ERRO);
 					e.printStackTrace();
 					Alerta.getInstance().showMensagem("Alerta","",e.getMessage());
 				}
+				
+				try {
+					if(log != null)
+						fachada.salvarEditarLog(log);
+				} catch (BusinessException e) {
+					// TODO Bloco catch gerado automaticamente
+					e.printStackTrace();
+				}					
+				
 			}else
 				Alerta.getInstance().showMensagem("Alerta","","NADA FOI CADASTRADO");
 		}

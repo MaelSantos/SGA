@@ -3,10 +3,15 @@ package br.com.sga.controle;
 import java.util.Date;
 
 import br.com.sga.app.App;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoProcesso;
+import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
@@ -88,6 +93,7 @@ public class ControleProcesso extends Controle{
 	private Button btnCadastrar;
 
 	private IFachada fachada;
+	private Funcionario funcionario;
 
 	@FXML
 	public void actionButton(ActionEvent event) {
@@ -218,16 +224,28 @@ public class ControleProcesso extends Controle{
 			}
 		});
 
+		Log log;
 		try {
+			
 			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_1.toString()));
 			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_2.toString()));
 			tbl3Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_Criminal.toString()));
-
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: ", StatusLog.COLCLUIDO);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Carregar Processos", e.getMessage());
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: ", StatusLog.COLCLUIDO);
 		}
 
+		try {
+			if(log != null)
+				fachada.salvarEditarLog(log);
+		} catch (BusinessException e1) {
+			// TODO Bloco catch gerado automaticamente
+			e1.printStackTrace();
+		}
+		
 		tbl1Vara.setOnMouseClicked(e -> {
 			if(e.getClickCount() > 1)
 				if(tbl1Vara.getSelectionModel().getSelectedItem() != null)
@@ -270,6 +288,11 @@ public class ControleProcesso extends Controle{
 			}
 		}
 
+		if (object instanceof Funcionario) {
+			if(object != null)
+				funcionario = (Funcionario) object;
+		}
+		
 	}
 
 }

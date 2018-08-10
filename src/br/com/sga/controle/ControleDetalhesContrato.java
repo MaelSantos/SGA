@@ -1,6 +1,7 @@
 package  br.com.sga.controle;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -9,11 +10,15 @@ import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
+import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.exceptions.BusinessException;
@@ -88,13 +93,11 @@ public class ControleDetalhesContrato extends Controle{
     @FXML
     private Button voltarButton;
     
+    private Funcionario funcionario;
     private Cliente cliente;
-    
     private Contrato contrato;
-    
     private IFachada fachada ;
     private Parcela parcela ;
-    
     private Dialogo dialogo;
 
     @Override
@@ -106,20 +109,23 @@ public class ControleDetalhesContrato extends Controle{
 				App.notificarOuvintes(Tela.buscar_contrato);
 		}
     	else if(selectConButton == event.getSource() ) {
+    		Log log;
     		try {
 				List<ContratoAdapter> contratos = fachada.buscarContratoPorClienteAdapter(cliente.getCpf_cnpj());
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Contrato: "+cliente.getCpf_cnpj(), StatusLog.COLCLUIDO);
 				contrato = new Contrato();
 //				ContratoAdapter adapter = dialogo.selecao(contratos,"Selecione Contrato","Selecione um contrato para mais detalhes");
 				ContratoAdapter adapter = dialogo.selecionar(contratos);
 				contrato.setId(adapter.getId());
 				atualizarDadosContrato();
 			} catch (BusinessException e) {
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: Erro", StatusLog.ERRO);
 				e.printStackTrace();
 			}
     	}
     	else if(andamentoBox == event.getSource() ) {
     		if(andamentoBox.getSelectionModel().getSelectedItem()== Andamento.CONCLUIDO) {
-    			
+    			Log log;
     			try {
 					parcela.setEstado(Andamento.CONCLUIDO);
     				fachada.editarParcela(parcela);
@@ -129,10 +135,19 @@ public class ControleDetalhesContrato extends Controle{
 							Calendar.getInstance().getTime()),
     						fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
     				Alerta.getInstance().showMensagem("Atualizado","","Estado da parcela atualizado para\n CONCLUIDO");
+    				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Parcela: "+parcela.getEstado(), StatusLog.COLCLUIDO);
     			} catch (BusinessException | DaoException e) {
     				Alerta.getInstance().showMensagem("Erro","",e.getMessage());
     				e.printStackTrace();
+    				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Parcela: Erro", StatusLog.ERRO);
     			}
+    			
+    			try {
+					fachada.salvarEditarLog(log);
+				} catch (BusinessException e) {
+					// TODO Bloco catch gerado automaticamente
+					e.printStackTrace();
+				}
     		}
     	}
     	else if(contrato!= null) {
@@ -195,7 +210,10 @@ public class ControleDetalhesContrato extends Controle{
 		}else {
 			contrato = null;
 		}
-		
+		if (object instanceof Funcionario) {
+			funcionario = (Funcionario) object;
+			
+		}
 	}
 
 	private void limparCampos() {

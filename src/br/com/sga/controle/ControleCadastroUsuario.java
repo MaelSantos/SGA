@@ -1,6 +1,7 @@
 package br.com.sga.controle;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
@@ -10,6 +11,9 @@ import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Log;
+import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
@@ -20,7 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class ControleCadastroUsuario implements Initializable, Ouvinte {
+public class ControleCadastroUsuario extends Controle{
 
 	@FXML
 	private TextField tfdNome;
@@ -51,11 +55,11 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 	private Funcionario funcionario;
 	
 	@FXML
-    private void actionButton(ActionEvent event) {
+    public void actionButton(ActionEvent event) {
 		
 		if(event.getSource() == btnCriar)
 		{
-			System.out.println("Entrando");
+			Log log = null;
 			try {
 				
 				if(tfdSenha.getText().equals(tfdConfirmar.getText()))
@@ -68,11 +72,21 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 							tfdNumeroOab.getText().trim()); //numero OAB
 						fachada.salvarEditarUsuario(funcionario);
 						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...", "Salvo Com Sucesso!");
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, this.funcionario.getNome(), "Novo Usuario: "+funcionario.getNome(), StatusLog.COLCLUIDO);
 						limparCampos();
 				}
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem("Erro!!!", "Erro ao Salvar!!!", e.getMessage());
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Usuario: Erro", StatusLog.ERRO);
 			}
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
+			}
+			
 		}
 		if(event.getSource() == btnCancelar)
 		{
@@ -80,12 +94,6 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 		}
     }
 	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		App.addOuvinte(this);
-		fachada = Fachada.getInstance();
-	}
-
 	@Override
 	public void atualizar(Tela tela, Object usuario) {
 		if (usuario instanceof Funcionario) {
@@ -103,6 +111,13 @@ public class ControleCadastroUsuario implements Initializable, Ouvinte {
 		tfdNome.setText("");
 		tfdNumeroOab.setText("");
 		tfdSenha.setText("");
+		
+	}
+
+	@Override
+	public void init() {
+		fachada = Fachada.getInstance();
+		
 		
 	}
 

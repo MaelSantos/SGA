@@ -1,6 +1,7 @@
 package br.com.sga.entidade.enums;
 
 public enum TipoEstatistica {
+	
 	RECEITAS_POR_MES;
 	
 	@Override
