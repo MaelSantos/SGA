@@ -77,6 +77,8 @@ public class DaoLog implements IDaoLog{
 			
 			resultSet = this.statement.executeQuery();
 			
+			System.out.println(statement);
+			
 			List<Log> logs = new ArrayList<>();
 
 			while(resultSet.next()) {

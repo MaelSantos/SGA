@@ -111,7 +111,10 @@ public class ControleHistorico extends Controle {
 					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim()+" SEM RESULTADOS!!!");
 				
 				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso","");
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Historico: "+lblData.getText(), StatusLog.COLCLUIDO);
+				if(!tblLogs.getItems().isEmpty())
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Historico: "+lblData.getText(), StatusLog.COLCLUIDO);
+				else
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Historico: "+lblData.getText(), StatusLog.SEM_RESULTADOS);
 			} catch (Exception e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Historico!!!", e.getMessage());

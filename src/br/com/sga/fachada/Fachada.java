@@ -245,7 +245,7 @@ public class Fachada implements IFachada {
 
 	@Override
 	public List<Log> buscarLogPorBusca(String busca) throws BusinessException {
-		return buscarLogPorBusca(busca);
+		return businessLog.buscarPorBusca(busca);
 	}
 
 	@Override
