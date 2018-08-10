@@ -20,7 +20,8 @@ import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
-import br.com.sga.entidade.adapter.ReceitaAdapter;
+import br.com.sga.entidade.enums.Tabela;
+import br.com.sga.entidade.adapter.ContaAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 
@@ -63,7 +64,7 @@ public interface IFachada {
     public void salvarEditarFinanceiro(Financeiro entidade) throws BusinessException;
     public Financeiro buscarFinanceiroPorAno(Integer ano) throws BusinessException;
     public Financeiro buscarFinanceiroPorIntervalo(Date de, Date ate) throws BusinessException;
-    public List<ReceitaAdapter> buscarReceitasTotalMesPorIntervalo(Date de, Date ate) throws BusinessException;
+    public List<ContaAdapter> buscarContaTotalMesPorIntervalo(Date de, Date ate,Tabela tabela) throws BusinessException;
     
     // notificacao
     public void salvarEditarNotificacao(Notificacao notificacao) throws BusinessException;

@@ -11,6 +11,7 @@ import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.StatusAudiencia;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoAudiencia;
+import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
@@ -26,7 +27,7 @@ import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
-import br.com.sga.entidade.adapter.ReceitaAdapter;
+import br.com.sga.entidade.adapter.ContaAdapter;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.sql.SQLConnection;
@@ -613,18 +614,24 @@ public class DaoCommun implements IDaoCommun{
 		}
 
 	}
-	public List<ReceitaAdapter> getReceitaTotalMesPorIntervalo(java.util.Date de, java.util.Date ate) throws DaoException{
+	
+	public List<ContaAdapter> getContaTotalMesPorIntervalo(java.util.Date de, java.util.Date ate, Tabela tabela) throws DaoException{
 
-		List<ReceitaAdapter> receitas = new ArrayList<>();
+		List<ContaAdapter> contas = new ArrayList<>();
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			this.statement = connection.prepareStatement(SQLUtil.Receita.SELECT_INTERVALO_TOTAL_MES);
+			if(tabela == Tabela.RECEITA)
+				this.statement = connection.prepareStatement(SQLUtil.Receita.SELECT_INTERVALO_TOTAL_MES);
+			else if (tabela == Tabela.DESPESAS)
+				this.statement = connection.prepareStatement(SQLUtil.Despesa.SELECT_INTERVALO_TOTAL_MES);
+			else 
+				throw new DaoException("PROBLEMA AO BUSCAR "+tabela+" POR INTERVALO - Contate o ADM");
 			
 			statement.setDate(1, new Date(de.getTime()));
 			statement.setDate(2, new Date(ate.getTime()));
 			this.resultSet = statement.executeQuery();
 			
-			ReceitaAdapter receita;
+			ContaAdapter adpater;
 			Calendar calendar = Calendar.getInstance();
 			java.util.Date date;
 			while(resultSet.next())
@@ -633,14 +640,14 @@ public class DaoCommun implements IDaoCommun{
 				calendar.setTime(date);
 				calendar.set(Calendar.YEAR,resultSet.getInt("ano"));
 				calendar.set(Calendar.MONTH,resultSet.getInt("mes"));
-				receita = new ReceitaAdapter(resultSet.getFloat("total"),calendar.getTime());
-				receitas.add(receita);				
+				adpater = new ContaAdapter(resultSet.getFloat("total"),calendar.getTime());
+				contas.add(adpater);				
 			}
 			this.connection.close();
-			return receitas;
+			return contas;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new DaoException("PROBLEMA AO BUSCAR RECEITA POR INTERVALO - Contate o ADM");
+			throw new DaoException("PROBLEMA AO BUSCAR "+tabela+" POR INTERVALO - Contate o ADM");
 		}
 		
 	}

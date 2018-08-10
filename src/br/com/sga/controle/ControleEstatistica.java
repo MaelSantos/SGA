@@ -9,9 +9,10 @@ import java.util.ResourceBundle;
 
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
-import br.com.sga.entidade.adapter.ReceitaAdapter;
+import br.com.sga.entidade.adapter.ContaAdapter;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
+import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoEstatistica;
 import br.com.sga.entidade.enums.TipoGrafico;
@@ -67,8 +68,6 @@ public class ControleEstatistica extends Controle{
     
     private IFachada fachada;
     private Funcionario funcionario;
-    private TipoEstatistica tipoSelecionado;
-   // private TipoGrafico tipoGraficoSelecionado;
     
     @FXML
     public void actionButton(ActionEvent event) {
@@ -76,8 +75,6 @@ public class ControleEstatistica extends Controle{
     		if(dePicker.getValue() != null && atePicker.getValue() != null) {
 	    		if(tipoBox.getSelectionModel().getSelectedItem() != null ) { 
 	    			
-	    			barChart.getData().clear();
-	        		
 	        		LocalDate ld = dePicker.getValue();
 	    	    	Date de = new Date();
 	    	    	Calendar c =  Calendar.getInstance();
@@ -92,28 +89,23 @@ public class ControleEstatistica extends Controle{
 	    	    	ate  = c.getTime();
 	    	    	
 	    	    	Log log = null;
-	    	    	if(tipoSelecionado == TipoEstatistica.RECEITAS_DESPESAS_POR_MES) {
-	    	    		try {
-	    		    		List<ReceitaAdapter> receitasPorMes  = fachada.buscarReceitasTotalMesPorIntervalo(de, ate);
-	    		    		yAxis.setLabel("VALOR");
-	    					xAxis.setLabel("MES/ANO");
-	    					for(ReceitaAdapter receitaAdapter: receitasPorMes) {
-	    						System.out.println(receitaAdapter.toString());
-	    						XYChart.Series<String, Number> p = new XYChart.Series<>();
-	    						c.setTime(receitaAdapter.getMesAno());
-	    						p.setName(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR));
-	    						p.getData().add(new XYChart.Data<String, Number>(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR),
-	    								receitaAdapter.getValorTotal()));
-	    						barChart.getData().add(p);
-	    					}
-	    					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: "+graficoBox.getValue()+" - "+tipoBox.getValue(), StatusLog.COLCLUIDO);
-	    		    	
-	    				} catch (Exception e) {
-	    					Alerta.getInstance().showMensagem("Erro","",e.getMessage());
-	    					e.printStackTrace();
-	    					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: Erro", StatusLog.ERRO);
-	    				}
-	    	    	}
+	    	    	try {
+		    	    	if(graficoBox.getValue() == TipoGrafico.BARRA) 
+		    	    	{
+		    	    		if(tipoBox.getValue() == TipoEstatistica.RECEITAS_POR_MES) 
+		    		    		gerarGraficoBarra(fachada.buscarContaTotalMesPorIntervalo(de, ate,Tabela.RECEITA),Tabela.RECEITA);
+		    	    		else if(tipoBox.getValue() == TipoEstatistica.DESPESAS_POR_MES) 
+		    	    			gerarGraficoBarra(fachada.buscarContaTotalMesPorIntervalo(de, ate,Tabela.DESPESAS),Tabela.DESPESAS);
+		    	    		
+		    	    		log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: "
+		    	    				+graficoBox.getValue()+" - "+tipoBox.getValue(), StatusLog.COLCLUIDO);
+		    	    	}
+		    	    	
+	    	    	} catch (Exception e) {
+    					Alerta.getInstance().showMensagem("Erro","",e.getMessage());
+    					e.printStackTrace();
+    					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: Erro", StatusLog.ERRO);
+    				}
 	    	    	try {
 	    	    		if(log != null)
 	    	    			fachada.salvarEditarLog(log);
@@ -123,14 +115,28 @@ public class ControleEstatistica extends Controle{
 	    		}else
 	  		    	Alerta.getInstance().showMensagem("Alerta","","Nâo há nenhum tipo de estatística selecionada");
     		}else 
-	    		Alerta.getInstance().showMensagem("Alerta","","Selecione um periodo de tempo para pesquisa");
+	    		Alerta.getInstance().showMensagem("Alerta","","Selecione um período de tempo para pesquisa");
 	    	
     	}else if(event.getSource() == tipoBox) {
-    		tipoSelecionado = tipoBox.getSelectionModel().getSelectedItem();
-    		descricaoLabel.setText(tipoSelecionado.toString().toLowerCase());
+    		descricaoLabel.setText(tipoBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
     	}
 	    	
     }
+    
+    private void gerarGraficoBarra(List<ContaAdapter> contas,Tabela tabela) {
+    	Calendar c = Calendar.getInstance();
+    	XYChart.Series<String, Number> p = new XYChart.Series<>();
+    	barChart.getData().clear();
+    	p.setName(tabela.toString());
+    	for(ContaAdapter conta: contas) 
+		{
+    		System.out.println(conta);
+    		c.setTime(conta.getMesAno());
+			p.getData().add(new XYChart.Data<String, Number>(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR),conta.getValorTotal()));
+		}
+    	barChart.getData().add(p);
+    }
+    
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		

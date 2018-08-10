@@ -7,7 +7,8 @@ import br.com.sga.dao.DaoCommun;
 import br.com.sga.dao.DaoFinanceiro;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Notificacao;
-import br.com.sga.entidade.adapter.ReceitaAdapter;
+import br.com.sga.entidade.adapter.ContaAdapter;
+import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IBusinessFinanceiro;
@@ -66,9 +67,9 @@ public class BusinessFinanceiro implements IBusinessFinanceiro {
 	}
 
 	@Override
-	public List<ReceitaAdapter> buscarReceitasTotalMesPorIntervalo(Date de, Date ate) throws BusinessException {
+	  public List<ContaAdapter> buscarContaTotalMesPorIntervalo(Date de, Date ate,Tabela tabela) throws BusinessException {
 		try {
-			return daoCommun.getReceitaTotalMesPorIntervalo(de, ate);
+			return daoCommun.getContaTotalMesPorIntervalo(de, ate,tabela);
 		} catch (DaoException e) {
 			throw new BusinessException(e.getMessage());
 		}
