@@ -107,14 +107,14 @@ public class ControleCadastroAudiencia extends Controle {
 				Audiencia audiencia = criarAudiencia();
 				daoCommun.salvarAudiencia(audiencia, audiencia.getProcesso().getId());
 				Alerta.getInstance().showMensagem("Salvo", "", "Audiencia Cadastrada Com Sucesso");
-				App.notificarOuvintes(Tela.cadastro_audiencia, audiencia);
+				App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, audiencia);
 				
 				notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
 						audiencia.getProcesso().getDescricao(), Andamento.PENDENTE, audiencia.getData_audiencia());
 				
 				fachada.salvarEditarNotificacao(notificacao);
 				
-				App.notificarOuvintes(Tela.cadastro_audiencia, notificacao);
+				App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, notificacao);
 				
 				limparCampos();
 				
@@ -135,7 +135,7 @@ public class ControleCadastroAudiencia extends Controle {
 			
 		}
 		if(obj == btnVoltar)
-			App.notificarOuvintes(Tela.detalhes_processo);
+			App.notificarOuvintes(Tela.DETALHES_PROCESSO);
 		
 
 	}

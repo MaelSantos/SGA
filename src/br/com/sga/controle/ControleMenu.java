@@ -86,36 +86,36 @@ public class ControleMenu extends Controle{
 	public void actionButton(ActionEvent e)
 	{
 		if(e.getSource() == btnArea) 
-			atualizarTela(App.changePane(Tela.perfil));
+			atualizarTela(App.changePane(Tela.PERFIL));
 		else if(e.getSource() == btnAgenda)
-			atualizarTela(App.changePane(Tela.agenda));
+			atualizarTela(App.changePane(Tela.AGENDA));
 		else if(e.getSource() == btnClientes)
-			atualizarTela(App.changePane(Tela.clientes));
+			atualizarTela(App.changePane(Tela.CLIENTES));
 		else if(e.getSource() == btnProcessos)
-			atualizarTela(App.changePane(Tela.processos));
+			atualizarTela(App.changePane(Tela.PROCESSOS));
 		else if(e.getSource() == btnDocumentos)
-			atualizarTela(App.changePane(Tela.documentos));
+			atualizarTela(App.changePane(Tela.DOCUMENTOS));
 		else if(e.getSource() == btnFinanceiro)
-			atualizarTela(App.changePane(Tela.financeiro));
+			atualizarTela(App.changePane(Tela.FINANCEIRO));
 		else if(e.getSource() == btnEstatisticas)
-			atualizarTela(App.changePane(Tela.Estatistica));
+			atualizarTela(App.changePane(Tela.ESTATISTICA));
 		else if(e.getSource() == btnHistorico)
-			atualizarTela(App.changePane(Tela.historico));
+			atualizarTela(App.changePane(Tela.HISTORICO));
 		else if(e.getSource() == btnHome)
-			atualizarTela(App.changePane(Tela.home));
+			atualizarTela(App.changePane(Tela.HOME));
 		else if(e.getSource() == btnInformacoes)
-			atualizarTela(App.changePane(Tela.informacoes));
+			atualizarTela(App.changePane(Tela.INFORMACOES));
 		else if(e.getSource() == btnPerfil)
-			atualizarTela(App.changePane(Tela.perfil));
+			atualizarTela(App.changePane(Tela.PERFIL));
 		else if(e.getSource() == btnConfiguracoes)
-			atualizarTela(App.changePane(Tela.configuracoes));
+			atualizarTela(App.changePane(Tela.CONFIGURACOES));
 		else if(e.getSource() == contratoButton) 
-    		atualizarTela(App.changePane(Tela.buscar_contrato));
+    		atualizarTela(App.changePane(Tela.BUSCAR_CONTRATO));
 		else if(e.getSource() == consultaButton) 
-    		atualizarTela(App.changePane(Tela.Consulta));
+    		atualizarTela(App.changePane(Tela.CONSULTA));
 		else if(e.getSource() == btnSair) {
 			funcionario = null;
-			App.changeStage(Tela.login);
+			App.changeStage(Tela.LOGIN);
 			
 		}
 		

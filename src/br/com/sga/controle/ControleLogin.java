@@ -46,8 +46,8 @@ public class ControleLogin implements Initializable{
 			Log log;
 			try {
 				funcionario = fachada.buscarPorLogin(tfdLogin.getText(), tfdSenha.getText());
-				App.changeStage(Tela.menu);
-				App.notificarOuvintes(Tela.menu,funcionario);
+				App.changeStage(Tela.MENU);
+				App.notificarOuvintes(Tela.MENU,funcionario);
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.LOGIN, "Sistema", "Login: "+funcionario.getNome(), StatusLog.COLCLUIDO);
 			}catch (Exception e1) {
 				Alerta.getInstance().showMensagem("Dados Incorretos", "Login/Email Ou Senha Incorretos",e1.getMessage());

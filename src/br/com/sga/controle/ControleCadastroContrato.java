@@ -123,7 +123,7 @@ public class ControleCadastroContrato {
     void actionButton(ActionEvent event) {
     	// condição para tirar da tela quando não for necessário o campo para add informações do banco
     	if(voltarButton == event.getSource() ) {
-    		App.notificarOuvintes(Tela.buscar_contrato);
+    		App.notificarOuvintes(Tela.BUSCAR_CONTRATO);
     	}
     	else if(event.getSource() == tipoPagamamentoBox) {
     		if(!tipoPagamamentoBox.getSelectionModel().getSelectedItem().equals(TipoPagamento.A_VISTA.toString())) {

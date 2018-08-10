@@ -98,7 +98,7 @@ public class ControleCadastroProcesso extends Controle{
 			try {
 				processo = criarProcesso();
 				fachada.salvarEditarProcesso(processo);
-				App.notificarOuvintes(Tela.cadastro_processo, processo);
+				App.notificarOuvintes(Tela.CADASTRO_CONTRATO, processo);
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...","Salvo Com Seucesso");
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Processo: "+processo.getNumero()+" - "+processo.getTipo_processo(), StatusLog.COLCLUIDO);
 				limparCampos();
@@ -120,7 +120,7 @@ public class ControleCadastroProcesso extends Controle{
 			
 		}
 		if(obj == btnVoltar)
-			App.notificarOuvintes(Tela.processos);
+			App.notificarOuvintes(Tela.PROCESSOS);
 
 	}
 

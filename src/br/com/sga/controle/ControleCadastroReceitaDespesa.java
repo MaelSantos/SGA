@@ -213,7 +213,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 			
 		}
 		if(obj == btnVoltar)
-			App.notificarOuvintes(Tela.financeiro, financeiro);
+			App.notificarOuvintes(Tela.FINANCEIRO, financeiro);
 	}
 
 	private void limparCampos()

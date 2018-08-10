@@ -112,11 +112,11 @@ public class ControleConsulta  extends Controle{
 			
 		}
 		else if(cadastrarConsultaButton == event.getSource()) 
-			App.notificarOuvintes(Tela.cadastro_consulta);
+			App.notificarOuvintes(Tela.CADASTRO_CONSULTA);
 		else if(informacoesButton == event.getSource()) {
 			ConsultaAdapter consulta = contratosTableView.getSelectionModel().getSelectedItem();
 			if(consulta  != null) {
-				App.notificarOuvintes(Tela.Detalhes_consulta,consulta); // informando que vou para tela de detalhes de consulta e mando uma consulta selecionada
+				App.notificarOuvintes(Tela.DETALHES_CONSULTA,consulta); // informando que vou para tela de detalhes de consulta e mando uma consulta selecionada
 			}else {
 				Alerta.getInstance().showMensagem("Alerta","","Não há nenhuma consulta selecionada ,\ncom isso não é possivel ver detalhes de consulta");
 			}

@@ -198,7 +198,7 @@ public class ControleFinanceiro extends Controle {
 			
 		}
 		if(obj == btnAddReceita)
-			App.notificarOuvintes(Tela.Cadastro_Receita_Despesa, financeiro);
+			App.notificarOuvintes(Tela.CADASTRO_RECEITA_DESPESA, financeiro);
 
 	}
 

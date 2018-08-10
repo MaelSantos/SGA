@@ -160,9 +160,9 @@ public class ControleDetalhesProcesso extends Controle {
 		Object obj = event.getSource();
 		
 		if(obj == btnAdd)
-			App.notificarOuvintes(Tela.cadastro_audiencia, processo);
+			App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, processo);
 		if(obj == btnVoltar)
-			App.notificarOuvintes(Tela.processos);
+			App.notificarOuvintes(Tela.PROCESSOS);
 	}
 
 	@Override

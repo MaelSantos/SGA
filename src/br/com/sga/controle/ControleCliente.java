@@ -178,11 +178,11 @@ public class ControleCliente extends Controle{
 			}
 		}
 		else if(obj == btnAdd)
-			App.notificarOuvintes(Tela.cadastro_cliente);
+			App.notificarOuvintes(Tela.CADASTRO_CLIENTE);
 		else if(obj == btnContratos)
 		{
 			if(cliente != null)
-				App.notificarOuvintes(Tela.Detalhes_contrato,cliente);
+				App.notificarOuvintes(Tela.DETALHES_CONTRATO,cliente);
 			else
 				Alerta.getInstance().showMensagem("Alerta", "", "Nehum cliente selecionado : \nfavor selecionar um clientes e após clikar para visualizar suas contratos");
 		}
@@ -192,7 +192,7 @@ public class ControleCliente extends Controle{
 		}
 		else if(obj == btnConsultas ) {
 			if(cliente != null)
-				App.notificarOuvintes(Tela.Detalhes_consulta,cliente);
+				App.notificarOuvintes(Tela.DETALHES_CONSULTA,cliente);
 			else
 				Alerta.getInstance().showMensagem("Alerta", "", "Nehum cliente selecionado : \nfavor selecionar um clientes e após clikar para visualizar suas consultas");
 		}

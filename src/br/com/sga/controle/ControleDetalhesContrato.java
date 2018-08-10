@@ -104,9 +104,9 @@ public class ControleDetalhesContrato extends Controle{
     public  void actionButton(ActionEvent event) {
     	if(voltarButton == event.getSource() ) {
 			if(selectConButton.isVisible()) { // siginifica ter vindo da tela de cliente
-				App.notificarOuvintes(Tela.clientes);
+				App.notificarOuvintes(Tela.CLIENTES);
 			}else 
-				App.notificarOuvintes(Tela.buscar_contrato);
+				App.notificarOuvintes(Tela.BUSCAR_CONTRATO);
 		}
     	else if(selectConButton == event.getSource() ) {
     		Log log;
@@ -192,7 +192,7 @@ public class ControleDetalhesContrato extends Controle{
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
-		if(tela == Tela.Detalhes_contrato) {
+		if(tela == Tela.DETALHES_CONTRATO) {
 			limparCampos();
 			if(object instanceof Cliente) {
 				Cliente cliente = (Cliente) object;

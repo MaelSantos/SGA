@@ -68,7 +68,7 @@ public class ControleEditarPerfil extends Controle{
     @FXML
     public void actionButton(ActionEvent event) {
     	if(event.getSource() == voltarButton) {
-    		App.notificarOuvintes(Tela.perfil, funcionario);
+    		App.notificarOuvintes(Tela.PERFIL, funcionario);
     	}
     	else
     	{ 
@@ -113,7 +113,7 @@ public class ControleEditarPerfil extends Controle{
 					fachada.salvarEditarUsuario(copiaFuncionario);
 					if(sucesso) {
 						funcionario = copiaFuncionario;
-						App.notificarOuvintes(Tela.editar_perfil, funcionario);
+						App.notificarOuvintes(Tela.EDITAR_PERFIL, funcionario);
 						new Alert(AlertType.INFORMATION,feedback+" atualizado com sucesso",ButtonType.OK).show();
 					}
 				} catch (BusinessException e) {
@@ -219,7 +219,7 @@ public class ControleEditarPerfil extends Controle{
 		{
 			if (object instanceof Funcionario)
 				funcionario = (Funcionario) object;
-			if(tela == Tela.editar_perfil) {
+			if(tela == Tela.EDITAR_PERFIL) {
 				nomeField.setPromptText(funcionario.getNome());
 				emailField.setPromptText(funcionario.getEmail());
 				loginField.setPromptText(funcionario.getLogin());

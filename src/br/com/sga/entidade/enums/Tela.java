@@ -2,11 +2,21 @@ package br.com.sga.entidade.enums;
 
 public enum Tela{
 
-	login, cadastro, perfil, pesquisa, menu, informacoes, configuracoes, home, historico,
-	financeiro, documentos, processos, clientes, agenda, editar_perfil,
-	cadastro_cliente,cadastro_contrato, cadastro_processo, detalhes_processo,buscar_contrato, 
-	cadastro_audiencia,cadastro_consulta,Cadastro_Receita_Despesa,Consulta,Detalhes_consulta,Detalhes_contrato,Estatistica;
-
+	LOGIN("Login"), CADASTRO("Cadastro"), PERFIL("Perfil"), PESQUISA("Pesquisa"), MENU("Menu"),
+	INFORMACOES("Informações"), CONFIGURACOES("Configurações"), HOME("Home"), HISTORICO("Histórico"),
+	FINANCEIRO("Financeiro"), DOCUMENTOS("Documentos"), PROCESSOS("Processos"), CLIENTES("Clientes"),
+	AGENDA("Agenda"), EDITAR_PERFIL("Editar Perfil"),CADASTRO_CLIENTE("Cadastro Cliente"),
+	CADASTRO_CONTRATO("Cadastro Contrato"), CADASTRO_PROCESSO("Cadastro Processo"),
+	DETALHES_PROCESSO("Detalhes Processo"),BUSCAR_CONTRATO("Buscar Contrato"), CADASTRO_AUDIENCIA("Cadastro Audiência"),
+	CADASTRO_CONSULTA("Cadastro Consulta"),CADASTRO_RECEITA_DESPESA("Cadastro Receita Despesa"),CONSULTA("Consulta"),
+	DETALHES_CONSULTA("Detalhe Consulta"),DETALHES_CONTRATO("Detalhes Contrat"),ESTATISTICA("Estatística");
+	
+	private String value;
+	
+	private Tela(String value) {
+		this.value = value;
+	}
+	
 	public static Tela getTela(String tela)
 	{
 		for(Tela t : values())
@@ -18,13 +28,8 @@ public enum Tela{
 	}
 	@Override
 	public String toString() {
-		return super.toString().replace("_"," ");
+		return value;
 	}
 
-	public static void main(String[] args) {
-		
-		System.out.println(values().length);
-		
-	}
 	
 }

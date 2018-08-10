@@ -101,7 +101,7 @@ public class ControleProcesso extends Controle{
 		Object obj = event.getSource();
 
 		if(obj == btnCadastrar)
-			App.notificarOuvintes(Tela.cadastro_processo);
+			App.notificarOuvintes(Tela.CADASTRO_PROCESSO);
 	}
 
 	public void init() {
@@ -164,7 +164,7 @@ public class ControleProcesso extends Controle{
 						}else{
 							Button b = new Button("Detalhes");
 							b.setOnAction((a) ->{
-								App.notificarOuvintes(Tela.detalhes_processo, tbl1Vara.getSelectionModel().getSelectedItem());
+								App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl1Vara.getSelectionModel().getSelectedItem());
 							});
 							setGraphic(b);
 						}
@@ -188,7 +188,7 @@ public class ControleProcesso extends Controle{
 						}else{
 							Button b = new Button("Detalhes");
 							b.setOnAction((a) ->{
-								App.notificarOuvintes(Tela.detalhes_processo, tbl2Vara.getSelectionModel().getSelectedItem());
+								App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl2Vara.getSelectionModel().getSelectedItem());
 							});
 							setGraphic(b);
 						}
@@ -214,7 +214,7 @@ public class ControleProcesso extends Controle{
 						}else{
 							Button b = new Button("Detalhes");
 							b.setOnAction((a) ->{
-								App.notificarOuvintes(Tela.detalhes_processo, tbl3Vara.getSelectionModel().getSelectedItem());
+								App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl3Vara.getSelectionModel().getSelectedItem());
 							});
 							setGraphic(b);
 						}
@@ -249,15 +249,15 @@ public class ControleProcesso extends Controle{
 		tbl1Vara.setOnMouseClicked(e -> {
 			if(e.getClickCount() > 1)
 				if(tbl1Vara.getSelectionModel().getSelectedItem() != null)
-					App.notificarOuvintes(Tela.detalhes_processo, tbl1Vara.getSelectionModel().getSelectedItem());});
+					App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl1Vara.getSelectionModel().getSelectedItem());});
 		tbl2Vara.setOnMouseClicked(e -> {
 			if(e.getClickCount() > 1)
 				if(tbl2Vara.getSelectionModel().getSelectedItem() != null)
-					App.notificarOuvintes(Tela.detalhes_processo, tbl2Vara.getSelectionModel().getSelectedItem());});
+					App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl2Vara.getSelectionModel().getSelectedItem());});
 		tbl3Vara.setOnMouseClicked(e -> {
 			if(e.getClickCount() > 1)
 				if(tbl3Vara.getSelectionModel().getSelectedItem() != null)
-					App.notificarOuvintes(Tela.detalhes_processo, tbl3Vara.getSelectionModel().getSelectedItem());});
+					App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl3Vara.getSelectionModel().getSelectedItem());});
 
 	}
 
