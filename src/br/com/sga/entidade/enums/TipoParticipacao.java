@@ -2,8 +2,18 @@ package br.com.sga.entidade.enums;
 
 public enum TipoParticipacao {
 	
-	EXEQUENTE,EXECUTADO,ADVOCADO;
+	EXEQUENTE("EXEQUENTE"),EXECUTADO("EXECUTADO"),ADVOGADO("ADVOGADO");
 	
+	private String value;
+	
+	
+	
+	private TipoParticipacao(String value) {
+		this.value = value;
+	}
+
+
+
 	public static TipoParticipacao getValue(String tipo)
 	{
 		if(tipo != null)
@@ -14,4 +24,8 @@ public enum TipoParticipacao {
 		
 	}
 	
+	@Override
+	public String toString() {
+		return value;
+	}
 }

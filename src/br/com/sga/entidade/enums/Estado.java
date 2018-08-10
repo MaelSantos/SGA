@@ -2,16 +2,15 @@ package br.com.sga.entidade.enums;
 
 public enum Estado {
 
-	Acre("Acre","AC"), Alagoas("Alagoas","AL"), Amapá("Amapá","AP"), 
-	Amazonas("Amazonas","AM"), Bahia("Bahia","BA"), Ceará("Ceará","CE"),
-	Distrito_Federal("Distrito Federal","DF"), Espírito_Santo("Espírito Santo","ES"), Goiás("Goiás","GO"),
-	Maranhão("Maranhão","MA"), Mato_Grosso("Mato_Grosso","MT"), Mato_Grosso_do_Sul("Mato Grosso do Sul","MS"),
-	Minas_Gerais("Minas Gerais","MG"), Pará("Pará","PA"), Paraíba("Paraíba","PB"),
-	Paraná("Paraná","PR"), Pernambuco("Pernambuco","PE"), Piauí("Piauí","PI"),
-	Roraima("Roraima","RR"), Rondônia("Rondônia","RO"), Rio_de_Janeiro("Rio de Janeiro","RJ"),
-	Rio_Grande_do_Norte("Rio Grande do Norte","RN"), Rio_Grande_do_Sul("Rio Grande do Sul","RS"), Santa_Catarina("Santa Catarina","SC"), 
-	São_Paulo("São Paulo","SP"), Sergipe("Sergipe","SE"), Tocantins("Tocantins","TO");
-
+	ACRE("Acre","AC"), ALAGOAS("Alagoas","AL"), AMAPA("Amapá","AP"), 
+	AMAZONAS("Amazonas","AM"), BAHIA("Bahia","BA"), CEARA("Ceará","CE"),
+	DISTRITO_FERERAL("Distrito Federal","DF"), ESPIRITO_SANTO("Espírito Santo","ES"), GOIAS("Goiás","GO"),
+	MARANAO("Maranhão","MA"), MATO_GROSSO("Mato_Grosso","MT"), MATO_GROSSO_DO_SUL("Mato Grosso do Sul","MS"),
+	MINAS_GERAIS("Minas Gerais","MG"), PARA("Pará","PA"), PARAIBA("Paraíba","PB"),
+	PARANA("Paraná","PR"), PERNAMBUCO("Pernambuco","PE"), PIAUL("Piauí","PI"),
+	RORAIMA("Roraima","RR"), RONDONIA("Rondônia","RO"), RIO_DE_JANEIRO("Rio de Janeiro","RJ"),
+	RIO_GRANDE_DO_NORTE("Rio Grande do Norte","RN"), RIO_GRANDE_DO_SUL("Rio Grande do Sul","RS"), SANTA_CATARINA("Santa Catarina","SC"), 
+	SAO_PAULO("São Paulo","SP"), SERGIPE("Sergipe","SE"), TONANTINS("Tocantins","TO");
 	private String nome, sigla;
 	Estado(String nome, String sigla)
 	{

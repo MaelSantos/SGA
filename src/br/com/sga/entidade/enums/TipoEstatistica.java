@@ -2,11 +2,18 @@ package br.com.sga.entidade.enums;
 
 public enum TipoEstatistica {
 	
-	RECEITAS_POR_MES;
+	RECEITAS_POR_MES("RECEITAS POR MÊS");
 	
+	private String value;
+	
+	
+	private TipoEstatistica(String value) {
+		this.value = value;
+	}
+
 	@Override
 	public String toString() {
-		return super.toString().replace("_"," ");
+		return value;
 	}
 	
 }

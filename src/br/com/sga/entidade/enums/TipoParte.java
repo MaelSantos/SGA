@@ -2,7 +2,15 @@ package br.com.sga.entidade.enums;
 
 public enum TipoParte {
 	
-	ATIVO,PASSIVO;
+	ATIVO("ATIVO"),PASSIVO("PASSIVO");
+	
+	private String value;
+	
+	private TipoParte(String value) {
+		this.value = value;
+	}
+
+	
 	public static TipoParte getTipoParte(String tipo)
 	{
 		if(tipo != null)
@@ -11,6 +19,11 @@ public enum TipoParte {
 					return t;
 		return null;
 		
+	}
+	
+	@Override
+	public String toString() {
+		return value;
 	}
 	
 }

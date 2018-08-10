@@ -119,20 +119,6 @@ public class ControleEstatistica extends Controle{
     	}
 	    	
     }
-    @FXML
-    void initialize() {
-        assert dePicker != null : "fx:id=\"dePicker\" was not injected: check your FXML file 'Estatistica.fxml'.";
-        assert atePicker != null : "fx:id=\"atePicker\" was not injected: check your FXML file 'Estatistica.fxml'.";
-        assert tipoBox != null : "fx:id=\"tipoBox\" was not injected: check your FXML file 'Estatistica.fxml'.";
-        assert graficoBox != null : "fx:id=\"graficoBox\" was not injected: check your FXML file 'Estatistica.fxml'.";
-        fachada = Fachada.getInstance();
-        
-        graficoBox.getItems().addAll(TipoGrafico.values());
-        tipoBox.getItems().addAll(TipoEstatistica.values());
-        graficoBox.setValue(TipoGrafico.BARRA);
-        tipoBox.setValue(TipoEstatistica.RECEITAS_POR_MES);
-
-    }
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		
@@ -144,7 +130,10 @@ public class ControleEstatistica extends Controle{
 	}
 	@Override
 	public void init() {
-		// TODO Stub de método gerado automaticamente
-		
+		fachada = Fachada.getInstance();
+        graficoBox.getItems().addAll(TipoGrafico.values());
+        tipoBox.getItems().addAll(TipoEstatistica.values());
+        graficoBox.setValue(TipoGrafico.BARRA);
+        tipoBox.setValue(TipoEstatistica.RECEITAS_POR_MES);
 	}
 }

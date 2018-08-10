@@ -227,9 +227,9 @@ public class ControleProcesso extends Controle{
 		Log log;
 		try {
 			
-			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_1.toString()));
-			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_2.toString()));
-			tbl3Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_Criminal.toString()));
+			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_1.toString()));
+			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_2.toString()));
+			tbl3Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_CRIMINAL.toString()));
 			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: ", StatusLog.COLCLUIDO);
 			
 		} catch (Exception e) {
@@ -268,19 +268,19 @@ public class ControleProcesso extends Controle{
 		if (object instanceof Processo) {
 			Processo processo = (Processo) object;
 
-			if(processo.getTipo_processo() == TipoProcesso.Vara_1)
+			if(processo.getTipo_processo() == TipoProcesso.VARA_1)
 			{
 				for(ProcessoAdapter a : tbl1Vara.getItems())
 					if(!(a.getId() == processo.getId()))
 						tbl1Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
 			}
-			if(processo.getTipo_processo() == TipoProcesso.Vara_2)
+			if(processo.getTipo_processo() == TipoProcesso.VARA_2)
 			{
 				for(ProcessoAdapter a : tbl2Vara.getItems())
 					if(!(a.getId() == processo.getId()))				
 						tbl2Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
 			}
-			if(processo.getTipo_processo() == TipoProcesso.Vara_Criminal)
+			if(processo.getTipo_processo() == TipoProcesso.VARA_CRIMINAL)
 			{
 				for(ProcessoAdapter a : tbl3Vara.getItems())
 					if(!(a.getId() == processo.getId()))
