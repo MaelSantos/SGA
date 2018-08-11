@@ -1,6 +1,7 @@
 package br.com.sga.controle;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +34,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import model.Pessoa;
 
 public class ControleEstatistica extends Controle{
 
@@ -99,15 +99,16 @@ public class ControleEstatistica extends Controle{
 	    	    	
 	    	    	Log log = null;
 	    	    	try {
-		    	    	if(graficoBox.getValue() == TipoGrafico.BARRA) 
+	    	    		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+	    	    		if(graficoBox.getValue() == TipoGrafico.BARRA) 
 		    	    	{
-		    	    		barChart.setTitle(tipoBox.getValue().toString() + " de "+ de.toString() +" até "+ ate.toString());
+		    	    		barChart.setTitle(tipoBox.getValue().toString() + " DE "+ dt.format(de) +" ATÉ "+ dt.format(ate));
 		    	    		if(tipoBox.getValue() == TipoEstatistica.RECEITAS_POR_MES) 
 		    		    		gerarGraficoBarra(fachada.buscarContaTotalMesPorIntervalo(de, ate,Tabela.RECEITA),Tabela.RECEITA);
 		    	    		else if(tipoBox.getValue() == TipoEstatistica.DESPESAS_POR_MES) 
 		    	    			gerarGraficoBarra(fachada.buscarContaTotalMesPorIntervalo(de, ate,Tabela.DESPESAS),Tabela.DESPESAS);
 		    	    	}else if(graficoBox.getValue() == TipoGrafico.PIZZA) {
-		    	    		piechart.setTitle(tipoBox.getValue().toString() + " de "+ de.toString() +" até "+ ate.toString());
+		    	    		piechart.setTitle(tipoBox.getValue().toString() + " DE  "+ dt.format(de) +" ATÉ "+ dt.format(ate));
 		    	    		if(tipoBox.getValue() == TipoEstatistica.RECEITAS_POR_MES) 
 		    		    		gerarGraficoPizza(fachada.buscarContaTotalMesPorIntervalo(de, ate,Tabela.RECEITA),Tabela.RECEITA);
 		    	    		else if(tipoBox.getValue() == TipoEstatistica.DESPESAS_POR_MES) 
@@ -164,6 +165,7 @@ public class ControleEstatistica extends Controle{
     	
     	Calendar c = Calendar.getInstance();
     	for(ContaAdapter conta: contas) { 
+    		c.setTime(conta.getMesAno());
 			piechart.getData().add(new PieChart.Data(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR),conta.getValorTotal()));
     	}
     }
