@@ -100,7 +100,10 @@ public class ControleHome extends Controle {
 			tblAtrasados.getItems().setAll(fachada.BuscarNotificacaoAdapterPorEstado(Andamento.VENCIDO.name()));
 			tblSemana.getItems().setAll(fachada.BuscarNotificacaoAdapterPorData(primeiro, ultimo));
 			
-			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: ", StatusLog.COLCLUIDO);
+			if(tblAtrasados.getItems().isEmpty() && tblSemana.getItems().isEmpty())
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: Nada Encontrado", StatusLog.SEM_RESULTADOS);
+			else
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: ", StatusLog.COLCLUIDO);
 			
 		} catch (Exception e) {
 			

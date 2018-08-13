@@ -105,13 +105,17 @@ public class ControleHistorico extends Controle {
 				tblLogs.getItems().setAll(fachada.buscarLogPorData(
 						Date.from(tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
 						Date.from(tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())));
+				
+				System.out.println("De: "+tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+				System.out.println("Ate: "+tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+				
 				if(! (tblLogs.getItems().isEmpty()))
 					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim());
 				else
 					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim()+" SEM RESULTADOS!!!");
 				
 				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso","");
-				if(!tblLogs.getItems().isEmpty())
+				if(! (tblLogs.getItems().isEmpty()) )
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Historico: "+lblData.getText(), StatusLog.COLCLUIDO);
 				else
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Historico: "+lblData.getText(), StatusLog.SEM_RESULTADOS);
