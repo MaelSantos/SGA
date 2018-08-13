@@ -227,21 +227,14 @@ public class ControleProcesso extends Controle{
 		Log log;
 		try {
 			
-<<<<<<< HEAD
-			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_1.toString()));
-			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_2.toString()));
-			tbl3Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_Criminal.toString()));
+			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_1.toString()));
+			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_2.toString()));
+			tbl3Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_CRIMINAL.toString()));
 			
 			if(tbl1Vara.getItems().isEmpty() && tbl2Vara.getItems().isEmpty() && tbl3Vara.getItems().isEmpty())
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: Sem Resultados", StatusLog.SEM_RESULTADOS);
 			else
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: ", StatusLog.COLCLUIDO);
-=======
-			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_1.toString()));
-			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_2.toString()));
-			tbl3Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_CRIMINAL.toString()));
-			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: ", StatusLog.COLCLUIDO);
->>>>>>> 7ff26b5e09958086c4f06fbb9e29d6809f95079e
 			
 		} catch (Exception e) {
 			e.printStackTrace();

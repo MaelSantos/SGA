@@ -1,10 +1,6 @@
 package br.com.sga.controle;
 
-<<<<<<< HEAD
-=======
-
 import org.controlsfx.control.Notifications;
->>>>>>> 7ff26b5e09958086c4f06fbb9e29d6809f95079e
 import org.controlsfx.control.textfield.TextFields;
 
 import br.com.sga.app.App;
@@ -116,12 +112,8 @@ public class ControleMenu extends Controle{
     		atualizarTela(App.changePane(Tela.CONSULTA));
 		else if(e.getSource() == btnSair) {
 			funcionario = null;
-<<<<<<< HEAD
-			App.changeStage(Tela.login);
-=======
 			App.changeStage(Tela.LOGIN);
 			
->>>>>>> 7ff26b5e09958086c4f06fbb9e29d6809f95079e
 		}
 		
 	}

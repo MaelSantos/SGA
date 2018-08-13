@@ -2,7 +2,7 @@ package br.com.sga.entidade.enums;
 
 public enum Tela{
 
-	LOGIN("Login"), CADASTRO("Cadastro"), PERFIL("Perfil"), PESQUISA("Pesquisa"), MENU("Menu"),
+	LOGIN("Login"), CADASTRO("Cadastro"), PERFIL("Perfil"), MENU("Menu"),
 	INFORMACOES("Informações"), CONFIGURACOES("Configurações"), HOME("Home"), HISTORICO("Histórico"),
 	FINANCEIRO("Financeiro"), DOCUMENTOS("Documentos"), PROCESSOS("Processos"), CLIENTES("Clientes"),
 	AGENDA("Agenda"), EDITAR_PERFIL("Editar Perfil"),CADASTRO_CLIENTE("Cadastro Cliente"),
