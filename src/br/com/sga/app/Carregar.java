@@ -156,7 +156,7 @@ public class Carregar implements Initializable{
 					@Override
 					protected void succeeded() {
 						super.succeeded();
-						App.changeStage(Tela.login);
+						App.changeStage(Tela.LOGIN);
 					}
 				};
 

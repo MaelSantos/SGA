@@ -145,7 +145,7 @@ public class ControleCadastroConsulta extends Controle{
     	System.out.println("evento");
     	
     	if(voltarButton == event.getSource() ) {
-    		App.notificarOuvintes(Tela.Consulta);
+    		App.notificarOuvintes(Tela.CONSULTA);
     	}
     	else if(event.getSource() == outroFuncionarioRadio) 
     	{

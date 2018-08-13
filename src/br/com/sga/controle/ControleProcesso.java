@@ -101,7 +101,7 @@ public class ControleProcesso extends Controle{
 		Object obj = event.getSource();
 
 		if(obj == btnCadastrar)
-			App.notificarOuvintes(Tela.cadastro_processo);
+			App.notificarOuvintes(Tela.CADASTRO_PROCESSO);
 	}
 
 	public void init() {
@@ -164,7 +164,7 @@ public class ControleProcesso extends Controle{
 						}else{
 							Button b = new Button("Detalhes");
 							b.setOnAction((a) ->{
-								App.notificarOuvintes(Tela.detalhes_processo, tbl1Vara.getSelectionModel().getSelectedItem());
+								App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl1Vara.getSelectionModel().getSelectedItem());
 							});
 							setGraphic(b);
 						}
@@ -188,7 +188,7 @@ public class ControleProcesso extends Controle{
 						}else{
 							Button b = new Button("Detalhes");
 							b.setOnAction((a) ->{
-								App.notificarOuvintes(Tela.detalhes_processo, tbl2Vara.getSelectionModel().getSelectedItem());
+								App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl2Vara.getSelectionModel().getSelectedItem());
 							});
 							setGraphic(b);
 						}
@@ -214,7 +214,7 @@ public class ControleProcesso extends Controle{
 						}else{
 							Button b = new Button("Detalhes");
 							b.setOnAction((a) ->{
-								App.notificarOuvintes(Tela.detalhes_processo, tbl3Vara.getSelectionModel().getSelectedItem());
+								App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl3Vara.getSelectionModel().getSelectedItem());
 							});
 							setGraphic(b);
 						}
@@ -227,6 +227,7 @@ public class ControleProcesso extends Controle{
 		Log log;
 		try {
 			
+<<<<<<< HEAD
 			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_1.toString()));
 			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_2.toString()));
 			tbl3Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.Vara_Criminal.toString()));
@@ -235,6 +236,12 @@ public class ControleProcesso extends Controle{
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: Sem Resultados", StatusLog.SEM_RESULTADOS);
 			else
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: ", StatusLog.COLCLUIDO);
+=======
+			tbl1Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_1.toString()));
+			tbl2Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_2.toString()));
+			tbl3Vara.getItems().addAll(fachada.buscaAllProcessoAdapter(TipoProcesso.VARA_CRIMINAL.toString()));
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: ", StatusLog.COLCLUIDO);
+>>>>>>> 7ff26b5e09958086c4f06fbb9e29d6809f95079e
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -253,15 +260,15 @@ public class ControleProcesso extends Controle{
 		tbl1Vara.setOnMouseClicked(e -> {
 			if(e.getClickCount() > 1)
 				if(tbl1Vara.getSelectionModel().getSelectedItem() != null)
-					App.notificarOuvintes(Tela.detalhes_processo, tbl1Vara.getSelectionModel().getSelectedItem());});
+					App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl1Vara.getSelectionModel().getSelectedItem());});
 		tbl2Vara.setOnMouseClicked(e -> {
 			if(e.getClickCount() > 1)
 				if(tbl2Vara.getSelectionModel().getSelectedItem() != null)
-					App.notificarOuvintes(Tela.detalhes_processo, tbl2Vara.getSelectionModel().getSelectedItem());});
+					App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl2Vara.getSelectionModel().getSelectedItem());});
 		tbl3Vara.setOnMouseClicked(e -> {
 			if(e.getClickCount() > 1)
 				if(tbl3Vara.getSelectionModel().getSelectedItem() != null)
-					App.notificarOuvintes(Tela.detalhes_processo, tbl3Vara.getSelectionModel().getSelectedItem());});
+					App.notificarOuvintes(Tela.DETALHES_PROCESSO, tbl3Vara.getSelectionModel().getSelectedItem());});
 
 	}
 
@@ -272,19 +279,19 @@ public class ControleProcesso extends Controle{
 		if (object instanceof Processo) {
 			Processo processo = (Processo) object;
 
-			if(processo.getTipo_processo() == TipoProcesso.Vara_1)
+			if(processo.getTipo_processo() == TipoProcesso.VARA_1)
 			{
 				for(ProcessoAdapter a : tbl1Vara.getItems())
 					if(!(a.getId() == processo.getId()))
 						tbl1Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
 			}
-			if(processo.getTipo_processo() == TipoProcesso.Vara_2)
+			if(processo.getTipo_processo() == TipoProcesso.VARA_2)
 			{
 				for(ProcessoAdapter a : tbl2Vara.getItems())
 					if(!(a.getId() == processo.getId()))				
 						tbl2Vara.getItems().add(ProcessoAdapter.ToAdapter(processo));
 			}
-			if(processo.getTipo_processo() == TipoProcesso.Vara_Criminal)
+			if(processo.getTipo_processo() == TipoProcesso.VARA_CRIMINAL)
 			{
 				for(ProcessoAdapter a : tbl3Vara.getItems())
 					if(!(a.getId() == processo.getId()))

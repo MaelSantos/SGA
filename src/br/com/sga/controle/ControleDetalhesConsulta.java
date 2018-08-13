@@ -113,9 +113,9 @@ public class ControleDetalhesConsulta extends Controle{
 		
 		if(voltarButton == event.getSource() ) {
 			if(selectConButton.isVisible()) { // siginifica ter vindo da tela de cliente
-				App.notificarOuvintes(Tela.clientes);
+				App.notificarOuvintes(Tela.CLIENTES);
 			}else {// siginifica ter vindo da tela de consulta
-				App.notificarOuvintes(Tela.Consulta);
+				App.notificarOuvintes(Tela.CONSULTA);
 			}
 		}
 		else if(selectConButton == event.getSource()) {
@@ -155,7 +155,7 @@ public class ControleDetalhesConsulta extends Controle{
 	}
 	@Override
 	public void atualizar(Tela tela, Object object) {
-		if(tela == Tela.Detalhes_consulta) {
+		if(tela == Tela.DETALHES_CONSULTA) {
 			limparCampos();
 			if(object instanceof Cliente) {
 				Cliente cliente = (Cliente) object;

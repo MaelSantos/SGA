@@ -2,8 +2,14 @@ package br.com.sga.entidade.enums;
 
 public enum TipoPagamento {
 	
-	BOLETO,CHEQUE,A_VISTA;
+	BOLETO("BOLETO"),CHEQUE("CHEQUE"),A_VISTA("A VISTA");
 	
+	private String value;
+	
+	private TipoPagamento(String value) {
+		this.value = value;
+	}
+
 	public static TipoPagamento getTipoPagamento(String tipo) {
 		if(tipo!=null) 
 			for(TipoPagamento e : TipoPagamento.values())
@@ -14,6 +20,6 @@ public enum TipoPagamento {
 	
 	@Override
 	public String toString() {
-		return super.toString().replace("_"," ");
+		return value;
 	}
 }

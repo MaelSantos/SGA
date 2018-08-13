@@ -18,17 +18,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleEstatistica">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleEstatistica">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <VBox alignment="CENTER" prefHeight="169.0" prefWidth="680.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Estatisticas" textFill="WHITE">
-                     <font>
-                        <Font name="Verdana Bold" size="24.0" />
-                     </font>
-                  </Label>
+                  <FlowPane alignment="CENTER" hgap="6.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Estatisticas" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="descricaoLabel" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </FlowPane>
                   <Separator prefWidth="650.0" />
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" vgap="20.0">
                      <children>
@@ -62,13 +71,13 @@
                                     <Font name="Verdana" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="tipoBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="tipoBox" onAction="#actionButton" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <Label text="Gráfico" textFill="WHITE" GridPane.columnIndex="3">
                                  <font>
                                     <Font name="Verdana" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="graficoBox" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="graficoBox" onAction="#actionButton" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                               <Button fx:id="attButton" mnemonicParsing="false" onAction="#actionButton" text="Atualizar/Mostrar gráfico" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
@@ -84,22 +93,35 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <center>
-            <BarChart fx:id="barChart" prefHeight="400.0" prefWidth="629.0" BorderPane.alignment="CENTER">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" fx:id="xAxis">
-                     <tickLabelFont>
-                        <Font name="Verdana" size="11.0" />
-                     </tickLabelFont>
-                  </CategoryAxis>
-              </xAxis>
-              <yAxis>
-                <NumberAxis fx:id="yAxis" side="LEFT" tickLabelFill="WHITE">
-                     <tickLabelFont>
-                        <Font name="Verdana" size="11.0" />
-                     </tickLabelFont>
-                  </NumberAxis>
-              </yAxis>
-            </BarChart>
+            <GridPane fx:id="graficosPane" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <BarChart fx:id="barChart">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" fx:id="xAxis">
+                           <tickLabelFont>
+                              <Font name="Verdana" size="11.0" />
+                           </tickLabelFont>
+                        </CategoryAxis>
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="yAxis" side="LEFT" tickLabelFill="WHITE">
+                           <tickLabelFont>
+                              <Font name="Verdana" size="11.0" />
+                           </tickLabelFont>
+                        </NumberAxis>
+                    </yAxis>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </BarChart>
+               </children>
+            </GridPane>
          </center>
       </BorderPane>
    </children>

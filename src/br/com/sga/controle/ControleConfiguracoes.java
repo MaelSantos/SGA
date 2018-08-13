@@ -27,9 +27,9 @@ public class ControleConfiguracoes extends Controle{
     	Object obj = event.getSource();
     	
     	if(obj == btnAddAdm)
-    		App.notificarOuvintes(Tela.cadastro, usuario);
+    		App.notificarOuvintes(Tela.CADASTRO, usuario);
     	if(obj == editarPerfilButton) 
-    		App.notificarOuvintes(Tela.editar_perfil, usuario);
+    		App.notificarOuvintes(Tela.EDITAR_PERFIL, usuario);
     	
     }
 

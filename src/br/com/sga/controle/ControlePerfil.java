@@ -53,7 +53,7 @@ public class ControlePerfil extends Controle{
     @FXML
 	public void actionButton(ActionEvent event) {
     	if(event.getSource() == editarPerfilButton) 
-    		App.notificarOuvintes(Tela.editar_perfil,funcionario);
+    		App.notificarOuvintes(Tela.EDITAR_PERFIL,funcionario);
     	else if(event.getSource() == cadastrarTarefaButton) {
     		
     		CadastroNotificacao cadastroNotificacao = Dialogo.getInstance().cadastroNotificacaoDialog();

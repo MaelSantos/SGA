@@ -41,12 +41,12 @@ public class App extends Application{
 	public static void changeStage(Tela tela)
 	{
 		switch (tela) {
-		case login:
+		case LOGIN:
 			stage.setScene(loginScene);
 			stage.centerOnScreen();
 			
 			break;
-		case menu:
+		case MENU:
 			stage.setScene(menuScene);
 			stage.setMaximized(true);
 			stage.centerOnScreen(); 
@@ -59,53 +59,53 @@ public class App extends Application{
 	public static Pane changePane(Tela tela)
 	{
 		switch (tela) {
-		case home:
+		case HOME:
 			return home;
-		case informacoes:
+		case INFORMACOES:
 			return informacoes;
-		case cadastro:
+		case CADASTRO:
 			return cadastro;
-		case perfil:
+		case PERFIL:
 			return perfil;
-		case editar_perfil:
+		case EDITAR_PERFIL:
 			return editarPerfil;
-		case configuracoes:
+		case CONFIGURACOES:
 			return configuracoes;
-		case clientes:
+		case CLIENTES:
 			return clientes;
-		case cadastro_cliente:
+		case CADASTRO_CLIENTE:
 			return cadastroCliente;
-		case cadastro_contrato:
+		case CADASTRO_CONTRATO:
 			return cadastroContrato;
-		case processos:
+		case PROCESSOS:
 			return processo;
-		case cadastro_processo:
+		case CADASTRO_PROCESSO:
 			return cadastrarProcesso;
-		case detalhes_processo:
+		case DETALHES_PROCESSO:
 			return detalhesProcesso;
-		case buscar_contrato:
+		case BUSCAR_CONTRATO:
 			return buscarContrato;
-		case cadastro_audiencia:
+		case CADASTRO_AUDIENCIA:
 			return cadastrarAudiencia;
-		case financeiro:
+		case FINANCEIRO:
 			return financeiro;
-		case cadastro_consulta:
+		case CADASTRO_CONSULTA:
 			return cadastroConsulta;
-		case Cadastro_Receita_Despesa:
+		case CADASTRO_RECEITA_DESPESA:
 			return cadastroReceitaDespesa;
-		case agenda:
+		case AGENDA:
 			return agenda;
-		case Consulta:
+		case CONSULTA:
 			return consulta;
-		case Detalhes_consulta:
+		case DETALHES_CONSULTA:
 			return detalhesConsulta;
-		case Detalhes_contrato:
+		case DETALHES_CONTRATO:
 			return detalhesContrato;
-		case documentos:
+		case DOCUMENTOS:
 			return documentos;
-		case historico:
+		case HISTORICO:
 			return historico;
-		case Estatistica:
+		case ESTATISTICA:
 			return estatistica;
 		default:
 			break;

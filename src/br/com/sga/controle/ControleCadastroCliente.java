@@ -172,7 +172,7 @@ public class ControleCadastroCliente extends Controle{
 				
 			}
 			if(obj == btnVoltar)
-				App.notificarOuvintes(Tela.clientes);
+				App.notificarOuvintes(Tela.CLIENTES);
 			if(obj == cbxTipoCliente)
 			{
 				if(cbxTipoCliente.getValue() == TipoCliente.FISICO)

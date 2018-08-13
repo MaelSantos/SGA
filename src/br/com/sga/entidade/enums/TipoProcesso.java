@@ -2,7 +2,7 @@ package br.com.sga.entidade.enums;
 
 public enum TipoProcesso {
 
-	Vara_1("1º Vara"), Vara_2("2º Vara"), Vara_Criminal("Vara Criminal");
+	VARA_1("1º Vara"), VARA_2("2º Vara"), VARA_CRIMINAL("Vara Criminal");
 	
 	private String vara;
 	

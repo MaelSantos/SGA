@@ -80,11 +80,11 @@ public class ControleBuscarContrato extends Controle{
 			}
 			
     	}else if(event.getSource() == cadastrarContratoButton) 
-    		App.notificarOuvintes(Tela.cadastro_contrato);
+    		App.notificarOuvintes(Tela.CADASTRO_CONTRATO);
     	else if(event.getSource() == detalhesButton) {
     		ContratoAdapter adapter = contratosTableView.getSelectionModel().getSelectedItem();
     		if(adapter != null) {
-    			App.notificarOuvintes(Tela.Detalhes_contrato,adapter);
+    			App.notificarOuvintes(Tela.DETALHES_CONTRATO,adapter);
     		}else {
     			Alerta.getInstance().showMensagem("Alerta","","Não há nenhuma contrato selecionado ,\ncom isso não é possivel ver detalhes de contrato");
     		}

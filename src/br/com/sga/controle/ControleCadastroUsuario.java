@@ -90,7 +90,7 @@ public class ControleCadastroUsuario extends Controle{
 		}
 		if(event.getSource() == btnCancelar)
 		{
-			App.notificarOuvintes(Tela.configuracoes,funcionario);
+			App.notificarOuvintes(Tela.CONFIGURACOES,funcionario);
 		}
     }
 	

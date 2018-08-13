@@ -2,10 +2,10 @@ package br.com.sga.entidade.adapter;
 
 import java.util.Date;
 
-public class ReceitaAdapter {
+public class ContaAdapter {
 	private Float valorTotal;
 	private Date mesAno;
-	public ReceitaAdapter(Float valorTotal, Date mesAno) {
+	public ContaAdapter(Float valorTotal, Date mesAno) {
 		super();
 		this.valorTotal = valorTotal;
 		this.mesAno = mesAno;

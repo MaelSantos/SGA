@@ -50,6 +50,8 @@ public class SQLUtil {
     	public static final String INSERT_ALL = "INSERT INTO DESPESA(data_retirada,centro_custo,descricao,valor,status,tipo_gasto,vencimento,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
     	public static final String SELECT_ID_FINANCEIRO = "SELECT * FROM DESPESA WHERE financeiro_id = ?";
     	public static final String SELECT_INTERVALO = "SELECT D.* FROM FINANCEIRO F, DESPESA D WHERE (D.data_retirada BETWEEN ? AND ?)";
+    	public static final String SELECT_INTERVALO_TOTAL_MES= "select sum(valor) as total,extract(year from data_retirada) as ano,extract( month from data_retirada)as mes from despesa"
+    			+ " where data_retirada between ? and ? group by mes,ano order by mes,ano";
     }
     
     public static class Contrato{
