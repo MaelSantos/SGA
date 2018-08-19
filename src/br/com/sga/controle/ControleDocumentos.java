@@ -60,7 +60,7 @@ public class ControleDocumentos extends Controle {
 
 	@FXML
 	private DatePicker tfdAte;
-	
+
 	@FXML
 	private ProgressIndicator pgiDados;
 
@@ -68,18 +68,18 @@ public class ControleDocumentos extends Controle {
 	private IFachada fachada;
 	private IDaoCommun daoCommun;
 	private List<? extends Object> list;
-	
+
 	private double porcentagem = 0;
 	private Service service;
-	
+
 	private Funcionario funcionario;
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
-		
+
 		if (object instanceof Funcionario) {
 			funcionario = (Funcionario) object;
-			
+
 		}
 
 	}
@@ -105,7 +105,7 @@ public class ControleDocumentos extends Controle {
 						porcentagem += 16.666666667;
 						updateProgress(porcentagem, 100);
 					}
-					
+
 					@Override
 					protected Object call() throws Exception {
 						updateTitle("Preparando Arquivo...");
@@ -113,27 +113,27 @@ public class ControleDocumentos extends Controle {
 						//gerando o jasper design
 						InputStream inputStream = getClass().getClassLoader().getResourceAsStream(arquivo);
 						update();
-						
+
 						JasperDesign desenho = JRXmlLoader.load(inputStream);
 						update();
-						
+
 						//compila o relatório
 						JasperReport relatorio = JasperCompileManager.compileReport(desenho);
 						update();
-						
+
 						/* Convert List to JRBeanCollectionDataSource */
 						JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(list);
 						update();
-						
+
 						/* Map to hold Jasper report Parameters */
 						Map<String, Object> parameters = new HashMap<String, Object>();
 						parameters.put("ItemDataSource", itemsJRBean);
 						update();
-						
+
 						/* Using compiled version(.jasper) of Jasper report to generate PDF */
 						JasperPrint jasperPrint = JasperFillManager.fillReport(relatorio, parameters, itemsJRBean);
 						update();
-						
+
 						JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
 						jasperViewer.setZoomRatio(0.75F);
 						jasperViewer.setLocationRelativeTo(null);
@@ -142,7 +142,7 @@ public class ControleDocumentos extends Controle {
 
 						return null;
 					}
-					
+
 					@Override
 					protected void succeeded() {
 						super.succeeded();
@@ -151,7 +151,7 @@ public class ControleDocumentos extends Controle {
 				};
 			}
 		};
-		
+
 		pgiDados.progressProperty().bind(service.progressProperty());
 	}
 
@@ -167,7 +167,7 @@ public class ControleDocumentos extends Controle {
 				if(list != null && arquivo != null && !(list.isEmpty()))
 				{
 					service.restart();
-					gerarDocumento(list, arquivo);					
+//					gerarDocumento(list, arquivo);					
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Documento: ", StatusLog.COLCLUIDO);
 				}
 				else
@@ -180,7 +180,7 @@ public class ControleDocumentos extends Controle {
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Documento: ", StatusLog.ERRO);
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!", "Verifique Se Todos Os Dados Estão Corretos");
 			}
-			
+
 			try {
 				if(log != null)
 					fachada.salvarEditarLog(log);
@@ -188,7 +188,7 @@ public class ControleDocumentos extends Controle {
 				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
-			
+
 		}
 		if(obj == btnBuscar)
 		{
@@ -210,14 +210,14 @@ public class ControleDocumentos extends Controle {
 				Alerta.getInstance().showMensagem("Erro!","Erro ao Carregar Arquivos!!!", e.getMessage());
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar: "+cbxTipo.getValue()+" - Erro", StatusLog.ERRO);
 			}
-			
+
 			try {
 				fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
 				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
-			
+
 		}
 		if(obj == cbxTipo)
 		{
