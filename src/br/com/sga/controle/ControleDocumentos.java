@@ -60,13 +60,15 @@ public class ControleDocumentos extends Controle {
 
 	@FXML
 	private DatePicker tfdAte;
+	
+	@FXML
+	private ProgressIndicator pgiDados;
 
 	private String arquivo;
 	private IFachada fachada;
 	private IDaoCommun daoCommun;
 	private List<? extends Object> list;
 	
-	private Dialog<? extends Object> dialog;
 	private double porcentagem = 0;
 	private Service service;
 	
@@ -144,13 +146,13 @@ public class ControleDocumentos extends Controle {
 					@Override
 					protected void succeeded() {
 						super.succeeded();
-						dialog.close();
-//						porcentagem = 0;
+						porcentagem = 0;
 					}
 				};
 			}
 		};
 		
+		pgiDados.progressProperty().bind(service.progressProperty());
 	}
 
 	@Override
@@ -164,10 +166,9 @@ public class ControleDocumentos extends Controle {
 			try {
 				if(list != null && arquivo != null && !(list.isEmpty()))
 				{
-					dialog = Dialogo.getInstance().carregar(service);
+					service.restart();
+					gerarDocumento(list, arquivo);					
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Documento: ", StatusLog.COLCLUIDO);
-//					service.restart();
-//					gerarDocumento(list, arquivo);					
 				}
 				else
 				{

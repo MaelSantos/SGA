@@ -347,54 +347,5 @@ public class Dialogo {
 			return table.getSelectionModel().getSelectedItem();
 		return null;
 	}
-	
-	public <T> Dialog<T> carregar(Service<T> service)
-	{
-		Dialog<T> dialog = new Dialog<>();
-		BorderPane pane = new BorderPane();
 		
-		ProgressIndicator pgiDados = new ProgressIndicator();
-		pane.setCenter(pgiDados);
-		dialog.getDialogPane().setContent(pane);
-		pane.setPrefSize(200, 200);
-		
-		pgiDados.progressProperty().bind(service.progressProperty());
-		pgiDados.setPrefSize(150, 150);
-		
-		dialog.setTitle(service.getTitle());
-		dialog.setContentText(service.getMessage());
-		
-		dialog.setOnShown(e -> {
-			
-		        Task<String> close = new Task<String>() {
-
-		            @Override
-		            protected String call() throws Exception {
-		            	while(service.getProgress() < 10)
-		            	{
-		            		if(!service.isRunning())
-		            			service.restart();
-		            			
-		            		System.out.println(service.getProgress());
-		            		System.out.println("Em Execução");
-		            		
-		            	}
-						return null;
-		            }
-		        };
-		        close.setOnSucceeded(c ->{
-		        	dialog.close();
-		        });
-		        
-		        System.out.println("start");
-		        new Thread(close).start();
-		        
-		});
-		
-		dialog.show();
-		
-		return dialog;
-		
-	}
-	
 }
