@@ -328,12 +328,20 @@ public class Dialogo {
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	    table.setPrefSize(600,300);	    
    	
+	    int contador = 0;
+	    
 	    if(!list.isEmpty())
     	for(Field f : list.get(0).getClass().getDeclaredFields())
     	{
     		TableColumn<T, ?> column = new TableColumn<>(f.getName().toUpperCase());
     		column.setCellValueFactory(new PropertyValueFactory<>(f.getName()));
     		table.getColumns().add(column);
+    		
+    		if(contador >= 5)
+    			break;
+    		else
+    			contador++;
+    		
     	}
     	
     	table.getItems().addAll(list);

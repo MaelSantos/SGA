@@ -123,12 +123,12 @@ public class DaoConsulta implements IDaoConsulta {
             while(resultSet.next()) {
             	lista.add(new ConsultaAdapter(resultSet.getInt("id"),Area.getArea(resultSet.getString("area")),
             			resultSet.getDate("data_consulta"),resultSet.getFloat("valor_honorario"),(resultSet.getString("nome"))));
-            }if(lista.isEmpty()){
-            	throw new DaoException("Não existe consultas para esse usuario, com esses dados");
             }
+            
             this.connection.close();
             this.statement.close();
             this.resultSet.close();
+            
             return lista;
 		} catch (SQLException ex) {
             ex.printStackTrace();

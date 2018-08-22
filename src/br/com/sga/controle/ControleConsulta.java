@@ -17,6 +17,7 @@ import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -25,7 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-public class ControleConsulta  extends Controle{
+public class ControleConsulta extends Controle {
 
 	@FXML
 	private TextField buscarField;
@@ -49,16 +50,16 @@ public class ControleConsulta  extends Controle{
 	private TableView<ConsultaAdapter> contratosTableView;
 
 	@FXML
-	private TableColumn<ConsultaAdapter,Date> dataColumn;
+	private TableColumn<ConsultaAdapter, Date> dataColumn;
 
 	@FXML
-	private TableColumn<ConsultaAdapter,String> nomeColumn;
+	private TableColumn<ConsultaAdapter, String> nomeColumn;
 
 	@FXML
-	private TableColumn<ConsultaAdapter,Float> valorColumn;
+	private TableColumn<ConsultaAdapter, Float> valorColumn;
 
 	@FXML
-	private TableColumn<ConsultaAdapter,Area> areaColumn;
+	private TableColumn<ConsultaAdapter, Area> areaColumn;
 
 	@FXML
 	private Button cadastrarConsultaButton;
@@ -67,8 +68,7 @@ public class ControleConsulta  extends Controle{
 	private Funcionario funcionario;
 
 	public void actionButton(ActionEvent event) {
-		if(buscarButton == event.getSource()) 
-		{
+		if (buscarButton == event.getSource()) {
 			Log log;
 			contratosTableView.getItems().clear();
 			try {
@@ -76,87 +76,100 @@ public class ControleConsulta  extends Controle{
 
 				busca[0] = buscarField.getText().trim();
 
-				if(tipoPessoaBox.getSelectionModel().getSelectedItem() != null 
+				if (tipoPessoaBox.getSelectionModel().getSelectedItem() != null
 						&& !tipoPessoaBox.getSelectionModel().getSelectedItem().equals("TODOS"))
 					busca[1] = tipoPessoaBox.getSelectionModel().getSelectedItem();
 				else
 					busca[1] = "";
 
-				if(areaBox.getSelectionModel().getSelectedItem() != null 
-						&& !areaBox.getSelectionModel().getSelectedItem().equals("TODAS")) 
+				if (areaBox.getSelectionModel().getSelectedItem() != null
+						&& !areaBox.getSelectionModel().getSelectedItem().equals("TODAS"))
 					busca[2] = areaBox.getSelectionModel().getSelectedItem();
 				else
 					busca[2] = "";
-				for(String s: busca)
+				for (String s : busca)
 					System.out.println(s);
 
 				contratosTableView.getItems().addAll(fachada.buscarConsultaPorClienteAdapter(busca));
 				Float sum = 0f;
-				for(ConsultaAdapter e : contratosTableView.getItems()) {
-					sum+= e.getValor_honorario();
+				for (ConsultaAdapter e : contratosTableView.getItems()) {
+					sum += e.getValor_honorario();
 				}
-				totalField.setText(sum+"");
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: "+busca, StatusLog.COLCLUIDO);
+				totalField.setText(sum + "");
+				if (contratosTableView.getItems().isEmpty())
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+							"Buscar Consulta: " + busca[0] + " - " + busca[1] + " - " + busca[2], StatusLog.SEM_RESULTADOS);
+				else
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+							"Buscar Consulta: " + busca[0] + " - " + busca[1] + " - " + busca[2], StatusLog.COLCLUIDO);
+				
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Busca Concluida Com Sucesso", "");
+				
 			} catch (BusinessException e) {
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: Erro", StatusLog.ERRO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+						"Buscar Consulta: Erro", StatusLog.ERRO);
+
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Buscar Consultas", e.getMessage());
 				e.printStackTrace();
 			}
-			
+
 			try {
-				if(log != null)
+				if (log != null)
 					fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
 				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
-			
-		}
-		else if(cadastrarConsultaButton == event.getSource()) 
+
+		} else if (cadastrarConsultaButton == event.getSource())
 			App.notificarOuvintes(Tela.CADASTRO_CONSULTA);
-		else if(informacoesButton == event.getSource()) {
+		else if (informacoesButton == event.getSource()) {
 			ConsultaAdapter consulta = contratosTableView.getSelectionModel().getSelectedItem();
-			if(consulta  != null) {
-				App.notificarOuvintes(Tela.DETALHES_CONSULTA,consulta); // informando que vou para tela de detalhes de consulta e mando uma consulta selecionada
-			}else {
-				Alerta.getInstance().showMensagem("Alerta","","Não há nenhuma consulta selecionada ,\ncom isso não é possivel ver detalhes de consulta");
+			if (consulta != null) {
+				App.notificarOuvintes(Tela.DETALHES_CONSULTA, consulta); // informando que vou para tela de detalhes de
+																			// consulta e mando uma consulta selecionada
+			} else {
+				Alerta.getInstance().showMensagem("Alerta", "",
+						"Não há nenhuma consulta selecionada ,\ncom isso não é possivel ver detalhes de consulta");
 			}
 		}
 	}
 
 	@FXML
 	void mouseEntered(MouseEvent event) {
-		((Button)(event.getSource())).setStyle("-fx-background-color : #386a78");
+		((Button) (event.getSource())).setStyle("-fx-background-color : #386a78");
 	}
 
 	@FXML
 	void mouseExited(MouseEvent event) {
-		((Button)(event.getSource())).setStyle("-fx-background-color : #008B8B");
+		((Button) (event.getSource())).setStyle("-fx-background-color : #008B8B");
 	}
+
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
 		if (object instanceof Funcionario) {
-			 funcionario = (Funcionario) object;
-			
+			funcionario = (Funcionario) object;
+
 		}
-		
+
 	}
 
 	@Override
 	public void init() {
-		fachada  = Fachada.getInstance();
+		fachada = Fachada.getInstance();
 		dataColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
 		valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_honorario"));
 		areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
 		nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome_cliente"));
 
 		areaBox.getItems().add("TODAS");
-		for(Area e : Area.values())
+		for (Area e : Area.values())
 			areaBox.getItems().add(e.toString());
 
 		tipoPessoaBox.getItems().add("TODOS");
-		for(TipoCliente e : TipoCliente.values())
-			tipoPessoaBox.getItems().add(e.toString());    	
+		for (TipoCliente e : TipoCliente.values())
+			tipoPessoaBox.getItems().add(e.toString());
 
 	}
 }

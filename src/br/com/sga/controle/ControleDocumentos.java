@@ -3,12 +3,14 @@ package br.com.sga.controle;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import br.com.sga.dao.DaoCommun;
+import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.enums.EventoLog;
@@ -77,9 +79,26 @@ public class ControleDocumentos extends Controle {
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
+		System.out.println("Atualizando");
 		if (object instanceof Funcionario) {
 			funcionario = (Funcionario) object;
-
+		}
+		
+		if (object instanceof Consulta) {
+			Consulta consulta = (Consulta) object;
+			
+			List<Consulta> list = new ArrayList<Consulta>();
+			list.add(consulta);
+			
+			System.out.println("Consulta: "+consulta);
+			
+			try {
+				gerarDocumento(list, "Ficha.jrxml");
+			} catch (FileNotFoundException | JRException e) {
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao gerar ficha!!!", e.getMessage());
+				e.printStackTrace();
+			} 
+			
 		}
 
 	}

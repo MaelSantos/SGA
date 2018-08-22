@@ -1,11 +1,9 @@
 package br.com.sga.controle;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Cliente;
@@ -42,144 +40,143 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControleCadastroConsulta extends Controle{
 
+	@FXML
+	private TextField honorarioField;
 
-    @FXML
-    private TextField honorarioField;
+	@FXML
+	private TextField dadoClienteField;
 
-    @FXML
-    private TextField dadoClienteField;
+	@FXML
+	private ComboBox<Area> areaBox;
 
-    @FXML
-    private ComboBox<Area> areaBox;
+	@FXML
+	private TextArea descricaoArea;
 
-    @FXML
-    private TextArea descricaoArea;
+	@FXML
+	private DatePicker dataConsultaPicker;
 
-    @FXML
-    private DatePicker dataConsultaPicker;
+	@FXML
+	private TableView<Testemunha> testemunhaTableView;
 
-    @FXML
-    private TableView<Testemunha> testemunhaTableView;
+	@FXML
+	private TableColumn<Testemunha,String> nomeTestemunhaColumn;
 
-    @FXML
-    private TableColumn<Testemunha,String> nomeTestemunhaColumn;
+	@FXML
+	private TableColumn<Testemunha,Telefone> telefoneTestemunhaColumn;
 
-    @FXML
-    private TableColumn<Testemunha,Telefone> telefoneTestemunhaColumn;
+	@FXML
+	private TableColumn<Testemunha,Endereco> enderecoTestemunhaColumn;
 
-    @FXML
-    private TableColumn<Testemunha,Endereco> enderecoTestemunhaColumn;
+	@FXML
+	private Button gerarDocumentoButton;
 
-    @FXML
-    private Button gerarDocumentoButton;
+	@FXML
+	private Button salvarConsulta;
 
-    @FXML
-    private Button salvarConsulta;
+	@FXML
+	private Button buscarClienteButton;
 
-    @FXML
-    private Button buscarClienteButton;
+	@FXML
+	private TextField dadoFuncionarioField;
 
-    @FXML
-    private TextField dadoFuncionarioField;
+	@FXML
+	private Button buscarFuncionarioButton;
 
-    @FXML
-    private Button buscarFuncionarioButton;
-    
-    @FXML
-    private Button voltarButton;
+	@FXML
+	private Button voltarButton;
 
-    @FXML
-    private RadioButton funcionarioLogadoRadio;
+	@FXML
+	private RadioButton funcionarioLogadoRadio;
 
-    @FXML
-    private RadioButton outroFuncionarioRadio;
+	@FXML
+	private RadioButton outroFuncionarioRadio;
 
-    @FXML
-    private TextField nomeIndicacaoField;
+	@FXML
+	private TextField nomeIndicacaoField;
 
-    @FXML
-    private Button addTestemunhaField;
+	@FXML
+	private Button addTestemunhaField;
 
-    @FXML
-    private TextField ruaField;
+	@FXML
+	private TextField ruaField;
 
-    @FXML
-    private TextField numeroField;
+	@FXML
+	private TextField numeroField;
 
-    @FXML
-    private TextField bairroField;
+	@FXML
+	private TextField bairroField;
 
-    @FXML
-    private TextField cidadeField;
+	@FXML
+	private TextField cidadeField;
 
-    @FXML
-    private TextField paisField;
+	@FXML
+	private TextField paisField;
 
-    @FXML
-    private ComboBox<Estado> estadoBox;
+	@FXML
+	private ComboBox<Estado> estadoBox;
 
-    @FXML
-    private TextField cepField;
+	@FXML
+	private TextField cepField;
 
-    @FXML
-    private TextField complementoField;
+	@FXML
+	private TextField complementoField;
 
-    @FXML
-    private TextField nomeTestemunhaField;
+	@FXML
+	private TextField nomeTestemunhaField;
 
-    @FXML
-    private TextField telefonePreField;
+	@FXML
+	private TextField telefonePreField;
 
-    @FXML
-    private TextField telefoneNumeroField;
+	@FXML
+	private TextField telefoneNumeroField;
 
-    @FXML
-    private ComboBox<TipoTelefone> tipoTelefoneBox;
+	@FXML
+	private ComboBox<TipoTelefone> tipoTelefoneBox;
 
+	private IFachada fachada ;
+	private Funcionario funcionario, outroFuncionario;
+	private Cliente cliente;
+	private Consulta consulta;
 
-    private IFachada fachada ;
-    private Funcionario funcionario, outroFuncionario;
-    private Cliente cliente;
-    
-    public void actionButton(ActionEvent event) {
-    	System.out.println("evento");
-    	
-    	if(voltarButton == event.getSource() ) {
-    		App.notificarOuvintes(Tela.CONSULTA);
-    	}
-    	else if(event.getSource() == outroFuncionarioRadio) 
-    	{
-    		buscarFuncionarioButton.setVisible(true);
-    		dadoFuncionarioField.setVisible(true);
-    	}
-    	else if(event.getSource() == funcionarioLogadoRadio)
-    	{
-    		buscarFuncionarioButton.setVisible(false);
-    		dadoFuncionarioField.setVisible(false);
-    		dadoFuncionarioField.setText("");
-    		outroFuncionario = null;
-    		System.gc();
-    	}
-    	else  if(event.getSource() == buscarClienteButton) 
-    	{
-    		Log log;
-    		try {
+	public void actionButton(ActionEvent event) {
+		System.out.println("evento");
+
+		if(voltarButton == event.getSource() ) {
+			App.notificarOuvintes(Tela.CONSULTA);
+		}
+		else if(event.getSource() == outroFuncionarioRadio) 
+		{
+			buscarFuncionarioButton.setVisible(true);
+			dadoFuncionarioField.setVisible(true);
+		}
+		else if(event.getSource() == funcionarioLogadoRadio)
+		{
+			buscarFuncionarioButton.setVisible(false);
+			dadoFuncionarioField.setVisible(false);
+			dadoFuncionarioField.setText("");
+			outroFuncionario = null;
+			System.gc();
+		}
+		else  if(event.getSource() == buscarClienteButton) 
+		{
+			Log log;
+			try {
 				List<Cliente> clientes = fachada.buscarClientePorBusca(dadoClienteField.getText().trim());
-    			//cliente = Dialogo.getInstance().selecaoCliente(clientes);
-//				cliente = Dialogo.getInstance().selecao(clientes,"Selecione de cliente","Selecione o cliente já cadastrado para consulta");
+				//cliente = Dialogo.getInstance().selecaoCliente(clientes);
+				//				cliente = Dialogo.getInstance().selecao(clientes,"Selecione de cliente","Selecione o cliente já cadastrado para consulta");
 				cliente = Dialogo.getInstance().selecionar(clientes);
-    			dadoClienteField.setText(cliente.getNome());
+				dadoClienteField.setText(cliente.getNome());
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem(AlertType.ERROR,"Erro","",e.getMessage());
 			}
-    	}
+		}
 		else  if(event.getSource() == buscarFuncionarioButton) 
 		{
 			try {
 				List<Funcionario> funcionarios = fachada.buscarUsuarioPorBusca(dadoFuncionarioField.getText().trim());
-    			outroFuncionario = Dialogo.getInstance().selecionar(funcionarios);
-    			dadoFuncionarioField.setText(outroFuncionario.getNome());
+				outroFuncionario = Dialogo.getInstance().selecionar(funcionarios);
+				dadoFuncionarioField.setText(outroFuncionario.getNome());
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem(AlertType.ERROR,"Erro","",e.getMessage());
@@ -190,19 +187,21 @@ public class ControleCadastroConsulta extends Controle{
 					&& telefonePreField.getText().trim().length() >0 && estadoBox.getSelectionModel().getSelectedItem() != null)
 			{
 				String nome = nomeTestemunhaField.getText().trim();
-				Telefone telefone = new Telefone(Integer.parseInt(telefoneNumeroField.getText().trim()),
-						Integer.parseInt(telefonePreField.getText().trim()),tipoTelefoneBox.getSelectionModel().getSelectedItem());
+				Telefone telefone = new Telefone(
+						Integer.parseInt(telefoneNumeroField.getText().trim()),
+						Integer.parseInt(telefonePreField.getText().trim()),
+						tipoTelefoneBox.getSelectionModel().getSelectedItem());
 				Endereco endereco = new Endereco(ruaField.getText().trim(),numeroField.getText().trim(), bairroField.getText().trim()
 						,cidadeField.getText().trim(), estadoBox.getSelectionModel().getSelectedItem().toString(),
 						paisField.getText().trim(),complementoField.getText().trim(),cepField.getText().trim());
-				
+
 				testemunhaTableView.getItems().add(new Testemunha(endereco, telefone, nome));
-			limparCamposTestemunha();
+				limparCamposTestemunha();
 			}
 			else
 				Alerta.getInstance().showMensagem("Alerta","","Campos obrigatorios para testemunha vazios: \nHá um ou mais campos obrigatorios sem entrada");
-				
-			
+
+
 		}
 		else  if(event.getSource() == salvarConsulta) 
 		{
@@ -212,24 +211,25 @@ public class ControleCadastroConsulta extends Controle{
 						&& honorarioField.getText().trim().length() >0) {
 					try {
 						Area area = areaBox.getSelectionModel().getSelectedItem();
-				    	LocalDate ld = dataConsultaPicker.getValue();
-				    	Calendar c =  Calendar.getInstance();
-				    	c.set(ld.getYear(), ld.getMonthValue(), ld.getDayOfMonth());
-				    	Date data_consulta = c.getTime();
-				    	String descricao = descricaoArea.getText().trim();
-				    	String indicacao =  nomeIndicacaoField.getText().trim();
-				    	Float valor_honorario =  Float.parseFloat(honorarioField.getText().trim());
-				    	//apenas verificando qual dos dois tipos de opcionalidade para escolher o funcionario que fez a consulta foi selecionado
-				    	Funcionario funcionario = null;
-				    	if(funcionarioLogadoRadio.isSelected()) 
-				    		 funcionario = this.funcionario;
+						LocalDate ld = dataConsultaPicker.getValue();
+						Calendar c =  Calendar.getInstance();
+						c.set(ld.getYear(), ld.getMonthValue(), ld.getDayOfMonth());
+						Date data_consulta = c.getTime();
+						String descricao = descricaoArea.getText().trim();
+						String indicacao =  nomeIndicacaoField.getText().trim();
+						Float valor_honorario =  Float.parseFloat(honorarioField.getText().trim());
+						//apenas verificando qual dos dois tipos de opcionalidade para escolher o funcionario que fez a consulta foi selecionado
+						Funcionario funcionario = null;
+						if(funcionarioLogadoRadio.isSelected()) 
+							funcionario = this.funcionario;
 						else 
-							 funcionario = outroFuncionario;
-				    	fachada.salvarEditarConsulta(new Consulta(area, descricao, data_consulta, valor_honorario, indicacao,
-								cliente, funcionario,testemunhaTableView.getItems()));
-				    	Alerta.getInstance().showMensagem("Consulta inserida","","Consulta com cadastrada com sucesso!");
-				    	limparCamposConsulta();
-				    	log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Consulta: "+area, StatusLog.COLCLUIDO);
+							funcionario = outroFuncionario;
+						consulta = new Consulta(area, descricao, data_consulta, valor_honorario, indicacao,
+								cliente, funcionario,testemunhaTableView.getItems());
+						fachada.salvarEditarConsulta(consulta);
+						Alerta.getInstance().showMensagem("Consulta inserida","","Consulta com cadastrada com sucesso!");
+						limparCamposConsulta();
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Consulta: "+area, StatusLog.COLCLUIDO);
 					}catch (NumberFormatException e) {
 						Alerta.getInstance().showMensagem("Erro","","Campo númerico invalido:\nHá um ou mais campos com entradas invalidas");
 					}catch (BusinessException e) {
@@ -241,7 +241,7 @@ public class ControleCadastroConsulta extends Controle{
 					Alerta.getInstance().showMensagem("Alerta","","Campos obrigatorios vazios: \nHá um ou mais campos obrigatorios sem entrada");
 			}else
 				Alerta.getInstance().showMensagem("Alerta","","Não há um cliente selecionado: \nfavor selecionar cliente antes de salvar");
-				
+
 			try {
 				if(log != null)
 					fachada.salvarEditarLog(log);
@@ -249,10 +249,16 @@ public class ControleCadastroConsulta extends Controle{
 				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
-			
+
 		}
-		else  if(event.getSource() == gerarDocumentoButton) {}
-    }
+		else  if(event.getSource() == gerarDocumentoButton) {
+
+			if(consulta == null)
+				Alerta.getInstance().showMensagem("Erro!", "Ação Nescessaria!!!", "Salve Sua Consulta Antes!!!");
+			else
+				App.notificarOuvintes(Tela.CADASTRO_CONSULTA, consulta);
+		}
+	}
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
@@ -265,23 +271,23 @@ public class ControleCadastroConsulta extends Controle{
 	@Override
 	public void init() {
 		fachada = Fachada.getInstance();
-    	
-    	areaBox.getItems().addAll(Area.values());
+
+		areaBox.getItems().addAll(Area.values());
 		estadoBox.getItems().addAll(Estado.values());
 		tipoTelefoneBox.getItems().addAll(TipoTelefone.values());
-		
-        nomeTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        telefoneTestemunhaColumn.setCellValueFactory( new PropertyValueFactory<>("telefone")); // utiliazra do to string de ambos
-        enderecoTestemunhaColumn.setCellValueFactory( new PropertyValueFactory<>("endereco"));
-        
-        ToggleGroup tg = new ToggleGroup();
+
+		nomeTestemunhaColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		telefoneTestemunhaColumn.setCellValueFactory( new PropertyValueFactory<>("telefone")); // utiliazra do to string de ambos
+		enderecoTestemunhaColumn.setCellValueFactory( new PropertyValueFactory<>("endereco"));
+
+		ToggleGroup tg = new ToggleGroup();
 		funcionarioLogadoRadio.setToggleGroup(tg);
 		funcionarioLogadoRadio.setSelected(true);
 		outroFuncionarioRadio.setToggleGroup(tg);
 	}
-	  
-    private void limparCamposTestemunha() {
-    	nomeTestemunhaColumn.setText("");
+
+	private void limparCamposTestemunha() {
+		nomeTestemunhaColumn.setText("");
 		telefonePreField.setText("");
 		telefoneNumeroField.setText("");
 		ruaField.setText("");
@@ -291,16 +297,16 @@ public class ControleCadastroConsulta extends Controle{
 		cepField.setText("");
 		paisField.setText("");
 		complementoField.setText("");
-    }
-    private void limparCamposConsulta() {
-    	dadoClienteField.setText("");
-    	cliente = null;
-    	dadoFuncionarioField.setText("");
-    	outroFuncionario = null;
-    	descricaoArea.setText("");
-    	nomeIndicacaoField.setText("");
-    	honorarioField.setText("");
-    	System.gc();
-    	
-    }
+	}
+	private void limparCamposConsulta() {
+		dadoClienteField.setText("");
+		cliente = null;
+		dadoFuncionarioField.setText("");
+		outroFuncionario = null;
+		descricaoArea.setText("");
+		nomeIndicacaoField.setText("");
+		honorarioField.setText("");
+		System.gc();
+
+	}
 }
