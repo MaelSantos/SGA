@@ -121,7 +121,7 @@ public class ControleAgenda extends Controle {
 							aviso_data, funcionarios));
 					Alerta.getInstance().showMensagem("Confirmação","","Nova notificacao cadastrada com exito");
 					calendario.AtualizarMes();
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.SALVAR, funcionario.getNome(), "Nova Tarefa: "+aviso_data, StatusLog.COLCLUIDO);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.SALVAR, funcionario.getNome(), "Nova Tarefa: "+aviso_data, StatusLog.CONCLUIDO);
 				} catch (BusinessException e) {
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.SALVAR, funcionario.getNome(), "Nova Tarefa:  Erro", StatusLog.ERRO);
 					e.printStackTrace();

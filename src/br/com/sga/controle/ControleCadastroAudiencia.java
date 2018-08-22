@@ -118,7 +118,7 @@ public class ControleCadastroAudiencia extends Controle {
 				
 				limparCampos();
 				
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: "+audiencia.getTipo(), StatusLog.COLCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: "+audiencia.getTipo(), StatusLog.CONCLUIDO);
 				
 			} catch (ParseException | DaoException | BusinessException e) {
 				e.printStackTrace();

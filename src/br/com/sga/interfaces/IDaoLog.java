@@ -8,6 +8,6 @@ import br.com.sga.exceptions.DaoException;
 
 public interface IDaoLog extends IDao<Log>{
 
-	public List<Log> buscarPorData(Date de, Date ate) throws DaoException;
+	public List<Log> buscarPorData(Date de, Date ate, String evento, String status) throws DaoException;
 	
 }

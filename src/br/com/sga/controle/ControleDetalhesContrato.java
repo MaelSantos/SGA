@@ -112,7 +112,7 @@ public class ControleDetalhesContrato extends Controle{
     		Log log;
     		try {
 				List<ContratoAdapter> contratos = fachada.buscarContratoPorClienteAdapter(cliente.getCpf_cnpj());
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Contrato: "+cliente.getCpf_cnpj(), StatusLog.COLCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Contrato: "+cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
 				contrato = new Contrato();
 //				ContratoAdapter adapter = dialogo.selecao(contratos,"Selecione Contrato","Selecione um contrato para mais detalhes");
 				ContratoAdapter adapter = dialogo.selecionar(contratos);
@@ -135,7 +135,7 @@ public class ControleDetalhesContrato extends Controle{
 							Calendar.getInstance().getTime()),
     						fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
     				Alerta.getInstance().showMensagem("Atualizado","","Estado da parcela atualizado para\n CONCLUIDO");
-    				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Parcela: "+parcela.getEstado(), StatusLog.COLCLUIDO);
+    				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Parcela: "+parcela.getEstado(), StatusLog.CONCLUIDO);
     			} catch (BusinessException | DaoException e) {
     				Alerta.getInstance().showMensagem("Erro","",e.getMessage());
     				e.printStackTrace();

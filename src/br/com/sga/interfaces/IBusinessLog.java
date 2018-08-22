@@ -11,6 +11,6 @@ public interface IBusinessLog {
 	public void salvarEditar(Log entidade) throws BusinessException;
     public Log buscarPorId(int id) throws BusinessException;
     public List<Log> buscarPorBusca(String busca) throws BusinessException;
-    public List<Log> buscarPorData(Date de, Date ate) throws BusinessException;
+    public List<Log> buscarPorData(Date de, Date ate, String evento, String status) throws BusinessException;
 	
 }

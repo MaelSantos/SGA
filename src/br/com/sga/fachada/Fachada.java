@@ -250,8 +250,8 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public List<Log> buscarLogPorData(Date de, Date ate) throws BusinessException {
-		return businessLog.buscarPorData(de, ate);
+	public List<Log> buscarLogPorData(Date de, Date ate, String evento, String status) throws BusinessException {
+		return businessLog.buscarPorData(de, ate, evento, status);
 	}
 
 	@Override

@@ -50,7 +50,7 @@ public class ControleLogin implements Initializable{
 				App.changeStage(Tela.MENU);
 				App.notificarOuvintes(Tela.MENU,funcionario);
 				
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.LOGIN, funcionario.getNome(), "Login: Sistema", StatusLog.COLCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.LOGIN, funcionario.getNome(), "Login: Sistema", StatusLog.CONCLUIDO);
 
 			}catch (Exception e1) {
 				Alerta.getInstance().showMensagem("Dados Incorretos", "Login/Email Ou Senha Incorretos",e1.getMessage());
@@ -71,7 +71,7 @@ public class ControleLogin implements Initializable{
 		if(e.getSource() == btnSair)
 		{
 			try {
-				fachada.salvarEditarLog(new Log(new Date(System.currentTimeMillis()), EventoLog.ENCERRAR, funcionario.getNome(), "Encerrando Sistema: ", StatusLog.COLCLUIDO));
+				fachada.salvarEditarLog(new Log(new Date(System.currentTimeMillis()), EventoLog.ENCERRAR, funcionario.getNome(), "Encerrando Sistema: ", StatusLog.CONCLUIDO));
 			} catch (BusinessException e1) {
 				// TODO Bloco catch gerado automaticamente
 				e1.printStackTrace();

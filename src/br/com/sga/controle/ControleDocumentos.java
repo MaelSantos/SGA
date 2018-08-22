@@ -79,7 +79,6 @@ public class ControleDocumentos extends Controle {
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
-		System.out.println("Atualizando");
 		if (object instanceof Funcionario) {
 			funcionario = (Funcionario) object;
 		}
@@ -90,14 +89,23 @@ public class ControleDocumentos extends Controle {
 			List<Consulta> list = new ArrayList<Consulta>();
 			list.add(consulta);
 			
-			System.out.println("Consulta: "+consulta);
-			
+			Log log;
 			try {
 				gerarDocumento(list, "Ficha.jrxml");
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Documento: ", StatusLog.CONCLUIDO);
 			} catch (FileNotFoundException | JRException e) {
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao gerar ficha!!!", e.getMessage());
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Documento: ", StatusLog.ERRO);
 				e.printStackTrace();
 			} 
+			
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				
+				e.printStackTrace();
+			}
 			
 		}
 
@@ -187,7 +195,7 @@ public class ControleDocumentos extends Controle {
 				{
 					service.restart();
 //					gerarDocumento(list, arquivo);					
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Documento: ", StatusLog.COLCLUIDO);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Documento: ", StatusLog.CONCLUIDO);
 				}
 				else
 				{
@@ -204,7 +212,7 @@ public class ControleDocumentos extends Controle {
 				if(log != null)
 					fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
+				
 				e.printStackTrace();
 			}
 
@@ -218,7 +226,7 @@ public class ControleDocumentos extends Controle {
 				if(!list.isEmpty())
 				{
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido!","Dados Carregados Com Sucesso!!!", "Pronto Para Gerar Arquivo");
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar: "+cbxTipo.getValue(), StatusLog.COLCLUIDO);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar: "+cbxTipo.getValue(), StatusLog.CONCLUIDO);
 				}
 				else
 				{
@@ -233,7 +241,6 @@ public class ControleDocumentos extends Controle {
 			try {
 				fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
 

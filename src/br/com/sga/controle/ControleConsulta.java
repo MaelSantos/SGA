@@ -101,7 +101,7 @@ public class ControleConsulta extends Controle {
 							"Buscar Consulta: " + busca[0] + " - " + busca[1] + " - " + busca[2], StatusLog.SEM_RESULTADOS);
 				else
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-							"Buscar Consulta: " + busca[0] + " - " + busca[1] + " - " + busca[2], StatusLog.COLCLUIDO);
+							"Buscar Consulta: " + busca[0] + " - " + busca[1] + " - " + busca[2], StatusLog.CONCLUIDO);
 				
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Busca Concluida Com Sucesso", "");
 				

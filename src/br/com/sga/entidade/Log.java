@@ -62,5 +62,11 @@ public class Log {
 		this.status = status;
 	}
 
+	@Override
+	public String toString() {
+		return "Log [id=" + id + ", data=" + data + ", evento=" + evento + ", remetente=" + remetente
+				+ ", destinatario=" + destinatario + ", status=" + status + "]";
+	}
+
 }
 

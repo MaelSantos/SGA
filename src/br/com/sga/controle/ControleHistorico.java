@@ -15,6 +15,7 @@ import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -53,88 +54,116 @@ public class ControleHistorico extends Controle {
 	@FXML
 	private TableColumn<Log, StatusLog> colStatus;
 
+	@FXML
+	private ComboBox<EventoLog> cbxEvento;
+
+	@FXML
+	private ComboBox<StatusLog> cbxStatus;
+
+	@FXML
+	private Button btnRemoverFiltros;
+
 	private IFachada fachada;
 	private Funcionario funcionario;
-	
+
 	@Override
 	public void atualizar(Tela tela, Object object) {
-		
+
 		if (object instanceof Log) {
 			Log log = (Log) object;
-			
+
 			tblLogs.getItems().add(log);
-			
+
 		}
-		
+
 		if (object instanceof Funcionario) {
 			Funcionario funcionario = (Funcionario) object;
-			
+
 			this.funcionario = funcionario;
-			
+
 		}
 
 	}
 
 	@Override
 	public void init() {
-		
+
 		fachada = Fachada.getInstance();
 
-		colData.setCellValueFactory(
-				new PropertyValueFactory<>("data"));
-		colDestinatario.setCellValueFactory(
-				new PropertyValueFactory<>("destinatario"));
-		colEvento.setCellValueFactory(
-				new PropertyValueFactory<>("evento"));
-		colRemetente.setCellValueFactory(
-				new PropertyValueFactory<>("remetente"));
-		colStatus.setCellValueFactory(
-				new PropertyValueFactory<>("status"));
-		
+		colData.setCellValueFactory(new PropertyValueFactory<>("data"));
+		colDestinatario.setCellValueFactory(new PropertyValueFactory<>("destinatario"));
+		colEvento.setCellValueFactory(new PropertyValueFactory<>("evento"));
+		colRemetente.setCellValueFactory(new PropertyValueFactory<>("remetente"));
+		colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+		cbxEvento.getItems().addAll(EventoLog.values());
+		cbxStatus.getItems().addAll(StatusLog.values());
+
 	}
 
 	@Override
 	public void actionButton(ActionEvent event) {
-		
+
 		Object obj = event.getSource();
-		
-		if(obj == btnBuscar)
-		{
+
+		if (obj == btnBuscar) {
 			Log log;
 			try {
+				String status = "";
+				String evento = "";
+				if (cbxEvento.getSelectionModel().getSelectedItem() != null)
+					evento = cbxEvento.getSelectionModel().getSelectedItem().name();
+
+				if (cbxStatus.getSelectionModel().getSelectedItem() != null)
+					status = cbxStatus.getSelectionModel().getSelectedItem().name();
+
 				tblLogs.getItems().setAll(fachada.buscarLogPorData(
 						Date.from(tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-						Date.from(tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())));
-				
-				System.out.println("De: "+tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-				System.out.println("Ate: "+tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-				
-				if(! (tblLogs.getItems().isEmpty()))
-					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim());
+						Date.from(tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()), evento, status));
+
+				System.out.println("De: " + tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+				System.out.println("Ate: " + tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+				if (!(tblLogs.getItems().isEmpty()))
+					lblData.setText("De: " + tfdDe.getEditor().getText().trim() + " - Até: "
+							+ tfdAte.getEditor().getText().trim());
 				else
-					lblData.setText("De: "+tfdDe.getEditor().getText().trim()+" - Até: "+tfdAte.getEditor().getText().trim()+" SEM RESULTADOS!!!");
-				
-				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso","");
-				if(! (tblLogs.getItems().isEmpty()) )
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Historico: "+lblData.getText(), StatusLog.COLCLUIDO);
+					lblData.setText("De: " + tfdDe.getEditor().getText().trim() + " - Até: "
+							+ tfdAte.getEditor().getText().trim() + " SEM RESULTADOS!!!");
+
+				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso", "");
+				if (!(tblLogs.getItems().isEmpty()))
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+							"Buscar Historico: " + lblData.getText(), StatusLog.CONCLUIDO);
 				else
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Historico: "+lblData.getText(), StatusLog.SEM_RESULTADOS);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+							"Buscar Historico: " + lblData.getText(), StatusLog.SEM_RESULTADOS);
 			} catch (Exception e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Historico!!!", e.getMessage());
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Historico: Erro - "+lblData.getText(), StatusLog.ERRO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+						"Buscar Historico: Erro - " + lblData.getText(), StatusLog.ERRO);
 			}
-			
+
 			try {
-				if(log != null)
+				if (log != null)
 					fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
-			
+
 		}
 
+		if(obj == btnRemoverFiltros)
+		{
+			cbxEvento.getSelectionModel().select(null);
+			cbxStatus.getSelectionModel().select(null);
+			
+			cbxEvento.getEditor().setText("Evento");
+			cbxStatus.getEditor().setText("Status");
+			
+		}
+		
 	}
-	
+
 }

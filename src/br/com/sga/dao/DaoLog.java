@@ -67,21 +67,22 @@ public class DaoLog implements IDaoLog{
 	}
 
 	@Override
-	public List<Log> buscarPorData(Date de, Date ate) throws DaoException {
+	public List<Log> buscarPorData(Date de, Date ate, String evento, String status) throws DaoException {
 		
 		try {
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = conexao.prepareStatement(SQLUtil.Log.SELECT_DATA_INTERVALO);
 			this.statement.setDate(1, new java.sql.Date(de.getTime()));
 			this.statement.setDate(2, new java.sql.Date(ate.getTime()));
+			this.statement.setString(3, "%"+evento+"%");
+			this.statement.setString(4, "%"+status+"%");
 			
 			resultSet = this.statement.executeQuery();
 			
-			System.out.println(statement);
-			
-			List<Log> logs = new ArrayList<>();
+			List<Log> logs = new ArrayList<Log>();
 
 			while(resultSet.next()) {
+				
 				Log log = new Log();
 				log.setId(resultSet.getInt("id"));
 				log.setData(resultSet.getDate("data"));
@@ -90,6 +91,8 @@ public class DaoLog implements IDaoLog{
 				log.setRemetente(resultSet.getString("remetente"));
 				log.setStatus(StatusLog.getStatus(resultSet.getString("status")));
 	
+				logs.add(log);
+				
 			}if(logs.isEmpty())
 				new DaoException("NÃO HÁ LOGS SALVOS ENTRE ESSAS DATAS");
 

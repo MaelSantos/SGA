@@ -229,7 +229,7 @@ public class ControleCadastroConsulta extends Controle{
 						fachada.salvarEditarConsulta(consulta);
 						Alerta.getInstance().showMensagem("Consulta inserida","","Consulta com cadastrada com sucesso!");
 						limparCamposConsulta();
-						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Consulta: "+area, StatusLog.COLCLUIDO);
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Consulta: "+area, StatusLog.CONCLUIDO);
 					}catch (NumberFormatException e) {
 						Alerta.getInstance().showMensagem("Erro","","Campo númerico invalido:\nHá um ou mais campos com entradas invalidas");
 					}catch (BusinessException e) {

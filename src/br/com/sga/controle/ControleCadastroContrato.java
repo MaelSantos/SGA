@@ -219,7 +219,7 @@ public class ControleCadastroContrato {
 					    	
 					    	
 							Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
-							log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Contrato: "+contrato.getArea(), StatusLog.COLCLUIDO);
+							log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Contrato: "+contrato.getArea(), StatusLog.CONCLUIDO);
 							limparCampos();
 					}else
 						Alerta.getInstance().showMensagem("Alerta","","Há campos obrigatorios vazios ou não selecionados");

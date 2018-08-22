@@ -57,9 +57,9 @@ public class BusinessLog implements IBusinessLog{
 	}
 
 	@Override
-	public List<Log> buscarPorData(Date de, Date ate) throws BusinessException {
+	public List<Log> buscarPorData(Date de, Date ate, String evento, String status) throws BusinessException {
 		try {
-			return daoLog.buscarPorData(de, ate);
+			return daoLog.buscarPorData(de, ate, evento, status);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());

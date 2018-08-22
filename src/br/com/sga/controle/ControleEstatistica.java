@@ -116,7 +116,7 @@ public class ControleEstatistica extends Controle{
 		    	    	}
 		    	    	
 		    	    	log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: "
-	    	    				+graficoBox.getValue()+" - "+tipoBox.getValue(), StatusLog.COLCLUIDO);
+	    	    				+graficoBox.getValue()+" - "+tipoBox.getValue(), StatusLog.CONCLUIDO);
 		    	    	
 	    	    	} catch (Exception e) {
     					Alerta.getInstance().showMensagem("Erro","",e.getMessage());

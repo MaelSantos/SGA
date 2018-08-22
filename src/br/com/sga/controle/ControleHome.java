@@ -103,7 +103,7 @@ public class ControleHome extends Controle {
 			if(tblAtrasados.getItems().isEmpty() && tblSemana.getItems().isEmpty())
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: Nada Encontrado", StatusLog.SEM_RESULTADOS);
 			else
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: ", StatusLog.COLCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: ", StatusLog.CONCLUIDO);
 			
 		} catch (Exception e) {
 			

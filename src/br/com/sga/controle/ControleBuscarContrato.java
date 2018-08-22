@@ -64,7 +64,7 @@ public class ControleBuscarContrato extends Controle{
 				List<ContratoAdapter> contratos =fachada.buscarContratoPorClienteAdapter(busca);
 				contratosTableView.getItems().addAll(contratos);
 				if(!contratos.isEmpty())
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Contrato Existente: "+busca, StatusLog.COLCLUIDO);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Contrato Existente: "+busca, StatusLog.CONCLUIDO);
 				else
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Contrato Existente: Não Encontrado - "+busca, StatusLog.SEM_RESULTADOS);
 			} catch (BusinessException e) {

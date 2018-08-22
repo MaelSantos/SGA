@@ -157,7 +157,7 @@ public class ControleCadastroCliente extends Controle{
 					telefones.clear();					
 					Alerta.getInstance().showMensagem("Salvando...", "Salvo Com Sucesso", "Salvando...");
 					limparCampos();
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: "+cliente.getCpf_cnpj(), StatusLog.COLCLUIDO);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: "+cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
 				} catch (BusinessException e) {
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: Erro", StatusLog.ERRO);
 					e.printStackTrace();

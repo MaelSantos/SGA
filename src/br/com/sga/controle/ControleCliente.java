@@ -159,7 +159,7 @@ public class ControleCliente extends Controle{
 				cliente = fachada.buscarClientePorId(adapter.getId());
 			
 				if(cliente != null)
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Cliente: "+cliente.getCpf_cnpj(), StatusLog.COLCLUIDO);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Cliente: "+cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
 				else
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Cliente: Não Encontrado", StatusLog.SEM_RESULTADOS);
 				modificarCampos();
@@ -203,7 +203,7 @@ public class ControleCliente extends Controle{
 				alterarCiente();
 				fachada.salvarEditarCliente(cliente);
 				Alerta.getInstance().showMensagem("Salvo", "", "Cliente Editado Com Sucesso!!!");
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Cliente: "+cliente.getCpf_cnpj(), StatusLog.COLCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Cliente: "+cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Editar Cliente!!!", e.getMessage());
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Cliente: "+cliente.getCpf_cnpj(), StatusLog.ERRO);

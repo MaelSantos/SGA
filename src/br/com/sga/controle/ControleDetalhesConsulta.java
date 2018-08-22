@@ -124,7 +124,7 @@ public class ControleDetalhesConsulta extends Controle{
 				String busca[] = {cliente.getCpf_cnpj()};
 				
 				List<ConsultaAdapter> consultas = fachada.buscarConsultaPorClienteAdapter(busca);
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: "+busca, StatusLog.COLCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: "+busca, StatusLog.CONCLUIDO);
 				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecionar(consultas);
 				consulta = new Consulta();
 				consulta.setId(consultaBasica.getId());
@@ -212,7 +212,7 @@ public class ControleDetalhesConsulta extends Controle{
 		try {
 			// pegando demais dados da consulta;
 			consulta = fachada.buscarConsultaPorId(consulta.getId());
-			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: "+consulta.getArea(), StatusLog.COLCLUIDO);
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: "+consulta.getArea(), StatusLog.CONCLUIDO);
 			
 			FuncionarioAdapter f = fachada.buscarPorConsultaAdapter(consulta.getId());
 			// adicionando dados que não podem ser editador tais nome e numero do funcionario advindos do consulta adapter

@@ -176,7 +176,7 @@ public class ControleFinanceiro extends Controle {
 				lblReceitas.setText("Total De Receitas: "+total_receita);
 
 				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso","");
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Financeiro: "+lblData.getText(), StatusLog.COLCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Financeiro: "+lblData.getText(), StatusLog.CONCLUIDO);
 				
 			}catch (BusinessException | NumberFormatException e) {
 				e.printStackTrace();

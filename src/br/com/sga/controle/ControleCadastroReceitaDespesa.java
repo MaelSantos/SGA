@@ -144,7 +144,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					calendar.setTime(receita.getData_entrada());
 					daoCommun.salvarReceita(receita,  fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Salvo!", "", "Adicionado Com Sucesso");
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Receita: "+receita.getCentro_custo(), StatusLog.COLCLUIDO);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Receita: "+receita.getCentro_custo(), StatusLog.CONCLUIDO);
 				} catch (BusinessException |DaoException e) {
 					e.printStackTrace();
 					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Receita", e.getMessage());
@@ -191,7 +191,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					calendar.setTime(despesa.getData_retirada());
 					daoCommun.salvarDespesa(despesa, fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Salvo!", "", "Adicionado Com Sucesso");
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Despesa: "+despesa.getCentro_custo(), StatusLog.COLCLUIDO);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Despesa: "+despesa.getCentro_custo(), StatusLog.CONCLUIDO);
 				} catch (BusinessException | DaoException e) {
 					e.printStackTrace();
 					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Despesa", e.getMessage());

@@ -100,7 +100,7 @@ public class ControleCadastroProcesso extends Controle{
 				fachada.salvarEditarProcesso(processo);
 				App.notificarOuvintes(Tela.CADASTRO_CONTRATO, processo);
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...","Salvo Com Seucesso");
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Processo: "+processo.getNumero()+" - "+processo.getTipo_processo(), StatusLog.COLCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Processo: "+processo.getNumero()+" - "+processo.getTipo_processo(), StatusLog.CONCLUIDO);
 				limparCampos();
 			} catch (BusinessException e) {
 				e.printStackTrace();

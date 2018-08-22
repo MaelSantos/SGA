@@ -234,7 +234,7 @@ public class ControleProcesso extends Controle{
 			if(tbl1Vara.getItems().isEmpty() && tbl2Vara.getItems().isEmpty() && tbl3Vara.getItems().isEmpty())
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: Sem Resultados", StatusLog.SEM_RESULTADOS);
 			else
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: ", StatusLog.COLCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Processos: ", StatusLog.CONCLUIDO);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

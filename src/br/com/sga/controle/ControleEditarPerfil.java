@@ -88,7 +88,7 @@ public class ControleEditarPerfil extends Controle{
 		    			emailField.setText("");
 		    			numero_oabField.setText("");
 		    		}
-	    			log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Perfil: ", StatusLog.COLCLUIDO);
+	    			log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Perfil: ", StatusLog.CONCLUIDO);
 	    		}
 		    	else if(event.getSource() == atualizarLoginButton)
 		    	{
@@ -96,7 +96,7 @@ public class ControleEditarPerfil extends Controle{
 		    		feedback = "Login";
 		    		if(sucesso) 
 		    			loginField.setText("");
-		    		log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Login: ", StatusLog.COLCLUIDO);
+		    		log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Login: ", StatusLog.CONCLUIDO);
 		    	}
 		    	else if(event.getSource() == atualizarSenhaButton) 
 		    	{
@@ -107,7 +107,7 @@ public class ControleEditarPerfil extends Controle{
 		    			confirmarSenhaField.setText("");
 		    			novaSenhaField.setText("");
 		    		}
-		    		log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Senha: ", StatusLog.COLCLUIDO);
+		    		log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Senha: ", StatusLog.CONCLUIDO);
 		    	}
 		    	try {
 					fachada.salvarEditarUsuario(copiaFuncionario);

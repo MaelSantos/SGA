@@ -72,7 +72,7 @@ public class ControleCadastroUsuario extends Controle{
 							tfdNumeroOab.getText().trim()); //numero OAB
 						fachada.salvarEditarUsuario(funcionario);
 						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...", "Salvo Com Sucesso!");
-						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, this.funcionario.getNome(), "Novo Usuario: "+funcionario.getNome(), StatusLog.COLCLUIDO);
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, this.funcionario.getNome(), "Novo Usuario: "+funcionario.getNome(), StatusLog.CONCLUIDO);
 						limparCampos();
 				}
 			} catch (BusinessException e) {

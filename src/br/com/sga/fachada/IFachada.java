@@ -79,7 +79,7 @@ public interface IFachada {
     public void salvarEditarLog(Log entidade) throws BusinessException;
     public Log buscarLogPorId(int id) throws BusinessException;
     public List<Log> buscarLogPorBusca(String busca) throws BusinessException;
-    public List<Log> buscarLogPorData(Date de, Date ate) throws BusinessException;
+    public List<Log> buscarLogPorData(Date de, Date ate, String evento, String status) throws BusinessException;
 	
     
 }
