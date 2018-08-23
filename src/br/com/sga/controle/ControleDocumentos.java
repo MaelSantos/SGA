@@ -192,7 +192,14 @@ public class ControleDocumentos extends Controle {
 					protected void succeeded() {
 						super.succeeded();
 						porcentagem = 0;
+						pgiDados.setVisible(false);
 					}
+					@Override
+					protected void scheduled() {
+						super.scheduled();
+						pgiDados.setVisible(true);
+					}
+					
 				};
 			}
 		};
@@ -207,7 +214,7 @@ public class ControleDocumentos extends Controle {
 
 		if (obj == btnGerar) {
 			
-			pgiDados.setVisible(true);
+//			pgiDados.setVisible(true);
 			Log log = null;
 			try {
 				if (list != null && arquivo != null && !(list.isEmpty())) {
@@ -226,8 +233,6 @@ public class ControleDocumentos extends Controle {
 						"Gerar Documento: ", StatusLog.ERRO);
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!",
 						"Verifique Se Todos Os Dados Estão Corretos");
-			} finally {
-				pgiDados.setVisible(false);
 			}
 
 			try {
