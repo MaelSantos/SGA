@@ -36,10 +36,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Paint;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -78,6 +80,9 @@ public class ControleDocumentos extends Controle {
 
 	@FXML
 	private TextField tfdBusca;
+
+	@FXML
+	private Label lblDados;
 
 	private String arquivo;
 	private IFachada fachada;
@@ -194,12 +199,13 @@ public class ControleDocumentos extends Controle {
 						porcentagem = 0;
 						pgiDados.setVisible(false);
 					}
+
 					@Override
 					protected void scheduled() {
 						super.scheduled();
 						pgiDados.setVisible(true);
 					}
-					
+
 				};
 			}
 		};
@@ -213,17 +219,19 @@ public class ControleDocumentos extends Controle {
 		Object obj = event.getSource();
 
 		if (obj == btnGerar) {
-			
-//			pgiDados.setVisible(true);
+
 			Log log = null;
 			try {
 				if (list != null && arquivo != null && !(list.isEmpty())) {
 					service.restart();
+					
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
 							"Gerar Documento: ", StatusLog.CONCLUIDO);
+					
 				} else {
 					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!",
 							"Verifique Se Todos Os Dados Estão Corretos");
+					
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
 							"Gerar Documento: Sem Resultados", StatusLog.SEM_RESULTADOS);
 				}
@@ -251,11 +259,20 @@ public class ControleDocumentos extends Controle {
 				if (!list.isEmpty()) {
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido!",
 							"Dados Carregados Com Sucesso!!!", "Pronto Para Gerar Arquivo");
+					
+					lblDados.setText("Dados Carregados");
+					lblDados.setTextFill(Paint.valueOf("#00FF00"));
+					
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 							"Buscar: " + cbxTipo.getValue(), StatusLog.CONCLUIDO);
+				
 				} else {
 					Alerta.getInstance().showMensagem(AlertType.ERROR, "Não Encontrado!", "Dados Não Encontrados!!!",
 							"Tente Novamente Procurando Por Outros Dados!!!");
+					
+					lblDados.setText("Dados Não Encontrados");
+					lblDados.setTextFill(Paint.valueOf("#FF0000"));
+					
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 							"Buscar: " + cbxTipo.getValue() + " - Sem Resultados", StatusLog.SEM_RESULTADOS);
 				}

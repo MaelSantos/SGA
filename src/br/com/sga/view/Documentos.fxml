@@ -20,11 +20,15 @@
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
-            <VBox alignment="TOP_CENTER" prefHeight="432.0" prefWidth="210.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="408.0" prefWidth="213.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <ComboBox fx:id="cbxTipo" onAction="#actionButton" prefWidth="150.0" promptText="Tipo De Documento" />
                   <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionButton" prefWidth="150.0" text="Buscar Dados" />
-                  <ProgressIndicator fx:id="pgiDados" progress="0.0" visible="false" />
+                  <Label fx:id="lblDados" text="Dados: " textFill="WHITE">
+                     <font>
+                        <Font name="Verdana" size="13.0" />
+                     </font>
+                  </Label>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -82,11 +86,12 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </FlowPane>
-                  <FlowPane fx:id="flowBusca" alignment="TOP_CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0" visible="false">
+                  <FlowPane fx:id="flowBusca" alignment="TOP_CENTER" columnHalignment="CENTER" visible="false">
                      <children>
                         <TextField fx:id="tfdBusca" prefHeight="25.0" prefWidth="347.0" promptText="Busca" />
                      </children>
                   </FlowPane>
+                  <ProgressIndicator fx:id="pgiDados" prefHeight="40.0" prefWidth="299.0" progress="0.0" visible="false" />
                </children>
             </StackPane>
          </center>

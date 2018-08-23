@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -98,6 +99,30 @@ public class ControleHistorico extends Controle {
 
 		cbxEvento.getItems().addAll(EventoLog.values());
 		cbxStatus.getItems().addAll(StatusLog.values());
+		
+		   cbxEvento.setButtonCell(new ListCell<EventoLog>() {
+		        @Override
+		        protected void updateItem(EventoLog item, boolean empty) {
+		            super.updateItem(item, empty) ;
+		            if (empty || item == null) {
+		                setText("Evento");
+		            } else {
+		                setText(item.toString());
+		            }
+		        }
+		    });
+		   
+		   cbxStatus.setButtonCell(new ListCell<StatusLog>() {
+		        @Override
+		        protected void updateItem(StatusLog item, boolean empty) {
+		            super.updateItem(item, empty) ;
+		            if (empty || item == null) {
+		                setText("Status");
+		            } else {
+		                setText(item.toString());
+		            }
+		        }
+		    });
 
 	}
 
@@ -158,9 +183,10 @@ public class ControleHistorico extends Controle {
 		{
 			cbxEvento.getSelectionModel().clearSelection();
 			cbxStatus.getSelectionModel().clearSelection();
-			
+
 			cbxEvento.setPromptText("Evento");
 			cbxStatus.setPromptText("Status");
+			
 			
 		}
 		
