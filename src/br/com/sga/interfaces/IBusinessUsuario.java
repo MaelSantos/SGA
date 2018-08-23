@@ -14,6 +14,6 @@ public interface IBusinessUsuario {
     public Funcionario buscarPorId(int id) throws BusinessException;
     public List<Funcionario> buscarPorBusca(String busca) throws BusinessException;
     public FuncionarioAdapter buscarPorConsultaAdapter(Integer consulta_id) throws BusinessException;
-   // public Funcionario buscarUsuarioPorNome(String nome)throws BusinessException;
+    public Funcionario buscarPorIdConsulta(int id_consulta) throws BusinessException;
 	
 }

@@ -214,7 +214,7 @@ public class ControleDetalhesConsulta extends Controle{
 			consulta = fachada.buscarConsultaPorId(consulta.getId());
 			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: "+consulta.getArea(), StatusLog.CONCLUIDO);
 			
-			FuncionarioAdapter f = fachada.buscarPorConsultaAdapter(consulta.getId());
+			FuncionarioAdapter f = fachada.buscarUsuarioPorConsultaAdapter(consulta.getId());
 			// adicionando dados que não podem ser editador tais nome e numero do funcionario advindos do consulta adapter
 			nomeFuncionarioField.setText(f.getNome());
 			numeroOabField.setText(f.getNumero());

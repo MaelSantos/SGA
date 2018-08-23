@@ -82,7 +82,7 @@ public class DaoConsulta implements IDaoConsulta {
 		        	consulta.setTestemunhas(testemunhas);
 		        }
 		        if(consulta == null){
-		        	throw new DaoException("Não existe consultas com ess id");
+		        	throw new DaoException("Não existe consultas com esse id");
 		        }
 		        this.connection.close();
 		        this.statement.close();
@@ -93,6 +93,7 @@ public class DaoConsulta implements IDaoConsulta {
 	        throw new DaoException("PROBLEMA AO BUSCAR CONSULTAS DO USUARIO - CONTATE O ADM");
 	    }
 	}
+	
 	@Override
 	public List<Consulta> buscarPorBusca(String busca) throws DaoException {
 		return null;

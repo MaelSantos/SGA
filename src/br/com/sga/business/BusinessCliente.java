@@ -83,5 +83,15 @@ public class BusinessCliente implements IBussinessCliente{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+	@Override
+	public Cliente buscarPorIdConsulta(int id_consulta) throws BusinessException {
+		try {
+			return daoCliente.buscarPorIdConsulta(id_consulta);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
 	
 }

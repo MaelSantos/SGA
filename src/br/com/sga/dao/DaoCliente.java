@@ -293,5 +293,50 @@ public class DaoCliente implements IDaoCliente {
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
 		}
+	}
+
+	@Override
+	public Cliente buscarPorIdConsulta(int id_consulta) throws DaoException {
+		try {
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Cliente.SELECT_CLIENTE_ID_CONSULTA);
+			this.statement.setInt(1, id_consulta);
+
+			resultSet = this.statement.executeQuery();
+			Cliente cliente;
+			Endereco end;
+			if (resultSet.next()) {
+				cliente = new Cliente();
+//				nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	
+				cliente.setId(resultSet.getInt("id"));
+				cliente.setNome(resultSet.getString("nome"));
+				cliente.setNascimento(resultSet.getDate("data_nascimento"));
+				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
+				cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
+				cliente.setRg(resultSet.getString("rg"));
+				cliente.setEmail(resultSet.getString("email"));
+				cliente.setEstado_civil(resultSet.getString("estado_civil"));
+				cliente.setProfissao(resultSet.getString("profissao"));
+				cliente.setFilhos(resultSet.getBoolean("filhos"));
+				cliente.setResponsavel(resultSet.getString("responsavel"));
+				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
+//				end = new Endereco();
+
+				end = daoCommun.getEndereco(cliente.getId());
+				
+				cliente.setEndereco(end);
+				
+				List<Telefone> list = daoCommun.getContatos(cliente.getId());
+				cliente.setTelefones(list);
+				this.conexao.close();			
+				
+				return cliente;
+			}
+
+		} catch (Exception e) {
+			throw new DaoException(e.getMessage());
+		}
+		return null;
+
 	}	
 }

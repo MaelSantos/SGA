@@ -76,4 +76,14 @@ public class BusinessUsuario implements IBusinessUsuario {
 		}
 	}
 
+	@Override
+	public Funcionario buscarPorIdConsulta(int id_consulta) throws BusinessException {
+		try {
+			return daoUsuario.buscarPorIdConsulta(id_consulta);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
 }

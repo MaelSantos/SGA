@@ -19,5 +19,7 @@ public interface IDaoCliente extends IDao<Cliente> {
 	public List<Cliente> buscarPorBusca(String busca) throws DaoException;
 	
 	public List<ClienteAdapter> buscarAdapterPorBusca(String busca) throws DaoException;
+	
+	public Cliente buscarPorIdConsulta(int id_consulta) throws DaoException;
 
 }

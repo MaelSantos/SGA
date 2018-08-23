@@ -103,7 +103,7 @@ public class SQLUtil {
     public static class Funcionario {
 	    public static final String INSERT_ALL = "INSERT INTO funcionario(nome, senha, login,numero_oab,email,endereco_id) VALUES (?, ?, ?, ? , ? , ?);";
 	    public static final String INSERT_SEM_ENDERECO = "INSERT INTO funcionario(nome, senha, login,numero_oab,email) VALUES (?, ?, ?, ? , ?);";
-	    
+	    public static final String SELECT_CONSULTA_ID = "SELECT DISTINCT f.* FROM CONSULTA c, FUNCIONARIO f WHERE c.funcionario_id = f.id AND c.id = ?";
 	    public static final String SELECT_LOGIN_SENHA = "SELECT * FROM FUNCIONARIO WHERE login = ? AND senha = ?";
 	    public static final String SELECT_NOME = "SELECT ID FROM FUNCIONARIO WHERE NOME = ?";
 	    public static final String SELECT_ALL_BUSCA_ALL = "select * from funcionario where unaccent(nome) ilike unaccent(?) "
@@ -122,6 +122,7 @@ public class SQLUtil {
         public static final String SELECT_ALL = "SELECT * FROM CLIENTE";
         public static final String BUSCAR_ALL ="Select * from cliente where unaccent(nome) ilike unaccent(?) or genero = ? or cpf_cnpj = ?  or unaccent(email) ilike unaccent(?) or unaccent(estado_civil) = unaccent(?) or tipo = ?";
         public static final String BUSCAR_ALL_ADAPTER ="Select id,nome,email,cpf_cnpj from cliente where unaccent(nome) ilike unaccent(?) or genero = ? or cpf_cnpj = ?  or unaccent(email) ilike unaccent(?) or unaccent(estado_civil) = unaccent(?) or tipo = ?";
+        public static final String SELECT_CLIENTE_ID_CONSULTA = "SELECT DISTINCT e.* FROM CONSULTA o, CLIENTE e WHERE o.cliente_id = e.id AND o.id = ?";
 
 	    public static final String INSERT_ALL = "INSERT INTO CLIENTE(nome, data_nascimento, cpf_cnpj, genero, rg, email,"
 	    		+ "estado_civil, profissao, filhos, responsavel, tipo, id_endereco) "

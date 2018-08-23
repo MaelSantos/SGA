@@ -32,13 +32,15 @@ public interface IFachada {
 	public void salvarEditarUsuario(Funcionario usuario) throws BusinessException;
     public Funcionario buscarUsuarioPorId(int id) throws BusinessException;
     public List<Funcionario> buscarUsuarioPorBusca(String busca) throws BusinessException;
-    public FuncionarioAdapter buscarPorConsultaAdapter(Integer consulta_id) throws BusinessException;
+    public FuncionarioAdapter buscarUsuarioPorConsultaAdapter(Integer consulta_id) throws BusinessException;
+    public Funcionario buscarUsuarioPorIdConsulta(int id_consulta) throws BusinessException;
 
     //cliente
     public void salvarEditarCliente(Cliente cliente)throws BusinessException;
     public Cliente buscarClientePorId(int id) throws BusinessException;
     public List<Cliente> buscarClientePorBusca(String busca) throws BusinessException;
     public List<ClienteAdapter> buscarClienteAdapterPorBusca(String busca) throws BusinessException;
+    public Cliente buscarClientePorIdConsulta(int id_consulta) throws BusinessException;
     
     // consulta
     public void salvarEditarConsulta(Consulta consulta) throws BusinessException;

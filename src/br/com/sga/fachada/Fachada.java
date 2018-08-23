@@ -218,7 +218,7 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public FuncionarioAdapter buscarPorConsultaAdapter(Integer consulta_id) throws BusinessException {
+	public FuncionarioAdapter buscarUsuarioPorConsultaAdapter(Integer consulta_id) throws BusinessException {
 		return businessUsuario.buscarPorConsultaAdapter(consulta_id);
 	}
 
@@ -257,6 +257,16 @@ public class Fachada implements IFachada {
 	@Override
 	public List<ContaAdapter> buscarContaTotalMesPorIntervalo(Date de, Date ate,Tabela tabela) throws BusinessException {
 		return businessFinanceiro.buscarContaTotalMesPorIntervalo(de, ate,tabela);
+	}
+
+	@Override
+	public Funcionario buscarUsuarioPorIdConsulta(int id_consulta) throws BusinessException {
+		return businessUsuario.buscarPorIdConsulta(id_consulta);
+	}
+
+	@Override
+	public Cliente buscarClientePorIdConsulta(int id_consulta) throws BusinessException {
+		return businessCliente.buscarPorIdConsulta(id_consulta);
 	}
 
 }

@@ -130,7 +130,7 @@ public class DaoUsuario implements IDaoUsuario{
 		try {
             this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
             this.statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_ID_CONSULTA_ADAPTER);
-            statement.setInt(1,consulta_id);
+            statement.setInt(1, consulta_id);
             resultSet = statement.executeQuery();
             FuncionarioAdapter funcionario = null;
             
@@ -179,6 +179,37 @@ public class DaoUsuario implements IDaoUsuario{
 		} catch (SQLException ex) {
             ex.printStackTrace();
             throw new DaoException("PROBLEMA AO BUSCAR USUÁRIOS - CONTATE O ADM");
+        }
+	}
+
+	@Override
+	public Funcionario buscarPorIdConsulta(int id_consulta) throws DaoException {
+		
+		try {
+            this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+            this.statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_CONSULTA_ID);
+            statement.setInt(1, id_consulta);
+            resultSet = statement.executeQuery();
+            Funcionario funcionario = null;
+            
+            if(resultSet.next()) {
+            	funcionario = new Funcionario(
+            			resultSet.getInt("id"), 
+            			resultSet.getString("nome"), 
+            			resultSet.getString("email"), 
+            			resultSet.getString("login"), 
+            			resultSet.getString("senha"), 
+            			resultSet.getString("numero_oab"));
+            }else {
+            	throw new DaoException("Não existe funcionario para essa consulta");
+            }
+            this.conexao.close();
+            this.statement.close();
+            this.resultSet.close();
+            return funcionario;	
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO BUSCAR USUARIO - CONTATE O ADM");
         }
 	}
 
