@@ -206,10 +206,11 @@ public class ControleDocumentos extends Controle {
 		Object obj = event.getSource();
 
 		if (obj == btnGerar) {
+			
+			pgiDados.setVisible(true);
 			Log log = null;
 			try {
 				if (list != null && arquivo != null && !(list.isEmpty())) {
-					pgiDados.setVisible(true);
 					service.restart();
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
 							"Gerar Documento: ", StatusLog.CONCLUIDO);

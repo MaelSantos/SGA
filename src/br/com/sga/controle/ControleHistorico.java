@@ -156,11 +156,11 @@ public class ControleHistorico extends Controle {
 
 		if(obj == btnRemoverFiltros)
 		{
-			cbxEvento.getSelectionModel().select(null);
-			cbxStatus.getSelectionModel().select(null);
+			cbxEvento.getSelectionModel().clearSelection();
+			cbxStatus.getSelectionModel().clearSelection();
 			
-			cbxEvento.getEditor().setText("Evento");
-			cbxStatus.getEditor().setText("Status");
+			cbxEvento.setPromptText("Evento");
+			cbxStatus.setPromptText("Status");
 			
 		}
 		
