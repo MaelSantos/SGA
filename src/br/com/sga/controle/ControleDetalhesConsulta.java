@@ -179,6 +179,12 @@ public class ControleDetalhesConsulta extends Controle {
 				selectConButton.setVisible(false);
 				atualizarDadosConsulta();
 			}
+			else if (object instanceof Consulta) {
+				this.consulta = (Consulta) object;
+				selectConButton.setVisible(true);
+				atualizarDadosConsulta();
+				
+			}
 		} else {
 			consulta = null;
 		}

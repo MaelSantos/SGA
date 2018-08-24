@@ -104,33 +104,35 @@ public class ControleDocumentos extends Controle {
 			funcionario = (Funcionario) object;
 		}
 
-		if (object instanceof Consulta) {
-			Consulta consulta = (Consulta) object;
+		if (tela == Tela.CADASTRO_CONSULTA)
+			if (object instanceof Consulta) {
+				Consulta consulta = (Consulta) object;
 
-			List<Consulta> list = new ArrayList<Consulta>();
-			list.add(consulta);
+				List<Consulta> list = new ArrayList<Consulta>();
+				list.add(consulta);
 
-			Log log;
-			try {
-				gerarDocumento(list, "Ficha.jrxml");
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
-						"Gerar Documento: ", StatusLog.CONCLUIDO);
-			} catch (FileNotFoundException | JRException e) {
-				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao gerar ficha!!!", e.getMessage());
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
-						"Gerar Documento: ", StatusLog.ERRO);
-				e.printStackTrace();
+				Log log;
+				try {
+					gerarDocumento(list, "Ficha.jrxml");
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
+							"Gerar Documento: ", StatusLog.CONCLUIDO);
+				} catch (FileNotFoundException | JRException e) {
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao gerar ficha!!!",
+							e.getMessage());
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
+							"Gerar Documento: ", StatusLog.ERRO);
+					e.printStackTrace();
+				}
+
+				try {
+					if (log != null)
+						fachada.salvarEditarLog(log);
+				} catch (BusinessException e) {
+
+					e.printStackTrace();
+				}
+
 			}
-
-			try {
-				if (log != null)
-					fachada.salvarEditarLog(log);
-			} catch (BusinessException e) {
-
-				e.printStackTrace();
-			}
-
-		}
 
 	}
 
@@ -224,14 +226,14 @@ public class ControleDocumentos extends Controle {
 			try {
 				if (list != null && arquivo != null && !(list.isEmpty())) {
 					service.restart();
-					
+
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
 							"Gerar Documento: ", StatusLog.CONCLUIDO);
-					
+
 				} else {
 					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!",
 							"Verifique Se Todos Os Dados Estão Corretos");
-					
+
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
 							"Gerar Documento: Sem Resultados", StatusLog.SEM_RESULTADOS);
 				}
@@ -259,20 +261,20 @@ public class ControleDocumentos extends Controle {
 				if (!list.isEmpty()) {
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido!",
 							"Dados Carregados Com Sucesso!!!", "Pronto Para Gerar Arquivo");
-					
+
 					lblDados.setText("Dados Carregados");
 					lblDados.setTextFill(Paint.valueOf("#00FF00"));
-					
+
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 							"Buscar: " + cbxTipo.getValue(), StatusLog.CONCLUIDO);
-				
+
 				} else {
 					Alerta.getInstance().showMensagem(AlertType.ERROR, "Não Encontrado!", "Dados Não Encontrados!!!",
 							"Tente Novamente Procurando Por Outros Dados!!!");
-					
+
 					lblDados.setText("Dados Não Encontrados");
 					lblDados.setTextFill(Paint.valueOf("#FF0000"));
-					
+
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 							"Buscar: " + cbxTipo.getValue() + " - Sem Resultados", StatusLog.SEM_RESULTADOS);
 				}

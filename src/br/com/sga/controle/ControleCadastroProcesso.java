@@ -28,7 +28,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class ControleCadastroProcesso extends Controle{
+public class ControleCadastroProcesso extends Controle {
 
 	@FXML
 	private ComboBox<ContratoAdapter> cbxContrato;
@@ -69,7 +69,7 @@ public class ControleCadastroProcesso extends Controle{
 	private IFachada fachada;
 	private Processo processo;
 	private Funcionario funcionario;
-	
+
 	@Override
 	public void init() {
 
@@ -84,7 +84,7 @@ public class ControleCadastroProcesso extends Controle{
 			Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Pesquisar Contratos", e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -92,81 +92,84 @@ public class ControleCadastroProcesso extends Controle{
 
 		Object obj = event.getSource();
 
-		if(obj == btnCadastrar)
-		{
+		if (obj == btnCadastrar) {
 			Log log = null;
 			try {
 				processo = criarProcesso();
 				fachada.salvarEditarProcesso(processo);
 				App.notificarOuvintes(Tela.CADASTRO_CONTRATO, processo);
-				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...","Salvo Com Seucesso");
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Processo: "+processo.getNumero()+" - "+processo.getTipo_processo(), StatusLog.CONCLUIDO);
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...", "Salvo Com Seucesso");
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(),
+						"Novo Processo: " + processo.getNumero() + " - " + processo.getTipo_processo(),
+						StatusLog.CONCLUIDO);
 				limparCampos();
 			} catch (BusinessException e) {
 				e.printStackTrace();
-				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Ao Salvar", "Erro ao Salvar Processo", e.getMessage());
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Processo: Erro", StatusLog.ERRO);
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Ao Salvar", "Erro ao Salvar Processo",
+						e.getMessage());
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(),
+						"Novo Processo: Erro", StatusLog.ERRO);
 			} catch (ParseException e) {
 				e.printStackTrace();
-				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Nos Dados!", "Erro Algum Dado Pode Estar Faltando ou esta incorreto!!!", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Nos Dados!",
+						"Erro Algum Dado Pode Estar Faltando ou esta incorreto!!!", e.getMessage());
 			}
-			
+
 			try {
 				fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
 				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
-			
+
 		}
-		if(obj == btnVoltar)
+		if (obj == btnVoltar)
 			App.notificarOuvintes(Tela.PROCESSOS);
 
 	}
 
-
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
-		if (object instanceof Contrato) {
-			Contrato contrato = (Contrato) object;
-			
-			ContratoAdapter adapter = new ContratoAdapter();
-			adapter.setData_contrato(contrato.getData_contrato());
-			adapter.setNome_cliente(contrato.getConsulta().getCliente().getNome());
-			adapter.setValor_total(contrato.getValor_total());
-			
-			cbxContrato.getItems().add(adapter);
-			
-		}
+		if (tela == Tela.PROCESSOS)
+			if (object instanceof Contrato) {
+				Contrato contrato = (Contrato) object;
+
+				ContratoAdapter adapter = new ContratoAdapter();
+				adapter.setData_contrato(contrato.getData_contrato());
+				adapter.setNome_cliente(contrato.getConsulta().getCliente().getNome());
+				adapter.setValor_total(contrato.getValor_total());
+
+				cbxContrato.getItems().add(adapter);
+
+			}
 	}
 
-	private Processo criarProcesso() throws ParseException, BusinessException
-	{
+	private Processo criarProcesso() throws ParseException, BusinessException {
 		processo = new Processo();
 
-			processo.setClasse_judicial(tfdClasse.getText().trim());
-			processo.setComarca(tfdComarca.getText().trim());
+		processo.setClasse_judicial(tfdClasse.getText().trim());
+		processo.setComarca(tfdComarca.getText().trim());
 
-			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-			Date data = df.parse(tfdData.getEditor().getText());
-			processo.setData_atuacao(data);
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		Date data = df.parse(tfdData.getEditor().getText());
+		processo.setData_atuacao(data);
 
-			processo.setDescricao(tfdDescricao.getText().trim());
-			processo.setFase(tfdFase.getText().trim());
-			processo.setNumero(tfdNumero.getText().trim());
-			processo.setOrgao_julgador(tfdOrgao.getText().trim());
-			processo.setTipo_participacao(cbxParticipacao.getValue());
-			processo.setTipo_processo(cbxTipoProcesso.getValue());
+		processo.setDescricao(tfdDescricao.getText().trim());
+		processo.setFase(tfdFase.getText().trim());
+		processo.setNumero(tfdNumero.getText().trim());
+		processo.setOrgao_julgador(tfdOrgao.getText().trim());
+		processo.setTipo_participacao(cbxParticipacao.getValue());
+		processo.setTipo_processo(cbxTipoProcesso.getValue());
 
-			processo.setContrato(fachada.buscarContratoPorId(cbxContrato.getValue().getId()));
+		processo.setContrato(fachada.buscarContratoPorId(cbxContrato.getValue().getId()));
 
-			System.out.println(cbxContrato.getValue());
-			return processo;
+		System.out.println(cbxContrato.getValue());
+		return processo;
 	}
 
 	private void limparCampos() {
-	
+
 		tfdClasse.setText("");
 		tfdComarca.setText("");
 		tfdData.getEditor().setText("");
@@ -174,6 +177,6 @@ public class ControleCadastroProcesso extends Controle{
 		tfdFase.setText("");
 		tfdNumero.setText("");
 		tfdOrgao.setText("");
-		
-	}	
+
+	}
 }

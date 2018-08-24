@@ -217,6 +217,10 @@ public class ControleDetalhesContrato extends Controle {
 				this.contrato.setId(((ContratoAdapter) (object)).getId());
 				selectConButton.setVisible(false);
 				atualizarDadosContrato();
+			}else if (object instanceof Contrato) {
+				this.contrato = (Contrato) object;
+				selectConButton.setVisible(true);
+				atualizarDadosContrato();
 			}
 
 		} else {
