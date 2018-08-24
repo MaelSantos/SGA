@@ -285,7 +285,10 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnConsultas" mnemonicParsing="false" onAction="#actionButton" text="Visualizar Consultas" />
+                        <Button fx:id="btnConsultas" mnemonicParsing="false" onAction="#actionButton" text="Visualizar Consultas">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font></Button>
                     </buttons>
                   </ButtonBar>
                   <Separator prefWidth="200.0" />

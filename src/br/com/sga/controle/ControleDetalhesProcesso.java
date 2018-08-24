@@ -7,6 +7,7 @@ import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.MaskFieldUtil;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
@@ -193,6 +194,9 @@ public class ControleDetalhesProcesso extends Controle {
                 new PropertyValueFactory<>("tipo_participacao"));
 		colTipo2.setCellValueFactory(
                 new PropertyValueFactory<>("tipo_participacao"));
+		
+		MaskFieldUtil.numericField(tfdValor);
+		
 	}
 
 	

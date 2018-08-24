@@ -1,15 +1,11 @@
 package br.com.sga.controle;
 
-import java.net.URL;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
-import br.com.sga.dao.DaoUsuario;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
-import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.enums.EventoLog;
@@ -18,7 +14,6 @@ import br.com.sga.entidade.enums.Tela;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;

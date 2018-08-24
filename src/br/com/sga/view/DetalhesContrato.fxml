@@ -86,7 +86,7 @@
                         </TextField>
                         <Label text="Valor total" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
-                              <Font name="Verdana" size="12.0" />
+                              <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
                         <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
@@ -137,7 +137,7 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="valorField" promptText="Calor da parcela" GridPane.rowIndex="2">
+                        <TextField fx:id="valorField" promptText="Valor da parcela" GridPane.rowIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
@@ -147,7 +147,7 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Label text="juros" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Label text="Juros" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
@@ -162,7 +162,7 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Button>
-                        <Label text="multa" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <Label text="Multa" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>

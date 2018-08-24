@@ -12,6 +12,7 @@ import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.MaskFieldUtil;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.enums.Andamento;
@@ -271,6 +272,11 @@ public class ControleCadastroContrato {
         parteTableView.setItems(FXCollections.observableArrayList());
         dataContratoPicker.setValue(LocalDate.now());
         dadosBancoArea.setVisible(false);
+        
+        MaskFieldUtil.numericField(valorTotalField);
+        MaskFieldUtil.numericField(jurosField);
+        MaskFieldUtil.numericField(multaField);
+        
     }
     
     private void limparCampos() {

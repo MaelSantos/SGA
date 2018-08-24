@@ -9,6 +9,7 @@ import br.com.sga.app.App;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.MaskFieldUtil;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.enums.EstadoCivil;
@@ -142,6 +143,11 @@ public class ControleCliente extends Controle{
 		cbxFilhos.getItems().setAll(true, false);
 		cbxTipo.getItems().setAll(TipoCliente.values());
 
+		MaskFieldUtil.cpfCnpjField(tfdCpfCnpj);
+		MaskFieldUtil.numericField(tfdRg);
+		MaskFieldUtil.numericField(tfdCep);
+//		MaskFieldUtil.ignoreKeys(textField);
+		
 	}
 
 	@Override
@@ -154,7 +160,7 @@ public class ControleCliente extends Controle{
 			Log log;
 			try {
 //				ClienteAdapter adapter = dialogo.selecao(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()),"Seleção de cliente","Selcione um cliente para mais detalhes");
-				ClienteAdapter adapter = dialogo.selecionar(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()));
+				ClienteAdapter adapter = dialogo.selecionar(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText().trim()));
 				
 				cliente = fachada.buscarClientePorId(adapter.getId());
 			
@@ -289,13 +295,8 @@ public class ControleCliente extends Controle{
 		cbxEstadoCivil.setValue(EstadoCivil.getValor(cliente.getEstado_civil()));
 		tfdGenero.setText(cliente.getGenero().getSexo());
 		
-		try {
-			DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-			tfdNascimento.getEditor().setText(df.parse(cliente.getNascimento().toString()).toString());
-		} catch (ParseException e) {
-			// TODO Bloco catch gerado automaticamente
-			e.printStackTrace();
-		}
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		tfdNascimento.getEditor().setText(df.format(cliente.getNascimento()).toString());
 		
 		tfdProfissao.setText(cliente.getProfissao());
 		tfdResponsavel.setText(cliente.getResponsavel());

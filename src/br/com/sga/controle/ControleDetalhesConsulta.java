@@ -11,6 +11,7 @@ import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.MaskFieldUtil;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
@@ -30,112 +31,121 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class ControleDetalhesConsulta extends Controle{
+public class ControleDetalhesConsulta extends Controle {
 
-    @FXML
-    private ResourceBundle resources;
+	@FXML
+	private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+	@FXML
+	private URL location;
 
-    @FXML
-    private TextField dataConsultaField;
+	@FXML
+	private TextField dataConsultaField;
 
-    @FXML
-    private TextField areaField;
+	@FXML
+	private TextField areaField;
 
-    @FXML
-    private TextField indicacaoField;
+	@FXML
+	private TextField indicacaoField;
 
-    @FXML
-    private TextField honorarioField;
+	@FXML
+	private TextField honorarioField;
 
-    @FXML
-    private TextArea descricaoField;
+	@FXML
+	private TextArea descricaoField;
 
-    @FXML
-    private Button selectConButton;
-    
-    @FXML
-    private Button voltarButton;
+	@FXML
+	private Button selectConButton;
 
-    @FXML
-    private TextField nomeFuncionarioField;
+	@FXML
+	private Button voltarButton;
 
-    @FXML
-    private TextField numeroOabField;
+	@FXML
+	private TextField nomeFuncionarioField;
 
-    @FXML
-    private TextField cepField;
+	@FXML
+	private TextField numeroOabField;
 
-    @FXML
-    private TextField nomeTestemunhaField;
+	@FXML
+	private TextField cepField;
 
-    @FXML
-    private TextField telPreField;
+	@FXML
+	private TextField nomeTestemunhaField;
 
-    @FXML
-    private TextField telNumField;
+	@FXML
+	private TextField telPreField;
 
-    @FXML
-    private TextField ruaField;
+	@FXML
+	private TextField telNumField;
 
-    @FXML
-    private TextField numField;
+	@FXML
+	private TextField ruaField;
 
-    @FXML
-    private TextField bairroField;
+	@FXML
+	private TextField numField;
 
-    @FXML
-    private TextField cidadeField;
+	@FXML
+	private TextField bairroField;
 
-    @FXML
-    private TextField paisField;
+	@FXML
+	private TextField cidadeField;
 
-    @FXML
-    private ComboBox<Estado> estadoBox;
+	@FXML
+	private TextField paisField;
 
-    @FXML
-    private TextField compField;
+	@FXML
+	private ComboBox<Estado> estadoBox;
 
-    @FXML
-    private Button selectTestmunhaButton;
-    
-    private Cliente cliente;
-    private Consulta consulta;
-    private IFachada fachada;
-    private Dialogo dialogo;
-    
-    private Funcionario funcionario;
-    
+	@FXML
+	private TextField compField;
+
+	@FXML
+	private Button selectTestmunhaButton;
+
+	private Cliente cliente;
+	private Consulta consulta;
+	private IFachada fachada;
+	private Dialogo dialogo;
+
+	private Funcionario funcionario;
+
 	@Override
 	public void actionButton(ActionEvent event) {
-		
-		if(voltarButton == event.getSource() ) {
-			if(selectConButton.isVisible()) { // siginifica ter vindo da tela de cliente
+
+		if (voltarButton == event.getSource()) {
+			if (selectConButton.isVisible()) { // siginifica ter vindo da tela de cliente
 				App.notificarOuvintes(Tela.CLIENTES);
-			}else {// siginifica ter vindo da tela de consulta
+			} else {// siginifica ter vindo da tela de consulta
 				App.notificarOuvintes(Tela.CONSULTA);
 			}
-		}
-		else if(selectConButton == event.getSource()) {
+		} else if (selectConButton == event.getSource()) {
 			Log log;
 			try {
-				String busca[] = {cliente.getCpf_cnpj()};
-				
+				String busca[] = { cliente.getCpf_cnpj() };
+
 				List<ConsultaAdapter> consultas = fachada.buscarConsultaPorClienteAdapter(busca);
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: "+busca, StatusLog.CONCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+						"Buscar Consulta: " + busca, StatusLog.CONCLUIDO);
 				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecionar(consultas);
 				consulta = new Consulta();
 				consulta.setId(consultaBasica.getId());
 				atualizarDadosConsulta();
-				
-				
+
 			} catch (BusinessException e) {
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: Erro", StatusLog.ERRO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+						"Buscar Consulta: Erro", StatusLog.ERRO);
 				e.printStackTrace();
 			}
-		}else if(selectTestmunhaButton== event.getSource()) {
+
+			try {
+				if (log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				// TODO Bloco catch gerado automaticamente
+				e.printStackTrace();
+			}
+
+		} else if (selectTestmunhaButton == event.getSource()) {
 			Testemunha testemunha = dialogo.selecionar(consulta.getTestemunhas());
 			Telefone t = testemunha.getTelefone();
 			Endereco e = testemunha.getEndereco();
@@ -151,42 +161,43 @@ public class ControleDetalhesConsulta extends Controle{
 			compField.setText(e.getComplemento());
 			cepField.setText(e.getCep());
 		}
-			
+
 	}
+
 	@Override
 	public void atualizar(Tela tela, Object object) {
-		if(tela == Tela.DETALHES_CONSULTA) {
+		if (tela == Tela.DETALHES_CONSULTA) {
 			limparCampos();
-			if(object instanceof Cliente) {
+			if (object instanceof Cliente) {
 				Cliente cliente = (Cliente) object;
-				if(this.cliente == null || !this.cliente.equals(cliente) )
+				if (this.cliente == null || !this.cliente.equals(cliente))
 					this.cliente = cliente;
 				selectConButton.setVisible(true);
-			}else if(object instanceof ConsultaAdapter) {
-				this.consulta = new Consulta(); 
-				this.consulta.setId(((ConsultaAdapter)(object)).getId());
+			} else if (object instanceof ConsultaAdapter) {
+				this.consulta = new Consulta();
+				this.consulta.setId(((ConsultaAdapter) (object)).getId());
 				selectConButton.setVisible(false);
 				atualizarDadosConsulta();
 			}
-		}else {
+		} else {
 			consulta = null;
 		}
-			
+
 		if (object instanceof Funcionario) {
 			funcionario = (Funcionario) object;
-			
+
 		}
-		
+
 	}
 
 	private void limparCampos() {
-		
+
 		dataConsultaField.setText("");
 		honorarioField.setText("");
 		descricaoField.setText("");
 		indicacaoField.setText("");
 		areaField.setText("");
-		
+
 		nomeTestemunhaField.setText("");
 		telPreField.setText("");
 		telNumField.setText("");
@@ -198,39 +209,48 @@ public class ControleDetalhesConsulta extends Controle{
 		paisField.setText("");
 		compField.setText("");
 		cepField.setText("");
-		
+
 	}
+
 	@Override
 	public void init() {
-		fachada = Fachada.getInstance(); 
+		fachada = Fachada.getInstance();
 		dialogo = Dialogo.getInstance();
+		
+		MaskFieldUtil.numericField(honorarioField);
+		MaskFieldUtil.numericField(telNumField);
+		MaskFieldUtil.numericField(telPreField);
+		MaskFieldUtil.numericField(cepField);
 	}
 
 	private void atualizarDadosConsulta() {
-		
+
 		Log log;
 		try {
 			// pegando demais dados da consulta;
 			consulta = fachada.buscarConsultaPorId(consulta.getId());
-			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: "+consulta.getArea(), StatusLog.CONCLUIDO);
-			
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+					"Buscar Consulta: " + consulta.getArea(), StatusLog.CONCLUIDO);
+
 			FuncionarioAdapter f = fachada.buscarUsuarioPorConsultaAdapter(consulta.getId());
-			// adicionando dados que não podem ser editador tais nome e numero do funcionario advindos do consulta adapter
+			// adicionando dados que não podem ser editador tais nome e numero do
+			// funcionario advindos do consulta adapter
 			nomeFuncionarioField.setText(f.getNome());
 			numeroOabField.setText(f.getNumero());
-			
+
 			dataConsultaField.setText(consulta.getData_consulta().toString());
-			honorarioField.setText(consulta.getValor_honorario()+"");
+			honorarioField.setText(consulta.getValor_honorario() + "");
 			descricaoField.setText(consulta.getDescricao());
 			indicacaoField.setText(consulta.getIndicacao());
 			areaField.setText(consulta.getArea().toString());
 		} catch (BusinessException e) {
-			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: Erro", StatusLog.ERRO);
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+					"Buscar Consulta: Erro", StatusLog.ERRO);
 			e.printStackTrace();
 		}
-		
+
 		try {
-			if(log != null)
+			if (log != null)
 				fachada.salvarEditarLog(log);
 		} catch (BusinessException e) {
 			// TODO Bloco catch gerado automaticamente

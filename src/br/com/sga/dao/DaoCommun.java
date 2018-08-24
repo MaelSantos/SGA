@@ -166,9 +166,9 @@ public class DaoCommun implements IDaoCommun{
 			while (resultSet.next()) {
 				//            	id ,cliente_id, numero, prefixo
 				telefone = new Telefone();
-				telefone.setId(resultSet.getInt(1));
-				telefone.setPrefixo(resultSet.getInt(2));
-				telefone.setNumero(resultSet.getInt(3));
+				telefone.setId(resultSet.getInt("id"));
+				telefone.setPrefixo(resultSet.getInt("prefixo"));
+				telefone.setNumero(resultSet.getInt("numero"));
 				contatos.add(telefone);
 			}
 			this.connection.close();
@@ -462,13 +462,13 @@ public class DaoCommun implements IDaoCommun{
 	}
 
 	@Override
-	public Endereco getEndereco(int id) throws DaoException {
+	public Endereco getEndereco(int id_cliente) throws DaoException {
 		
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			this.statement = connection.prepareStatement(SQLUtil.Endereco.SELECT_ID);
+			this.statement = connection.prepareStatement(SQLUtil.Endereco.SELECT_ID_CLIENTE);
 	
-			statement.setInt(1, id);
+			statement.setInt(1, id_cliente);
 			resultSet = statement.executeQuery();
 			
 			Endereco endereco = null;

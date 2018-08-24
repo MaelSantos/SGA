@@ -11,6 +11,7 @@ import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.MaskFieldUtil;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.enums.Area;
@@ -284,6 +285,11 @@ public class ControleCadastroConsulta extends Controle{
 		funcionarioLogadoRadio.setToggleGroup(tg);
 		funcionarioLogadoRadio.setSelected(true);
 		outroFuncionarioRadio.setToggleGroup(tg);
+		
+		MaskFieldUtil.numericField(honorarioField);
+		MaskFieldUtil.numericField(telefoneNumeroField);
+		MaskFieldUtil.numericField(telefonePreField);
+		MaskFieldUtil.numericField(cepField);
 	}
 
 	private void limparCamposTestemunha() {

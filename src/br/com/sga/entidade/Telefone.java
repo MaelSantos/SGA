@@ -62,7 +62,7 @@ public class Telefone {
 
 	@Override
 	public String toString() {
-		return "Telefone = "+tipo+" ("+prefixo+")"+numero;
+		return tipo+" ("+prefixo+")"+numero;
 	}
 	
 }

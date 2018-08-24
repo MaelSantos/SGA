@@ -11,6 +11,7 @@ import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.MaskFieldUtil;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.EstadoCivil;
@@ -26,6 +27,7 @@ import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -124,7 +126,7 @@ public class ControleCadastroCliente extends Controle{
 
 	private List<Telefone> telefones;
 
-	private ToggleGroup group = new ToggleGroup();
+	private ToggleGroup group;
 	private IFachada fachada;
 	private Funcionario funcionario;
 
@@ -137,12 +139,16 @@ public class ControleCadastroCliente extends Controle{
 			{
 				try {
 					
-					telefones.add(new Telefone(Integer.parseInt(tfdTelefone.getText().trim()), 
+					Telefone telefone = new Telefone(
+							Integer.parseInt(tfdTelefone.getText().trim()), 
 							Integer.parseInt(tfdPrefixo.getText().trim()), 
-							TipoTelefone.getTipo(cbxTipoTelefone.getValue().toString())));
+							cbxTipoTelefone.getValue());
+					telefones.add(telefone);
 					
 					tfdTelefone.setText("");
 					tfdPrefixo.setText("");
+					
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Adicionado", telefone+"", "");
 					
 				} catch (Exception e) {
 					Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Adicionar Telefone!!!", e.getMessage());
@@ -275,6 +281,7 @@ public class ControleCadastroCliente extends Controle{
 	public void init() {
 		telefones = new ArrayList<>();
 		fachada = Fachada.getInstance();
+		group = new ToggleGroup();
 
 		cbxTipoCliente.getItems().addAll(TipoCliente.values());
 		cbxEstado_civil.getItems().addAll(EstadoCivil.values());
@@ -291,7 +298,9 @@ public class ControleCadastroCliente extends Controle{
 		cbxTelefoneResposavel.setVisible(false);
 		tfdTelefoneResponsavel.setVisible(false);
 
-		
+		MaskFieldUtil.cpfCnpjField(tfdCpfCnpj);
+		MaskFieldUtil.numericField(tfdRg);
+		MaskFieldUtil.numericField(tfdCep);
 	}
 
 }

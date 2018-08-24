@@ -141,7 +141,7 @@ public class SQLUtil {
 	    public static final String SELECT_CLIENTE_ENDERECO_CPF = "SELECT * FROM CLIENTE a, ENDERECO e where a.endereco_id=e.id AND cpf_cnpj = ?";
 
 	    public static final String SELECT_ID = "SELECT * FROM ENDERECO WHERE ID = ?";
-	    public static final String SELECT_ID_CLIENTE = "SELECT d.* FROM ENDERECO d, CLIENTE c WHERE c.id_endereco = ? AND c.id_endereco = d.id";
+	    public static final String SELECT_ID_CLIENTE = "SELECT e.* FROM ENDERECO e, CLIENTE c WHERE c.id = ? AND c.id_endereco = e.id";
 	    
 	    public static final String UPDATE_ALL = "UPDATE ENDERECO SET rua = ?, numero = ?, bairro = ?, cidade = ?, cep = ?, pais = ?, estado = ?, complemento = ? where id = ?";
     }

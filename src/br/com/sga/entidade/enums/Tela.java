@@ -9,7 +9,7 @@ public enum Tela{
 	CADASTRO_CONTRATO("Cadastro Contrato"), CADASTRO_PROCESSO("Cadastro Processo"),
 	DETALHES_PROCESSO("Detalhes Processo"),BUSCAR_CONTRATO("Buscar Contrato"), CADASTRO_AUDIENCIA("Cadastro Audiência"),
 	CADASTRO_CONSULTA("Cadastro Consulta"),CADASTRO_RECEITA_DESPESA("Cadastro Receita Despesa"),CONSULTA("Consulta"),
-	DETALHES_CONSULTA("Detalhe Consulta"),DETALHES_CONTRATO("Detalhes Contrat"),ESTATISTICA("Estatística");
+	DETALHES_CONSULTA("Detalhe Consulta"),DETALHES_CONTRATO("Detalhes Contrato"),ESTATISTICA("Estatística");
 	
 	private String value;
 	
@@ -30,6 +30,5 @@ public enum Tela{
 	public String toString() {
 		return value;
 	}
-
 	
 }

@@ -12,6 +12,7 @@ import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.MaskFieldUtil;
 import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
@@ -92,6 +93,8 @@ public class ControleCadastroReceitaDespesa extends Controle{
 		cbxTipoPagamentoGasto.getItems().addAll(TipoPagamento.values());		
 		fachada = Fachada.getInstance();
 		daoCommun = DaoCommun.getInstance();
+		
+		MaskFieldUtil.numericField(tfdValor);
 	}
 
 	@Override

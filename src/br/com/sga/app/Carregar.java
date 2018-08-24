@@ -50,7 +50,7 @@ public class Carregar implements Initializable{
 					public void updateData()
 					{
 						updateMessage(texto);
-						porcentagem += 100/24; //porcentagem total dividido por quantidade de telas
+						porcentagem += 100/25; //porcentagem total dividido por quantidade de telas
 						updateProgress(porcentagem, 100);
 						System.out.println(contador++);
 						System.out.println(texto);
