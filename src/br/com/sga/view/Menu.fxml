@@ -91,21 +91,6 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="btnArea" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Área De Trabalho" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                           <effect>
-                              <DropShadow blurType="GAUSSIAN" />
-                           </effect>
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0">
-                                 <image>
-                                    <Image url="@../../../../../res/icones/icons8_User_50px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
                         <Button fx:id="btnAgenda" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Agenda" textFill="WHITE">
                            <font>
                               <Font name="Verdana" size="12.0" />
@@ -271,7 +256,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <FlowPane alignment="BOTTOM_CENTER" columnHalignment="CENTER" prefHeight="70.0" prefWidth="200.0">
+                        <FlowPane alignment="BOTTOM_CENTER" columnHalignment="CENTER" prefHeight="97.0" prefWidth="200.0">
                            <children>
                               <Button fx:id="btnInformacoes" alignment="BOTTOM_LEFT" cache="true" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#actionButton" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: teal;" text="Informações" textFill="WHITE">
                                  <font>

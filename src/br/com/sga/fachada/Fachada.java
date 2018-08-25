@@ -269,4 +269,9 @@ public class Fachada implements IFachada {
 		return businessCliente.buscarPorIdConsulta(id_consulta);
 	}
 
+	@Override
+	public List<ProcessoAdapter> buscaProcessoPorClienteAdapter(String[] busca) throws BusinessException {
+		return businessProcesso.buscaPorClienteAdapter(busca);
+	}
+
 }

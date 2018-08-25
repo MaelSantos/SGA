@@ -17,6 +17,8 @@ import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.adapter.ProcessoAdapter;
+import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.EstadoCivil;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.Sexo;
@@ -45,9 +47,6 @@ public class ControleCliente extends Controle {
 	private Button btnBuscar;
 
 	@FXML
-	private Button btnConsultas;
-
-	@FXML
 	private Button btnSalvar;
 
 	@FXML
@@ -61,12 +60,6 @@ public class ControleCliente extends Controle {
 
 	@FXML
 	private TextField tfdRg;
-
-	@FXML
-	private DatePicker tfdNascimento;
-
-	@FXML
-	private TextField tfdGenero;
 
 	@FXML
 	private TextField tfdProfissao;
@@ -93,6 +86,12 @@ public class ControleCliente extends Controle {
 	private ComboBox<Boolean> cbxFilhos;
 
 	@FXML
+	private DatePicker tfdNascimento;
+
+	@FXML
+	private ComboBox<Sexo> cbxGenero;
+
+	@FXML
 	private TextField tfdRua;
 
 	@FXML
@@ -105,9 +104,6 @@ public class ControleCliente extends Controle {
 	private TextField tfdCidade;
 
 	@FXML
-	private TextField tfdEstado;
-
-	@FXML
 	private TextField tfdPais;
 
 	@FXML
@@ -117,11 +113,16 @@ public class ControleCliente extends Controle {
 	private TextField tfdComplemento;
 
 	@FXML
+	private ComboBox<Estado> cbxEstado;
+
+	@FXML
 	private Button btnProcessos;
 
 	@FXML
 	private Button btnContratos;
 
+	@FXML
+	private Button btnConsultas;
 	private IFachada fachada;
 	private Dialogo dialogo;
 	private Cliente cliente;
@@ -163,9 +164,6 @@ public class ControleCliente extends Controle {
 		if (obj == btnBuscar) {
 			Log log;
 			try {
-				// ClienteAdapter adapter =
-				// dialogo.selecao(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText()),"Seleção
-				// de cliente","Selcione um cliente para mais detalhes");
 				ClienteAdapter adapter = dialogo
 						.selecionar(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText().trim()));
 
@@ -199,34 +197,39 @@ public class ControleCliente extends Controle {
 				try {
 					adapter = dialogo.selecionar(fachada.buscarContratoPorClienteAdapter(cliente.getCpf_cnpj()));
 					Contrato contrato = fachada.buscarContratoPorId(adapter.getId());
-					if (adapter != null)
-					{
+					if (adapter != null) {
 						App.notificarOuvintes(Tela.DETALHES_CONTRATO, cliente);
-						App.notificarOuvintes(Tela.DETALHES_CONTRATO, contrato);						
+						App.notificarOuvintes(Tela.DETALHES_CONTRATO, contrato);
 					}
 				} catch (BusinessException e) {
 					e.printStackTrace();
 				}
 			} else
 				Alerta.getInstance().showMensagem("Alerta", "",
-						"Nehum cliente selecionado : \nfavor selecionar um clientes e após clikar para visualizar suas contratos");
+						"Nenhum Cliente Selecionado : \nFavor Selecionar Um Cliente e Após Clicar Para Visualizar Seus Contratos");
 		} else if (obj == btnProcessos) {
 			if (cliente != null) {
-				// Processo processo = dialogo.selecionar(fachada.proce)
-				// App.notificarOuvintes(Tela.DETALHES_PROCESSO, fachada.buscaproc);
+				ProcessoAdapter adapter;
+				try {
+					adapter = dialogo
+							.selecionar(fachada.buscaProcessoPorClienteAdapter(new String[] { cliente.getId() + "" }));
+					Processo processo = fachada.buscarProcessoPorId(adapter.getId());
+					App.notificarOuvintes(Tela.DETALHES_PROCESSO, processo);
+				} catch (BusinessException e) {
+					e.printStackTrace();
+				}
 
 			} else
 				Alerta.getInstance().showMensagem("Alerta", "",
-						"Nehum cliente selecionado : \nfavor selecionar um clientes e após clikar para visualizar suas consultas");
+						"Nenhum Cliente Selecionado : \nFavor Selecionar Um Cliente e Após Clicar Para Visualizar Seus Processos");
 		} else if (obj == btnConsultas) {
 			if (cliente != null) {
 				ConsultaAdapter adapter;
 				try {
-						adapter = dialogo.selecionar(
-								fachada.buscarConsultaPorClienteAdapter(new String[] { cliente.getCpf_cnpj() }));
-						Consulta consulta = fachada.buscarConsultaPorId(adapter.getId());
-					if (adapter != null)
-					{
+					adapter = dialogo.selecionar(
+							fachada.buscarConsultaPorClienteAdapter(new String[] { cliente.getCpf_cnpj() }));
+					Consulta consulta = fachada.buscarConsultaPorId(adapter.getId());
+					if (adapter != null) {
 						App.notificarOuvintes(Tela.DETALHES_CONSULTA, cliente);
 						App.notificarOuvintes(Tela.DETALHES_CONSULTA, consulta);
 					}
@@ -236,7 +239,7 @@ public class ControleCliente extends Controle {
 
 			} else
 				Alerta.getInstance().showMensagem("Alerta", "",
-						"Nehum cliente selecionado : \nfavor selecionar um clientes e após clikar para visualizar suas consultas");
+						"Nenhum Cliente Selecionado : \nFavor Selecionar Um Cliente e Após Clicar Para Visualizar Suas Consultas");
 		} else if (obj == btnSalvar) {
 			Log log = null;
 			try {
@@ -250,6 +253,9 @@ public class ControleCliente extends Controle {
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(),
 						"Editar Cliente: " + cliente.getCpf_cnpj(), StatusLog.ERRO);
 				e.printStackTrace();
+			} catch (NullPointerException e) {
+				Alerta.getInstance().showMensagem("Erro!!!", "Por favor Selecione Primeiro Um Cliente!!!",
+						e.getMessage());
 			}
 
 			try {
@@ -270,7 +276,7 @@ public class ControleCliente extends Controle {
 		cliente.getEndereco().setCep(tfdCep.getText().trim());
 		cliente.getEndereco().setCidade(tfdCidade.getText().trim());
 		cliente.getEndereco().setComplemento(tfdComplemento.getText().trim());
-		cliente.getEndereco().setEstado(tfdEstado.getText().trim());
+		cliente.getEndereco().setEstado(cbxEstado.getValue().toString());
 		cliente.getEndereco().setNumero(tfdNumero.getText());
 		cliente.getEndereco().setPais(tfdPais.getText().trim());
 		cliente.getEndereco().setRua(tfdRua.getText().trim());
@@ -280,7 +286,7 @@ public class ControleCliente extends Controle {
 		cliente.setCpf_cnpj(tfdCpfCnpj.getText().trim());
 		cliente.setEmail(tfdEmail.getText().trim());
 		cliente.setEstado_civil(cbxEstadoCivil.getValue().name());
-		cliente.setGenero(Sexo.getSexo(tfdGenero.getText().trim()));
+		cliente.setGenero(cbxGenero.getValue());
 
 		try {
 			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -313,7 +319,7 @@ public class ControleCliente extends Controle {
 		tfdCep.setText(cliente.getEndereco().getCep());
 		tfdCidade.setText(cliente.getEndereco().getCidade());
 		tfdComplemento.setText(cliente.getEndereco().getComplemento());
-		tfdEstado.setText(cliente.getEndereco().getEstado());
+		cbxEstado.setValue(Estado.getEstado(cliente.getEndereco().getEstado()));
 		tfdNumero.setText(cliente.getEndereco().getNumero());
 		tfdPais.setText(cliente.getEndereco().getPais());
 		tfdRua.setText(cliente.getEndereco().getRua());
@@ -323,7 +329,7 @@ public class ControleCliente extends Controle {
 		tfdCpfCnpj.setText(cliente.getCpf_cnpj());
 		tfdEmail.setText(cliente.getEmail());
 		cbxEstadoCivil.setValue(EstadoCivil.getValor(cliente.getEstado_civil()));
-		tfdGenero.setText(cliente.getGenero().getSexo());
+		cbxGenero.setValue(cliente.getGenero());
 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		tfdNascimento.getEditor().setText(df.format(cliente.getNascimento()).toString());

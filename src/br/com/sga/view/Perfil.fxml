@@ -2,70 +2,201 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControlePerfil">
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControlePerfil">
    <children>
-      <FlowPane alignment="TOP_CENTER" hgap="20.0" prefHeight="600.0" prefWidth="203.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <ImageView fitHeight="179.0" fitWidth="187.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../res/SGA%20-%20Nome.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="lblNome" text="Nome Sobrenome" textFill="WHITE">
-               <font>
-                  <Font name="Verdana" size="19.0" />
-               </font>
-            </Label>
-            <Separator prefWidth="190.0" />
-            <Button fx:id="editarPerfilButton" mnemonicParsing="false" onAction="#actionButton" text="Editar Perfil">
-               <font>
-                  <Font name="Verdana" size="12.0" />
-               </font></Button>
-         </children>
+      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
-            <Insets top="20.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
-      </FlowPane>
-      <TabPane layoutX="209.0" layoutY="6.0" prefHeight="590.0" prefWidth="485.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
-        <tabs>
-          <Tab text="Agenda Diária">
-               <content>
-                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" />
-               </content>
-            </Tab>
-          <Tab text="Tarefas">
-               <content>
-                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
+         <top>
+            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="680.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="lblNome" text="Nome Sobrenome" textFill="WHITE">
+                     <font>
+                        <Font name="Verdana" size="24.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
                      <children>
-                        <FlowPane alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="485.0">
-                           <children>
-                              <Button fx:id="cadastrarTarefaButton" mnemonicParsing="false" onAction="#actionButton" text="Cadastrar nova tarefa" />
-                           </children>
-                           <VBox.margin>
-                              <Insets right="20.0" />
-                           </VBox.margin>
-                        </FlowPane>
-                        <Pagination fx:id="diasPagination" maxPageIndicatorCount="7" pageCount="7" prefHeight="515.0" prefWidth="457.0" />
+                        <Label text="Nome:" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Email:" textFill="WHITE" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Login:" textFill="WHITE" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Numero OAB:" textFill="WHITE" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfdNome" editable="false" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfdEmail" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfdLogin" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfdNumeroOab" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
                      </children>
-                     <padding>
-                        <Insets left="20.0" right="20.0" />
-                     </padding></VBox>
-               </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-      <Separator layoutX="203.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </GridPane>
+                  <Separator prefWidth="200.0" />
+                  <GridPane hgap="5.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <TextField fx:id="tfdRua" promptText="Rua" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfdNumero" promptText="Numero" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfdBairro" promptText="Bairro" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfdCidade" promptText="Cidade" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfdPais" promptText="Pais" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfdCep" promptText="CEP" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfdComplemento" promptText="Complemento" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Label text="Rua" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label text="Numero" textFill="WHITE" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label text="Bairro" textFill="WHITE" GridPane.columnIndex="2">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label text="CEP" textFill="WHITE" GridPane.columnIndex="3">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label text="Cidade" textFill="WHITE" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label text="Estado" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label text="Pais" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label text="Complemento" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbxEstado" prefWidth="150.0" promptText="Estado" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <ButtonBar prefHeight="92.0" prefWidth="680.0" BorderPane.alignment="CENTER">
+              <buttons>
+                <Button fx:id="btnEditarPerfil" mnemonicParsing="false" onAction="#actionButton" prefHeight="23.0" prefWidth="88.0" text="Editar Perfil">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </Button>
+              </buttons>
+            </ButtonBar>
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>

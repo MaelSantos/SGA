@@ -5,14 +5,10 @@
  */
 package br.com.sga.exceptions;
 
-/**
- *
- * @author prof Heldon
- */
 public class BusinessException extends Exception{
 
     public BusinessException(String message) {
-        super(message);
+        super(message.toUpperCase());
     }
     
     

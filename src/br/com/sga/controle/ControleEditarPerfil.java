@@ -68,7 +68,7 @@ public class ControleEditarPerfil extends Controle{
     @FXML
     public void actionButton(ActionEvent event) {
     	if(event.getSource() == voltarButton) {
-    		App.notificarOuvintes(Tela.PERFIL, funcionario);
+    		App.notificarOuvintes(Tela.CONFIGURACOES, funcionario);
     	}
     	else
     	{ 

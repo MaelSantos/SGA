@@ -119,17 +119,24 @@ public class ControleDetalhesConsulta extends Controle {
 				App.notificarOuvintes(Tela.CONSULTA);
 			}
 		} else if (selectConButton == event.getSource()) {
-			Log log;
+			Log log = null;
 			try {
+				
 				String busca[] = { cliente.getCpf_cnpj() };
-
 				List<ConsultaAdapter> consultas = fachada.buscarConsultaPorClienteAdapter(busca);
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-						"Buscar Consulta: " + busca, StatusLog.CONCLUIDO);
 				ConsultaAdapter consultaBasica = Dialogo.getInstance().selecionar(consultas);
-				consulta = new Consulta();
-				consulta.setId(consultaBasica.getId());
-				atualizarDadosConsulta();
+				if(consultaBasica != null)
+				{
+					consulta = new Consulta();
+					consulta.setId(consultaBasica.getId());
+					atualizarDadosConsulta();
+					
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+							"Buscar Consulta: " + busca, StatusLog.CONCLUIDO);					
+				}
+				else if(consultas.isEmpty())
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+							"Buscar Consulta: " + busca, StatusLog.SEM_RESULTADOS);
 
 			} catch (BusinessException e) {
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),

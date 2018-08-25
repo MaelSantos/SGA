@@ -54,13 +54,13 @@ public interface IFachada {
     public List<Contrato> buscarContratoPorBusca(String busca) throws BusinessException;
     public List<ContratoAdapter> buscarContratoPorClienteAdapter(String busca) throws BusinessException;
     public List<ContratoAdapter> buscaAllContratoAdapter() throws BusinessException;
-   
     
     //processo
     public void salvarEditarProcesso(Processo entidade) throws BusinessException;
     public Processo buscarProcessoPorId(int id) throws BusinessException;
     public List<Processo> buscarProcessoPorBusca(String busca) throws BusinessException;
     public List<ProcessoAdapter> buscaAllProcessoAdapter(String tipo) throws BusinessException;
+    public List<ProcessoAdapter> buscaProcessoPorClienteAdapter(String[] busca) throws BusinessException;
      
     //financeiro
     public void salvarEditarFinanceiro(Financeiro entidade) throws BusinessException;

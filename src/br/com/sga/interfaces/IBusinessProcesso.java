@@ -13,4 +13,5 @@ public interface IBusinessProcesso {
     public Processo buscarPorId(int id) throws BusinessException;
     public List<Processo> buscarPorBusca(String busca) throws BusinessException;
     public List<ProcessoAdapter> buscarAllAdapter(String tipo)throws BusinessException;
+    public List<ProcessoAdapter> buscaPorClienteAdapter(String[] busca) throws BusinessException;
 }

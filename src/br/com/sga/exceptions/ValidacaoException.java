@@ -5,14 +5,10 @@
  */
 package br.com.sga.exceptions;
 
-/**
- *
- * @author prof Heldon
- */
 public class ValidacaoException extends Exception{
 
     public ValidacaoException(String message) {
-        super(message);
+        super(message.toUpperCase());
     }
     
     
