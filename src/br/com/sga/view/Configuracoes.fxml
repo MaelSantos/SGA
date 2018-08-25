@@ -27,7 +27,7 @@
                      </font>
                   </Label>
                   <Separator prefWidth="190.0" />
-                  <Button fx:id="editarPerfilButton" mnemonicParsing="false" onAction="#actionButton" prefHeight="23.0" prefWidth="165.0" text="Editar Perfil">
+                  <Button fx:id="btnPerfil" mnemonicParsing="false" onAction="#actionButton" prefHeight="23.0" prefWidth="165.0" text="Perfil">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font>

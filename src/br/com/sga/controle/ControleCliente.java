@@ -148,6 +148,8 @@ public class ControleCliente extends Controle {
 		cbxEstadoCivil.getItems().setAll(EstadoCivil.values());
 		cbxFilhos.getItems().setAll(true, false);
 		cbxTipo.getItems().setAll(TipoCliente.values());
+		cbxEstado.getItems().setAll(Estado.values());
+		cbxGenero.getItems().setAll(Sexo.values());
 
 		MaskFieldUtil.cpfCnpjField(tfdCpfCnpj);
 		MaskFieldUtil.numericField(tfdRg);

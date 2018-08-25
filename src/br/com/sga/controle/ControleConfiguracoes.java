@@ -14,7 +14,7 @@ public class ControleConfiguracoes extends Controle{
 	private Label lblNome;
 
 	@FXML
-	private Button editarPerfilButton;
+	private Button btnPerfil;
 
 	@FXML
 	private Button btnAddAdm;
@@ -28,8 +28,8 @@ public class ControleConfiguracoes extends Controle{
     	
     	if(obj == btnAddAdm)
     		App.notificarOuvintes(Tela.CADASTRO, usuario);
-    	if(obj == editarPerfilButton) 
-    		App.notificarOuvintes(Tela.EDITAR_PERFIL, usuario);
+    	if(obj == btnPerfil) 
+    		App.notificarOuvintes(Tela.PERFIL, usuario);
     	
     }
 
