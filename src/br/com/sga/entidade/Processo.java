@@ -10,7 +10,6 @@ public class Processo {
 
 	private Integer id; //id SERIAL PRIMARY KEY,
 	
-	private Contrato contrato; //contrato_id INTEGER REFERENCES CONTRATO(id),
 	private boolean status; //status  BOOLEAN,  
 	private Date data_atuacao; //data_atuacao  DATE NOT NULL,
 	private	String numero; //numero varchar(255) UNIQUE NOT NULL, 
@@ -23,6 +22,7 @@ public class Processo {
 	private TipoProcesso tipo_processo; //tipo_processo  VARCHAR(255) NOT NULL,
 	private TipoParticipacao tipo_participacao; //tipo_participacao  VARCHAR(255)
 	private List<Audiencia> audiencias;
+	private Contrato contrato; //contrato_id INTEGER REFERENCES CONTRATO(id),
 	
 	public Integer getId() {
 		return id;

@@ -51,7 +51,7 @@ public class Documentos {
 
 		/* Using compiled version(.jasper) of Jasper report to generate PDF */
 		JasperPrint jasperPrint = JasperFillManager.fillReport(relatorio, parameters, itemsJRBean);
-
+	
 		JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
 		jasperViewer.setZoomRatio(0.75F);
 		jasperViewer.setLocationRelativeTo(null);
@@ -63,7 +63,7 @@ public class Documentos {
 	public static void main(String[] args) {
 				
 		try {
-			List<Contrato> list = new ArrayList<>();
+			List<Processo> list = new ArrayList<>();
 			Contrato contrato = new Contrato();
 			contrato.setArea(Area.CIVIL);
 			contrato.setDados_banco("BANCO DO BRASIL, AGÊNCIA 0000-0, CONTA CORRENTE 00.000-0, CPF 000.000.000-00");
@@ -73,15 +73,15 @@ public class Documentos {
 			contrato.setTipo_pagamento(TipoPagamento.A_VISTA);
 			contrato.setValor_total(120000);
 			Consulta consulta = new Consulta();
-			Processo processo = Fachada.getInstance().buscarProcessoPorId(1);
+			Processo processo = Fachada.getInstance().buscarProcessoPorId(4);
+			processo.setContrato(contrato);
 			Cliente cliente = Fachada.getInstance().buscarClientePorId(1);
 			Funcionario funcionario = Fachada.getInstance().buscarPorLogin("mael_santos7", "0708");
 			consulta.setCliente(cliente);
 			consulta.setFuncionario(funcionario);
 			funcionario.setEndereco(cliente.getEndereco());
 			contrato.setConsulta(consulta);
-			contrato.setProcesso(processo);
-			list.add(contrato);
+			list.add(processo);
 			System.out.println(list);
 			new Documentos().gerarDocumento(list, "Contrato.jrxml");
 			

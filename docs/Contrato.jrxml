@@ -5,13 +5,10 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="consulta" class="br.com.sga.entidade.Consulta"/>
-	<field name="area" class="br.com.sga.entidade.enums.Area"/>
-	<field name="processo" class="br.com.sga.entidade.Processo"/>
-	<field name="valor_total" class="java.lang.Float"/>
-	<field name="tipo_pagamento" class="br.com.sga.entidade.enums.TipoPagamento"/>
-	<field name="dados_banco" class="java.lang.String"/>
-	<field name="parcelas" class="java.util.List"/>
+	<field name="contrato" class="br.com.sga.entidade.Contrato"/>
+	<field name="tipo_processo" class="br.com.sga.entidade.enums.TipoProcesso"/>
+	<field name="tipo_participacao" class="br.com.sga.entidade.enums.TipoParticipacao"/>
+	<field name="numero" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -37,81 +34,98 @@
 		<band height="50" splitType="Stretch">
 			<textField>
 				<reportElement x="1" y="10" width="552" height="40" uuid="ed0e4be0-72be-4d89-a7e7-e29e9df96f0c"/>
-				<textFieldExpression><![CDATA[$F{consulta}.getCliente().getNome()+", brasileiro(a) "+$F{consulta}.getCliente().getEstado_civil()+", "+$F{consulta}.getCliente().getProfissao()+", inscrito(a) no CPF/MF sob o n° "+$F{consulta}.getCliente().getCpf_cnpj()+", e RG  "+$F{consulta}.getCliente().getRg()+" SSP/PE, residente e domiciliado(a) no(a) "+$F{consulta}.getCliente().getEndereco().getRua()+", "+$F{consulta}.getCliente().getEndereco().getBairro()+", "+$F{consulta}.getCliente().getEndereco().getCidade()+"/"+$F{consulta}.getCliente().getEndereco().getEstado()+", Cep "+$F{consulta}.getCliente().getEndereco().getCep()+"Denominado aqui CONTRATANTE e "]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["<b>"+$F{contrato}.getConsulta().getCliente().getNome()+"<\b>, brasileiro(a) "+$F{contrato}.getConsulta().getCliente().getEstado_civil()+", "+$F{contrato}.getConsulta().getCliente().getProfissao()+", inscrito(a) no CPF/MF sob o n° "+$F{contrato}.getConsulta().getCliente().getCpf_cnpj()+", e RG  "+$F{contrato}.getConsulta().getCliente().getRg()+" SSP/PE, residente e domiciliado(a) no(a) "+$F{contrato}.getConsulta().getCliente().getEndereco().getRua()+", "+$F{contrato}.getConsulta().getCliente().getEndereco().getBairro()+", "+$F{contrato}.getConsulta().getCliente().getEndereco().getCidade()+"/"+$F{contrato}.getConsulta().getCliente().getEndereco().getEstado()+", Cep "+$F{contrato}.getConsulta().getCliente().getEndereco().getCep()+"Denominado aqui CONTRATANTE e "]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="592">
 			<textField>
 				<reportElement x="1" y="0" width="552" height="90" uuid="ab39166f-4d85-4fa4-a464-bd0734317087"/>
-				<textFieldExpression><![CDATA[$F{consulta}.getFuncionario().getNome()+", brasileiro(a) "+", advogado"+", inscrito(a) no OAB/PE sob o n° "+$F{consulta}.getFuncionario().getNumero_oab()+", com o escritório profissional á Rua  "+$F{consulta}.getFuncionario().getEndereco().getRua()+" - "+$F{consulta}.getFuncionario().getEndereco().getBairro()+", "+$F{consulta}.getFuncionario().getEndereco().getCidade()+"/"+$F{consulta}.getFuncionario().getEndereco().getEstado()+", Cep "+$F{consulta}.getFuncionario().getEndereco().getCep()+", onde recebe intimações, denominado neste instrumento como CONTRATADO, as partes acima indetificadas têm, entre si, justo e acertado o presente Contrato de Honorários Advocatícios, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente."]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{contrato}.getConsulta().getFuncionario().getNome()+", brasileiro(a) "+", advogado"+", inscrito(a) no OAB/PE sob o n° "+$F{contrato}.getConsulta().getFuncionario().getNumero_oab()+", com o escritório profissional á Rua  "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getRua()+" - "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getBairro()+", "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getCidade()+"/"+$F{contrato}.getConsulta().getFuncionario().getEndereco().getEstado()+", Cep "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getCep()+", onde recebe intimações, denominado neste instrumento como CONTRATADO, as partes acima indetificadas têm, entre si, justo e acertado o presente Contrato de Honorários Advocatícios, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="89" width="552" height="40" uuid="558ceea9-d12c-4c94-813d-6b6c34205fa0"/>
-				<textFieldExpression><![CDATA["Cláusula 1ª. O Presente instrumento tem como OBJETO a prestação de serviços advocativos, na área, "+$F{area}.toString()+" a ser realizado em  "+$F{processo}.getTipo_processo().toString()+", para "+$F{processo}.getTipo_participacao()+" no Processo Nº "+$F{processo}.getNumero()+", que tem como partes "]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["Cláusula 1ª. O Presente instrumento tem como OBJETO a prestação de serviços advocativos, na área, "+$F{contrato}.getArea().toString()+" a ser realizado em  "+$F{tipo_processo}.toString()+", para "+$F{tipo_participacao}+" no Processo Nº "+$F{numero}+", que tem como partes "]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="131" width="552" height="109" uuid="9363ce17-4224-4d11-a839-ff378bead605"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Cláusula 2ª. As atividades inclusas na prestação de serviço objeto neste instrumento são todas aquelas inerentes à profissão, quais sejam: \n\n\ta) Praticar quisquer atos e medidas necessárias e inerentes à causa, em todas as repartições públicas da União, dos Estados ou dos Municípios, bem como orgãos a estes ligados direta ou indiretamente, seja por delegação, concessão ou outros meios, bem como de estabelecimentos particulares; \n\tb) Praticar todos os atos inerentes ao exercício da advocacia e aqueles constantes no Estatuto da Ordem dos Advogados do Brasil, bem como os especificados no Instrumento Procuratório."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="243" width="552" height="57" uuid="75c50efb-023d-4552-ae80-980ea08e54e9"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Cláusula 3ª. Havendo necessidade de contratação de outros profissionais, no decurso do processo, o CONTRATADO elaborará substabelecimento, indicando escritório de seu conhecimento, restando facultado ao CONTRATANTE aceita-lo ou não. Aceitando, ficará sob responsabilidade, única e exclusivamente do CONTRATANTE no que concerne aos honorários e atividades a serem exercidas."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="300" width="552" height="30" uuid="11a34b6e-45f7-4b1e-bbce-e66736b31b20"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Cláusula 4ª. Todas as despesas efetuadas pelo CONTRATADO, ligadas diretamente ou indiretamente com o processo, incluindo-se, emolumentos, custas e despesas processuais, viagens, entre outros, ficarão a cargo dos CONTRATANTES."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="330" width="552" height="30" uuid="ad4b90a5-805f-4892-a3c7-b44c5f0aa526"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Cláusula 5ª. Todas as despesas serão acompanhadas de recibo, devidamente preparado e assinado pelo CONTRATADO."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="348" width="552" height="30" uuid="b1c8d4b8-d48b-4a88-aa02-2a13db17d3ab"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Cláusula 6ª. As partes acordam que facultará aos CONTRATADOS, o direito de realizar a cobrança dos honorários por todos os meios admitidos em direito."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="373" width="552" height="47" uuid="e627538b-fa04-4897-a145-0f3028b2c61b"/>
-				<textFieldExpression><![CDATA["Cláusula 7ª Fica acordado entre as partes que, os honorários a titulo de prestação de serviços, estão estabelecidos no valor total de R$ "+$F{valor_total}+" a serem pagos da seguinte forma: "+$F{tipo_pagamento}.toString()+", deverão ser pagas até o dia "]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["Cláusula 7ª Fica acordado entre as partes que, os honorários a titulo de prestação de serviços, estão estabelecidos no valor total de R$ "+$F{contrato}.getValor_total()+" a serem pagos da seguinte forma: "+$F{contrato}.getTipo_pagamento().toString()+", deverão ser pagas até o dia "]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="420" width="552" height="40" uuid="777caa8a-fd24-448d-aea8-85be39b8aa67"/>
-				<textElement>
+				<textElement markup="styled">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Dados Bancários para depósito dos honorários: "+$F{dados_banco}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Dados Bancários para depósito dos honorários: "+$F{contrato}.getDados_banco()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="460" width="552" height="40" uuid="be3b8c23-853d-4bc6-9f14-5b8e436defac"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Cláusula 8ª. Deixando motivadamente, de ter o patrocínio deste causídico, os valores prestados inicialmente na propositura da ação reverter-se-á em favor do mesmo, sem prejuízos de posteriores cobranças judiciais, em face do CONTRATANTE."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="500" width="552" height="20" uuid="e70408ae-e588-49f5-822c-a1226ea62d52"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Cláusula 9ª. Os honorários de sucumbência pagos pelo vencido pertecem exclusivamente ao CONTRATADO."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="520" width="552" height="30" uuid="53397e70-d968-4948-8c0e-0dbc20acb033"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Parágrafo Único. Caso haja morte ou incapacidade civil do CONTRATADO, seus sucessores ou representante legal receberão os honorários na proporção do trabalho realizado."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="550" width="552" height="40" uuid="969a471c-32ef-4cbc-82e2-225e5bed2630"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Cláusula 10ª. Havendo acordo entre o CONTRATANTE e a parte contrária, não prejudicará o recebimento dos honorários contratados e da sucumbência, caso em que os honorários contratados e da sucumbência, caso em que os honorários iniciais e finais serão pagos aos CONTRATADOS."]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="329">
 			<textField>
 				<reportElement x="1" y="0" width="552" height="30" uuid="b8933963-03f7-49f7-bb43-9fa9c7a4f3dc"/>
-				<textFieldExpression><![CDATA["Cláusula 11ª. As partes estabelecem que havendo atraso no pagamento dos honorários, serão cobrados juros de mora na proporção de "+$F{parcelas}.get( 0 )+"% ao mês."]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["Cláusula 11ª. As partes estabelecem que havendo atraso no pagamento dos honorários, serão cobrados juros de mora na proporção de "+$F{contrato}.getParcelas().get( 0 )+"% ao mês."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="30" width="552" height="30" uuid="40d27aa7-d9d6-4ffb-91bd-ad5d03fe8a5e"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Cláusula 12ª. Agindo o CONTRATANTE de forma dolosa ou culposa em face do CONTRATADO, restará facultado a este, rescindir o contrato substabelecendo sem reserva de iguais e se exonerando de todas as obrigações."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="60" width="552" height="39" uuid="7320ac73-0eff-4ec1-b3a0-b23c36f9daa8"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Cláusula 13ª. Para dirimir quaisquer controvêrsias oriundas do CONTRATO, as partes elegem o foro da comarca de SERRA TALHADA/PE."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="99" width="552" height="30" uuid="6b92faa2-c53f-487a-b6f1-c7f86d1c05b2"/>
+				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Por estarem assim justos e contratados, firmam o presente instrumento, em 02 (duas) vias de igual teor, juntamente com 02 (duas) testemunhas que a subscrevem."]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -127,11 +141,13 @@
 			</textField>
 			<textField>
 				<reportElement x="0" y="155" width="553" height="63" uuid="ca6cc87c-3814-4d26-b21e-a4848b5827ea"/>
-				<textFieldExpression><![CDATA[$F{consulta}.getCliente().getNome()+"\nCONTRATANTE\n\n"+$F{consulta}.getFuncionario().getNome()+"\nCONTRATADO"]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{contrato}.getConsulta().getCliente().getNome()+"\nCONTRATANTE\n\n"+$F{contrato}.getConsulta().getFuncionario().getNome()+"\nCONTRATADO"]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="1" y="129" width="100" height="30" uuid="abbbe67a-0dcf-4af3-bddc-8bccd553df39"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[new Date();]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="1" y="282" width="239" height="1" uuid="0fb58fe1-fc9a-4302-abb5-b0f7bcd1cca7"/>

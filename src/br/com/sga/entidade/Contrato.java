@@ -20,7 +20,6 @@ public class Contrato {
 	private List<Parcela> parcelas;
 	private Consulta consulta;
 	private Financeiro financeiro;
-	private Processo processo;
 	
 	public Contrato(Integer id, String objeto, float valor_total, TipoPagamento tipo_pagamento, Date data_contrato,
 			Area area, String dados_banco, List<Parte> partes, List<Parcela> parcelas, Consulta consulta,Financeiro financeiro) {
@@ -178,14 +177,6 @@ public class Contrato {
 		c.setValor_total(10000);
 		
 		System.out.println(c);	
-	}
-
-	public Processo getProcesso() {
-		return processo;
-	}
-
-	public void setProcesso(Processo processo) {
-		this.processo = processo;
 	}
 
 	public void setValor_total(Float valor_total) {
