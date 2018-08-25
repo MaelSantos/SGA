@@ -9,9 +9,9 @@ public class Parcela {
 	private Integer id; 
 	private Float valor; 
 	private Date vencimento; 
-	private Float juros; 
-	private Float multa; 
-	private String tipo; 
+	private Float juros;
+	private Float multa;
+	private String tipo;
 	private Andamento estado;
 	public Integer dia_pagamento;
 	

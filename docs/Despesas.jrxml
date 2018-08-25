@@ -34,7 +34,7 @@
 				<textElement textAlignment="Right">
 					<font size="22" isBold="false"/>
 				</textElement>
-				<text><![CDATA[SubTitle]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="0" width="822" height="65" forecolor="#006699" backcolor="#006699" uuid="83f5e806-cc04-4161-87a9-07633f604bc1"/>
@@ -183,7 +183,7 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="64" splitType="Stretch">
+		<band height="46" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="c23ffbf7-1928-41f8-ade3-5930d9a4871d"/>
 				<graphicElement>
@@ -193,9 +193,9 @@
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="16" splitType="Stretch">
+		<band height="53" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="2" y="0" width="800" height="16" forecolor="#D0B48E" backcolor="#006699" uuid="6f4fe8ef-88ca-4d5d-b46a-054826bb7893"/>
+				<reportElement mode="Opaque" x="1" y="30" width="800" height="16" forecolor="#D0B48E" backcolor="#006699" uuid="6f4fe8ef-88ca-4d5d-b46a-054826bb7893"/>
 				<textField evaluationTime="Report">
 					<reportElement style="Column header" x="753" y="0" width="40" height="16" forecolor="#FFFFFF" uuid="970781d6-87a0-4d3d-a07b-5ae173a1317a"/>
 					<textElement verticalAlignment="Middle">
@@ -218,6 +218,10 @@
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 			</frame>
+			<staticText>
+				<reportElement x="493" y="10" width="308" height="20" uuid="930495c8-2cf5-4e1d-9854-ce7c711ab3b6"/>
+				<text><![CDATA[Gerado Pelo Sistema SGA - Sistema de Gerenciamento Advocativo]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

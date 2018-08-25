@@ -12,9 +12,6 @@
 	<field name="indicacao" class="java.lang.String"/>
 	<field name="cliente" class="br.com.sga.entidade.Cliente"/>
 	<field name="testemunhas" class="java.util.List"/>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<title>
 		<band height="92" splitType="Stretch">
 			<staticText>
@@ -309,4 +306,12 @@
 			</line>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="50">
+			<staticText>
+				<reportElement x="245" y="22" width="308" height="20" uuid="9c206b5e-b325-495b-8db9-2397f8ac2b40"/>
+				<text><![CDATA[Gerado Pelo Sistema SGA - Sistema de Gerenciamento Advocativo]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
 </jasperReport>

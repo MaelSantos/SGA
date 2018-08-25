@@ -154,7 +154,6 @@ public class ControleCliente extends Controle {
 		MaskFieldUtil.cpfCnpjField(tfdCpfCnpj);
 		MaskFieldUtil.numericField(tfdRg);
 		MaskFieldUtil.numericField(tfdCep);
-		// MaskFieldUtil.ignoreKeys(textField);
 
 	}
 
