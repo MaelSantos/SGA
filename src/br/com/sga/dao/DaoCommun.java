@@ -462,13 +462,13 @@ public class DaoCommun implements IDaoCommun{
 	}
 
 	@Override
-	public Endereco getEndereco(int id_cliente) throws DaoException {
+	public Endereco getEndereco(int id) throws DaoException {
 		
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			this.statement = connection.prepareStatement(SQLUtil.Endereco.SELECT_ID_CLIENTE);
+			this.statement = connection.prepareStatement(SQLUtil.Endereco.SELECT_ID);
 	
-			statement.setInt(1, id_cliente);
+			statement.setInt(1, id);
 			resultSet = statement.executeQuery();
 			
 			Endereco endereco = null;

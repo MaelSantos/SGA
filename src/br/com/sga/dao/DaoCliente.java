@@ -141,7 +141,7 @@ public class DaoCliente implements IDaoCliente {
 				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
 //				end = new Endereco();
 
-				end = daoCommun.getEndereco(cliente.getId());
+				end = daoCommun.getEndereco(resultSet.getInt("id_endereco"));
 				
 				cliente.setEndereco(end);
 				
