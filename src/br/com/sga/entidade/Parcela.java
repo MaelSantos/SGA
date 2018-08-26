@@ -1,5 +1,6 @@
 package br.com.sga.entidade;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import br.com.sga.entidade.enums.Andamento;
@@ -15,7 +16,7 @@ public class Parcela {
 	private Andamento estado;
 	public Integer dia_pagamento;
 	
-	public Parcela(Integer id, Float valor, Date vencimento, Float juros, Float multa, String tipo, Andamento estado) {
+	public Parcela(Integer id, Float valor, Float juros, Float multa, Date vencimento, String tipo, Andamento estado) {
 		super();
 		this.id = id;
 		this.valor = valor;
@@ -28,13 +29,13 @@ public class Parcela {
 	
 	
 	
-	public Parcela(Float valor, Float juros, Float multa, String tipo, Andamento estado, Integer dia_pagamento) {
+	public Parcela(Float valor, String tipo, Integer dia_pagamento) {
 		super();
 		this.valor = valor;
-		this.juros = juros;
-		this.multa = multa;
+		this.juros = 0f;
+		this.multa = 0f;
 		this.tipo = tipo;
-		this.estado = estado;
+		this.estado = Andamento.PENDENTE;
 		this.dia_pagamento = dia_pagamento;
 	}
 
@@ -100,6 +101,10 @@ public class Parcela {
 		this.estado = estado;
 	}
 	
+	@Override
+	public String toString() {
+		return "DATA: ["+new SimpleDateFormat("dd/MM/yyyy").format(dia_pagamento)+"] - VALOR: ["+valor+"] - ANDAMENTO: ["+estado+"]";
+	}
 	
 
 	

@@ -56,7 +56,7 @@ public class SQLUtil {
     }
     
     public static class Contrato{
-    	public static final String INSERT_ALL = "INSERT INTO CONTRATO(objeto,valor_total,tipo_pagamento,data_contrato,area,dados_banco,consulta_id,financeiro_id) VALUES(?,?,?,?,?,?,?,?)";
+    	public static final String INSERT_ALL = "INSERT INTO CONTRATO(objeto,valor_total,tipo_pagamento,data_contrato,area,dados_banco,taxa_juros,taxa_multa,consulta_id,financeiro_id) VALUES(?,?,?,?,?,?,?,?,?,?)";
     	public static final String BUSCAR_ATIVOS = "SELECT * FROM CONTRATO WHERE STATUS = TRUE";
     	public static final String SELECT_CONTRATO_ID = "SELECT * FROM CONTRATO WHERE id = ?";
     	public static final String BUSCA_POR_CLIENTE_ADAPTER ="select cont.id, clie.nome, cont.data_contrato, cont.valor_total from contrato cont, consulta cons, cliente clie "

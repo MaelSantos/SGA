@@ -41,16 +41,17 @@ public class DaoContrato implements IDaoContrato{
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = connection.prepareStatement(SQLUtil.Contrato.INSERT_ALL);
-			//objeto,valor_total,tipo_pagamento,data_contrato,area,dados_banco,consulta_id
+			//objeto,valor_total,tipo_pagamento,data_contrato,area,dados_banco,taxa_juros,taxa_multa,consulta_id
 			statement.setString(1,entidade.getObjeto());
 			statement.setFloat(2,entidade.getValor_total());
 			statement.setString(3,entidade.getTipo_pagamento().toString());
 			statement.setDate(4, new Date(entidade.getData_contrato().getTime()));
 			statement.setString(5, entidade.getArea().toString());
 			statement.setString(6, entidade.getDados_banco());
-			statement.setInt(7, entidade.getConsulta().getId()); // deve-se passar a consulta já com o id 
-			System.out.println(entidade.getFinanceiro().getId());
-			statement.setInt(8,entidade.getFinanceiro().getId());
+			statement.setFloat(7, entidade.getTaxa_juros());
+			statement.setFloat(8, entidade.getTaxa_multa());
+			statement.setInt(9, entidade.getConsulta().getId()); // deve-se passar a consulta já com o id 
+			statement.setInt(10,entidade.getFinanceiro().getId());
 			statement.execute();
 			
 			int  contrato_id = daoCommun.getCurrentValorTabela(Tabela.CONTRATO); 

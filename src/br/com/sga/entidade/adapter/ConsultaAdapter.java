@@ -1,5 +1,6 @@
 package br.com.sga.entidade.adapter;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import br.com.sga.entidade.enums.Area;
@@ -49,6 +50,10 @@ public class ConsultaAdapter {
 	public void setNome_cliente(String nome_cliente) {
 		this.nome_cliente = nome_cliente;
 	}
-       	
+    
+	@Override
+	public String toString() {
+		return "Nome do cliente: "+nome_cliente+ " | Consulta - Data: "+new SimpleDateFormat("dd/MM/yyyy").format(data)+" Area: "+area+" valor: "+valor_honorario; 
+	}
 	
 }

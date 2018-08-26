@@ -11,7 +11,7 @@ public class Contrato {
 	private Integer id;
 	
 	private String objeto;
-	private Float valor_total;
+	private Float valor_total,taxa_juros,taxa_multa;
 	private TipoPagamento tipo_pagamento;
 	private Date data_contrato;
 	private Area area;
@@ -50,8 +50,7 @@ public class Contrato {
 	
 
 	public Contrato(String objeto, float valor_total, TipoPagamento tipo_pagamento, Date data_contrato, Area area,
-			String dados_banco, List<Parte> partes, List<Parcela> parcelas, Consulta consulta,Financeiro financeiro) {
-		super();
+			String dados_banco, List<Parte> partes, List<Parcela> parcelas,Float taxa_multa,Float taxa_juros,Consulta consulta,Financeiro financeiro) {
 		this.objeto = objeto;
 		this.valor_total = valor_total;
 		this.tipo_pagamento = tipo_pagamento;
@@ -62,12 +61,30 @@ public class Contrato {
 		this.parcelas = parcelas;
 		this.consulta = consulta;
 		this.financeiro = financeiro;
+		this.taxa_juros = taxa_juros;
+		this.taxa_multa = taxa_multa;
 	}
 
 
 	public Contrato() {
 	}
 
+	
+	public Float getTaxa_juros() {
+		return taxa_juros;
+	}
+
+	public void setTaxa_juros(Float taxa_juros) {
+		this.taxa_juros = taxa_juros;
+	}
+
+	public Float getTaxa_multa() {
+		return taxa_multa;
+	}
+
+	public void setTaxa_multa(Float taxa_multa) {
+		this.taxa_multa = taxa_multa;
+	}
 
 	public List<Parcela> getParcelas() {
 		return parcelas;

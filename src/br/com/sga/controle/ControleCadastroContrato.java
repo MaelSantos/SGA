@@ -127,14 +127,10 @@ public class ControleCadastroContrato {
     		App.notificarOuvintes(Tela.BUSCAR_CONTRATO);
     	}
     	else if(event.getSource() == tipoPagamamentoBox) {
-    		if(!tipoPagamamentoBox.getSelectionModel().getSelectedItem().equals(TipoPagamento.A_VISTA.toString())) {
-    		     dadosBancoArea.setVisible(true);
+    		if(!tipoPagamamentoBox.getSelectionModel().getSelectedItem().equals(TipoPagamento.A_VISTA.toString()))
     		     quantidadeParcelasBox.setVisible(true);
-    		}else {
-    			 dadosBancoArea.setText("");
-    		     dadosBancoArea.setVisible(false);
+    		else 
     		     quantidadeParcelasBox.setVisible(false);
-    		}
     	}
     	else if(event.getSource() == buscarConsultaButton) 
     	{
@@ -177,8 +173,8 @@ public class ControleCadastroContrato {
     	try {
 	    	Financeiro financeiro = fachada.buscarFinanceiroPorAno( Calendar.getInstance().get(Calendar.YEAR));
 	    	Float valor_total = Float.parseFloat(valorTotalField.getText().trim());
-		    Float juros = Float.parseFloat(jurosField.getText());
-		    Float multa = Float.parseFloat(multaField.getText());
+		    Float taxa_juros = Float.parseFloat(jurosField.getText());
+		    Float taxa_multa = Float.parseFloat(multaField.getText());
 		    Integer quantidade_parcelas = quantidadeParcelasBox.getSelectionModel().getSelectedItem();
 	    	Integer dia_pagamento = diaPagamentoBox.getSelectionModel().getSelectedItem();
 	    	TipoPagamento tipo_pagamento = TipoPagamento.getTipoPagamento(tipoPagamamentoBox.getSelectionModel().getSelectedItem());
@@ -206,10 +202,10 @@ public class ControleCadastroContrato {
 							//gerando as parecelas
 							List<Parcela> parcelas = new ArrayList<>();
 					    	for(int i =0 ; i < quantidade_parcelas; i ++)
-					    		parcelas.add(new Parcela((Float)(valor_total/quantidade_parcelas),juros, multa,"CONTRATO",Andamento.PENDENTE,dia_pagamento));
+					    		parcelas.add(new Parcela((Float)(valor_total/quantidade_parcelas),"CONTRATO",dia_pagamento));
 					    	
 					    	Contrato contrato = new Contrato(objeto, valor_total, tipo_pagamento, data_contrato, consulta.getArea(), 
-					    			dados_banco, parteTableView.getItems(),parcelas, consulta,financeiro);
+					    			dados_banco, parteTableView.getItems(),parcelas,taxa_multa,taxa_juros, consulta,financeiro);
 					    	
 					    	fachada.salvarEditarContrato(contrato);
 					    
@@ -217,7 +213,6 @@ public class ControleCadastroContrato {
 					    		fachada.salvarEditarNotificacao
 					    		(new Notificacao(TipoNotificacao.FINANCEIRO,Prioridade.MEDIA,"Parcela de contrato ",
 					    				Andamento.PENDENTE,parcela.getVencimento(),fachada.buscarUsuarioPorBusca("%_%")));
-					    	
 					    	
 							Alerta.getInstance().showMensagem("Confirmação","","Contrato salvo com sucesso");
 							log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Contrato: "+contrato.getArea(), StatusLog.CONCLUIDO);
@@ -271,7 +266,6 @@ public class ControleCadastroContrato {
         
         parteTableView.setItems(FXCollections.observableArrayList());
         dataContratoPicker.setValue(LocalDate.now());
-        dadosBancoArea.setVisible(false);
         
         MaskFieldUtil.numericField(valorTotalField);
         MaskFieldUtil.numericField(jurosField);
