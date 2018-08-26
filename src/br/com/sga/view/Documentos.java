@@ -67,6 +67,7 @@ public class Documentos {
 			Contrato contrato = new Contrato();
 			contrato.setArea(Area.CIVIL);
 			contrato.setDados_banco("BANCO DO BRASIL, AGÊNCIA 0000-0, CONTA CORRENTE 00.000-0, CPF 000.000.000-00");
+			contrato.setObjeto("Prestação de serviços advocatícios");
 			List<Parcela>parcelas = new ArrayList<>();
 			parcelas.add(new Parcela());
 			contrato.setParcelas(parcelas);
