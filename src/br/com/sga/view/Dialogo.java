@@ -333,11 +333,14 @@ public class Dialogo {
 	    if(!list.isEmpty())
     	for(Field f : list.get(0).getClass().getDeclaredFields())
     	{
-    		TableColumn<T, ?> column = new TableColumn<>(f.getName().toUpperCase());
-    		column.setCellValueFactory(new PropertyValueFactory<>(f.getName()));
-    		table.getColumns().add(column);
+    		if(!f.getName().equals("id"))
+    		{
+    			TableColumn<T, ?> column = new TableColumn<>(f.getName().replaceAll("_", " ").toUpperCase());
+    			column.setCellValueFactory(new PropertyValueFactory<>(f.getName()));
+    			table.getColumns().add(column);    			
+    		}
     		
-    		if(contador >= 5)
+    		if(contador >= 6)
     			break;
     		else
     			contador++;

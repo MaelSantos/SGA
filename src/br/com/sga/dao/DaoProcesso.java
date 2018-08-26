@@ -310,7 +310,8 @@ public class DaoProcesso implements IDaoProcesso {
 				processos.add(processo);
 				return processos;
 				
-			}
+			}if(processos.isEmpty())
+				throw new DaoException("NENHUM PROCESSO CADASTRADO PARA ESSE CONTRATO!!!");
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();

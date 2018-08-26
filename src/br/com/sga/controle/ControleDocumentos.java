@@ -98,7 +98,6 @@ public class ControleDocumentos extends Controle {
 
 	private Funcionario funcionario;
 	private Consulta consulta;
-	private Contrato contrato;
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
@@ -340,29 +339,43 @@ public class ControleDocumentos extends Controle {
 						Date.from(tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
 						Date.from(tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 			case FICHA:
-				List<Consulta> list = new ArrayList<Consulta>();
-				ConsultaAdapter con = dialogo.selecionar(
-						fachada.buscarConsultaPorClienteAdapter(new String[] { tfdBusca.getText().trim() }));
-				consulta = fachada.buscarConsultaPorId(con.getId());
-				consulta.setCliente(fachada.buscarClientePorIdConsulta(consulta.getId()));
-				consulta.setFuncionario(fachada.buscarUsuarioPorIdConsulta(consulta.getId()));
-				list.add(consulta);
-				return list;
+				if(!tfdBusca.getText().isEmpty())
+				{
+					List<Consulta> list = new ArrayList<Consulta>();
+					ConsultaAdapter con = dialogo.selecionar(
+							fachada.buscarConsultaPorClienteAdapter(new String[] { tfdBusca.getText().trim() }));
+					consulta = fachada.buscarConsultaPorId(con.getId());
+					consulta.setCliente(fachada.buscarClientePorIdConsulta(consulta.getId()));
+					consulta.setFuncionario(fachada.buscarUsuarioPorIdConsulta(consulta.getId()));
+					list.add(consulta);
+					return list;
+				}else
+					throw new ValidacaoException("INFORME SUA BUSCA");
 			case CONTRATO:
-				List<Processo> pro = new ArrayList<>();
-				
-				ContratoAdapter adapter = dialogo.selecionar(fachada.buscarContratoPorClienteAdapter(tfdBusca.getText().trim()));
-				Contrato contrato = fachada.buscarContratoPorId(adapter.getId());
-				
-				Processo processo = dialogo.selecionar(fachada.buscarProcessoPorIdContrato(contrato.getId()));
-				
-				pro.add(processo);
-				
-				return pro;
+				if(!tfdBusca.getText().isEmpty())
+				{
+					List<Processo> pro = new ArrayList<>();
+					
+					ContratoAdapter adapter = dialogo.selecionar(fachada.buscarContratoPorClienteAdapter(tfdBusca.getText().trim()));
+					Contrato contrato = fachada.buscarContratoPorId(adapter.getId());
+					
+					Processo processo;
+					if(contrato.getId() != null)
+					{
+						processo = dialogo.selecionar(fachada.buscarProcessoPorIdContrato(contrato.getId()));
+						pro.add(processo);						
+						return pro;	
+					}
+					else
+						return null;
+					
+				}else
+					throw new ValidacaoException("INFORME SUA BUSCA");
 				
 			default:
 			}
 		} catch (NullPointerException e) {
+			e.printStackTrace();
 			throw new ValidacaoException("Dados Incompletos!!! - Informe Todos os Dados Necessarios!!!");
 		} catch (DaoException e) {
 			e.printStackTrace();

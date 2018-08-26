@@ -20,71 +20,76 @@ import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
+import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
 public class ControleCadastroProcesso extends Controle {
 
 	@FXML
-	private ComboBox<ContratoAdapter> cbxContrato;
+    private ComboBox<TipoProcesso> cbxTipoProcesso;
 
-	@FXML
-	private ComboBox<TipoProcesso> cbxTipoProcesso;
+    @FXML
+    private ComboBox<TipoParticipacao> cbxParticipacao;
 
-	@FXML
-	private ComboBox<TipoParticipacao> cbxParticipacao;
+    @FXML
+    private TextField tfdNumero;
 
-	@FXML
-	private TextField tfdNumero;
+    @FXML
+    private TextField tfdComarca;
 
-	@FXML
-	private TextField tfdComarca;
+    @FXML
+    private DatePicker tfdData;
 
-	@FXML
-	private DatePicker tfdData;
+    @FXML
+    private TextField tfdDescricao;
 
-	@FXML
-	private TextField tfdDescricao;
+    @FXML
+    private TextField tfdFase;
 
-	@FXML
-	private TextField tfdFase;
+    @FXML
+    private TextField tfdClasse;
 
-	@FXML
-	private TextField tfdClasse;
+    @FXML
+    private TextField tfdOrgao;
 
-	@FXML
-	private TextField tfdOrgao;
+    @FXML
+    private Button btnVoltar;
 
-	@FXML
-	private Button btnVoltar;
+    @FXML
+    private Button btnCadastrar;
 
-	@FXML
-	private Button btnCadastrar;
+    @FXML
+    private TextField tfdBusca;
 
+    @FXML
+    private Button btnBusca;
+
+    @FXML
+    private Label lblContrato;
+    
 	private IFachada fachada;
+	private Dialogo dialogo;
 	private Processo processo;
+	private Contrato contrato;
 	private Funcionario funcionario;
 
 	@Override
 	public void init() {
 
 		fachada = Fachada.getInstance();
+		dialogo = Dialogo.getInstance();
 
 		cbxParticipacao.getItems().addAll(TipoParticipacao.values());
 		cbxTipoProcesso.getItems().addAll(TipoProcesso.values());
 
-		try {
-			cbxContrato.getItems().addAll(fachada.buscaAllContratoAdapter());
-		} catch (BusinessException e) {
-			Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Pesquisar Contratos", e.getMessage());
-			e.printStackTrace();
-		}
-
+		lblContrato.setText("");
 	}
 
 	@Override
@@ -97,7 +102,7 @@ public class ControleCadastroProcesso extends Controle {
 			try {
 				processo = criarProcesso();
 				fachada.salvarEditarProcesso(processo);
-				App.notificarOuvintes(Tela.CADASTRO_CONTRATO, processo);
+				App.notificarOuvintes(Tela.CADASTRO_PROCESSO, processo);
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...", "Salvo Com Seucesso");
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(),
 						"Novo Processo: " + processo.getNumero() + " - " + processo.getTipo_processo(),
@@ -118,13 +123,36 @@ public class ControleCadastroProcesso extends Controle {
 			try {
 				fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
 
 		}
 		if (obj == btnVoltar)
+		{
+			contrato = null;
+			processo = null;
+			System.gc();
 			App.notificarOuvintes(Tela.PROCESSOS);
+			
+		}
+		if(obj == btnBusca)
+		{
+			try {
+				
+				if(!tfdBusca.getText().isEmpty())
+				{
+					ContratoAdapter adapter = dialogo.selecionar(fachada.buscarContratoPorClienteAdapter(tfdBusca.getText().trim()));
+					contrato = fachada.buscarContratoPorId(adapter.getId());
+					lblContrato.setText(adapter+"");
+				}
+				else
+					Alerta.getInstance().showMensagem("Erro!", "Informe Sua Busca!!!", "Campo de Busca Vazio!!!");
+			} catch (BusinessException e) {
+				e.printStackTrace();
+				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Contrato!!!", e.getMessage());
+			}
+			
+		}
 
 	}
 
@@ -139,13 +167,14 @@ public class ControleCadastroProcesso extends Controle {
 				adapter.setData_contrato(contrato.getData_contrato());
 				adapter.setNome_cliente(contrato.getConsulta().getCliente().getNome());
 				adapter.setValor_total(contrato.getValor_total());
-
-				cbxContrato.getItems().add(adapter);
-
 			}
+		if (object instanceof Funcionario) {
+			funcionario = (Funcionario) object;
+		}
 	}
 
 	private Processo criarProcesso() throws ParseException, BusinessException {
+		
 		processo = new Processo();
 
 		processo.setClasse_judicial(tfdClasse.getText().trim());
@@ -162,14 +191,15 @@ public class ControleCadastroProcesso extends Controle {
 		processo.setTipo_participacao(cbxParticipacao.getValue());
 		processo.setTipo_processo(cbxTipoProcesso.getValue());
 
-		processo.setContrato(fachada.buscarContratoPorId(cbxContrato.getValue().getId()));
-
-		System.out.println(cbxContrato.getValue());
+		processo.setContrato(contrato);
+		
 		return processo;
 	}
 
 	private void limparCampos() {
 
+		lblContrato.setText("");
+		tfdBusca.setText("");
 		tfdClasse.setText("");
 		tfdComarca.setText("");
 		tfdData.getEditor().setText("");
@@ -177,6 +207,9 @@ public class ControleCadastroProcesso extends Controle {
 		tfdFase.setText("");
 		tfdNumero.setText("");
 		tfdOrgao.setText("");
+		
+		processo = null;
+		contrato = null;
 
 	}
 }
