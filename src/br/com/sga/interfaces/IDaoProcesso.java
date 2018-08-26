@@ -11,6 +11,8 @@ public interface IDaoProcesso extends IDao<Processo> {
 	
 	public List<ProcessoAdapter> buscarAllAdapter(String tipo)throws DaoException;
 	
-	public List<ProcessoAdapter> buscaPorClienteAdapter(String[] busca) throws DaoException;
+	public List<ProcessoAdapter> buscaPorClienteAdapter(int id_cliente) throws DaoException;
+	
+	public List<Processo> buscarPorIdContrato(int contrato_id) throws DaoException;
 	
 }

@@ -15,7 +15,7 @@
 	<title>
 		<band height="67" splitType="Stretch">
 			<staticText>
-				<reportElement x="132" y="24" width="307" height="30" uuid="e27195c8-b31f-4f95-ba51-3b2ed061f9cd"/>
+				<reportElement x="124" y="27" width="307" height="30" uuid="e27195c8-b31f-4f95-ba51-3b2ed061f9cd"/>
 				<textElement textAlignment="Center" markup="styled">
 					<font fontName="Times New Roman" size="11" isUnderline="true"/>
 				</textElement>
@@ -56,7 +56,7 @@
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>Cláusula 2ª</b>. As atividades inclusas na prestação de serviço objeto neste instrumento são todas aquelas inerentes à profissão, quais sejam: <br></br><br></br>a) Praticar quisquer atos e medidas necessárias e inerentes à causa, em todas as repartições públicas da União, dos Estados ou dos Municípios, bem como orgãos a estes ligados direta ou indiretamente, seja por delegação, concessão ou outros meios, bem como de estabelecimentos particulares; <br></br><br></br>b) Praticar todos os atos inerentes ao exercício da advocacia e aqueles constantes no Estatuto da Ordem dos Advogados do Brasil, bem como os especificados no Instrumento Procuratório."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Cláusula 2ª</b>. As atividades inclusas na prestação de serviço objeto neste instrumento são todas aquelas inerentes à profissão, quais sejam: <br></br><br></br>a) Praticar quaisquer atos e medidas necessárias e inerentes à causa, em todas as repartições públicas da União, dos Estados ou dos Municípios, bem como órgãos a estes ligados direta ou indiretamente, seja por delegação, concessão ou outros meios, bem como de estabelecimentos particulares; <br></br><br></br>b) Praticar todos os atos inerentes ao exercício da advocacia e aqueles constantes no Estatuto da Ordem dos Advogados do Brasil, bem como os especificados no Instrumento Procuratório."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="237" width="552" height="57" uuid="75c50efb-023d-4552-ae80-980ea08e54e9"/>
@@ -112,7 +112,7 @@
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>Cláusula 9ª</b>. Os honorários de sucumbência pagos pelo vencido pertecem exclusivamente ao <b>CONTRATADO</b>."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Cláusula 9ª</b>. Os honorários de sucumbência pagos pelo vencido pertencem exclusivamente ao <b>CONTRATADO</b>."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="511" width="552" height="30" uuid="53397e70-d968-4948-8c0e-0dbc20acb033"/>
