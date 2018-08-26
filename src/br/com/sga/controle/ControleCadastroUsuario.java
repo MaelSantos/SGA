@@ -6,8 +6,10 @@ import br.com.sga.app.App;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
+import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
@@ -16,10 +18,36 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class ControleCadastroUsuario extends Controle{
+
+
+    @FXML
+    private TextField cepField;
+
+    @FXML
+    private TextField ruaField;
+
+    @FXML
+    private TextField numField;
+
+    @FXML
+    private TextField bairroField;
+
+    @FXML
+    private TextField cidadeField;
+
+    @FXML
+    private TextField paisField;
+
+    @FXML
+    private ComboBox<Estado> estadoBox;
+
+    @FXML
+    private TextField compField;
 
 	@FXML
 	private TextField tfdNome;
@@ -57,18 +85,30 @@ public class ControleCadastroUsuario extends Controle{
 			Log log = null;
 			try {
 				
-				if(tfdSenha.getText().equals(tfdConfirmar.getText()))
+				if(tfdSenha.getText().equals(tfdConfirmar.getText()) && estadoBox.getValue()!= null)
 				{
+					Endereco endereco = new Endereco(
+							ruaField.getText(),
+							numField.getText(), 
+							bairroField.getText(), 
+							cidadeField.getText(),
+							estadoBox.getValue().toString(), 
+							paisField.getText(),
+							compField.getText(),
+							cepField.getText()
+							);
 					Funcionario funcionario = new Funcionario(
 							tfdNome.getText().trim(), //nome
 							tfdEmail.getText().trim(), //email 
 							tfdLogin.getText().trim(), //login 
 							tfdSenha.getText().trim(), //senha
-							tfdNumeroOab.getText().trim()); //numero OAB
-						fachada.salvarEditarUsuario(funcionario);
-						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...", "Salvo Com Sucesso!");
-						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, this.funcionario.getNome(), "Novo Usuario: "+funcionario.getNome(), StatusLog.CONCLUIDO);
-						limparCampos();
+							tfdNumeroOab.getText().trim(),//numero OAB
+							endereco
+							); 
+					fachada.salvarEditarUsuario(funcionario);
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...", "Salvo Com Sucesso!");
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, this.funcionario.getNome(), "Novo Usuario: "+funcionario.getNome(), StatusLog.CONCLUIDO);
+					limparCampos();
 				}
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem("Erro!!!", "Erro ao Salvar!!!", e.getMessage());
@@ -78,7 +118,6 @@ public class ControleCadastroUsuario extends Controle{
 				if(log != null)
 					fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
 			
@@ -112,7 +151,7 @@ public class ControleCadastroUsuario extends Controle{
 	@Override
 	public void init() {
 		fachada = Fachada.getInstance();
-		
+		estadoBox.getItems().addAll(Estado.values());
 		
 	}
 

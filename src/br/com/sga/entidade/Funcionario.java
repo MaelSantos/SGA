@@ -38,12 +38,13 @@ public class Funcionario {
 		this.endereco = endereco;
 	}
 	
-	public Funcionario(String nome, String email, String login, String senha,String numero_oab) {
+	public Funcionario(String nome, String email, String login, String senha,String numero_oab, Endereco endereco) {
 		this.nome = nome;
 		this.email = email;
 		this.login = login;
 		this.senha = senha;
 		this.numero_oab = numero_oab;
+		this.endereco = endereco;
 	}
 	public Funcionario(Integer id) {
 		this.id = id;

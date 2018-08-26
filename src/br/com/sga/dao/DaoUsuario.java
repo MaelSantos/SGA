@@ -32,15 +32,18 @@ public class DaoUsuario implements IDaoUsuario{
 	@Override
 	public void salvar(Funcionario entidade) throws DaoException {
 		try {
-			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			String sql = null;
 			Integer endereco_id = null;
 			if(entidade.getEndereco()!= null) {
+				sql = SQLUtil.Funcionario.INSERT_ALL;
 				daoCommun.salvarEndereco(entidade.getEndereco());
 				endereco_id = daoCommun.getCurrentValorTabela(Tabela.ENDERECO);
-				this.statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_ALL);
 			}else {
-				this.statement = conexao.prepareStatement(SQLUtil.Funcionario.INSERT_SEM_ENDERECO);
+				sql = SQLUtil.Funcionario.INSERT_SEM_ENDERECO;
 			}
+			
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(sql);
 
             statement.setString(1, entidade.getNome());
             statement.setString(2, entidade.getSenha());
@@ -53,6 +56,7 @@ public class DaoUsuario implements IDaoUsuario{
             this.conexao.close();
 
 		}catch (PSQLException ex) {
+			ex.printStackTrace();
 			throw new DaoException("EMAIL, LOGIN OU NUMERO OAB JÁ ESTÁ CADASTRATO");
 		}catch (SQLException ex) {
             ex.printStackTrace();
