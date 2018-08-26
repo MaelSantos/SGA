@@ -89,9 +89,19 @@ public class BusinessProcesso implements IBusinessProcesso{
 	}
 
 	@Override
-	public List<ProcessoAdapter> buscaPorClienteAdapter(String[] busca) throws BusinessException {
+	public List<ProcessoAdapter> buscaPorClienteAdapter(int id_cliente) throws BusinessException {
 		try {
-			return daoProcesso.buscaPorClienteAdapter(busca);
+			return daoProcesso.buscaPorClienteAdapter(id_cliente);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Processo> buscarPorIdContrato(int contrato_id) throws BusinessException {
+		try {
+			return daoProcesso.buscarPorIdContrato(contrato_id);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());

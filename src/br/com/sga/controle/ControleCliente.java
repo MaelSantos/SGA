@@ -213,7 +213,7 @@ public class ControleCliente extends Controle {
 				ProcessoAdapter adapter;
 				try {
 					adapter = dialogo
-							.selecionar(fachada.buscaProcessoPorClienteAdapter(new String[] { cliente.getId() + "" }));
+							.selecionar(fachada.buscaProcessoPorClienteAdapter(cliente.getId()));
 					Processo processo = fachada.buscarProcessoPorId(adapter.getId());
 					App.notificarOuvintes(Tela.DETALHES_PROCESSO, processo);
 				} catch (BusinessException e) {

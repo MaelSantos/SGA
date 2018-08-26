@@ -14,7 +14,10 @@ import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
+import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
@@ -345,6 +348,18 @@ public class ControleDocumentos extends Controle {
 				consulta.setFuncionario(fachada.buscarUsuarioPorIdConsulta(consulta.getId()));
 				list.add(consulta);
 				return list;
+			case CONTRATO:
+				List<Processo> pro = new ArrayList<>();
+				
+				ContratoAdapter adapter = dialogo.selecionar(fachada.buscarContratoPorClienteAdapter(tfdBusca.getText().trim()));
+				Contrato contrato = fachada.buscarContratoPorId(adapter.getId());
+				
+				Processo processo = dialogo.selecionar(fachada.buscarProcessoPorIdContrato(contrato.getId()));
+				
+				pro.add(processo);
+				
+				return pro;
+				
 			default:
 			}
 		} catch (NullPointerException e) {
