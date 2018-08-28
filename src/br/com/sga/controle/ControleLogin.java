@@ -20,8 +20,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
-public class ControleLogin implements Initializable{
+public class ControleLogin implements Initializable {
 
 	@FXML
 	private TextField tfdLogin;
@@ -34,33 +35,37 @@ public class ControleLogin implements Initializable{
 
 	@FXML
 	private PasswordField tfdSenha;
-	
+
+	@FXML
+	private ImageView imgLogo;
+
 	private IFachada fachada;
 	private Funcionario funcionario;
 
 	@FXML
-	private void actionButton(ActionEvent e)
-	{		
-		if(e.getSource() == btnEntrar)
-		{			
+	private void actionButton(ActionEvent e) {
+		if (e.getSource() == btnEntrar) {
 			Log log;
 			try {
 				funcionario = fachada.buscarPorLogin(tfdLogin.getText(), tfdSenha.getText());
-								
-				App.changeStage(Tela.MENU);
-				App.notificarOuvintes(Tela.MENU,funcionario);
-				
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.LOGIN, funcionario.getNome(), "Login: Sistema", StatusLog.CONCLUIDO);
 
-			}catch (Exception e1) {
-				Alerta.getInstance().showMensagem("Dados Incorretos", "Login/Email Ou Senha Incorretos",e1.getMessage());
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.LOGIN, tfdLogin.getText().trim(), "Login: Erro ", StatusLog.ERRO);
+				App.changeStage(Tela.MENU);
+				App.notificarOuvintes(Tela.MENU, funcionario);
+
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.LOGIN, funcionario.getNome(),
+						"Login: Sistema", StatusLog.CONCLUIDO);
+
+			} catch (Exception e1) {
+				Alerta.getInstance().showMensagem("Dados Incorretos", "Login/Email Ou Senha Incorretos",
+						e1.getMessage());
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.LOGIN, tfdLogin.getText().trim(),
+						"Login: Erro ", StatusLog.ERRO);
 			}
 			tfdLogin.setText("");
 			tfdSenha.setText("");
-			
+
 			try {
-				if(log != null)
+				if (log != null)
 					fachada.salvarEditarLog(log);
 			} catch (BusinessException e1) {
 				// TODO Bloco catch gerado automaticamente
@@ -68,22 +73,23 @@ public class ControleLogin implements Initializable{
 			}
 		}
 
-		if(e.getSource() == btnSair)
-		{
+		if (e.getSource() == btnSair) {
 			try {
-				fachada.salvarEditarLog(new Log(new Date(System.currentTimeMillis()), EventoLog.ENCERRAR, funcionario.getNome(), "Encerrando Sistema: ", StatusLog.CONCLUIDO));
+				fachada.salvarEditarLog(new Log(new Date(System.currentTimeMillis()), EventoLog.ENCERRAR,
+						funcionario.getNome(), "Encerrando Sistema: ", StatusLog.CONCLUIDO));
 			} catch (BusinessException e1) {
 				// TODO Bloco catch gerado automaticamente
 				e1.printStackTrace();
 			}
-			
+
 			System.exit(0);
-		}	
+		}
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		fachada = Fachada.getInstance();		
+		fachada = Fachada.getInstance();
+		
 	}
 
 }

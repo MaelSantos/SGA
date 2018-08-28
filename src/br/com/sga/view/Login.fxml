@@ -15,7 +15,7 @@
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="40.0" maxWidth="300.0" prefHeight="161.0" prefWidth="250.0" vgap="60.0" BorderPane.alignment="CENTER">
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="40.0" maxWidth="300.0" prefHeight="159.0" prefWidth="300.0" vgap="60.0" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="tfdLogin" promptText="Login">
                      <font>
@@ -53,7 +53,7 @@
             </FlowPane>
          </bottom>
          <top>
-            <ImageView cache="true" fitHeight="261.0" fitWidth="289.0" pickOnBounds="true" preserveRatio="true" smooth="false" BorderPane.alignment="CENTER">
+            <ImageView fx:id="imgLogo" cache="true" fitHeight="300.0" pickOnBounds="true" preserveRatio="true" smooth="false" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../../../../../res/SGA%20-%20Nome.png" />
                </image>
