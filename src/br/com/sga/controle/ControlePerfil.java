@@ -91,6 +91,19 @@ public class ControlePerfil extends Controle {
 		tfdNumeroOab.setText(funcionario.getNumero_oab());
 		tfdEmail.setText(funcionario.getEmail());
 		
+		if(funcionario.getEndereco() != null)
+		{
+			tfdBairro.setText(funcionario.getEndereco().getBairro());
+			tfdCep.setText(funcionario.getEndereco().getCep());
+			tfdCidade.setText(funcionario.getEndereco().getCidade());
+			tfdComplemento.setText(funcionario.getEndereco().getComplemento());
+			tfdNumero.setText(funcionario.getEndereco().getNumero());
+			tfdPais.setText(funcionario.getEndereco().getPais());
+			tfdRua.setText(funcionario.getEndereco().getRua());
+			
+			cbxEstado.setValue(funcionario.getEndereco().getEstado());
+			
+		}
 	}
 
 }

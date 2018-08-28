@@ -230,7 +230,7 @@ public class ControleDocumentos extends Controle {
 					service.restart();
 
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
-							"Gerar Documento: ", StatusLog.CONCLUIDO);
+							"Gerar Documento: "+cbxTipo.getValue(), StatusLog.CONCLUIDO);
 
 				} else {
 					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!",
@@ -242,7 +242,7 @@ public class ControleDocumentos extends Controle {
 			} catch (Exception e) {
 				e.printStackTrace();
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
-						"Gerar Documento: ", StatusLog.ERRO);
+						"Gerar Documento: "+cbxTipo.getValue(), StatusLog.ERRO);
 				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!",
 						"Verifique Se Todos Os Dados Estão Corretos");
 			}

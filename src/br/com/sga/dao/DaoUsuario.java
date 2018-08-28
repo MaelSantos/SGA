@@ -77,6 +77,7 @@ public class DaoUsuario implements IDaoUsuario{
             Funcionario funcionario = null;
             if(resultSet.next()) {
             	funcionario = new Funcionario(resultSet.getInt("id"), resultSet.getString("nome"), resultSet.getString("email"), resultSet.getString("login"), resultSet.getString("senha"), resultSet.getString("numero_oab"));
+            	funcionario.setEndereco(daoCommun.getEndereco(resultSet.getInt("endereco_id")));
             }else {
             	throw new DaoException("Não existe usuarios com esses dados");
             }

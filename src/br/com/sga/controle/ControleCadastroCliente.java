@@ -259,7 +259,7 @@ public class ControleCadastroCliente extends Controle{
 			end.setBairro(tfdBairro.getText().trim());
 			end.setCidade(tfdCidade.getText().trim());
 			end.setRua(tfdRua.getText().trim());
-			end.setEstado(cbxEstado.getValue().toString());
+			end.setEstado(cbxEstado.getValue());
 			end.setNumero(tfdNumero.getText().trim());
 			end.setComplemento(tfdComplemento.getText().trim());
 			end.setCep(tfdCep.getText().trim());

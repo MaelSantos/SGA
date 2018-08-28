@@ -138,8 +138,6 @@ public class DaoContrato implements IDaoContrato{
             	adapter.setData_contrato(resultSet.getDate("data_contrato"));
             	adapter.setValor_total(resultSet.getFloat("valor_total"));
 	            lista.add(adapter);
-            }if(lista.isEmpty()){
-            	throw new DaoException("Não existe contratos cadastrados com esse cliente");
             }
             this.connection.close();
             this.statement.close();

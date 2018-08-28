@@ -15,6 +15,7 @@ import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.adapter.ClienteAdapter;
+import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoCliente;
@@ -189,7 +190,7 @@ public class DaoCliente implements IDaoCliente {
 				end.setBairro(resultSet.getString("bairro"));
 				end.setCidade(resultSet.getString("cidade"));
 				end.setRua(resultSet.getString("rua"));
-				end.setEstado(resultSet.getString("estado"));
+				end.setEstado(Estado.getEstado(resultSet.getString("estado")));
 				end.setNumero(resultSet.getString("numero"));
 				end.setComplemento(resultSet.getString("complemento"));
 				end.setCep(resultSet.getString("cep"));

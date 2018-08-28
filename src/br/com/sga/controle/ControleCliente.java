@@ -277,7 +277,7 @@ public class ControleCliente extends Controle {
 		cliente.getEndereco().setCep(tfdCep.getText().trim());
 		cliente.getEndereco().setCidade(tfdCidade.getText().trim());
 		cliente.getEndereco().setComplemento(tfdComplemento.getText().trim());
-		cliente.getEndereco().setEstado(cbxEstado.getValue().toString());
+		cliente.getEndereco().setEstado(cbxEstado.getValue());
 		cliente.getEndereco().setNumero(tfdNumero.getText());
 		cliente.getEndereco().setPais(tfdPais.getText().trim());
 		cliente.getEndereco().setRua(tfdRua.getText().trim());
@@ -320,7 +320,7 @@ public class ControleCliente extends Controle {
 		tfdCep.setText(cliente.getEndereco().getCep());
 		tfdCidade.setText(cliente.getEndereco().getCidade());
 		tfdComplemento.setText(cliente.getEndereco().getComplemento());
-		cbxEstado.setValue(Estado.getEstado(cliente.getEndereco().getEstado()));
+		cbxEstado.setValue(cliente.getEndereco().getEstado());
 		tfdNumero.setText(cliente.getEndereco().getNumero());
 		tfdPais.setText(cliente.getEndereco().getPais());
 		tfdRua.setText(cliente.getEndereco().getRua());

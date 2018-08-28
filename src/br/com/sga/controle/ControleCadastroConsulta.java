@@ -193,7 +193,7 @@ public class ControleCadastroConsulta extends Controle{
 						Integer.parseInt(telefonePreField.getText().trim()),
 						tipoTelefoneBox.getSelectionModel().getSelectedItem());
 				Endereco endereco = new Endereco(ruaField.getText().trim(),numeroField.getText().trim(), bairroField.getText().trim()
-						,cidadeField.getText().trim(), estadoBox.getSelectionModel().getSelectedItem().toString(),
+						,cidadeField.getText().trim(), estadoBox.getSelectionModel().getSelectedItem(),
 						paisField.getText().trim(),complementoField.getText().trim(),cepField.getText().trim());
 
 				testemunhaTableView.getItems().add(new Testemunha(endereco, telefone, nome));

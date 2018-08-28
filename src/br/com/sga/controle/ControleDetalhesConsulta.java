@@ -163,7 +163,7 @@ public class ControleDetalhesConsulta extends Controle {
 			numField.setText(e.getNumero());
 			bairroField.setText(e.getBairro());
 			cidadeField.setText(e.getCidade());
-			estadoBox.setPromptText(e.getEstado());
+			estadoBox.setPromptText(e.getEstado().toString());
 			paisField.setText(e.getPais());
 			compField.setText(e.getComplemento());
 			cepField.setText(e.getCep());

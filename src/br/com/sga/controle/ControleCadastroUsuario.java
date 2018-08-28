@@ -93,7 +93,7 @@ public class ControleCadastroUsuario extends Controle{
 							numField.getText(), 
 							bairroField.getText(), 
 							cidadeField.getText(),
-							estadoBox.getValue().toString(), 
+							estadoBox.getValue(), 
 							paisField.getText(),
 							compField.getText(),
 							cepField.getText()

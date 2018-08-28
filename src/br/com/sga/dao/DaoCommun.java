@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.sga.entidade.enums.Andamento;
+import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.StatusAudiencia;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoAudiencia;
@@ -120,7 +121,7 @@ public class DaoCommun implements IDaoCommun{
 			statement.setString(4, endereco.getCidade());
 			statement.setString(5, endereco.getCep());
 			statement.setString(6, endereco.getPais());
-			statement.setString(7, endereco.getEstado());
+			statement.setString(7, endereco.getEstado().toString());
 			statement.setString(8, endereco.getComplemento());
 			statement.execute();
 			this.connection.close();
@@ -480,7 +481,7 @@ public class DaoCommun implements IDaoCommun{
 				endereco.setCep(resultSet.getString("cep"));
 				endereco.setCidade(resultSet.getString("cidade"));
 				endereco.setComplemento(resultSet.getString("complemento"));
-				endereco.setEstado(resultSet.getString("estado"));
+				endereco.setEstado(Estado.getEstado(resultSet.getString("estado")));
 				endereco.setNumero(resultSet.getString("numero"));
 				endereco.setPais(resultSet.getString("pais"));
 				endereco.setRua(resultSet.getString("rua"));
@@ -545,7 +546,7 @@ public class DaoCommun implements IDaoCommun{
 			statement.setString(4,entidade.getCidade());
 			statement.setString(5,entidade.getCep());
 			statement.setString(6,entidade.getPais());
-			statement.setString(7,entidade.getEstado());
+			statement.setString(7,entidade.getEstado().toString());
 			statement.setString(8,entidade.getComplemento());
 			statement.setInt(9,entidade.getId());
 			statement.executeUpdate();

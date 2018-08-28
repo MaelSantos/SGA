@@ -1,5 +1,7 @@
 package br.com.sga.entidade;
 
+import br.com.sga.entidade.enums.Estado;
+
 public class Endereco {
 
 	private Integer id;	//id SERIAL PRIMARY KEY,
@@ -8,12 +10,12 @@ public class Endereco {
 	private String numero; //numero VARCHAR(255),
 	private String bairro; //bairro VARCHAR(255), 
 	private String cidade; //cidade VARCHAR(255),
-	private String estado; //estado VARCHAR(255),
+	private Estado estado; //estado VARCHAR(255),
 	private String pais; //pais VARCHAR(255), 
 	private String complemento; //complemento VARCHAR(255), 
 	private String cep; //cep VARCHAR(255),
 	
-	public Endereco(String rua, String numero, String bairro, String cidade, String estado, String pais,
+	public Endereco(String rua, String numero, String bairro, String cidade, Estado estado, String pais,
 			String complemento, String cep) {
 		super();
 		this.rua = rua;
@@ -59,11 +61,11 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 
