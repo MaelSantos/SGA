@@ -220,7 +220,7 @@
 			</frame>
 			<staticText>
 				<reportElement x="493" y="10" width="308" height="20" uuid="b411e9ca-512e-4365-8f3f-42e68851336f"/>
-				<text><![CDATA[Gerado Pelo Sistema SGA - Sistema de Gerenciamento Advocativo]]></text>
+				<text><![CDATA[Gerado Pelo Sistema SGA - Sistema de Gerenciamento Advocatício]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

@@ -103,7 +103,7 @@ public class Parcela {
 	
 	@Override
 	public String toString() {
-		return "DATA: ["+new SimpleDateFormat("dd/MM/yyyy").format(dia_pagamento)+"] - VALOR: ["+valor+"] - ANDAMENTO: ["+estado+"]";
+		return "DIA: ["+dia_pagamento+"] - VALOR: ["+valor+"] - ANDAMENTO: ["+estado+"]";
 	}
 	
 

@@ -17,7 +17,6 @@ import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;
-import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
@@ -38,11 +37,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Paint;
 import net.sf.jasperreports.engine.JRException;
@@ -167,27 +164,27 @@ public class ControleDocumentos extends Controle {
 						// gerando o jasper design
 						InputStream inputStream = getClass().getClassLoader().getResourceAsStream(arquivo);
 						update();
-
+						System.out.println("Carregou arquivo");
 						JasperDesign desenho = JRXmlLoader.load(inputStream);
 						update();
-
+						System.out.println("Carregou designer");
 						// compila o relatório
 						JasperReport relatorio = JasperCompileManager.compileReport(desenho);
 						update();
-
+						System.out.println("Compilou");
 						/* Convert List to JRBeanCollectionDataSource */
 						JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(list);
 						update();
-
+						System.out.println("Criou biblioteca para documento - bean");
 						/* Map to hold Jasper report Parameters */
 						Map<String, Object> parameters = new HashMap<String, Object>();
 						parameters.put("ItemDataSource", itemsJRBean);
 						update();
-
+						System.out.println("Criou map");
 						/* Using compiled version(.jasper) of Jasper report to generate PDF */
 						JasperPrint jasperPrint = JasperFillManager.fillReport(relatorio, parameters, itemsJRBean);
 						update();
-
+						System.out.println("Criou jasperPrint");
 						JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
 						jasperViewer.setZoomRatio(0.75F);
 						jasperViewer.setLocationRelativeTo(null);
@@ -357,12 +354,11 @@ public class ControleDocumentos extends Controle {
 					List<Processo> pro = new ArrayList<>();
 					
 					ContratoAdapter adapter = dialogo.selecionar(fachada.buscarContratoPorClienteAdapter(tfdBusca.getText().trim()));
-					Contrato contrato = fachada.buscarContratoPorId(adapter.getId());
 					
 					Processo processo;
-					if(contrato.getId() != null)
+					if(adapter != null && adapter.getId() != null)
 					{
-						processo = dialogo.selecionar(fachada.buscarProcessoPorIdContrato(contrato.getId()));
+						processo = dialogo.selecionar(fachada.buscarProcessoPorIdContrato(adapter.getId()));
 						pro.add(processo);						
 						return pro;	
 					}

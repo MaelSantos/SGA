@@ -100,14 +100,11 @@ public class ControleBuscarContrato extends Controle{
     void mouseExited(MouseEvent event) {
     	((Button)(event.getSource())).setStyle("-fx-background-color : #008B8B");
     }
-    @FXML
-    void initialize() {
-    }
+   
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		
 		if (object instanceof Funcionario)	 {
-			if(funcionario != null)
 				this.funcionario = (Funcionario) object;	
 		}
 		

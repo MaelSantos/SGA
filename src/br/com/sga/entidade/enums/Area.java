@@ -11,7 +11,7 @@ public enum Area {
 
 	public static Area getArea(String string) {
 		for(Area e : Area.values())
-			if(e.toString().equals(string))
+			if(e.toString().equalsIgnoreCase(string))
 				return e;
 		return null;
 	}

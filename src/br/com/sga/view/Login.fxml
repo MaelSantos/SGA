@@ -13,18 +13,20 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleLogin">
    <children>
-      <BorderPane layoutX="73.0" prefHeight="460.0" prefWidth="354.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="0.0">
+      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="40.0" maxWidth="300.0" prefHeight="161.0" prefWidth="250.0" vgap="60.0" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="tfdLogin" promptText="Login">
                      <font>
                         <Font name="Verdana" size="12.0" />
-                     </font></TextField>
+                     </font>
+                  </TextField>
                   <PasswordField fx:id="tfdSenha" promptText="Senha">
                      <font>
                         <Font name="Verdana" size="12.0" />
-                     </font></PasswordField>
+                     </font>
+                  </PasswordField>
                </children>
                <BorderPane.margin>
                   <Insets />
@@ -37,11 +39,13 @@
                   <Button fx:id="btnEntrar" mnemonicParsing="false" onAction="#actionButton" prefHeight="32.0" prefWidth="111.0" text="Entrar">
                      <font>
                         <Font name="Verdana" size="12.0" />
-                     </font></Button>
+                     </font>
+                  </Button>
                   <Button fx:id="btnSair" mnemonicParsing="false" onAction="#actionButton" prefHeight="32.0" prefWidth="111.0" text="Sair">
                      <font>
                         <Font name="Verdana" size="12.0" />
-                     </font></Button>
+                     </font>
+                  </Button>
                </children>
                <BorderPane.margin>
                   <Insets />
@@ -49,7 +53,7 @@
             </FlowPane>
          </bottom>
          <top>
-            <ImageView cache="true" fitHeight="213.0" fitWidth="353.0" pickOnBounds="true" BorderPane.alignment="CENTER">
+            <ImageView cache="true" fitHeight="261.0" fitWidth="289.0" pickOnBounds="true" preserveRatio="true" smooth="false" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../../../../../res/SGA%20-%20Nome.png" />
                </image>

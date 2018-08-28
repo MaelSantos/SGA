@@ -34,7 +34,7 @@ public class App extends Application{
 		Scene scene = new Scene(parent);
 		stage.setScene(scene);
 		stage.show();
-		stage.setTitle("SGA - Sistema De Gerenciamento Advocativo");
+		stage.setTitle("SGA - Sistema de Gerenciamento Advocatício");
 		stage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(("Icon.png"))));
 	}
 	

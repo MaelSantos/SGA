@@ -180,22 +180,9 @@ public class Contrato {
 	
 	@Override
 	public String toString() {
-		return "AREA: ["+consulta.getArea()+"] - DATA: ["+data_contrato+"] - VALOR: ["+valor_total+"]";
+		return "AREA: ["+area+"] - DATA: ["+data_contrato+"] - VALOR: ["+valor_total+"]";
 	}
 	
-	public static void main(String[] args) {
-		Contrato c = new Contrato();
-		
-		Consulta consulta = new Consulta();
-		consulta.setCliente(new Cliente("Mael", null));
-		
-		c.setConsulta(consulta);
-		c.setData_contrato(new Date());
-		c.setValor_total(10000);
-		
-		System.out.println(c);	
-	}
-
 	public void setValor_total(Float valor_total) {
 		this.valor_total = valor_total;
 	}

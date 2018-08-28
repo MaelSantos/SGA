@@ -307,10 +307,10 @@
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="50">
+		<band height="42">
 			<staticText>
 				<reportElement x="245" y="22" width="308" height="20" uuid="9c206b5e-b325-495b-8db9-2397f8ac2b40"/>
-				<text><![CDATA[Gerado Pelo Sistema SGA - Sistema de Gerenciamento Advocativo]]></text>
+				<text><![CDATA[Gerado Pelo Sistema SGA - Sistema de Gerenciamento Advocatício]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

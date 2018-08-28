@@ -42,7 +42,7 @@
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>"+$F{contrato}.getConsulta().getFuncionario().getNome()+"</b>, brasileiro(a) "+", advogado"+", inscrito(a) no OAB/PE sob o n° "+$F{contrato}.getConsulta().getFuncionario().getNumero_oab()+", com o escritório profissional á Rua  "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getRua()+" - "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getBairro()+", "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getCidade()+"/"+$F{contrato}.getConsulta().getFuncionario().getEndereco().getEstado()+", Cep "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getCep()+", onde recebe intimações, denominado neste instrumento como <b>CONTRATADO</b>, as partes acima indetificadas têm, entre si, justo e acertado o presente <b>Contrato de Honorários Advocatícios</b>, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>"+$F{contrato}.getConsulta().getFuncionario().getNome()+"</b>, brasileiro(a) "+", advogado"+", inscrito(a) no OAB/PE sob o n° "+$F{contrato}.getConsulta().getFuncionario().getNumero_oab()+", com o escritório profissional á Rua  "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getRua()+" - "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getBairro()+", "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getCidade()+"/"+$F{contrato}.getConsulta().getFuncionario().getEndereco().getEstado()+", Cep "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getCep()+", onde recebe intimações, denominado neste instrumento como <b>CONTRATADO</b>, as partes acima identificadas têm, entre si, justo e acertado o presente <b>Contrato de Honorários Advocatícios</b>, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="81" width="552" height="40" uuid="558ceea9-d12c-4c94-813d-6b6c34205fa0"/>
@@ -135,7 +135,7 @@
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>Cláusula 11ª</b>. As partes estabelecem que havendo atraso no pagamento dos honorários, serão cobrados juros de mora na proporção de "+$F{contrato}.getParcelas().get( 0 )+"% ao mês."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Cláusula 11ª</b>. As partes estabelecem que havendo atraso no pagamento dos honorários, serão cobrados juros de mora na proporção de "+((br.com.sga.entidade.Parcela)$F{contrato}.getParcelas().get( 0 )).getJuros()+"% ao mês."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="32" width="552" height="30" uuid="40d27aa7-d9d6-4ffb-91bd-ad5d03fe8a5e"/>
@@ -202,7 +202,7 @@
 				<textElement>
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<text><![CDATA[Gerado Pelo Sistema SGA - Sistema de Gerenciamento Advocativo]]></text>
+				<text><![CDATA[Gerado Pelo Sistema SGA - Sistema de Gerenciamento Advocatício]]></text>
 			</staticText>
 		</band>
 	</pageFooter>
