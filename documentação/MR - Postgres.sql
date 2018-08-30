@@ -1,0 +1,180 @@
+﻿CREATE TABLE ENDERECO(
+	id SERIAL PRIMARY KEY,
+	estado VARCHAR(255), 
+	numero VARCHAR(255),
+	cep VARCHAR(255),
+	cidade VARCHAR(255),
+	bairro VARCHAR(255), 
+	complemento VARCHAR(255), 
+	pais VARCHAR(255), 
+	rua VARCHAR(255)
+);
+
+CREATE TABLE FUNCIONARIO(
+	id SERIAL PRIMARY KEY,
+	nome VARCHAR(255) NOT NULL,
+	senha VARCHAR(255) NOT NULL,
+email VARCHAR(255) UNIQUE,
+	login VARCHAR(255) UNIQUE NOT NULL,
+	numero_OAB VARCHAR(255) UNIQUE NOT NULL,
+	endereco_id INTEGER REFERENCES ENDERECO(id) 
+);
+CREATE TABLE CLIENTE(
+	id SERIAL PRIMARY KEY,
+	id_endereco INTEGER REFERENCES ENDERECO(id), 
+	nome VARCHAR(255) NOT NULL,
+	data_nascimento DATE,
+	genero VARCHAR(255),
+	cpf_cnpj  VARCHAR(255) UNIQUE NOT NULL,
+rg  VARCHAR(255) UNIQUE NOT NULL, 
+	email VARCHAR(255) UNIQUE, 
+	estado_civil  VARCHAR(255),
+	profissao  VARCHAR(255),
+	filhos  Boolean,
+	tipo  VARCHAR(255),
+	responsavel VARCHAR(255)
+);
+CREATE TABLE CONSULTA(
+	id SERIAL PRIMARY KEY,
+	cliente_id  INTEGER REFERENCES CLIENTE(id),    
+	funcionario_id  INTEGER REFERENCES FUNCIONARIO(id),    
+	valor_honorario FLOAT, 
+	data_consulta  DATE NOT NULL,
+	descricao  VARCHAR(255),
+	area VARCHAR(255),
+	indicacao VARCHAR(255)
+);
+
+CREATE TABLE TESTEMUNHA(
+	id SERIAL PRIMARY KEY,
+	endereco_id  INTEGER REFERENCES ENDERECO(id), 
+	consulta_id  INTEGER REFERENCES CONSULTA(id),
+	nome VARCHAR(255)
+);
+
+CREATE TABLE TELEFONE(
+	id SERIAL PRIMARY KEY,
+	cliente_id INTEGER REFERENCES CLIENTE(id), 
+	tipo VARCHAR(255),
+	numero INTEGER,
+	prefixo INTEGER,
+	testemunha_id  INTEGER REFERENCES TESTEMUNHA(id)
+);
+
+CREATE TABLE FINANCEIRO(
+	id SERIAL PRIMARY KEY,
+	total_despesa  FLOAT, 
+	total_lucro FLOAT,
+	ano_coberto VARCHAR(20) UNIQUE
+	
+);
+
+CREATE TABLE CONTRATO (
+	id SERIAL PRIMARY KEY, 
+	consulta_id INTEGER REFERENCES CONSULTA(id), 
+	objeto VARCHAR(255) NOT NULL,
+	valor_total  FLOAT NOT NULL,
+	tipo_pagamento VARCHAR(255) NOT NULL,
+	data_contrato DATE NOT NULL,
+	area VARCHAR(255) NOT NULL,
+	dados_banco VARCHAR(255) NOT NULL,
+	financeiro_id INTEGER REFERENCES FINANCEIRO(id)
+);
+
+CREATE TABLE PARCELA(
+	id SERIAL PRIMARY KEY,
+	contrato_id INTEGER REFERENCES CONTRATO(id), 
+	valor FLOAT NOT NULL, 
+	vencimento DATE NOT NULL, 
+	juros FLOAT, 
+	multa FLOAT, 
+	tipo VARCHAR(255), 
+	estado VARCHAR(255)
+);
+CREATE TABLE PROCESSO(
+	id SERIAL PRIMARY KEY,
+	contrato_id INTEGER REFERENCES CONTRATO(id), 	
+	status  BOOLEAN,  
+	data_atuacao  DATE NOT NULL,
+	numero  varchar(255)  UNIQUE NOT NULL, 
+	classe_judicial VARCHAR(255) NOT NULL,
+	orgao_julgador VARCHAR(255) NOT NULL,
+	comarca VARCHAR(255) NOT NULL,
+	decisao  VARCHAR(255), 
+	descricao  VARCHAR(255), 
+	fase  VARCHAR(255) NOT NULL,
+	tipo_processo  VARCHAR(255) NOT NULL,
+	tipo_participacao  VARCHAR(255)
+);
+
+CREATE TABLE PARTE(
+	id SERIAL PRIMARY KEY,
+	contrato_id INTEGER REFERENCES CONTRATO(id),	
+	tipo_parte VARCHAR(255) NOT NULL,
+	tipo_participacao VARCHAR(255) NOT NULL,
+	situacao VARCHAR(255),
+	nome VARCHAR(255)
+);
+
+CREATE TABLE AUDIENCIA(
+	id SERIAL PRIMARY KEY,
+	processo_id  INTEGER REFERENCES PROCESSO(id), 
+	tipo VARCHAR(255) NOT NULL, 
+	data_audiencia DATE,
+	status VARCHAR(255),
+	vara VARCHAR(255) NOT NULL, 
+	orgao VARCHAR(255) NOT NULL
+);
+
+
+
+CREATE TABLE DESPESA(
+	id SERIAL PRIMARY KEY,
+	data_retirada DATE NOT NULL, 
+	status Boolean,
+	centro_custo VARCHAR(255),
+	descricao  VARCHAR(255) NOT NULL,
+	valor FLOAT NOT NULL, 
+	tipo_gasto VARCHAR(50) NOT NULL,
+	vencimento DATE NOT NULL,
+	financeiro_id INTEGER REFERENCES FINANCEIRO(id)
+);
+
+CREATE TABLE RECEITA(
+	id SERIAL PRIMARY KEY,
+	data_entrada DATE NOT NULL, 
+	centro_custo VARCHAR(255),
+	descricao VARCHAR(255), 
+	valor  FLOAT NOT NULL, 
+	status VARCHAR(255),
+	tipo_pagamento VARCHAR(50) NOT NULL, 
+	vencimento DATE NOT NULL,
+	financeiro_id INTEGER REFERENCES FINANCEIRO(id)
+);
+
+CREATE TABLE NOTIFICACAO(
+	id SERIAL PRIMARY KEY,
+	tipo VARCHAR(255) NOT NULL, 
+	prioridade VARCHAR(255) NOT NULL, 
+	descricao VARCHAR(255),
+	estado VARCHAR(255),
+	data_aviso timestamp without time zone
+);
+CREATE TABLE VINCULO_FUNCIONARIO(
+	id SERIAL PRIMARY KEY,
+	funcionario_id INTEGER REFERENCES FUNCIONARIO(id),
+	notificacao_id INTEGER REFERENCES NOTIFICACAO(id)
+);
+
+CREATE TABLE LOG(
+	id SERIAL PRIMARY KEY,
+	data DATE NOT NULL,
+	evento VARCHAR(255),
+	remetente VARCHAR(255),
+	destinatario VARCHAR(255),
+	status VARCHAR(255)
+);
+
+CREATE EXTENSION unaccent;
+
+

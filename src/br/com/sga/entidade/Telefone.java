@@ -60,9 +60,17 @@ public class Telefone {
 		this.cliente = cliente;
 	}
 
+
+	public TipoTelefone getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoTelefone tipo) {
+		this.tipo = tipo;
+	}
+	
 	@Override
 	public String toString() {
 		return tipo+" ("+prefixo+")"+numero;
 	}
-	
 }

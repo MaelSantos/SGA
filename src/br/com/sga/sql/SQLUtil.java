@@ -150,8 +150,8 @@ public class SQLUtil {
     
 //    id ,cliente_id, numero, prefixo
     public static class Telefone {
-	    public static final String INSERT_ALL_PARA_CLIENTE = "INSERT INTO TELEFONE(numero, prefixo, cliente_id) VALUES (?, ?, ?)";
-	    public static final String INSERT_ALL_PARA_TESTEMUNHA = "INSERT INTO TELEFONE(numero, prefixo, testemunha_id) VALUES (?, ?, ?)";
+	    public static final String INSERT_ALL_PARA_CLIENTE = "INSERT INTO TELEFONE(numero, prefixo, tipo, cliente_id) VALUES (?, ?, ?, ?)";
+	    public static final String INSERT_ALL_PARA_TESTEMUNHA = "INSERT INTO TELEFONE(numero, prefixo, tipo, testemunha_id) VALUES (?, ?, ?, ?)";
 	    public static final String SELECT_TELEFONE_CLIENTE = "SELECT * FROM TELEFONE WHERE cliente_id = ?";
 	    public static final String SELECT_TELEFONE_TESTEMUNHA = "SELECT * FROM TELEFONE WHERE testemunha_id = ?";
 	    public static final String SELECT_NUMERO = "SELECT * FROM TELEFONE WHERE numero = ?";

@@ -35,7 +35,7 @@ public class BusinessCliente implements IBussinessCliente{
 			}
 
 		} catch (Exception e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 			throw new BusinessException(e.getMessage());
 		}
 	}
@@ -66,12 +66,10 @@ public class BusinessCliente implements IBussinessCliente{
 				cliente.getCpf_cnpj().trim().equals("") ||
 				cliente.getRg().trim().equals(""))
 			throw new ValidacaoException("INFORME TODOS OS DADOS NESCESSARIOS!!!");
-//		if(validador.isEmail(cliente.getEmail()))
-//			throw new ValidacaoException("FORMATO DO EMAIL INFORMADO ESTA INCORRETO!!!");
+		if(!validador.isEmail(cliente.getEmail()))
+			throw new ValidacaoException("FORMATO DO EMAIL INFORMADO ESTA INCORRETO!!!");
 		if(!validador.isCPF(cliente.getCpf_cnpj()) && !validador.isCNPJ(cliente.getCpf_cnpj()))
-			throw new ValidacaoException("CPF/CNPJ NÃO EXISTENTE/ACEITO!!!");
-//		if(daoCliente.buscarPorCodigo(cliente.getCpf_cnpj()) != null)
-//			throw new ValidacaoException("CPF/CNPJ JÁ EXISTENTE NO BANCO DE DADOS!!!");			
+			throw new ValidacaoException("CPF/CNPJ NÃO EXISTENTE/ACEITO!!!");	
 	}
 
 	@Override

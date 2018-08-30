@@ -119,7 +119,7 @@ public class ControleAgenda extends Controle {
 				try {
 					fachada.salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade, cadastroNotificacao.getDescricaoArea().getText(), Andamento.PENDENTE, 
 							aviso_data, funcionarios));
-					Alerta.getInstance().showMensagem("Confirmação","","Nova notificacao cadastrada com exito");
+					Alerta.getInstance().showMensagem("Confirmação","","Nova notificação cadastrada com sucesso");
 					calendario.AtualizarMes();
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.SALVAR, funcionario.getNome(), "Nova Tarefa: "+aviso_data, StatusLog.CONCLUIDO);
 				} catch (BusinessException e) {

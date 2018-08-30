@@ -148,7 +148,7 @@ public class ControleCadastroCliente extends Controle{
 					tfdTelefone.setText("");
 					tfdPrefixo.setText("");
 					
-					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Adicionado", telefone+"", "");
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Adicionado", "Telefone: "+telefone+" Adicionado", "");
 					
 				} catch (Exception e) {
 					Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Adicionar Telefone!!!", e.getMessage());
@@ -165,14 +165,15 @@ public class ControleCadastroCliente extends Controle{
 					limparCampos();
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: "+cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
 				} catch (BusinessException e) {
+					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Cadastrar Cliente!!!", e.getMessage());
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: Erro", StatusLog.ERRO);
 					e.printStackTrace();
 				}
 				
 				try {
+					if(log != null)
 					fachada.salvarEditarLog(log);
 				} catch (BusinessException e) {
-					// TODO Bloco catch gerado automaticamente
 					e.printStackTrace();
 				}
 				
@@ -270,7 +271,7 @@ public class ControleCadastroCliente extends Controle{
 
 			return cliente;
 		} catch (Exception e) {
-			Alerta.getInstance().showMensagem("Erro Ao Cadastra!", "Informe Os Dados Do Cliente", e.getMessage());
+			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Ao Cadastrar!", "Informe Os Dados Do Cliente", e.getMessage());
 		}
 		return cliente;
 

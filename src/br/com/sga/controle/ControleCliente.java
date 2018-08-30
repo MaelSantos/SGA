@@ -32,6 +32,7 @@ import br.com.sga.view.Alerta;
 import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -178,7 +179,7 @@ public class ControleCliente extends Controle {
 							"Buscar Cliente: Não Encontrado", StatusLog.SEM_RESULTADOS);
 				modificarCampos();
 			} catch (BusinessException e) {
-				Alerta.getInstance().showMensagem("Erro!", "", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", e.getMessage());
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 						"Buscar Cliente: Erro", StatusLog.ERRO);
 				e.printStackTrace();
@@ -206,7 +207,7 @@ public class ControleCliente extends Controle {
 					e.printStackTrace();
 				}
 			} else
-				Alerta.getInstance().showMensagem("Alerta", "",
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta", "",
 						"Nenhum Cliente Selecionado : \nFavor Selecionar Um Cliente e Após Clicar Para Visualizar Seus Contratos");
 		} else if (obj == btnProcessos) {
 			if (cliente != null) {
@@ -221,7 +222,7 @@ public class ControleCliente extends Controle {
 				}
 
 			} else
-				Alerta.getInstance().showMensagem("Alerta", "",
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta", "",
 						"Nenhum Cliente Selecionado : \nFavor Selecionar Um Cliente e Após Clicar Para Visualizar Seus Processos");
 		} else if (obj == btnConsultas) {
 			if (cliente != null) {
@@ -239,23 +240,23 @@ public class ControleCliente extends Controle {
 				}
 
 			} else
-				Alerta.getInstance().showMensagem("Alerta", "",
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta", "",
 						"Nenhum Cliente Selecionado : \nFavor Selecionar Um Cliente e Após Clicar Para Visualizar Suas Consultas");
 		} else if (obj == btnSalvar) {
 			Log log = null;
 			try {
 				alterarCiente();
 				fachada.salvarEditarCliente(cliente);
-				Alerta.getInstance().showMensagem("Salvo", "", "Cliente Editado Com Sucesso!!!");
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "", "Cliente Editado Com Sucesso!!!");
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(),
 						"Editar Cliente: " + cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
 			} catch (BusinessException e) {
-				Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Editar Cliente!!!", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!!!", "Erro Ao Editar Cliente!!!", e.getMessage());
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(),
 						"Editar Cliente: " + cliente.getCpf_cnpj(), StatusLog.ERRO);
 				e.printStackTrace();
 			} catch (NullPointerException e) {
-				Alerta.getInstance().showMensagem("Erro!!!", "Por favor Selecione Primeiro Um Cliente!!!",
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!!!", "Por favor Selecione Primeiro Um Cliente!!!",
 						e.getMessage());
 			}
 
