@@ -11,7 +11,6 @@ import java.util.Map;
 
 import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Consulta;
-import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Processo;
@@ -359,6 +358,9 @@ public class ControleDocumentos extends Controle {
 					if(adapter != null && adapter.getId() != null)
 					{
 						processo = dialogo.selecionar(fachada.buscarProcessoPorIdContrato(adapter.getId()));
+						processo.getContrato().getConsulta().setFuncionario(fachada.buscarUsuarioPorId(processo.getContrato().getConsulta().getFuncionario().getId()));
+						processo.getContrato().getConsulta().setCliente(fachada.buscarClientePorId(processo.getContrato().getConsulta().getCliente().getId()));
+						
 						pro.add(processo);						
 						return pro;	
 					}

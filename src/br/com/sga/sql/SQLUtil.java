@@ -11,7 +11,7 @@ public class SQLUtil {
     	public static final String SELECT_TIPO = "SELECT p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase,p.contrato_id FROM PROCESSO p WHERE p.tipo_processo = ?";
     	public static final String SELECT_ID = "SELECT P.*,C.valor_total, E.nome FROM PROCESSO P, CONTRATO C,CONSULTA D, CLIENTE E WHERE P.ID = ? AND P.CONTRATO_ID=C.ID AND C.CONSULTA_ID=D.ID AND D.CLIENTE_ID = E.ID";
     	public static final String SELECT_ADAPTER_ID_CLIENTE = "select p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.contrato_id from processo p, contrato c, CONSULTA s, CLIENTE l WHERE p.contrato_id = c.id AND c.consulta_id = s.id AND s.cliente_id = l.id AND l.id = ?";
-    	public static final String SELECT_ID_CONTRATO = "SELECT * FROM PROCESSO P, CONTRATO C, CONSULTA S, CLIENTE L, FUNCIONARIO F WHERE P.contrato_id = ? AND P.contrato_id = C.ID AND C.consulta_id = S.id AND S.funcionario_id = F.id AND S.cliente_id = L.id";
+    	public static final String SELECT_ID_CONTRATO = "SELECT P.*,C.*,S.* FROM PROCESSO P, CONTRATO C, CONSULTA S, CLIENTE L, FUNCIONARIO F WHERE P.contrato_id = ? AND P.contrato_id = C.ID AND C.consulta_id = S.id AND S.funcionario_id = F.id AND S.cliente_id = L.id";
     }
     
     public static class Audiencia{
@@ -115,6 +115,7 @@ public class SQLUtil {
     	 *  select * from funcionario where nome like '%_%' and 	senha like '%_%' and login like 'wan'and numero_oab like '%_%' and email like '%_%'
     	 */
 	    public static final String UPDATE_ALL = "UPDATE FUNCIONARIO SET NOME = ?, LOGIN = ? , SENHA = ?, NUMERO_OAB = ?, EMAIL = ? where id = ?";
+		public static final String SELECT_ID = "SELECT * FROM FUNCIONARIO WHERE id = ?";
     }
     
 //  nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	

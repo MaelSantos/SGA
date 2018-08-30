@@ -283,24 +283,26 @@ public class DaoProcesso implements IDaoProcesso {
 				consulta.setIndicacao(resultSet.getString("indicacao"));
 
 				cliente = new Cliente();
-				cliente.setId(resultSet.getInt("id"));
-				cliente.setNome(resultSet.getString("nome"));
-				cliente.setNascimento(resultSet.getDate("data_nascimento"));
-				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
-				cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
-				cliente.setRg(resultSet.getString("rg"));
-				cliente.setEmail(resultSet.getString("email"));
-				cliente.setEstado_civil(resultSet.getString("estado_civil"));
-				cliente.setProfissao(resultSet.getString("profissao"));
-				cliente.setFilhos(resultSet.getBoolean("filhos"));
-				cliente.setResponsavel(resultSet.getString("responsavel"));
-				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
-				cliente.setEndereco(daoCommun.getEndereco(cliente.getId()));
+				cliente.setId(resultSet.getInt("cliente_id"));
+//				cliente.setNome(resultSet.getString(33));
+//				cliente.setNascimento(resultSet.getDate("data_nascimento"));
+//				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
+//				cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
+//				cliente.setRg(resultSet.getString("rg"));
+//				cliente.setEmail(resultSet.getString("email"));
+//				cliente.setEstado_civil(resultSet.getString("estado_civil"));
+//				cliente.setProfissao(resultSet.getString("profissao"));
+//				cliente.setFilhos(resultSet.getBoolean("filhos"));
+//				cliente.setResponsavel(resultSet.getString("responsavel"));
+//				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
+//				cliente.setEndereco(daoCommun.getEndereco(cliente.getId()));
 
-				funcionario = new Funcionario(resultSet.getInt("funcionario_id"), resultSet.getString("nome"), resultSet.getString("email"), 
-            			resultSet.getString("login"), resultSet.getString("senha"), resultSet.getString("numero_oab"));
+				funcionario = new Funcionario(resultSet.getInt("funcionario_id"));
 				
-				funcionario.setEndereco(daoCommun.getEndereco(funcionario.getId()));
+//				funcionario = new Funcionario(resultSet.getInt("funcionario_id"), resultSet.getString(45), resultSet.getString("email"), 
+//            			resultSet.getString("login"), resultSet.getString("senha"), resultSet.getString("numero_oab"));
+//				
+//				funcionario.setEndereco(daoCommun.getEndereco(funcionario.getId()));
 				
 				consulta.setCliente(cliente);
 				consulta.setFuncionario(funcionario);

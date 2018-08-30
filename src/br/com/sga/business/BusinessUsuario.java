@@ -38,8 +38,12 @@ public class BusinessUsuario implements IBusinessUsuario {
 	
 	@Override
 	public Funcionario buscarPorId(int id) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		try {
+			return daoUsuario.buscarPorId(id);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override

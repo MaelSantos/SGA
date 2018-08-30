@@ -9,9 +9,15 @@ import java.util.List;
 
 import org.postgresql.util.PSQLException;
 
+import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Consulta;
+import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.entidade.enums.Tabela;
+import br.com.sga.entidade.enums.TipoParticipacao;
+import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoUsuario;
 import br.com.sga.sql.SQLConnection;
@@ -90,15 +96,6 @@ public class DaoUsuario implements IDaoUsuario{
             throw new DaoException("PROBLEMA AO BUSCAR USUARIO - CONTATE O ADM");
         }
 	}
-	public static void main(String[] args) {
-		try {
-			System.out.println(new DaoUsuario().buscarPorBusca("Wanderson Pereira"));
-		} catch (DaoException e) {;
-			e.printStackTrace();
-		}
-	}
-
-	
 
 	@Override
 	public void editar(Funcionario entidade) throws DaoException {
@@ -127,8 +124,30 @@ public class DaoUsuario implements IDaoUsuario{
 
 	@Override
 	public Funcionario buscarPorId(int id) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		try {
+
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Funcionario.SELECT_ID);
+			this.statement.setInt(1, id);
+
+			resultSet = this.statement.executeQuery();
+
+			Funcionario funcionario = null;
+			if (resultSet.next()) {
+
+				funcionario = new Funcionario(resultSet.getInt("id"), resultSet.getString("nome"), resultSet.getString("email"), resultSet.getString("login"), resultSet.getString("senha"), resultSet.getString("numero_oab"));
+            	funcionario.setEndereco(daoCommun.getEndereco(resultSet.getInt("endereco_id")));
+            	
+			}
+
+			this.conexao.close();
+			return funcionario;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("ERRO AO BUSCAR USUARIO POR ID - CONTATE O ADM");
+		}
+
 	}
 	
 	public FuncionarioAdapter buscarPorConsultaAdapter(Integer consulta_id) throws DaoException{
