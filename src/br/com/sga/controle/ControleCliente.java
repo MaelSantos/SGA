@@ -153,7 +153,6 @@ public class ControleCliente extends Controle {
 		cbxGenero.getItems().setAll(Sexo.values());
 
 		MaskFieldUtil.cpfCnpjField(tfdCpfCnpj);
-		MaskFieldUtil.numericField(tfdRg);
 		MaskFieldUtil.numericField(tfdCep);
 
 	}

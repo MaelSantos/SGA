@@ -162,25 +162,36 @@ public class ControleCadastroConsulta extends Controle{
 		{
 			Log log;
 			try {
-				List<Cliente> clientes = fachada.buscarClientePorBusca(dadoClienteField.getText().trim());
-				//cliente = Dialogo.getInstance().selecaoCliente(clientes);
-				//				cliente = Dialogo.getInstance().selecao(clientes,"Selecione de cliente","Selecione o cliente já cadastrado para consulta");
-				cliente = Dialogo.getInstance().selecionar(clientes);
-				dadoClienteField.setText(cliente.getNome());
+				List<Cliente> clientes = null;
+				if(!dadoClienteField.getText().trim().isEmpty())
+				{
+					clientes = fachada.buscarClientePorBusca(dadoClienteField.getText().trim());
+					cliente = Dialogo.getInstance().selecionar(clientes);
+					dadoClienteField.setText(cliente.getNome());					
+				}
+				else
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Necessaria!", "Informe Algum Dado Para Pesquisa", "");
+				
 			} catch (BusinessException e) {
 				e.printStackTrace();
-				Alerta.getInstance().showMensagem(AlertType.ERROR,"Erro","",e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR,"Erro!","Erro Ao Buscar Cliente!!!",e.getMessage());
 			}
 		}
 		else  if(event.getSource() == buscarFuncionarioButton) 
 		{
 			try {
-				List<Funcionario> funcionarios = fachada.buscarUsuarioPorBusca(dadoFuncionarioField.getText().trim());
-				outroFuncionario = Dialogo.getInstance().selecionar(funcionarios);
-				dadoFuncionarioField.setText(outroFuncionario.getNome());
+				List<Funcionario> funcionarios = null;
+				if(!dadoFuncionarioField.getText().trim().isEmpty())
+				{
+					funcionarios = fachada.buscarUsuarioPorBusca(dadoFuncionarioField.getText().trim());
+					outroFuncionario = Dialogo.getInstance().selecionar(funcionarios);
+					dadoFuncionarioField.setText(outroFuncionario.getNome());					
+				}
+				else
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Necessaria!", "Informe Algum Dado Para Pesquisa", "");
 			} catch (BusinessException e) {
 				e.printStackTrace();
-				Alerta.getInstance().showMensagem(AlertType.ERROR,"Erro","",e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR,"Erro Ao Buscar Funcionario!!!","",e.getMessage());
 			}
 		}
 		else  if(event.getSource() == addTestemunhaField) {
@@ -200,7 +211,7 @@ public class ControleCadastroConsulta extends Controle{
 				limparCamposTestemunha();
 			}
 			else
-				Alerta.getInstance().showMensagem("Alerta","","Campos obrigatorios para testemunha vazios: \nHá um ou mais campos obrigatorios sem entrada");
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta","","Campos obrigatorios para testemunha vazios: \nHá um ou mais campos obrigatorios sem entrada");
 
 
 		}
@@ -228,20 +239,20 @@ public class ControleCadastroConsulta extends Controle{
 						consulta = new Consulta(area, descricao, data_consulta, valor_honorario, indicacao,
 								cliente, funcionario,testemunhaTableView.getItems());
 						fachada.salvarEditarConsulta(consulta);
-						Alerta.getInstance().showMensagem("Consulta inserida","","Consulta com cadastrada com sucesso!");
+						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Consulta inserida","","Consulta cadastrada com sucesso!");
 						limparCamposConsulta();
 						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Consulta: "+area, StatusLog.CONCLUIDO);
 					}catch (NumberFormatException e) {
-						Alerta.getInstance().showMensagem("Erro","","Campo númerico invalido:\nHá um ou mais campos com entradas invalidas");
+						Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro","","Campo númerico invalido:\nHá um ou mais campos com entradas invalidas");
 					}catch (BusinessException e) {
 						e.printStackTrace();
-						Alerta.getInstance().showMensagem("Erro","",e.getMessage());
+						Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro","",e.getMessage());
 						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Consulta: Erro", StatusLog.ERRO);
 					}
 				}else
-					Alerta.getInstance().showMensagem("Alerta","","Campos obrigatorios vazios: \nHá um ou mais campos obrigatorios sem entrada");
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta","","Campos obrigatorios vazios: \nHá um ou mais campos obrigatorios sem entrada");
 			}else
-				Alerta.getInstance().showMensagem("Alerta","","Não há um cliente selecionado: \nfavor selecionar cliente antes de salvar");
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta","","Não há um cliente selecionado: \nfavor selecionar cliente antes de salvar");
 
 			try {
 				if(log != null)

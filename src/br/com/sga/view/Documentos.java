@@ -74,10 +74,10 @@ public class Documentos {
 			contrato.setTipo_pagamento(TipoPagamento.A_VISTA);
 			contrato.setValor_total(120000);
 			Consulta consulta = new Consulta();
-			Processo processo = Fachada.getInstance().buscarProcessoPorId(4);
+			Processo processo = Fachada.getInstance().buscarProcessoPorId(1);
 			processo.setContrato(contrato);
 			Cliente cliente = Fachada.getInstance().buscarClientePorId(1);
-			Funcionario funcionario = Fachada.getInstance().buscarPorLogin("mael_santos7", "0708");
+			Funcionario funcionario = Fachada.getInstance().buscarPorLogin("mael_santos7", "07080209");
 			consulta.setCliente(cliente);
 			consulta.setFuncionario(funcionario);
 			funcionario.setEndereco(cliente.getEndereco());
