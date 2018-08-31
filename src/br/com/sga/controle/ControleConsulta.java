@@ -70,56 +70,66 @@ public class ControleConsulta extends Controle {
 	public void actionButton(ActionEvent event) {
 		if (buscarButton == event.getSource()) {
 			Log log;
-			contratosTableView.getItems().clear();
-			try {
-				String[] busca = new String[3];
 
-				busca[0] = buscarField.getText().trim();
-
-				if (tipoPessoaBox.getSelectionModel().getSelectedItem() != null
-						&& !tipoPessoaBox.getSelectionModel().getSelectedItem().equals("TODOS"))
-					busca[1] = tipoPessoaBox.getSelectionModel().getSelectedItem();
-				else
-					busca[1] = "";
-
-				if (areaBox.getSelectionModel().getSelectedItem() != null
-						&& !areaBox.getSelectionModel().getSelectedItem().equals("TODAS"))
-					busca[2] = areaBox.getSelectionModel().getSelectedItem();
-				else
-					busca[2] = "";
-				for (String s : busca)
-					System.out.println(s);
-
-				contratosTableView.getItems().addAll(fachada.buscarConsultaPorClienteAdapter(busca));
-				Float sum = 0f;
-				for (ConsultaAdapter e : contratosTableView.getItems()) {
-					sum += e.getValor_honorario();
+			if(!buscarField.getText().trim().isEmpty())
+			{
+				contratosTableView.getItems().clear();
+				try {
+					String[] busca = new String[3];
+					
+					busca[0] = buscarField.getText().trim();
+					
+					if (tipoPessoaBox.getSelectionModel().getSelectedItem() != null
+							&& !tipoPessoaBox.getSelectionModel().getSelectedItem().equals("TODOS"))
+						busca[1] = tipoPessoaBox.getSelectionModel().getSelectedItem();
+					else
+						busca[1] = "";
+					
+					if (areaBox.getSelectionModel().getSelectedItem() != null
+							&& !areaBox.getSelectionModel().getSelectedItem().equals("TODAS"))
+						busca[2] = areaBox.getSelectionModel().getSelectedItem();
+					else
+						busca[2] = "";
+					for (String s : busca)
+						System.out.println(s);
+					
+					contratosTableView.getItems().addAll(fachada.buscarConsultaPorClienteAdapter(busca));
+					Float sum = 0f;
+					for (ConsultaAdapter e : contratosTableView.getItems()) {
+						sum += e.getValor_honorario();
+					}
+					totalField.setText(sum + "");
+					if (contratosTableView.getItems().isEmpty())
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+								"Buscar Consulta: " + busca[0] + " - " + busca[1] + " - " + busca[2],
+								StatusLog.SEM_RESULTADOS);
+					else
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+								"Buscar Consulta: " + busca[0] + " - " + busca[1] + " - " + busca[2],
+								StatusLog.CONCLUIDO);
+					
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Busca Concluida Com Sucesso",
+							"");
+					
+				} catch (BusinessException e) {
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+							"Buscar Consulta: Erro", StatusLog.ERRO);
+					
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Buscar Consultas",
+							e.getMessage());
+					e.printStackTrace();
 				}
-				totalField.setText(sum + "");
-				if (contratosTableView.getItems().isEmpty())
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-							"Buscar Consulta: " + busca[0] + " - " + busca[1] + " - " + busca[2], StatusLog.SEM_RESULTADOS);
-				else
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-							"Buscar Consulta: " + busca[0] + " - " + busca[1] + " - " + busca[2], StatusLog.CONCLUIDO);
 				
-				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Busca Concluida Com Sucesso", "");
+				try {
+					if (log != null)
+						fachada.salvarEditarLog(log);
+				} catch (BusinessException e) {
+					e.printStackTrace();
+				}
 				
-			} catch (BusinessException e) {
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-						"Buscar Consulta: Erro", StatusLog.ERRO);
-
-				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Buscar Consultas", e.getMessage());
-				e.printStackTrace();
 			}
-
-			try {
-				if (log != null)
-					fachada.salvarEditarLog(log);
-			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
-				e.printStackTrace();
-			}
+			else
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Informe Um Dado Para Efetuar a Buscar", "");
 
 		} else if (cadastrarConsultaButton == event.getSource())
 			App.notificarOuvintes(Tela.CADASTRO_CONSULTA);
@@ -129,7 +139,7 @@ public class ControleConsulta extends Controle {
 				App.notificarOuvintes(Tela.DETALHES_CONSULTA, consulta); // informando que vou para tela de detalhes de
 																			// consulta e mando uma consulta selecionada
 			} else {
-				Alerta.getInstance().showMensagem("Alerta", "",
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta", "",
 						"Não há nenhuma consulta selecionada ,\ncom isso não é possivel ver detalhes de consulta");
 			}
 		}

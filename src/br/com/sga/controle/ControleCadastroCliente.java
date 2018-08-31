@@ -152,7 +152,7 @@ public class ControleCadastroCliente extends Controle{
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Adicionado", "Telefone: "+telefone+" Adicionado", "");
 					
 				} catch (Exception e) {
-					Alerta.getInstance().showMensagem("Erro!!!", "Erro Ao Adicionar Telefone!!!", e.getMessage());
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!!!", "Erro Ao Adicionar Telefone!!!", e.getMessage());
 				}
 
 			}
@@ -162,11 +162,11 @@ public class ControleCadastroCliente extends Controle{
 					Cliente cliente = criarCliente();	
 					fachada.salvarEditarCliente(cliente);
 					telefones.clear();					
-					Alerta.getInstance().showMensagem("Salvando...", "Salvo Com Sucesso", "Salvando...");
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvando...", "Salvo Com Sucesso", "Salvando...");
 					limparCampos();
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: "+cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
 				} catch (BusinessException e) {
-					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Cadastrar Cliente!!!", e.getMessage());
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Cadastrar Cliente!!!", e.getMessage());
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: Erro", StatusLog.ERRO);
 					e.printStackTrace();
 				}

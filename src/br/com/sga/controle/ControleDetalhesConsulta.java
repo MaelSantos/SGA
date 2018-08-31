@@ -185,11 +185,13 @@ public class ControleDetalhesConsulta extends Controle {
 				this.consulta.setId(((ConsultaAdapter) (object)).getId());
 				selectConButton.setVisible(false);
 				atualizarDadosConsulta();
+				System.out.println("Adapter: "+consulta);
 			}
 			else if (object instanceof Consulta) {
 				this.consulta = (Consulta) object;
 				selectConButton.setVisible(true);
 				atualizarDadosConsulta();
+				System.out.println("Consulta: "+consulta);
 				
 			}
 		} else {

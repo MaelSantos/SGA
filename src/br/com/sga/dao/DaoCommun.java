@@ -199,9 +199,10 @@ public class DaoCommun implements IDaoCommun {
 			Telefone telefone = null;
 			if (resultSet.next()) {
 				telefone = new Telefone();
-				telefone.setId(resultSet.getInt(1));
-				telefone.setPrefixo(resultSet.getInt(2));
-				telefone.setNumero(resultSet.getInt(3));
+				telefone.setId(resultSet.getInt("id"));
+				telefone.setPrefixo(resultSet.getInt("prefixo"));
+				telefone.setNumero(resultSet.getInt("numero"));
+				telefone.setTipo(TipoTelefone.getTipo(resultSet.getString("tipo")));
 			}
 			this.connection.close();
 			return telefone;
