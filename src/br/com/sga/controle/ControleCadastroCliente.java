@@ -2,6 +2,7 @@ package br.com.sga.controle;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -300,8 +301,9 @@ public class ControleCadastroCliente extends Controle{
 		tfdTelefoneResponsavel.setVisible(false);
 
 		MaskFieldUtil.cpfCnpjField(tfdCpfCnpj);
-		MaskFieldUtil.numericField(tfdRg);
 		MaskFieldUtil.numericField(tfdCep);
+		
+		tfdNascimento.setValue(LocalDate.of(1998, 1, 1));
 	}
 
 }

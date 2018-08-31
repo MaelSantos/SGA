@@ -86,7 +86,7 @@ public class BusinessCliente implements IBussinessCliente {
 				|| cliente.getRg().trim().equals("") || cliente.getNome() == null || cliente.getCpf_cnpj() == null
 				|| cliente.getRg() == null)
 			throw new ValidacaoException("INFORME TODOS OS DADOS NESCESSARIOS!!!");
-		if (cliente.getEmail() != null)
+		if (cliente.getEmail() != null && !cliente.getEmail().trim().equals(""))
 			if (!validador.isEmail(cliente.getEmail()))
 				throw new ValidacaoException("FORMATO DO EMAIL INFORMADO ESTA INCORRETO!!!");
 		if (!validador.isCPF(cliente.getCpf_cnpj()) && !validador.isCNPJ(cliente.getCpf_cnpj()))
