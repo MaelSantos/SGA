@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
@@ -140,14 +141,14 @@ public class Carregar implements Initializable{
 								e.printStackTrace();
 							}
 							
-							App.home = carregarArquivo("view/Home.fxml");
+							App.home = carregarArquivo("br/com/sga/view/Home.fxml");
 							updateData();
 							
-							App.historico = carregarArquivo("view/Historico.fxml");
+							App.historico = carregarArquivo("br/com/sga/view/Historico.fxml");
 							updateData();
 							
 							try {
-							App.estatistica = carregarArquivo("view/Estatistica.fxml");
+							App.estatistica = carregarArquivo("br/com/sga/view/Estatistica.fxml");
 							updateData();
 							}catch (Exception e) {
 								e.printStackTrace();
@@ -157,7 +158,7 @@ public class Carregar implements Initializable{
 							return null;
 						}catch (Exception e) {
 							e.printStackTrace();
-							Alerta.getInstance().showMensagem("Erro","","Erro ao carregar tela, contate o ADM");
+							Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!","","Erro ao carregar tela!!!, Contate o ADM");
 							throw new Exception();
 						}
 					}

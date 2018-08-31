@@ -55,9 +55,6 @@ public class ControleDetalhesProcesso extends Controle {
 	private TableColumn<Parte, TipoParte> colTipo1;
 
 	@FXML
-	private TableColumn<Parte, String> colSituacao1;
-
-	@FXML
 	private TableView<Parte> tblPassivo;
 
 	@FXML
@@ -65,9 +62,6 @@ public class ControleDetalhesProcesso extends Controle {
 
 	@FXML
 	private TableColumn<Parte, TipoParte> colTipo2;
-
-	@FXML
-	private TableColumn<Parte, String> colSituacao2;
 
 	@FXML
 	private TableView<Audiencia> tblAudiencias;
@@ -172,9 +166,6 @@ public class ControleDetalhesProcesso extends Controle {
 
 		colParticipantes1.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		colParticipantes2.setCellValueFactory(new PropertyValueFactory<>("nome"));
-
-		colSituacao1.setCellValueFactory(new PropertyValueFactory<>("situacao"));
-		colSituacao2.setCellValueFactory(new PropertyValueFactory<>("situacao"));
 
 		colTipo1.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
 		colTipo2.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
