@@ -30,7 +30,7 @@ public class App extends Application{
 		this.stage = stage;
 		
 		stage.centerOnScreen();
-		Parent parent = FXMLLoader.load(getClass().getResource("../view/Carregar.fxml"));
+		Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("br/com/sga/view/Carregar.fxml"));
 		Scene scene = new Scene(parent);
 		stage.setScene(scene);
 		stage.show();

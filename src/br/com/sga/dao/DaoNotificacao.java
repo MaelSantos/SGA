@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.postgresql.util.PSQLException;
-
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
@@ -131,7 +129,7 @@ public class DaoNotificacao implements IDaoNotificacao {
             while(resultSet.next()) {
             	lista.add(new Notificacao(TipoNotificacao.getTipo(resultSet.getString("tipo")),Prioridade.getTipo(resultSet.getString("prioridade")),
             			resultSet.getString("descricao"),Andamento.getTipo(resultSet.getString("estado")), 
-            			resultSet.getDate("data_aviso"),resultSet.getInt("id")));
+            			resultSet.getTimestamp("data_aviso"),resultSet.getInt("id")));
             }if(lista.isEmpty()){
             	throw new DaoException("NÃO HÁ NOFICAÇÕES ATIVAS PARA ESSE USUARIO");
             }
@@ -160,7 +158,7 @@ public class DaoNotificacao implements IDaoNotificacao {
             	notificacao = new Notificacao();
             	
             	notificacao.setId(resultSet.getInt("id"));
-            	notificacao.setAviso_data(resultSet.getDate("data_aviso"));
+            	notificacao.setAviso_data(resultSet.getTimestamp("data_aviso"));
             	notificacao.setDescricao(resultSet.getString("descricao"));
             	notificacao.setEstado(Andamento.getTipo(resultSet.getString("estado")));
             	notificacao.setPrioridade(Prioridade.getTipo(resultSet.getString("prioridade")));
@@ -199,7 +197,7 @@ public class DaoNotificacao implements IDaoNotificacao {
             	adapter.setId(resultSet.getInt("id"));
             	adapter.setEstado(Andamento.getTipo(resultSet.getString("estado")));
             	adapter.setTipoNotificacao(TipoNotificacao.getTipo(resultSet.getString("tipo")));
-            	adapter.setAviso_data(resultSet.getDate("data_aviso"));
+            	adapter.setAviso_data(resultSet.getTimestamp("data_aviso"));
             	adapter.setDescricao(resultSet.getString("descricao"));
             	
             	adapters.add(adapter);
@@ -260,7 +258,7 @@ public class DaoNotificacao implements IDaoNotificacao {
             	adapter.setId(resultSet.getInt("id"));
             	adapter.setEstado(Andamento.getTipo(resultSet.getString("estado")));
             	adapter.setTipoNotificacao(TipoNotificacao.getTipo(resultSet.getString("tipo")));
-            	adapter.setAviso_data(resultSet.getDate("data_aviso"));
+            	adapter.setAviso_data(resultSet.getTimestamp("data_aviso"));
             	adapter.setDescricao(resultSet.getString("descricao"));
             	
             	adapters.add(adapter);

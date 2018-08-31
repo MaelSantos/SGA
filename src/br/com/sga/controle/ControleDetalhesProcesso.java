@@ -86,6 +86,9 @@ public class ControleDetalhesProcesso extends Controle {
 
 	@FXML
 	private Button btnVoltar;
+	
+	@FXML
+	private Button btnAtualizar;
 
 	@FXML
 	private Button btnAdd;
