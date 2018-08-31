@@ -180,7 +180,7 @@ public class Contrato {
 	
 	@Override
 	public String toString() {
-		return "AREA: ["+area+"] - DATA: ["+data_contrato+"] - VALOR: ["+valor_total+"]";
+		return "AREA: ["+area+"] - DATA: ["+data_contrato+"] - OBJETO: ["+objeto+"]";
 	}
 	
 	public void setValor_total(Float valor_total) {

@@ -2,7 +2,7 @@ package br.com.sga.entidade.enums;
 
 public enum TipoPagamento {
 	
-	BOLETO("BOLETO"),CHEQUE("CHEQUE"),A_VISTA("A VISTA"), DEPOSITO_EM_CONTA("DEPOSITO EM CONTA");
+	BOLETO("BOLETO"), CHEQUE("CHEQUE"), A_VISTA("A VISTA"), DEPOSITO_EM_CONTA("DEPOSITO EM CONTA");
 	
 	private String value;
 	
