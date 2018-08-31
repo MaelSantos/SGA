@@ -11,23 +11,23 @@ import br.com.sga.exceptions.ValidacaoException;
 import br.com.sga.interfaces.IBussinessCliente;
 import br.com.sga.interfaces.IDaoCliente;
 
-public class BusinessCliente implements IBussinessCliente{
-	
+public class BusinessCliente implements IBussinessCliente {
+
 	private IDaoCliente daoCliente;
 	private Validar validador;
-	
+
 	public BusinessCliente() {
 		validador = Validar.getInstance();
-		daoCliente = new DaoCliente();	
+		daoCliente = new DaoCliente();
 	}
-	
+
 	@Override
 	public void salvar(Cliente entidade) throws BusinessException {
-		
+
 		try {
 			validarCliente(entidade);
 			if (entidade.getId() == null) {
-				
+
 				daoCliente.salvar(entidade);
 
 			} else {
@@ -39,9 +39,9 @@ public class BusinessCliente implements IBussinessCliente{
 			throw new BusinessException(e.getMessage());
 		}
 	}
-	
+
 	@Override
-	public Cliente buscarPorId(int id) throws BusinessException{
+	public Cliente buscarPorId(int id) throws BusinessException {
 		try {
 			return daoCliente.buscarPorId(id);
 		} catch (DaoException e) {
@@ -51,25 +51,13 @@ public class BusinessCliente implements IBussinessCliente{
 	}
 
 	@Override
-	public List<Cliente> buscarPorBusca(String busca) throws BusinessException{
+	public List<Cliente> buscarPorBusca(String busca) throws BusinessException {
 		try {
 			return daoCliente.buscarPorBusca(busca);
 		} catch (DaoException e) {
 			e.printStackTrace();
 			throw new BusinessException(e.getMessage());
 		}
-	}
-
-	private void validarCliente(Cliente cliente) throws ValidacaoException, DaoException {
-		
-		if(cliente.getNome().trim().equals("") ||
-				cliente.getCpf_cnpj().trim().equals("") ||
-				cliente.getRg().trim().equals(""))
-			throw new ValidacaoException("INFORME TODOS OS DADOS NESCESSARIOS!!!");
-		if(!validador.isEmail(cliente.getEmail()))
-			throw new ValidacaoException("FORMATO DO EMAIL INFORMADO ESTA INCORRETO!!!");
-		if(!validador.isCPF(cliente.getCpf_cnpj()) && !validador.isCNPJ(cliente.getCpf_cnpj()))
-			throw new ValidacaoException("CPF/CNPJ NÃO EXISTENTE/ACEITO!!!");	
 	}
 
 	@Override
@@ -91,5 +79,18 @@ public class BusinessCliente implements IBussinessCliente{
 			throw new BusinessException(e.getMessage());
 		}
 	}
-	
+
+	private void validarCliente(Cliente cliente) throws ValidacaoException, DaoException {
+
+		if (cliente.getNome().trim().equals("") || cliente.getCpf_cnpj().trim().equals("")
+				|| cliente.getRg().trim().equals("") || cliente.getNome() == null || cliente.getCpf_cnpj() == null
+				|| cliente.getRg() == null)
+			throw new ValidacaoException("INFORME TODOS OS DADOS NESCESSARIOS!!!");
+		if (cliente.getEmail() != null)
+			if (!validador.isEmail(cliente.getEmail()))
+				throw new ValidacaoException("FORMATO DO EMAIL INFORMADO ESTA INCORRETO!!!");
+		if (!validador.isCPF(cliente.getCpf_cnpj()) && !validador.isCNPJ(cliente.getCpf_cnpj()))
+			throw new ValidacaoException("CPF/CNPJ NÃO EXISTENTE/ACEITO!!!");
+	}
+
 }
