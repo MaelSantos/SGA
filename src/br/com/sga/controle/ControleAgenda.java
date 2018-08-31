@@ -97,6 +97,7 @@ public class ControleAgenda extends Controle {
 
 			if(hora != null && ld != null && prioridade != null) {
 				Calendar c =  Calendar.getInstance();
+				c.setTime(new Date());
 				c.set(Calendar.YEAR,ld.getYear());
 				c.set(Calendar.MONTH,ld.getMonthValue()-1);
 				c.set(Calendar.DAY_OF_MONTH,ld.getDayOfMonth());
