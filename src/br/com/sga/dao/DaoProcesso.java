@@ -47,17 +47,16 @@ public class DaoProcesso implements IDaoProcesso {
 			// numero,tipo_participacao,tipo_processo,fase,descricao,decisao,comarca,orgao_julgador,
 			// classe_judicial,data_atuacao,status,contrato_id
 			statement.setString(1, entidade.getNumero());
-			statement.setString(2, entidade.getTipo_participacao().toString());
-			statement.setString(3, entidade.getTipo_processo().toString());
-			statement.setString(4, entidade.getFase());
-			statement.setString(5, entidade.getDescricao());
-			statement.setString(6, entidade.getDecisao());
-			statement.setString(7, entidade.getComarca());
-			statement.setString(8, entidade.getOrgao_julgador());
-			statement.setString(9, entidade.getClasse_judicial());
-			statement.setDate(10, new Date(entidade.getData_atuacao().getTime()));
-			statement.setBoolean(11, entidade.isStatus());
-			statement.setInt(12, entidade.getContrato().getId());
+			statement.setString(2, entidade.getTipo_processo().toString());
+			statement.setString(3, entidade.getFase());
+			statement.setString(4, entidade.getDescricao());
+			statement.setString(5, entidade.getDecisao());
+			statement.setString(6, entidade.getComarca());
+			statement.setString(7, entidade.getOrgao_julgador());
+			statement.setString(8, entidade.getClasse_judicial());
+			statement.setDate(9, new Date(entidade.getData_atuacao().getTime()));
+			statement.setBoolean(10, entidade.isStatus());
+			statement.setInt(11, entidade.getContrato().getId());
 			statement.execute();
 			// int processo_id = daoCommun.getCurrentValorTabela(Tabela.PROCESSO);
 			// for(Audiencia e : entidade.getAudiencias())
@@ -104,7 +103,6 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setDescricao(resultSet.getString("descricao"));
 				processo.setFase(resultSet.getString("fase"));
 				processo.setOrgao_julgador(resultSet.getString("orgao_julgador"));
-				processo.setTipo_participacao(TipoParticipacao.getValue(resultSet.getString("tipo_participacao")));
 				processo.setTipo_processo(TipoProcesso.getTipo(resultSet.getString("tipo_processo")));
 
 				contrato = new Contrato();
@@ -257,7 +255,6 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setDescricao(resultSet.getString("descricao"));
 				processo.setFase(resultSet.getString("fase"));
 				processo.setOrgao_julgador(resultSet.getString("orgao_julgador"));
-				processo.setTipo_participacao(TipoParticipacao.getValue(resultSet.getString("tipo_participacao")));
 				processo.setTipo_processo(TipoProcesso.getTipo(resultSet.getString("tipo_processo")));
 
 				contrato = new Contrato();

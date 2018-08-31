@@ -163,20 +163,26 @@ public class ControleCliente extends Controle {
 		Object obj = event.getSource();
 
 		if (obj == btnBuscar) {
-			Log log;
+			Log log = null;
 			try {
-				ClienteAdapter adapter = dialogo
-						.selecionar(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText().trim()));
-
-				cliente = fachada.buscarClientePorId(adapter.getId());
-
-				if (cliente != null)
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-							"Buscar Cliente: " + cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
+				if(!tfdBusca.getText().trim().isEmpty())
+				{
+					ClienteAdapter adapter = dialogo
+							.selecionar(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText().trim()));
+					
+					cliente = fachada.buscarClientePorId(adapter.getId());
+					
+					if (cliente != null)
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+								"Buscar Cliente: " + cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
+					else
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+								"Buscar Cliente: Não Encontrado", StatusLog.SEM_RESULTADOS);
+					modificarCampos();					
+				}
 				else
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-							"Buscar Cliente: Não Encontrado", StatusLog.SEM_RESULTADOS);
-				modificarCampos();
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Por favor Informe Um Dado Para Pesquisa!!!", "");
+				
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", e.getMessage());
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
@@ -190,6 +196,7 @@ public class ControleCliente extends Controle {
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
+			
 		} else if (obj == btnAdd)
 			App.notificarOuvintes(Tela.CADASTRO_CLIENTE);
 		else if (obj == btnContratos) {

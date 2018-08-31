@@ -23,7 +23,6 @@ import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -33,6 +32,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 
 public class ControleEstatistica extends Controle{
@@ -119,7 +119,7 @@ public class ControleEstatistica extends Controle{
 	    	    				+graficoBox.getValue()+" - "+tipoBox.getValue(), StatusLog.CONCLUIDO);
 		    	    	
 	    	    	} catch (Exception e) {
-    					Alerta.getInstance().showMensagem("Erro","",e.getMessage());
+    					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro","",e.getMessage());
     					e.printStackTrace();
     					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(), "Gerar Grafico: Erro", StatusLog.ERRO);
     				}
@@ -130,9 +130,9 @@ public class ControleEstatistica extends Controle{
 	    				e.printStackTrace();
 	    			}
 	    		}else
-	  		    	Alerta.getInstance().showMensagem("Alerta","","Nâo há nenhum tipo de estatística selecionada");
+	  		    	Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta","","Nâo há nenhum tipo de estatística selecionada");
     		}else 
-	    		Alerta.getInstance().showMensagem("Alerta","","Selecione um período de tempo para pesquisa");
+	    		Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta","","Selecione um período de tempo para pesquisa");
 	    	
     	}else if(event.getSource() == tipoBox) {
     		descricaoLabel.setText(tipoBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
@@ -174,17 +174,18 @@ public class ControleEstatistica extends Controle{
 	public void atualizar(Tela tela, Object object) {
 		
 		if (object instanceof Funcionario) {
-			if(object != null)
 				funcionario = (Funcionario) object;
 		}
 		
 	}
 	@Override
 	public void init() {
+		
 		fachada = Fachada.getInstance();
         graficoBox.getItems().addAll(TipoGrafico.values());
         tipoBox.getItems().addAll(TipoEstatistica.values());
         graficoBox.setValue(TipoGrafico.BARRA);
         piechart = new PieChart();
+        
 	}
 }

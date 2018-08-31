@@ -33,47 +33,35 @@ import javafx.scene.control.Alert.AlertType;
 public class ControleCadastroProcesso extends Controle {
 
 	@FXML
-    private ComboBox<TipoProcesso> cbxTipoProcesso;
+	private ComboBox<TipoProcesso> cbxTipoProcesso;
 
-    @FXML
-    private ComboBox<TipoParticipacao> cbxParticipacao;
+	@FXML
+	private TextField tfdNumero;
 
-    @FXML
-    private TextField tfdNumero;
+	@FXML
+	private TextField tfdComarca;
 
-    @FXML
-    private TextField tfdComarca;
+	@FXML
+	private DatePicker tfdData;
 
-    @FXML
-    private DatePicker tfdData;
+	@FXML
+	private TextField tfdDescricao;
 
-    @FXML
-    private TextField tfdDescricao;
+	@FXML
+	private TextField tfdFase;
 
-    @FXML
-    private TextField tfdFase;
+	@FXML
+	private TextField tfdClasse;
 
-    @FXML
-    private TextField tfdClasse;
+	@FXML
+	private TextField tfdOrgao;
 
-    @FXML
-    private TextField tfdOrgao;
+	@FXML
+	private Button btnVoltar;
 
-    @FXML
-    private Button btnVoltar;
+	@FXML
+	private Button btnCadastrar;
 
-    @FXML
-    private Button btnCadastrar;
-
-    @FXML
-    private TextField tfdBusca;
-
-    @FXML
-    private Button btnBusca;
-
-    @FXML
-    private Label lblContrato;
-    
 	private IFachada fachada;
 	private Dialogo dialogo;
 	private Processo processo;
@@ -86,10 +74,8 @@ public class ControleCadastroProcesso extends Controle {
 		fachada = Fachada.getInstance();
 		dialogo = Dialogo.getInstance();
 
-		cbxParticipacao.getItems().addAll(TipoParticipacao.values());
 		cbxTipoProcesso.getItems().addAll(TipoProcesso.values());
 
-		lblContrato.setText("");
 	}
 
 	@Override
@@ -127,33 +113,13 @@ public class ControleCadastroProcesso extends Controle {
 			}
 
 		}
-		if (obj == btnVoltar)
-		{
+		if (obj == btnVoltar) {
 			contrato = null;
 			processo = null;
 			System.gc();
 			App.notificarOuvintes(Tela.PROCESSOS);
-			
-		}
-		if(obj == btnBusca)
-		{
-			try {
-				
-				if(!tfdBusca.getText().isEmpty())
-				{
-					ContratoAdapter adapter = dialogo.selecionar(fachada.buscarContratoPorClienteAdapter(tfdBusca.getText().trim()));
-					contrato = fachada.buscarContratoPorId(adapter.getId());
-					lblContrato.setText(adapter+"");
-				}
-				else
-					Alerta.getInstance().showMensagem("Erro!", "Informe Sua Busca!!!", "Campo de Busca Vazio!!!");
-			} catch (BusinessException e) {
-				e.printStackTrace();
-				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Contrato!!!", e.getMessage());
-			}
-			
-		}
 
+		}
 	}
 
 	@Override
@@ -174,7 +140,7 @@ public class ControleCadastroProcesso extends Controle {
 	}
 
 	private Processo criarProcesso() throws ParseException, BusinessException {
-		
+
 		processo = new Processo();
 
 		processo.setClasse_judicial(tfdClasse.getText().trim());
@@ -188,18 +154,15 @@ public class ControleCadastroProcesso extends Controle {
 		processo.setFase(tfdFase.getText().trim());
 		processo.setNumero(tfdNumero.getText().trim());
 		processo.setOrgao_julgador(tfdOrgao.getText().trim());
-		processo.setTipo_participacao(cbxParticipacao.getValue());
 		processo.setTipo_processo(cbxTipoProcesso.getValue());
 
 		processo.setContrato(contrato);
-		
+
 		return processo;
 	}
 
 	private void limparCampos() {
-
-		lblContrato.setText("");
-		tfdBusca.setText("");
+		
 		tfdClasse.setText("");
 		tfdComarca.setText("");
 		tfdData.getEditor().setText("");
@@ -207,7 +170,7 @@ public class ControleCadastroProcesso extends Controle {
 		tfdFase.setText("");
 		tfdNumero.setText("");
 		tfdOrgao.setText("");
-		
+
 		processo = null;
 		contrato = null;
 

@@ -20,7 +20,6 @@ public class Processo {
 	private String descricao; //descricao  VARCHAR(255), 
 	private String fase; //fase  VARCHAR(255) NOT NULL, 
 	private TipoProcesso tipo_processo; //tipo_processo  VARCHAR(255) NOT NULL,
-	private TipoParticipacao tipo_participacao; //tipo_participacao  VARCHAR(255)
 	private List<Audiencia> audiencias;
 	private Contrato contrato; //contrato_id INTEGER REFERENCES CONTRATO(id),
 	
@@ -96,13 +95,6 @@ public class Processo {
 	public void setTipo_processo(TipoProcesso tipo_processo) {
 		this.tipo_processo = tipo_processo;
 	}
-	public TipoParticipacao getTipo_participacao() {
-		return tipo_participacao;
-	}
-	public void setTipo_participacao(TipoParticipacao tipo_participacao) {
-		this.tipo_participacao = tipo_participacao;
-	}
-
 
 	public List<Audiencia> getAudiencias() {
 		return audiencias;
