@@ -61,7 +61,7 @@
          <center>
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="67.0" prefWidth="680.0">
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="70.0" prefWidth="680.0">
                      <children>
                         <TextField fx:id="buscarField" prefHeight="30.0" prefWidth="336.0">
                            <font>
@@ -79,7 +79,7 @@
                         </Button>
                      </children>
                   </FlowPane>
-                  <TableView fx:id="contratosTableView" prefHeight="347.0" prefWidth="680.0">
+                  <TableView fx:id="contratosTableView" prefHeight="350.0" prefWidth="680.0">
                     <columns>
                       <TableColumn fx:id="dataColumn" maxWidth="180.0" minWidth="180.0" prefWidth="180.0" text="Data contrato" />
                       <TableColumn fx:id="nomeColumn" minWidth="9.0" prefWidth="355.0" text="Nome Cliente" />

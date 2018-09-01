@@ -150,13 +150,15 @@ public class ControleDetalhesProcesso extends Controle {
 			else
 				App.notificarOuvintes(Tela.CLIENTES);
 		}
-
-		System.out.println("voltar:"+ voltar);
-		
+		if(obj == btnAtualizar)
+		{
+			
+		}
 	}
 
 	@Override
 	public void init() {
+		
 		fachada = Fachada.getInstance();
 		daoCommun = DaoCommun.getInstance();
 
@@ -170,7 +172,7 @@ public class ControleDetalhesProcesso extends Controle {
 
 		colTipo1.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
 		colTipo2.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
-
+		
 		MaskFieldUtil.numericField(tfdValor);
 
 	}

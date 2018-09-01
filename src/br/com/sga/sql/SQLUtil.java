@@ -12,6 +12,7 @@ public class SQLUtil {
     	public static final String SELECT_ID = "SELECT P.*,C.valor_total, E.nome FROM PROCESSO P, CONTRATO C,CONSULTA D, CLIENTE E WHERE P.ID = ? AND P.CONTRATO_ID=C.ID AND C.CONSULTA_ID=D.ID AND D.CLIENTE_ID = E.ID";
     	public static final String SELECT_ADAPTER_ID_CLIENTE = "select p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.contrato_id from processo p, contrato c, CONSULTA s, CLIENTE l WHERE p.contrato_id = c.id AND c.consulta_id = s.id AND s.cliente_id = l.id AND l.id = ?";
     	public static final String SELECT_ID_CONTRATO = "SELECT P.*,C.*,S.* FROM PROCESSO P, CONTRATO C, CONSULTA S, CLIENTE L, FUNCIONARIO F WHERE P.contrato_id = ? AND P.contrato_id = C.ID AND C.consulta_id = S.id AND S.funcionario_id = F.id AND S.cliente_id = L.id";
+    	public static final String BUSCA_POR_BUSCA = "SELECT p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase,p.contrato_id FROM PROCESSO p WHERE p.tipo_processo ILIKE ? or p.numero ilike ? OR to_char(p.data_atuacao, 'dd-MM-yyyy') ilike ? OR p.fase ilike ? OR p.comarca ilike ? OR p.classe_judicial like ? OR p.orgao_julgador ilike ?";
     }
     
     public static class Audiencia{
@@ -160,8 +161,8 @@ public class SQLUtil {
     public static class Log {
     	
     	
+    	public static final String INSERT_ALL = "INSERT INTO LOG(data, evento, remetente, destinatario, status) VALUES (?, ?, ?, ?, ?)";
     	public static final String SELECT_DATA_INTERVALO = "SELECT * FROM LOG WHERE (data BETWEEN ? AND ?) AND evento ilike ? AND status ilike ?";
-		public static final String INSERT_ALL = "INSERT INTO LOG(data, evento, remetente, destinatario, status) VALUES (?, ?, ?, ?, ?)";
     	
     }
     

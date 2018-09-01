@@ -8,6 +8,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -44,10 +46,14 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionButton" text="Buscar">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
+                        <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionButton" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-background-color: #008B8B;">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0">
+                                 <image>
+                                    <Image url="@../../../../../res/icones/icons8_Search_50px_2.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
                      </children>
                   </FlowPane>

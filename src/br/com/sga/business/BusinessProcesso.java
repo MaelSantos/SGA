@@ -107,5 +107,15 @@ public class BusinessProcesso implements IBusinessProcesso{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+	@Override
+	public List<ProcessoAdapter> buscarPorBusca(String[] busca) throws BusinessException {
+		try {
+			return daoProcesso.buscarPorBusca(busca);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
 	
 }

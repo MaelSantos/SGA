@@ -33,6 +33,7 @@ import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -359,4 +360,13 @@ public class ControleCliente extends Controle {
 		}
 	}
 
+	@FXML
+	void mouseEntered(MouseEvent event) {
+		((Button) (event.getSource())).setStyle("-fx-background-color : #386a78");
+	}
+
+	@FXML
+	void mouseExited(MouseEvent event) {
+		((Button) (event.getSource())).setStyle("-fx-background-color : #008B8B");
+	}
 }

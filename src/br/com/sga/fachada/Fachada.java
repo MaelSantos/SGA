@@ -135,6 +135,11 @@ public class Fachada implements IFachada {
 	public List<Processo> buscarProcessoPorBusca(String busca) throws BusinessException {
 		return businessProcesso.buscarPorBusca(busca);
 	}
+	
+	@Override
+	public List<ProcessoAdapter> buscarProcessoPorBusca(String busca[]) throws BusinessException {
+		return businessProcesso.buscarPorBusca(busca);
+	}
 
 	@Override
 	public void salvarEditarContrato(Contrato entidade) throws BusinessException {
