@@ -15,13 +15,9 @@ import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
-import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.entidade.enums.Area;
-import br.com.sga.entidade.enums.Sexo;
-import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.entidade.enums.TipoPagamento;
-import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoProcesso;
@@ -135,7 +131,46 @@ public class DaoProcesso implements IDaoProcesso {
 
 	@Override
 	public List<Processo> buscarPorBusca(String busca) throws DaoException {
-		return null;
+		List<Processo> processos = new ArrayList<>();
+		try {
+
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Processo.BUSCA_POR_BUSCA);
+			this.statement.setString(1, busca);
+			this.statement.setString(2, busca);
+			this.statement.setString(3, busca);
+			this.statement.setString(4, busca);
+			this.statement.setString(5, busca);
+			this.statement.setString(6, busca);
+			this.statement.setString(7, busca);
+
+			resultSet = this.statement.executeQuery();
+
+			Processo processo;
+			while (resultSet.next()) {
+
+				processo = new Processo();
+
+				// p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase
+				processo.setId(resultSet.getInt("id"));
+				processo.setNumero(resultSet.getString("numero"));
+				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
+				processo.setComarca(resultSet.getString("comarca"));
+				processo.setDecisao(resultSet.getString("decisao"));
+
+				int contrato_id = resultSet.getInt("contrato_id");
+
+//				processo.setPartes(daoCommun.getPartes(contrato_id).toString());
+
+				processos.add(processo);
+			}
+
+			this.conexao.close();
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("ERRO AO BUSCAR PROCESSOS" + busca.toUpperCase() + " - CONTATE O ADM");
+		}
 	}
 
 	@Override
@@ -281,26 +316,28 @@ public class DaoProcesso implements IDaoProcesso {
 
 				cliente = new Cliente();
 				cliente.setId(resultSet.getInt("cliente_id"));
-//				cliente.setNome(resultSet.getString(33));
-//				cliente.setNascimento(resultSet.getDate("data_nascimento"));
-//				cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
-//				cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
-//				cliente.setRg(resultSet.getString("rg"));
-//				cliente.setEmail(resultSet.getString("email"));
-//				cliente.setEstado_civil(resultSet.getString("estado_civil"));
-//				cliente.setProfissao(resultSet.getString("profissao"));
-//				cliente.setFilhos(resultSet.getBoolean("filhos"));
-//				cliente.setResponsavel(resultSet.getString("responsavel"));
-//				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
-//				cliente.setEndereco(daoCommun.getEndereco(cliente.getId()));
+				// cliente.setNome(resultSet.getString(33));
+				// cliente.setNascimento(resultSet.getDate("data_nascimento"));
+				// cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
+				// cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
+				// cliente.setRg(resultSet.getString("rg"));
+				// cliente.setEmail(resultSet.getString("email"));
+				// cliente.setEstado_civil(resultSet.getString("estado_civil"));
+				// cliente.setProfissao(resultSet.getString("profissao"));
+				// cliente.setFilhos(resultSet.getBoolean("filhos"));
+				// cliente.setResponsavel(resultSet.getString("responsavel"));
+				// cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
+				// cliente.setEndereco(daoCommun.getEndereco(cliente.getId()));
 
 				funcionario = new Funcionario(resultSet.getInt("funcionario_id"));
-				
-//				funcionario = new Funcionario(resultSet.getInt("funcionario_id"), resultSet.getString(45), resultSet.getString("email"), 
-//            			resultSet.getString("login"), resultSet.getString("senha"), resultSet.getString("numero_oab"));
-//				
-//				funcionario.setEndereco(daoCommun.getEndereco(funcionario.getId()));
-				
+
+				// funcionario = new Funcionario(resultSet.getInt("funcionario_id"),
+				// resultSet.getString(45), resultSet.getString("email"),
+				// resultSet.getString("login"), resultSet.getString("senha"),
+				// resultSet.getString("numero_oab"));
+				//
+				// funcionario.setEndereco(daoCommun.getEndereco(funcionario.getId()));
+
 				consulta.setCliente(cliente);
 				consulta.setFuncionario(funcionario);
 				contrato.setConsulta(consulta);
@@ -308,8 +345,9 @@ public class DaoProcesso implements IDaoProcesso {
 
 				processos.add(processo);
 				return processos;
-				
-			}if(processos.isEmpty())
+
+			}
+			if (processos.isEmpty())
 				throw new DaoException("NENHUM PROCESSO CADASTRADO PARA ESSE CONTRATO!!!");
 
 		} catch (SQLException ex) {
@@ -318,5 +356,49 @@ public class DaoProcesso implements IDaoProcesso {
 		}
 		return null;
 
+	}
+
+	@Override
+	public List<ProcessoAdapter> buscarPorBusca(String[] busca) throws DaoException {
+		List<ProcessoAdapter> processos = new ArrayList<>();
+		try {
+
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Processo.BUSCA_POR_BUSCA);
+			this.statement.setString(1, "%"+busca[1]+"%");
+			this.statement.setString(2, "%"+busca[0]+"%");
+			this.statement.setString(3, "%"+busca[0]+"%");
+			this.statement.setString(4, "%"+busca[0]+"%");
+			this.statement.setString(5, "%"+busca[0]+"%");
+			this.statement.setString(6, "%"+busca[0]+"%");
+			this.statement.setString(7, "%"+busca[0]+"%");
+
+			resultSet = this.statement.executeQuery();
+
+			ProcessoAdapter processo;
+			while (resultSet.next()) {
+
+				processo = new ProcessoAdapter();
+
+				// p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase
+				processo.setId(resultSet.getInt("id"));
+				processo.setNumero(resultSet.getString("numero"));
+				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
+				processo.setComarca(resultSet.getString("comarca"));
+				processo.setDecisao(resultSet.getString("decisao"));
+				
+				int contrato_id = resultSet.getInt("contrato_id");
+
+				processo.setPartes(daoCommun.getPartes(contrato_id).toString());
+
+				processos.add(processo);
+			}
+
+			this.conexao.close();
+			return processos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("ERRO AO BUSCAR PROCESSOS" + busca[0].toUpperCase() + " - CONTATE O ADM");
+		}
 	}
 }

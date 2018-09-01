@@ -23,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class ControleHistorico extends Controle {
 
@@ -180,7 +181,7 @@ public class ControleHistorico extends Controle {
 
 		}
 
-		if(obj == btnRemoverFiltros)
+		else if(obj == btnRemoverFiltros)
 		{
 			cbxEvento.getSelectionModel().clearSelection();
 			cbxStatus.getSelectionModel().clearSelection();
@@ -193,4 +194,14 @@ public class ControleHistorico extends Controle {
 		
 	}
 
+	@FXML
+	void mouseEntered(MouseEvent event) {
+		((Button) (event.getSource())).setStyle("-fx-background-color : #386a78");
+	}
+
+	@FXML
+	void mouseExited(MouseEvent event) {
+		((Button) (event.getSource())).setStyle("-fx-background-color : #008B8B");
+	}
+	
 }

@@ -24,99 +24,107 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-public class ControleBuscarContrato extends Controle{
+public class ControleBuscarContrato extends Controle {
 
-    @FXML
-    private TextField buscarField;
+	@FXML
+	private TextField buscarField;
 
-    @FXML
-    private Button buscarButton;
+	@FXML
+	private Button buscarButton;
 
-    @FXML
-    private TableView<ContratoAdapter> contratosTableView;
+	@FXML
+	private TableView<ContratoAdapter> contratosTableView;
 
-    @FXML
-    private TableColumn<ContratoAdapter, Date> dataColumn;
+	@FXML
+	private TableColumn<ContratoAdapter, Date> dataColumn;
 
-    @FXML
-    private TableColumn<ContratoAdapter, Float> valorColumn;
+	@FXML
+	private TableColumn<ContratoAdapter, Float> valorColumn;
 
-    @FXML
-    private TableColumn<ContratoAdapter, String> nomeColumn;
-   
-    @FXML
-    private Button cadastrarContratoButton;
-    
+	@FXML
+	private TableColumn<ContratoAdapter, String> nomeColumn;
 
-    @FXML
-    private Button detalhesButton;
+	@FXML
+	private Button cadastrarContratoButton;
 
+	@FXML
+	private Button detalhesButton;
 
-    private IFachada fachada;	
-    private Funcionario funcionario;
-    
-    @FXML
-    public void actionButton(ActionEvent event) {
-    	if(event.getSource() == buscarButton) {
-    		String busca = buscarField.getText().trim();
-    		Log log;
+	private IFachada fachada;
+	private Funcionario funcionario;
+
+	@FXML
+	public void actionButton(ActionEvent event) {
+		if (event.getSource() == buscarButton) {
+			String busca = buscarField.getText().trim();
+			Log log;
 			try {
 				contratosTableView.getItems().clear();
-				List<ContratoAdapter> contratos =fachada.buscarContratoPorClienteAdapter(busca);
+				List<ContratoAdapter> contratos = fachada.buscarContratoPorClienteAdapter(busca);
 				contratosTableView.getItems().addAll(contratos);
-				if(!contratos.isEmpty())
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Contrato Existente: "+busca, StatusLog.CONCLUIDO);
+				if (!contratos.isEmpty())
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+							"Contrato Existente: " + busca, StatusLog.CONCLUIDO);
 				else
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Contrato Existente: Não Encontrado - "+busca, StatusLog.SEM_RESULTADOS);
-			} catch (BusinessException e) {
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Contrato Existente: Erro - "+busca, StatusLog.ERRO);
-				e.printStackTrace();
-			}
-			
-			try {
-				fachada.salvarEditarLog(log);
-			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
-				e.printStackTrace();
-			}
-			
-    	}else if(event.getSource() == cadastrarContratoButton) 
-    		App.notificarOuvintes(Tela.CADASTRO_CONTRATO);
-    	else if(event.getSource() == detalhesButton) {
-    		ContratoAdapter adapter = contratosTableView.getSelectionModel().getSelectedItem();
-    		if(adapter != null) {
-    			App.notificarOuvintes(Tela.DETALHES_CONTRATO,adapter);
-    		}else {
-    			Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta","","Não há nenhuma contrato selecionado ,\ncom isso não é possivel ver detalhes de contrato");
-    		}
-    	}
-    		
-    }
-    @FXML
-    void mouseEntered(MouseEvent event) {
-    	((Button)(event.getSource())).setStyle("-fx-background-color : #386a78");
-    }
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+							"Contrato Existente: Não Encontrado - " + busca, StatusLog.SEM_RESULTADOS);
 
-    @FXML
-    void mouseExited(MouseEvent event) {
-    	((Button)(event.getSource())).setStyle("-fx-background-color : #008B8B");
-    }
-   
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Busca Concluida Com Sucesso",
+						"");
+
+			} catch (BusinessException e) {
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+						"Contrato Existente: Erro - " + busca, StatusLog.ERRO);
+				e.printStackTrace();
+			}
+
+			try {
+				if (log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
+
+		} else if (event.getSource() == cadastrarContratoButton)
+			App.notificarOuvintes(Tela.CADASTRO_CONTRATO);
+		else if (event.getSource() == detalhesButton) {
+			ContratoAdapter adapter = contratosTableView.getSelectionModel().getSelectedItem();
+			if (adapter != null) {
+				App.notificarOuvintes(Tela.DETALHES_CONTRATO, adapter);
+			} else {
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta", "",
+						"Não há nenhuma contrato selecionado ,\ncom isso não é possivel ver detalhes de contrato");
+			}
+		}
+
+	}
+
+	@FXML
+	void mouseEntered(MouseEvent event) {
+		((Button) (event.getSource())).setStyle("-fx-background-color : #386a78");
+	}
+
+	@FXML
+	void mouseExited(MouseEvent event) {
+		((Button) (event.getSource())).setStyle("-fx-background-color : #008B8B");
+	}
+
 	@Override
 	public void atualizar(Tela tela, Object object) {
-		
-		if (object instanceof Funcionario)	 {
-				this.funcionario = (Funcionario) object;	
+
+		if (object instanceof Funcionario) {
+			this.funcionario = (Funcionario) object;
 		}
-		
+
 	}
+
 	@Override
 	public void init() {
-		
+
 		fachada = Fachada.getInstance();
 		dataColumn.setCellValueFactory(new PropertyValueFactory<>("data_contrato"));
 		valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_total"));
-		nomeColumn.setCellValueFactory( new PropertyValueFactory<>("nome_cliente"));
-		
+		nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome_cliente"));
+
 	}
 }

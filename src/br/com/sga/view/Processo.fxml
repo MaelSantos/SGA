@@ -9,6 +9,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
@@ -33,10 +35,14 @@
          <bottom>
             <ButtonBar prefHeight="69.0" prefWidth="680.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button fx:id="btnCadastrar" mnemonicParsing="false" onAction="#actionButton" text="Cadastrar Processo">
-                     <font>
-                        <Font name="Verdana" size="12.0" />
-                     </font>
+                  <Button fx:id="btnCadastrar" mnemonicParsing="false" onAction="#actionButton" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-background-color: #008B8B;">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                           <image>
+                              <Image url="@../../../../../res/icones/icons8_Add_List_50px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
               </buttons>
             </ButtonBar>
@@ -44,15 +50,24 @@
          <center>
             <VBox alignment="CENTER_LEFT" prefHeight="600.0" prefWidth="700.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="42.0" prefWidth="660.0">
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="70.0" prefWidth="660.0">
                      <children>
-                        <TextField fx:id="tfdBusca" prefHeight="25.0" prefWidth="378.0" />
-                        <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionButton" text="Buscar">
+                        <TextField fx:id="tfdBusca" prefHeight="25.0" prefWidth="289.0" />
+                        <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionButton" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-background-color: #008B8B;">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0">
+                                 <image>
+                                    <Image url="@../../../../../res/icones/icons8_Search_50px_2.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <ComboBox fx:id="cbxTipo" prefHeight="25.0" prefWidth="105.0" promptText="Tipo" />
+                        <Button fx:id="btnRemover" mnemonicParsing="false" onAction="#actionButton" text="Remover Filtros">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Button>
-                        <ComboBox fx:id="cbxTipo" prefWidth="150.0" promptText="Tipo" />
                      </children>
                   </FlowPane>
                   <Label text="Processos" textFill="WHITE">
@@ -60,7 +75,7 @@
                         <Font name="Verdana" size="14.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="tblProcesso" prefHeight="325.0" prefWidth="660.0" tableMenuButtonVisible="true">
+                  <TableView fx:id="tblProcesso" prefHeight="350.0" prefWidth="660.0" tableMenuButtonVisible="true">
                     <columns>
                       <TableColumn fx:id="colNumero" prefWidth="75.0" text="Numero" />
                       <TableColumn fx:id="colComarca" prefWidth="75.0" text="Comarca" />
