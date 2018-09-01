@@ -75,7 +75,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <ComboBox fx:id="cbxTipo" prefHeight="25.0" prefWidth="105.0" promptText="Tipo" />
+                        <ComboBox fx:id="cbxTipo" prefHeight="25.0" prefWidth="132.0" promptText="Tipo" />
                         <Button fx:id="btnRemover" mnemonicParsing="false" onAction="#actionButton" text="Remover Filtros">
                            <font>
                               <Font name="Verdana" size="12.0" />

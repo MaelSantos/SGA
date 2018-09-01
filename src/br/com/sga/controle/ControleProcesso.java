@@ -20,13 +20,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
 
 public class ControleProcesso extends Controle {
 
@@ -85,7 +83,7 @@ public class ControleProcesso extends Controle {
 								new String[] { tfdBusca.getText().trim(), cbxTipo.getValue().toString() }));
 					else
 						tblProcesso.getItems().setAll(fachada.buscarProcessoPorBusca(
-								new String[] { tfdBusca.getText().trim(), tfdBusca.getText().trim() }));
+								new String[] { tfdBusca.getText().trim(), "" }));
 
 					if (!tblProcesso.getItems().isEmpty())
 						log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),

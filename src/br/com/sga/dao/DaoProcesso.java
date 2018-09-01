@@ -8,18 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
-import br.com.sga.entidade.Consulta;
-import br.com.sga.entidade.Contrato;
-import br.com.sga.entidade.Funcionario;
-import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
-import br.com.sga.entidade.enums.Area;
 import br.com.sga.entidade.enums.Tabela;
-import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoCommun;
@@ -261,7 +254,6 @@ public class DaoProcesso implements IDaoProcesso {
 
 			Processo processo = null;
 			Cliente cliente = null;
-			Funcionario funcionario = null;
 			List<Processo> processos = new ArrayList<>();
 
 			while (resultSet.next()) {
@@ -280,27 +272,6 @@ public class DaoProcesso implements IDaoProcesso {
 
 				cliente = new Cliente();
 				cliente.setId(resultSet.getInt("cliente_id"));
-				// cliente.setNome(resultSet.getString(33));
-				// cliente.setNascimento(resultSet.getDate("data_nascimento"));
-				// cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
-				// cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
-				// cliente.setRg(resultSet.getString("rg"));
-				// cliente.setEmail(resultSet.getString("email"));
-				// cliente.setEstado_civil(resultSet.getString("estado_civil"));
-				// cliente.setProfissao(resultSet.getString("profissao"));
-				// cliente.setFilhos(resultSet.getBoolean("filhos"));
-				// cliente.setResponsavel(resultSet.getString("responsavel"));
-				// cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
-				// cliente.setEndereco(daoCommun.getEndereco(cliente.getId()));
-
-				funcionario = new Funcionario(resultSet.getInt("funcionario_id"));
-
-				// funcionario = new Funcionario(resultSet.getInt("funcionario_id"),
-				// resultSet.getString(45), resultSet.getString("email"),
-				// resultSet.getString("login"), resultSet.getString("senha"),
-				// resultSet.getString("numero_oab"));
-				//
-				// funcionario.setEndereco(daoCommun.getEndereco(funcionario.getId()));
 
 				processo.setCliente(cliente);
 
@@ -326,13 +297,13 @@ public class DaoProcesso implements IDaoProcesso {
 
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = conexao.prepareStatement(SQLUtil.Processo.BUSCA_POR_BUSCA);
-			this.statement.setString(1, "%" + busca[1] + "%");
+			this.statement.setString(1, "%" + busca[0] + "%");
 			this.statement.setString(2, "%" + busca[0] + "%");
 			this.statement.setString(3, "%" + busca[0] + "%");
 			this.statement.setString(4, "%" + busca[0] + "%");
 			this.statement.setString(5, "%" + busca[0] + "%");
 			this.statement.setString(6, "%" + busca[0] + "%");
-			this.statement.setString(7, "%" + busca[0] + "%");
+			this.statement.setString(7, "%" + busca[1] + "%");
 
 			resultSet = this.statement.executeQuery();
 
