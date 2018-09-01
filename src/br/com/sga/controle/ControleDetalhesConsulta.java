@@ -32,6 +32,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -112,7 +113,9 @@ public class ControleDetalhesConsulta extends Controle {
 	private Consulta consulta;
 	private IFachada fachada;
 	private Dialogo dialogo;
-
+	private Boolean editando = false;
+	private Boolean editado = false;
+	private Testemunha testemunhaSelectionada;
 	private Funcionario funcionario;
 
 	@Override
@@ -124,7 +127,17 @@ public class ControleDetalhesConsulta extends Controle {
 			} else {// siginifica ter vindo da tela de consulta
 				App.notificarOuvintes(Tela.CONSULTA);
 			}
-		} else if (selectConButton == event.getSource()) {
+		}else if(salvarEditButton == event.getSource()){
+			try {
+				editarConsulta();
+			}catch (Exception e) {
+				e.printStackTrace();
+				
+				Alerta.getInstance().showMensagem(AlertType.WARNING,"Falha ao editar consulta","",e.getMessage());
+			}
+			
+		}
+		else if (selectConButton == event.getSource()) {
 			Log log = null;
 			try {
 				
@@ -159,25 +172,74 @@ public class ControleDetalhesConsulta extends Controle {
 			}
 
 		} else if (selectTestmunhaButton == event.getSource()) {
-			Testemunha testemunha = dialogo.selecionar(consulta.getTestemunhas());
-			Telefone t = testemunha.getTelefone();
-			Endereco e = testemunha.getEndereco();
-			nomeTestemunhaField.setText(testemunha.getNome());
-			telPreField.setText(t.getPrefixo().toString());
-			telNumField.setText(t.getNumero().toString());
-			ruaField.setText(e.getRua());
-			numField.setText(e.getNumero());
-			bairroField.setText(e.getBairro());
-			cidadeField.setText(e.getCidade());
-			estadoBox.setPromptText(e.getEstado().toString());
-			paisField.setText(e.getPais());
-			compField.setText(e.getComplemento());
-			cepField.setText(e.getCep());
+			try {
+				editarTestemunha(true);
+				testemunhaSelectionada = dialogo.selecionar(consulta.getTestemunhas());
+
+				Telefone t = testemunhaSelectionada.getTelefone();
+				Endereco e = testemunhaSelectionada.getEndereco();
+				nomeTestemunhaField.setText(testemunhaSelectionada.getNome());
+				telPreField.setText(t.getPrefixo().toString());
+				telNumField.setText(t.getNumero().toString());
+				ruaField.setText(e.getRua());
+				numField.setText(e.getNumero());
+				bairroField.setText(e.getBairro());
+				cidadeField.setText(e.getCidade());
+				estadoBox.setValue(e.getEstado());
+				paisField.setText(e.getPais());
+				compField.setText(e.getComplemento());
+				cepField.setText(e.getCep());
+			}catch (Exception e ) {
+				Alerta.getInstance().showMensagem(AlertType.WARNING,"Falha ao editar testemunha","",e.getMessage());
+				e.printStackTrace();
+			}
 		}
 
 	}
 	
-	private Boolean editando = false;
+	private void editarTestemunha(Boolean mostrarMsg) throws Exception{
+		if(editando && (mostrarMsg)? Alerta.getInstance().showConfirmacao("Edição de testemunha","","Clike em ok para editar testemunha ou cancelar para ignorar mudanças") : true && testemunhaSelectionada != null){
+			if(nomeTestemunhaField.getText().trim().isEmpty() || telPreField.getText().trim().isEmpty() ||
+					telPreField.getText().trim().isEmpty())
+				throw new Exception("Há campos obrgatórios vazios imposibilitando a edição de testemunha");
+			//se der falha em algo não desejto editar a testemunha
+			testemunhaSelectionada.setNome(nomeTestemunhaField.getText());
+			testemunhaSelectionada.getTelefone().setPrefixo(Integer.parseInt(telPreField.getText()));
+			testemunhaSelectionada.getTelefone().setNumero(Integer.parseInt(telNumField.getText()));
+			testemunhaSelectionada.getEndereco().setRua(ruaField.getText());
+			testemunhaSelectionada.getEndereco().setNumero(numField.getText());
+			testemunhaSelectionada.getEndereco().setBairro(bairroField.getText());
+			testemunhaSelectionada.getEndereco().setCidade(cidadeField.getText());
+			testemunhaSelectionada.getEndereco().setEstado(estadoBox.getValue());
+			testemunhaSelectionada.getEndereco().setPais(paisField.getText());
+			testemunhaSelectionada.getEndereco().setComplemento(compField.getText());
+			testemunhaSelectionada.getEndereco().setCep(cepField.getText());
+			testemunhaSelectionada = null;
+			editando = false;
+			liberarCamposParaEdicao();
+			System.gc();
+		}
+		
+	}
+	
+	private void editarConsulta () throws Exception {
+		if(dataConsultaPicker.getValue() == null || areaBox.getValue()== null || honorarioField.getText().trim().isEmpty() 
+				|| descricaoField.getText().trim().isEmpty() || indicacaoField.getText().trim().isEmpty())
+			throw new Exception("Há campos obrgatórios vazios imposibilitando a edição de consulta");
+		consulta.setArea(areaBox.getValue());
+		consulta.setData_consulta(BusinessUtil.toDate(dataConsultaPicker));
+		consulta.setValor_honorario(Float.parseFloat(honorarioField.getText().trim()));
+		consulta.setDescricao(descricaoField.getText().trim());
+		consulta.setIndicacao(indicacaoField.getText().trim());
+		editarTestemunha(false);
+		fachada.salvarEditarConsulta(consulta);
+		if(editando) {
+			editando = false;
+			liberarCamposParaEdicao();
+		}
+		editado = false;
+		Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Sucesso","","Sucesso ao editar consulta");
+	}
 	
 	@FXML
 	public void editKeyTypedHandler(KeyEvent e) {
@@ -185,13 +247,15 @@ public class ControleDetalhesConsulta extends Controle {
 	}
 	@FXML
 	public void editMouseCliked(MouseEvent e) {
-		System.out.println("n");
 		attEdit();
 	}
 	private void attEdit() {
 		if(!editando)
 			if(Alerta.getInstance().showConfirmacao("Edição","Confirmação de edição:","Tem certeza que deseja editar informações ?")) {
 				editando = true;
+				if(!editado) {
+					editado = true;
+				}
 				liberarCamposParaEdicao();
 			}
 	}
@@ -221,7 +285,8 @@ public class ControleDetalhesConsulta extends Controle {
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		if (tela == Tela.DETALHES_CONSULTA) {
-			limparCampos();
+			if(!editado)
+				limparCampos();
 			if (object instanceof Cliente) {
 				Cliente cliente = (Cliente) object;
 				if (this.cliente == null || !this.cliente.equals(cliente))
@@ -241,12 +306,24 @@ public class ControleDetalhesConsulta extends Controle {
 				System.out.println("Consulta: "+consulta);
 				
 			}
-		} else {
+		}else {
+			if(editado) {
+				if(Alerta.getInstance().showConfirmacao("Edições de consulta","","deseja salvar alterações de consulta?")) {
+					App.notificarOuvintes(Tela.DETALHES_CONSULTA); // não deixo sair da tela caso não tenha salvo  ou discartado
+					try {
+						editarConsulta();
+					} catch (Exception e) {
+						e.printStackTrace();
+						Alerta.getInstance().showMensagem(AlertType.WARNING,"Falha ao editar consulta","",e.getMessage());
+					}
+				}else 
+					editado = editando = false;
 			consulta = null;
+			}
 		}
-
 		if (object instanceof Funcionario) {
-			funcionario = (Funcionario) object;
+			if(object!= null)
+				funcionario = (Funcionario) object;
 
 		}
 
@@ -279,9 +356,6 @@ public class ControleDetalhesConsulta extends Controle {
 		fachada = Fachada.getInstance();
 		dialogo = Dialogo.getInstance();
 		areaBox.getItems().addAll(Area.values());
-		areaBox.setOpacity(1);
-		dataConsultaPicker.setOpacity(1);
-		estadoBox.setOpacity(1);
 		MaskFieldUtil.numericField(honorarioField);
 		MaskFieldUtil.numericField(telNumField);
 		MaskFieldUtil.numericField(telPreField);
@@ -290,12 +364,12 @@ public class ControleDetalhesConsulta extends Controle {
 
 	private void atualizarDadosConsulta() {
 
-		Log log;
+		//Log log;
 		try {
 			// pegando demais dados da consulta;
 			consulta = fachada.buscarConsultaPorId(consulta.getId());
-			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-					"Buscar Consulta: " + consulta.getArea(), StatusLog.CONCLUIDO);
+			//log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+			//		"Buscar Consulta: " + consulta.getArea(), StatusLog.CONCLUIDO);
 
 			FuncionarioAdapter f = fachada.buscarUsuarioPorConsultaAdapter(consulta.getId());
 			// adicionando dados que não podem ser editador tais nome e numero do
@@ -308,17 +382,18 @@ public class ControleDetalhesConsulta extends Controle {
 			indicacaoField.setText(consulta.getIndicacao());
 			areaBox.setValue(consulta.getArea());
 		} catch (BusinessException e) {
-			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-					"Buscar Consulta: Erro", StatusLog.ERRO);
-			e.printStackTrace();
+			//log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+			//		"Buscar Consulta: Erro", StatusLog.ERRO);
+			//e.printStackTrace();
+			Alerta.getInstance().showMensagem(AlertType.ERROR,"Erro","","Erro ao buscar detalhes");
 		}
 
-		try {
-			if (log != null)
-				fachada.salvarEditarLog(log);
-		} catch (BusinessException e) {
-			// TODO Bloco catch gerado automaticamente
-			e.printStackTrace();
-		}
+		//try {
+		//	if (log != null)
+		//		fachada.salvarEditarLog(log);
+		//} catch (BusinessException e) {
+		//	// TODO Bloco catch gerado automaticamente
+		//	e.printStackTrace();
+		//}
 	}
 }

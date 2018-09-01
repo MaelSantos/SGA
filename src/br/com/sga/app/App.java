@@ -110,7 +110,6 @@ public class App extends Application{
 		default:
 			break;
 		}
-		
 		return new Pane();
 	}
 	

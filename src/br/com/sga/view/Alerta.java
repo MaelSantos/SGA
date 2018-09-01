@@ -41,11 +41,12 @@ public class Alerta extends Alert {
 	}
 	
 	public Boolean showConfirmacao(String titulo, String header, String content) {
+		System.out.println("Não estou esperando");
 		setAlertType(AlertType.CONFIRMATION);
 		setTitle(titulo);
 		setHeaderText(header);
 		setContentText(content);
-		Optional<ButtonType> result = alert.showAndWait();
+		Optional<ButtonType> result = showAndWait();
 		if (result.isPresent() && result.get() == ButtonType.OK) {
 			return true;
 		}
