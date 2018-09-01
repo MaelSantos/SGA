@@ -58,7 +58,7 @@ public class DaoContrato implements IDaoContrato{
 			this.connection.close();
 			
 			for(Parte parte : entidade.getPartes())
-				daoCommun.salvarParte(parte, contrato_id);
+				daoCommun.salvarParte(parte, contrato_id, Tabela.CONTRATO);
 			for(Parcela parcela : entidade.getParcelas())
 				daoCommun.salvarParcela(parcela, contrato_id);
 			
@@ -78,7 +78,7 @@ public class DaoContrato implements IDaoContrato{
 	public Contrato buscarPorId(int id) throws DaoException {
 		
 		try {
-			List<Parte> partes  = daoCommun.getPartes(id);
+			List<Parte> partes  = daoCommun.getPartes(id, Tabela.CONTRATO);
 			List<Parcela> parcelas = daoCommun.getParcelas(id);
 			
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);

@@ -36,8 +36,8 @@ rg  VARCHAR(255) UNIQUE NOT NULL,
 );
 CREATE TABLE CONSULTA(
 	id SERIAL PRIMARY KEY,
-	cliente_id  INTEGER REFERENCES CLIENTE(id),    
-	funcionario_id  INTEGER REFERENCES FUNCIONARIO(id),    
+cliente_id  INTEGER REFERENCES CLIENTE(id),    
+funcionario_id  INTEGER REFERENCES FUNCIONARIO(id),    
 	valor_honorario FLOAT, 
 	data_consulta  DATE NOT NULL,
 	descricao  VARCHAR(255),
@@ -47,17 +47,17 @@ CREATE TABLE CONSULTA(
 
 CREATE TABLE TESTEMUNHA(
 	id SERIAL PRIMARY KEY,
-	endereco_id  INTEGER REFERENCES ENDERECO(id), 
-	consulta_id  INTEGER REFERENCES CONSULTA(id),
-	nome VARCHAR(255)
+endereco_id  INTEGER REFERENCES ENDERECO(id), 
+consulta_id  INTEGER REFERENCES CONSULTA(id),
+nome VARCHAR(255)
 );
 
 CREATE TABLE TELEFONE(
-	id SERIAL PRIMARY KEY,
-	cliente_id INTEGER REFERENCES CLIENTE(id), 
-	tipo VARCHAR(255),
-	numero INTEGER,
-	prefixo INTEGER,
+id SERIAL PRIMARY KEY,
+cliente_id INTEGER REFERENCES CLIENTE(id), 
+tipo VARCHAR(255),
+numero INTEGER,
+prefixo INTEGER,
 	testemunha_id  INTEGER REFERENCES TESTEMUNHA(id)
 );
 
@@ -75,6 +75,8 @@ CREATE TABLE CONTRATO (
 	objeto VARCHAR(255) NOT NULL,
 	valor_total  FLOAT NOT NULL,
 	tipo_pagamento VARCHAR(255) NOT NULL,
+	taxa_juros  FLOAT NOT NULL,
+taxa_multa  FLOAT NOT NULL,
 	data_contrato DATE NOT NULL,
 	area VARCHAR(255) NOT NULL,
 	dados_banco VARCHAR(255) NOT NULL,
@@ -93,23 +95,24 @@ CREATE TABLE PARCELA(
 );
 CREATE TABLE PROCESSO(
 	id SERIAL PRIMARY KEY,
-	contrato_id INTEGER REFERENCES CONTRATO(id), 	
+	contrato_id INTEGER REFERENCES CONTRATO(id),
+	cliente_id INTEGER REFERENCES CLIENTE(id), 
 	status  BOOLEAN,  
 	data_atuacao  DATE NOT NULL,
-	numero  varchar(255)  UNIQUE NOT NULL, 
+	numero  varchar(255)  UNIQUE NOT NULL,
 	classe_judicial VARCHAR(255) NOT NULL,
 	orgao_julgador VARCHAR(255) NOT NULL,
 	comarca VARCHAR(255) NOT NULL,
-	decisao  VARCHAR(255), 
-	descricao  VARCHAR(255), 
+	decisao  VARCHAR(255),
+	descricao  VARCHAR(255),
 	fase  VARCHAR(255) NOT NULL,
-	tipo_processo  VARCHAR(255) NOT NULL,
-	tipo_participacao  VARCHAR(255)
+	tipo_processo  VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE PARTE(
 	id SERIAL PRIMARY KEY,
-	contrato_id INTEGER REFERENCES CONTRATO(id),	
+	contrato_id INTEGER REFERENCES CONTRATO(id),
+	processo_id INTEGER REFERENCES PROCESSO(id),
 	tipo_parte VARCHAR(255) NOT NULL,
 	tipo_participacao VARCHAR(255) NOT NULL,
 	situacao VARCHAR(255),
@@ -165,7 +168,6 @@ CREATE TABLE VINCULO_FUNCIONARIO(
 	funcionario_id INTEGER REFERENCES FUNCIONARIO(id),
 	notificacao_id INTEGER REFERENCES NOTIFICACAO(id)
 );
-
 CREATE TABLE LOG(
 	id SERIAL PRIMARY KEY,
 	data DATE NOT NULL,

@@ -79,7 +79,7 @@
                         </Button>
                      </children>
                   </GridPane>
-                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefViewportHeight="585.0" style="-fx-background-color: #008B8B;" vbarPolicy="ALWAYS">
+                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefViewportHeight="585.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" vbarPolicy="ALWAYS">
                      <content>
                         <AnchorPane prefHeight="850.0" prefWidth="685.0" style="-fx-background-color: #008B8B;">
                            <children>
@@ -98,7 +98,7 @@
                                     <Font name="Verdana Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="tipoPagamamentoBox" layoutX="286.0" layoutY="284.0" onAction="#actionButton" prefHeight="25.0" prefWidth="165.0" promptText="Tipo de pagamento" />
+                              <ComboBox fx:id="tipoPagamamentoBox" layoutX="286.0" layoutY="284.0" onAction="#actionButton" prefHeight="25.0" prefWidth="165.0" promptText="Tipo de Pagamento" />
                               <TextArea fx:id="dadosBancoArea" layoutX="286.0" layoutY="317.0" prefHeight="64.0" prefWidth="358.0" promptText="Dados para banco">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
@@ -137,8 +137,8 @@
                                     <Font name="Verdana" size="12.0" />
                                  </font>
                               </TextField>
-                              <ComboBox fx:id="tipoParteBox" layoutX="346.0" layoutY="527.0" prefWidth="150.0" promptText="Tipo da parte" />
-                              <ComboBox fx:id="tipoParticipcaoBox" layoutX="159.0" layoutY="527.0" onAction="#actionButton" prefHeight="25.0" prefWidth="179.0" promptText="tipo participação da parte" />
+                              <ComboBox fx:id="tipoParteBox" layoutX="346.0" layoutY="527.0" prefWidth="150.0" promptText="Tipo da Parte" />
+                              <ComboBox fx:id="tipoParticipcaoBox" layoutX="159.0" layoutY="527.0" onAction="#actionButton" prefHeight="25.0" prefWidth="184.0" promptText="Tipo Participação da Parte" />
                               <Button fx:id="gerarDocumentoButton" layoutX="61.0" layoutY="755.0" mnemonicParsing="false" onAction="#actionButton" text="Gerar documento para impreção">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
@@ -149,7 +149,7 @@
                                     <Font name="Verdana" size="12.0" />
                                  </font>
                               </Button>
-                              <ComboBox fx:id="diaPagamentoBox" accessibleText="Dia para pagamento de parcela" layoutX="284.0" layoutY="387.0" prefHeight="25.0" prefWidth="163.0" promptText="Dia para pagamento" />
+                              <ComboBox fx:id="diaPagamentoBox" accessibleText="Dia para pagamento de parcela" layoutX="284.0" layoutY="387.0" prefHeight="25.0" prefWidth="163.0" promptText="Dia para Pagamento" />
                               <Label layoutX="86.0" layoutY="322.0" prefHeight="15.0" prefWidth="42.0" text="Juros" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
@@ -180,7 +180,7 @@
                                     <Font name="Verdana Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="quantidadeParcelasBox" layoutX="102.0" layoutY="387.0" prefHeight="25.0" prefWidth="166.0" promptText="Quantidade parcelas" />
+                              <ComboBox fx:id="quantidadeParcelasBox" layoutX="102.0" layoutY="387.0" prefHeight="25.0" prefWidth="166.0" promptText="Quantidade Parcelas" />
                               <Label fx:id="dadosConsultaLabel" layoutX="128.0" layoutY="106.0">
                                  <font>
                                     <Font name="Verdana Bold" size="12.0" />

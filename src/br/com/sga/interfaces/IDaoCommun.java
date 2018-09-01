@@ -30,8 +30,8 @@ public interface IDaoCommun {
     public void editarContato(Telefone telefone) throws DaoException;
     
     //Partes
-    public void salvarParte(Parte parte,Integer contrato_id)throws DaoException;
-    public List<Parte> getPartes(Integer id) throws DaoException;
+    public void salvarParte(Parte parte,Integer id, Tabela tabela)throws DaoException;
+    public List<Parte> getPartes(Integer id, Tabela tabela) throws DaoException;
     
     //Parcela
     public void salvarParcela(Parcela parcela, Integer contrato_id) throws DaoException;

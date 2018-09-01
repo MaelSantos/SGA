@@ -66,7 +66,7 @@ public class ProcessoAdapter {
 		adapter.setComarca(processo.getComarca());
 		adapter.setData_atuacao(processo.getData_atuacao());
 		adapter.setDecisao(processo.getDecisao());
-		adapter.setPartes(processo.getContrato().getPartes().toString());
+		adapter.setPartes(processo.getPartes().toString());
 		adapter.setNumero(processo.getNumero());
 		
 		return adapter;

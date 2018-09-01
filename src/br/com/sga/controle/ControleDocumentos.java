@@ -357,11 +357,11 @@ public class ControleDocumentos extends Controle {
 					Processo processo;
 					if(adapter != null && adapter.getId() != null)
 					{
-						processo = dialogo.selecionar(fachada.buscarProcessoPorIdContrato(adapter.getId()));
-						processo.getContrato().getConsulta().setFuncionario(fachada.buscarUsuarioPorId(processo.getContrato().getConsulta().getFuncionario().getId()));
-						processo.getContrato().getConsulta().setCliente(fachada.buscarClientePorId(processo.getContrato().getConsulta().getCliente().getId()));
-						
-						pro.add(processo);						
+//						processo = dialogo.selecionar(fachada.buscarProcessoPorIdContrato(adapter.getId()));
+//						processo.getContrato().getConsulta().setFuncionario(fachada.buscarUsuarioPorId(processo.getContrato().getConsulta().getFuncionario().getId()));
+//						processo.setCliente(fachada.buscarClientePorId(processo.getContrato().getConsulta().getCliente().getId()));
+//						
+//						pro.add(processo);						
 						return pro;	
 					}
 					else

@@ -125,6 +125,12 @@ public class ControleBuscarContrato extends Controle {
 		dataColumn.setCellValueFactory(new PropertyValueFactory<>("data_contrato"));
 		valorColumn.setCellValueFactory(new PropertyValueFactory<>("valor_total"));
 		nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome_cliente"));
+		
+		contratosTableView.setOnMouseClicked(e -> {
+			if (e.getClickCount() > 1)
+				if (contratosTableView.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.DETALHES_CONTRATO, contratosTableView.getSelectionModel().getSelectedItem());
+		});
 
 	}
 }

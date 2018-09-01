@@ -20,6 +20,7 @@ import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoAudiencia;
 import br.com.sga.entidade.enums.TipoNotificacao;
+import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
@@ -32,6 +33,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
@@ -94,6 +96,30 @@ public class ControleCadastroAudiencia extends Controle {
 		cbxStatus.getItems().addAll(StatusAudiencia.values());
 		cbxTipo.getItems().addAll(TipoAudiencia.values());
 
+		cbxStatus.setButtonCell(new ListCell<StatusAudiencia>() {
+	        @Override
+	        protected void updateItem(StatusAudiencia item, boolean empty) {
+	            super.updateItem(item, empty) ;
+	            if (empty || item == null) {
+	                setText("Status");
+	            } else {
+	                setText(item.toString());
+	            }
+	        }
+	    });
+		
+		cbxTipo.setButtonCell(new ListCell<TipoAudiencia>() {
+	        @Override
+	        protected void updateItem(TipoAudiencia item, boolean empty) {
+	            super.updateItem(item, empty) ;
+	            if (empty || item == null) {
+	                setText("Tipo de Audiência");
+	            } else {
+	                setText(item.toString());
+	            }
+	        }
+	    });
+		
 	}
 
 	@Override
@@ -128,9 +154,9 @@ public class ControleCadastroAudiencia extends Controle {
 			}
 			
 			try {
-				fachada.salvarEditarLog(log);
+				if(log != null)
+					fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
 			
@@ -146,6 +172,9 @@ public class ControleCadastroAudiencia extends Controle {
 		tfdData.getEditor().setText("");
 		tfdOrgao.setText("");
 		tfdVara.setText("");
+
+		cbxStatus.getSelectionModel().clearSelection();
+		cbxTipo.getSelectionModel().clearSelection();
 		
 	}
 

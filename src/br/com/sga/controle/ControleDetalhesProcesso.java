@@ -41,9 +41,6 @@ public class ControleDetalhesProcesso extends Controle {
 	private TextField tfdOrgao;
 
 	@FXML
-	private TextField tfdValor;
-
-	@FXML
 	private TextField tfdUsuario;
 
 	@FXML
@@ -105,6 +102,7 @@ public class ControleDetalhesProcesso extends Controle {
 				if (tela != Tela.CADASTRO_AUDIENCIA)
 					voltar = true;
 				processo = fachada.buscarProcessoPorId(adapter.getId());
+				processo.setCliente(fachada.buscarClientePorId(processo.getCliente().getId()));
 				modificarCampos();
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Com o Processo!!!", e.getMessage());
@@ -173,8 +171,6 @@ public class ControleDetalhesProcesso extends Controle {
 		colTipo1.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
 		colTipo2.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
 		
-		MaskFieldUtil.numericField(tfdValor);
-
 	}
 
 	private void modificarCampos() {
@@ -183,16 +179,13 @@ public class ControleDetalhesProcesso extends Controle {
 			tfdClasse.setText(processo.getClasse_judicial());
 			tfdNumero.setText(processo.getNumero());
 			tfdOrgao.setText(processo.getOrgao_julgador());
-			tfdUsuario.setText(processo.getContrato().getConsulta().getCliente().getNome());
-			tfdValor.setText(processo.getContrato().getValor_total() + "");
+			tfdUsuario.setText(processo.getCliente().getNome());
 
-			processo.setAudiencias(daoCommun.buscarAudienciaPorIdProcesso(processo.getId()));
-			if (processo.getAudiencias() != null)
-				tblAudiencias.getItems().setAll(processo.getAudiencias());
+			tblAudiencias.getItems().setAll(processo.getAudiencias());
 
 			tblAtivo.getItems().clear();
 			tblPassivo.getItems().clear();
-			for (Parte p : processo.getContrato().getPartes()) {
+			for (Parte p : processo.getPartes()) {
 				if (p.getTipo_parte() == TipoParte.ATIVO)
 					tblAtivo.getItems().add(p);
 				if (p.getTipo_parte() == TipoParte.PASSIVO)

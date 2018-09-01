@@ -9,17 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.sga.entidade.Cliente;
-import br.com.sga.entidade.Consulta;
-import br.com.sga.entidade.Contrato;
-import br.com.sga.entidade.Funcionario;
-import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
-import br.com.sga.entidade.enums.Area;
-import br.com.sga.entidade.enums.TipoPagamento;
+import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.DaoException;
+import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.interfaces.IDaoProcesso;
 import br.com.sga.sql.SQLConnection;
 import br.com.sga.sql.SQLUtil;
@@ -29,7 +25,7 @@ public class DaoProcesso implements IDaoProcesso {
 	private Connection conexao;
 	private PreparedStatement statement;
 	private ResultSet resultSet;
-	private DaoCommun daoCommun;
+	private IDaoCommun daoCommun;
 
 	public DaoProcesso() {
 		daoCommun = DaoCommun.getInstance();
@@ -40,8 +36,7 @@ public class DaoProcesso implements IDaoProcesso {
 		try {
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = conexao.prepareStatement(SQLUtil.Processo.INSERT_ALL);
-			// numero,tipo_participacao,tipo_processo,fase,descricao,decisao,comarca,orgao_julgador,
-			// classe_judicial,data_atuacao,status,contrato_id
+//			numero,tipo_processo,fase,descricao,decisao,comarca,orgao_julgador,classe_judicial,data_atuacao,status, cliente_id
 			statement.setString(1, entidade.getNumero());
 			statement.setString(2, entidade.getTipo_processo().toString());
 			statement.setString(3, entidade.getFase());
@@ -52,11 +47,13 @@ public class DaoProcesso implements IDaoProcesso {
 			statement.setString(8, entidade.getClasse_judicial());
 			statement.setDate(9, new Date(entidade.getData_atuacao().getTime()));
 			statement.setBoolean(10, entidade.isStatus());
-			statement.setInt(11, entidade.getContrato().getId());
+			statement.setInt(11, entidade.getCliente().getId());
 			statement.execute();
-			// int processo_id = daoCommun.getCurrentValorTabela(Tabela.PROCESSO);
-			// for(Audiencia e : entidade.getAudiencias())
-			// daoCommun.salvarAudiencia(e,processo_id);
+
+			int id_processo = daoCommun.getCurrentValorTabela(Tabela.PROCESSO);
+			
+			for (Parte parte : entidade.getPartes())
+				daoCommun.salvarParte(parte, id_processo, Tabela.PROCESSO);
 
 			conexao.close();
 		} catch (SQLException ex) {
@@ -82,15 +79,13 @@ public class DaoProcesso implements IDaoProcesso {
 			resultSet = this.statement.executeQuery();
 
 			Processo processo = null;
-			Contrato contrato = null;
-			Consulta consulta = null;
 			Cliente cliente = null;
 
 			if (resultSet.next()) {
 
 				processo = new Processo();
 
-				processo.setId(resultSet.getInt(1));
+				processo.setId(resultSet.getInt("id"));
 				processo.setNumero(resultSet.getString("numero"));
 				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
 				processo.setComarca(resultSet.getString("comarca"));
@@ -101,22 +96,14 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setOrgao_julgador(resultSet.getString("orgao_julgador"));
 				processo.setTipo_processo(TipoProcesso.getTipo(resultSet.getString("tipo_processo")));
 
-				contrato = new Contrato();
-				contrato.setValor_total(resultSet.getFloat("valor_total"));
-				contrato.setId(resultSet.getInt("contrato_id"));
-
-				consulta = new Consulta();
 				cliente = new Cliente();
-				cliente.setNome(resultSet.getString("nome"));
-				consulta.setCliente(cliente);
-
-				contrato.setConsulta(consulta);
-
-				contrato.setPartes(daoCommun.getPartes(contrato.getId()));
-
-				processo.setContrato(contrato);
-
-				// for(Audiencia a : daoCommun.a)
+				cliente.setId(resultSet.getInt("cliente_id"));
+				
+				processo.setCliente(cliente);
+				
+				processo.setPartes(daoCommun.getPartes(processo.getId(), Tabela.PROCESSO));
+				
+				processo.setAudiencias(daoCommun.buscarAudienciaPorIdProcesso(processo.getId()));
 			}
 
 			this.conexao.close();
@@ -158,9 +145,8 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setComarca(resultSet.getString("comarca"));
 				processo.setDecisao(resultSet.getString("decisao"));
 
-				int contrato_id = resultSet.getInt("contrato_id");
-
-//				processo.setPartes(daoCommun.getPartes(contrato_id).toString());
+				// int contrato_id = resultSet.getInt("contrato_id");
+				// processo.setPartes(daoCommun.getPartes(contrato_id));
 
 				processos.add(processo);
 			}
@@ -197,12 +183,7 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setComarca(resultSet.getString("comarca"));
 				processo.setDecisao(resultSet.getString("decisao"));
 
-				int contrato_id = resultSet.getInt("contrato_id");
-
-				processo.setPartes(daoCommun.getPartes(contrato_id).toString());
-
-				System.out.println(contrato_id);
-				System.out.println(processo.getPartes());
+				processo.setPartes(daoCommun.getPartes(processo.getId(), Tabela.PROCESSO).toString());
 
 				processos.add(processo);
 			}
@@ -242,7 +223,7 @@ public class DaoProcesso implements IDaoProcesso {
 
 				int contrato_id = resultSet.getInt("contrato_id");
 
-				processo.setPartes(daoCommun.getPartes(contrato_id).toString());
+				processo.setPartes(daoCommun.getPartes(processo.getId(), Tabela.PROCESSO).toString());
 
 				System.out.println(contrato_id);
 				System.out.println(processo.getPartes());
@@ -272,10 +253,7 @@ public class DaoProcesso implements IDaoProcesso {
 			resultSet = this.statement.executeQuery();
 
 			Processo processo = null;
-			Contrato contrato = null;
-			Consulta consulta = null;
 			Cliente cliente = null;
-			Funcionario funcionario = null;
 			List<Processo> processos = new ArrayList<>();
 
 			while (resultSet.next()) {
@@ -292,56 +270,10 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setOrgao_julgador(resultSet.getString("orgao_julgador"));
 				processo.setTipo_processo(TipoProcesso.getTipo(resultSet.getString("tipo_processo")));
 
-				contrato = new Contrato();
-				List<Parte> partes = daoCommun.getPartes(contrato_id);
-				List<Parcela> parcelas = daoCommun.getParcelas(contrato_id);
-				contrato = new Contrato();
-				contrato.setId(resultSet.getInt("contrato_id"));
-				contrato.setData_contrato(resultSet.getDate("data_contrato"));
-				contrato.setValor_total(resultSet.getFloat("valor_total"));
-				contrato.setObjeto(resultSet.getString("objeto"));
-				contrato.setTipo_pagamento(TipoPagamento.getTipoPagamento(resultSet.getString("tipo_pagamento")));
-				contrato.setArea(Area.getArea(resultSet.getString("area")));
-				contrato.setDados_banco(resultSet.getString("dados_banco"));
-				contrato.setPartes(partes);
-				contrato.setParcelas(parcelas);
-
-				consulta = new Consulta();
-				consulta.setId(resultSet.getInt("consulta_id"));
-				consulta.setArea(Area.getArea(resultSet.getString("area")));
-				consulta.setDescricao(resultSet.getString("descricao"));
-				consulta.setData_consulta(resultSet.getDate("data_consulta"));
-				consulta.setValor_honorario(resultSet.getFloat("valor_honorario"));
-				consulta.setIndicacao(resultSet.getString("indicacao"));
-
 				cliente = new Cliente();
 				cliente.setId(resultSet.getInt("cliente_id"));
-				// cliente.setNome(resultSet.getString(33));
-				// cliente.setNascimento(resultSet.getDate("data_nascimento"));
-				// cliente.setCpf_cnpj(resultSet.getString("cpf_cnpj"));
-				// cliente.setGenero(Sexo.getSexo(resultSet.getString("genero")));
-				// cliente.setRg(resultSet.getString("rg"));
-				// cliente.setEmail(resultSet.getString("email"));
-				// cliente.setEstado_civil(resultSet.getString("estado_civil"));
-				// cliente.setProfissao(resultSet.getString("profissao"));
-				// cliente.setFilhos(resultSet.getBoolean("filhos"));
-				// cliente.setResponsavel(resultSet.getString("responsavel"));
-				// cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
-				// cliente.setEndereco(daoCommun.getEndereco(cliente.getId()));
 
-				funcionario = new Funcionario(resultSet.getInt("funcionario_id"));
-
-				// funcionario = new Funcionario(resultSet.getInt("funcionario_id"),
-				// resultSet.getString(45), resultSet.getString("email"),
-				// resultSet.getString("login"), resultSet.getString("senha"),
-				// resultSet.getString("numero_oab"));
-				//
-				// funcionario.setEndereco(daoCommun.getEndereco(funcionario.getId()));
-
-				consulta.setCliente(cliente);
-				consulta.setFuncionario(funcionario);
-				contrato.setConsulta(consulta);
-				processo.setContrato(contrato);
+				processo.setCliente(cliente);
 
 				processos.add(processo);
 				return processos;
@@ -365,13 +297,13 @@ public class DaoProcesso implements IDaoProcesso {
 
 			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = conexao.prepareStatement(SQLUtil.Processo.BUSCA_POR_BUSCA);
-			this.statement.setString(1, "%"+busca[1]+"%");
-			this.statement.setString(2, "%"+busca[0]+"%");
-			this.statement.setString(3, "%"+busca[0]+"%");
-			this.statement.setString(4, "%"+busca[0]+"%");
-			this.statement.setString(5, "%"+busca[0]+"%");
-			this.statement.setString(6, "%"+busca[0]+"%");
-			this.statement.setString(7, "%"+busca[0]+"%");
+			this.statement.setString(1, "%" + busca[0] + "%");
+			this.statement.setString(2, "%" + busca[0] + "%");
+			this.statement.setString(3, "%" + busca[0] + "%");
+			this.statement.setString(4, "%" + busca[0] + "%");
+			this.statement.setString(5, "%" + busca[0] + "%");
+			this.statement.setString(6, "%" + busca[0] + "%");
+			this.statement.setString(7, "%" + busca[1] + "%");
 
 			resultSet = this.statement.executeQuery();
 
@@ -386,10 +318,8 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
 				processo.setComarca(resultSet.getString("comarca"));
 				processo.setDecisao(resultSet.getString("decisao"));
-				
-				int contrato_id = resultSet.getInt("contrato_id");
 
-				processo.setPartes(daoCommun.getPartes(contrato_id).toString());
+				processo.setPartes(daoCommun.getPartes(processo.getId(), Tabela.PROCESSO).toString());
 
 				processos.add(processo);
 			}
