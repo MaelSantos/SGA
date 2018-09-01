@@ -63,7 +63,7 @@ public class Documentos {
 	public static void main(String[] args) {
 				
 		try {
-			List<Processo> list = new ArrayList<>();
+			List<Contrato> list = new ArrayList<>();
 			Contrato contrato = new Contrato();
 			contrato.setArea(Area.CIVIL);
 			contrato.setDados_banco("BANCO DO BRASIL, AGÊNCIA 0000-0, CONTA CORRENTE 00.000-0, CPF 000.000.000-00");
@@ -80,7 +80,7 @@ public class Documentos {
 			consulta.setFuncionario(funcionario);
 			funcionario.setEndereco(cliente.getEndereco());
 			contrato.setConsulta(consulta);
-			
+			list.add(contrato);
 			new Documentos().gerarDocumento(list, "Contrato.jrxml");
 			
 		} catch (FileNotFoundException | JRException | BusinessException e) {

@@ -5,10 +5,13 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="contrato" class="br.com.sga.entidade.Contrato"/>
-	<field name="tipo_processo" class="br.com.sga.entidade.enums.TipoProcesso"/>
-	<field name="tipo_participacao" class="br.com.sga.entidade.enums.TipoParticipacao"/>
-	<field name="numero" class="java.lang.String"/>
+	<field name="consulta" class="br.com.sga.entidade.Consulta"/>
+	<field name="processo" class="br.com.sga.entidade.Processo"/>
+	<field name="valor_total" class="java.lang.Float"/>
+	<field name="taxa_juros" class="java.lang.Float"/>
+	<field name="tipo_pagamento" class="br.com.sga.entidade.enums.TipoPagamento"/>
+	<field name="objeto" class="java.lang.String"/>
+	<field name="dados_banco" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -33,7 +36,7 @@
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>"+$F{contrato}.getConsulta().getCliente().getNome()+"</b>, brasileiro(a),  "+$F{contrato}.getConsulta().getCliente().getEstado_civil()+", "+$F{contrato}.getConsulta().getCliente().getProfissao()+", inscrito(a) no CPF/MF sob o n° "+$F{contrato}.getConsulta().getCliente().getCpf_cnpj()+", e RG  "+$F{contrato}.getConsulta().getCliente().getRg()+" SSP/PE, residente e domiciliado(a) no(a) "+$F{contrato}.getConsulta().getCliente().getEndereco().getRua()+", "+$F{contrato}.getConsulta().getCliente().getEndereco().getBairro()+", "+$F{contrato}.getConsulta().getCliente().getEndereco().getCidade()+"/"+$F{contrato}.getConsulta().getCliente().getEndereco().getEstado()+", Cep "+$F{contrato}.getConsulta().getCliente().getEndereco().getCep()+" Denominado aqui <b>CONTRATANTE</b> e "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>"+$F{consulta}.getCliente().getNome()+"</b>, brasileiro(a),  "+$F{consulta}.getCliente().getEstado_civil()+", "+$F{consulta}.getCliente().getProfissao()+", inscrito(a) no CPF/MF sob o n° "+$F{consulta}.getCliente().getCpf_cnpj()+", e RG  "+$F{consulta}.getCliente().getRg()+" SSP/PE, residente e domiciliado(a) no(a) "+$F{consulta}.getCliente().getEndereco().getRua()+", "+$F{consulta}.getCliente().getEndereco().getBairro()+", "+$F{consulta}.getCliente().getEndereco().getCidade()+"/"+$F{consulta}.getCliente().getEndereco().getEstado()+", Cep "+$F{consulta}.getCliente().getEndereco().getCep()+" Denominado aqui <b>CONTRATANTE</b> e "]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="586">
@@ -42,14 +45,14 @@
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>"+$F{contrato}.getConsulta().getFuncionario().getNome()+"</b>, brasileiro(a) "+", advogado"+", inscrito(a) no OAB/PE sob o n° "+$F{contrato}.getConsulta().getFuncionario().getNumero_oab()+", com o escritório profissional á Rua  "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getRua()+" - "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getBairro()+", "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getCidade()+"/"+$F{contrato}.getConsulta().getFuncionario().getEndereco().getEstado()+", Cep "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getCep()+", onde recebe intimações, denominado neste instrumento como <b>CONTRATADO</b>, as partes acima identificadas têm, entre si, justo e acertado o presente <b>Contrato de Honorários Advocatícios</b>, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>"+$F{consulta}.getFuncionario().getNome()+"</b>, brasileiro(a) "+", advogado"+", inscrito(a) no OAB/PE sob o n° "+$F{consulta}.getFuncionario().getNumero_oab()+", com o escritório profissional á Rua  "+$F{consulta}.getFuncionario().getEndereco().getRua()+" - "+$F{consulta}.getFuncionario().getEndereco().getBairro()+", "+$F{consulta}.getFuncionario().getEndereco().getCidade()+"/"+$F{consulta}.getFuncionario().getEndereco().getEstado()+", Cep "+$F{consulta}.getFuncionario().getEndereco().getCep()+", onde recebe intimações, denominado neste instrumento como <b>CONTRATADO</b>, as partes acima identificadas têm, entre si, justo e acertado o presente <b>Contrato de Honorários Advocatícios</b>, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="81" width="552" height="40" uuid="558ceea9-d12c-4c94-813d-6b6c34205fa0"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>Cláusula 1ª</b>. O Presente instrumento tem como <b>OBJETO</b> "+$F{contrato}.getObjeto()+",  "+$F{contrato}.getArea().toString()+" a ser realizado em  "+$F{tipo_processo}.toString()+", para <b>"+$F{tipo_participacao}+"</b> no <b>Processo Nº "+$F{numero}+"</b>, que tem como partes "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Cláusula 1ª</b>. O Presente instrumento tem como <b>OBJETO</b> "+$F{objeto}+",  "+$F{consulta}.getArea()+" a ser realizado em  "+$F{processo}.getTipo_processo().toString()+", para <b>"+$F{tipo_participacao}+"</b> no <b>Processo Nº "+$F{numero}+"</b>, que tem como partes "]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="119" width="552" height="120" uuid="9363ce17-4224-4d11-a839-ff378bead605"/>
@@ -91,14 +94,14 @@
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>Cláusula 7ª</b> Fica acordado entre as partes que, os honorários a titulo de prestação de serviços, estão estabelecidos no valor total de R$ "+$F{contrato}.getValor_total()+" a serem pagos da seguinte forma: "+$F{contrato}.getTipo_pagamento().toString()+", deverão ser pagas até o dia "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Cláusula 7ª</b> Fica acordado entre as partes que, os honorários a titulo de prestação de serviços, estão estabelecidos no valor total de R$ "+$F{valor_total}+" a serem pagos da seguinte forma: "+$F{tipo_pagamento}.toString()+", deverão ser pagas até o dia "]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="416" width="552" height="40" uuid="777caa8a-fd24-448d-aea8-85be39b8aa67"/>
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Dados Bancários para depósito dos honorários: "+$F{contrato}.getDados_banco()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Dados Bancários para depósito dos honorários: "+$F{dados_banco}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="456" width="552" height="40" uuid="be3b8c23-853d-4bc6-9f14-5b8e436defac"/>
@@ -135,7 +138,7 @@
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>Cláusula 11ª</b>. As partes estabelecem que havendo atraso no pagamento dos honorários, serão cobrados juros de mora na proporção de "+((br.com.sga.entidade.Parcela)$F{contrato}.getParcelas().get( 0 )).getJuros()+"% ao mês."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Cláusula 11ª</b>. As partes estabelecem que havendo atraso no pagamento dos honorários, serão cobrados juros de mora na proporção de "+$F{taxa_juros}+"% ao mês."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="32" width="552" height="30" uuid="40d27aa7-d9d6-4ffb-91bd-ad5d03fe8a5e"/>
@@ -180,8 +183,8 @@
 				<textElement markup="html">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<b>"+$F{contrato}.getConsulta().getCliente().getNome()+"</b><br></br>CONTRATANTE<br></br><br></br><b>"
-+$F{contrato}.getConsulta().getFuncionario().getNome()+"</b><br></br>CONTRATADO"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>"+$F{consulta}.getCliente().getNome()+"</b><br></br>CONTRATANTE<br></br><br></br><b>"
++$F{consulta}.getFuncionario().getNome()+"</b><br></br>CONTRATADO"]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="1" y="131" width="100" height="30" uuid="abbbe67a-0dcf-4af3-bddc-8bccd553df39"/>

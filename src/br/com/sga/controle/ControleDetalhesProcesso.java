@@ -95,28 +95,28 @@ public class ControleDetalhesProcesso extends Controle {
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
-		if (object instanceof ProcessoAdapter) {
-			ProcessoAdapter adapter = (ProcessoAdapter) object;
+		if (tela != Tela.CADASTRO_AUDIENCIA && tela != Tela.CADASTRO_PARTE && tela != Tela.CADASTRO_PROCESSO)
+			if (object instanceof ProcessoAdapter) {
+				ProcessoAdapter adapter = (ProcessoAdapter) object;
 
-			try {
-				if (tela != Tela.CADASTRO_AUDIENCIA)
+				try {
 					voltar = true;
-				processo = fachada.buscarProcessoPorId(adapter.getId());
-				processo.setCliente(fachada.buscarClientePorId(processo.getCliente().getId()));
-				modificarCampos();
-			} catch (BusinessException e) {
-				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Com o Processo!!!", e.getMessage());
-				e.printStackTrace();
+					processo = fachada.buscarProcessoPorId(adapter.getId());
+					processo.setCliente(fachada.buscarClientePorId(processo.getCliente().getId()));
+					modificarCampos();
+				} catch (BusinessException e) {
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Com o Processo!!!", e.getMessage());
+					e.printStackTrace();
+				}
+
 			}
 
-		}
-
-		if (object instanceof Processo) {
-			if (tela != Tela.CADASTRO_AUDIENCIA)
+		if (tela != Tela.CADASTRO_AUDIENCIA && tela != Tela.CADASTRO_PARTE && tela != Tela.CADASTRO_PROCESSO)
+			if (object instanceof Processo) {
 				voltar = false;
-			processo = (Processo) object;
-			modificarCampos();
-		}
+				processo = (Processo) object;
+				modificarCampos();
+			}
 
 		else if (object instanceof Audiencia) {
 			Audiencia audiencia = (Audiencia) object;

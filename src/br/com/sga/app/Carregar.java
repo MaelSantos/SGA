@@ -100,6 +100,9 @@ public class Carregar implements Initializable{
 							App.cadastrarProcesso = carregarArquivo("br/com/sga/view/CadastroProcesso.fxml");
 							updateData();
 							
+							App.cadastroParte = carregarArquivo("br/com/sga/view/CadastroParte.fxml");
+							updateData();
+							
 							App.buscarContrato = carregarArquivo("br/com/sga/view/BuscarContrato.fxml");
 							updateData();
 							

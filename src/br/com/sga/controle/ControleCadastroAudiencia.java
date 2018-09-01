@@ -20,7 +20,6 @@ import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoAudiencia;
 import br.com.sga.entidade.enums.TipoNotificacao;
-import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
@@ -162,7 +161,13 @@ public class ControleCadastroAudiencia extends Controle {
 			
 		}
 		if(obj == btnVoltar)
-			App.notificarOuvintes(Tela.DETALHES_PROCESSO);
+		{
+			if(audiencia.getProcesso().getId() != null)
+				App.notificarOuvintes(Tela.DETALHES_PROCESSO);
+			else
+				App.notificarOuvintes(Tela.CADASTRO_PROCESSO);
+			
+		}
 		
 
 	}
