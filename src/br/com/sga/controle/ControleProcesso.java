@@ -31,41 +31,41 @@ import javafx.util.Callback;
 public class ControleProcesso extends Controle {
 
 	@FXML
-	private Button btnCadastrar;
+    private Button btnVisualizar;
 
-	@FXML
-	private TextField tfdBusca;
+    @FXML
+    private Button btnCadastrar;
 
-	@FXML
-	private Button btnBuscar;
+    @FXML
+    private TextField tfdBusca;
 
-	@FXML
-	private ComboBox<TipoProcesso> cbxTipo;
+    @FXML
+    private Button btnBuscar;
 
-	@FXML
-	private TableView<ProcessoAdapter> tblProcesso;
+    @FXML
+    private ComboBox<TipoProcesso> cbxTipo;
 
-	@FXML
-	private TableColumn<ProcessoAdapter, String> colNumero;
+    @FXML
+    private Button btnRemover;
 
-	@FXML
-	private TableColumn<ProcessoAdapter, String> colComarca;
+    @FXML
+    private TableView<ProcessoAdapter> tblProcesso;
 
-	@FXML
-	private TableColumn<ProcessoAdapter, String> colPartes;
+    @FXML
+    private TableColumn<ProcessoAdapter, String> colNumero;
 
-	@FXML
-	private TableColumn<ProcessoAdapter, String> colAndamento;
+    @FXML
+    private TableColumn<ProcessoAdapter, String> colComarca;
 
-	@FXML
-	private TableColumn<ProcessoAdapter, String> colData;
+    @FXML
+    private TableColumn<ProcessoAdapter, String> colPartes;
 
-	@FXML
-	private TableColumn<ProcessoAdapter, String> colAcoes;
+    @FXML
+    private TableColumn<ProcessoAdapter, String> colAndamento;
 
-	@FXML
-	private Button btnRemover;
-
+    @FXML
+    private TableColumn<ProcessoAdapter, Date> colData;
+    
 	private IFachada fachada;
 	private Funcionario funcionario;
 
@@ -120,6 +120,14 @@ public class ControleProcesso extends Controle {
 			cbxTipo.getSelectionModel().clearSelection();
 			cbxTipo.setPromptText("Tipo");
 		}
+		else if(obj == btnVisualizar)
+		{
+			if(tblProcesso.getSelectionModel().getSelectedItem() != null)
+				App.notificarOuvintes(Tela.DETALHES_PROCESSO, tblProcesso.getSelectionModel().getSelectedItem());
+			else
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Selecione Um Processo Para Prosseguir", "");
+
+		}
 	}
 
 	@FXML
@@ -145,33 +153,6 @@ public class ControleProcesso extends Controle {
 		colPartes.setCellValueFactory(new PropertyValueFactory<>("partes"));
 
 		colNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
-
-		colAcoes.setCellValueFactory(new PropertyValueFactory<>("numero"));
-
-		colAcoes.setCellFactory(
-				new Callback<TableColumn<ProcessoAdapter, String>, TableCell<ProcessoAdapter, String>>() {
-					@Override
-					public TableCell<ProcessoAdapter, String> call(TableColumn<ProcessoAdapter, String> column) {
-						return new TableCell<ProcessoAdapter, String>() {
-							@Override
-							protected void updateItem(String item, boolean empty) {
-								super.updateItem(item, empty);
-								if (item == null || empty) {
-									setText(null);
-									setStyle("");
-								} else {
-									Button b = new Button("Detalhes");
-									b.setOnAction((a) -> {
-										App.notificarOuvintes(Tela.DETALHES_PROCESSO,
-												tblProcesso.getSelectionModel().getSelectedItem());
-									});
-									setGraphic(b);
-								}
-							}
-						};
-
-					}
-				});
 
 		tblProcesso.setOnMouseClicked(e -> {
 			if (e.getClickCount() > 1)

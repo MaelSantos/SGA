@@ -181,5 +181,11 @@ public class ControleConsulta extends Controle {
 		for (TipoCliente e : TipoCliente.values())
 			tipoPessoaBox.getItems().add(e.toString());
 
+		contratosTableView.setOnMouseClicked(e -> {
+			if (e.getClickCount() > 1)
+				if (contratosTableView.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.DETALHES_CONSULTA, contratosTableView.getSelectionModel().getSelectedItem());
+		});
+		
 	}
 }
