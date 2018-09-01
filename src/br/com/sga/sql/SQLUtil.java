@@ -71,11 +71,15 @@ public class SQLUtil {
     public static class Testemunha{
     	public static final String INSERT_ALL = "INSERT INTO TESTEMUNHA(nome,endereco_id,consulta_id) VALUES(?,?,?)";
     	public static final String SELECT_ID_CONSULTA = "SELECT * FROM TESTEMUNHA WHERE consulta_id = ?";
+    	public static final String UPDATE_ALL= "UPDATE TESTEMUNHA SET NOME = ? WHERE ID = ?";
+    	
     }
     
     public static class Consulta{
     	public static final String INSERT_ALL = "INSERT INTO CONSULTA(valor_honorario,descricao,area,indicacao,data_consulta,cliente_id,funcionario_id) VALUES(?,?,?,?,?,?,?)";
     	public static final String SELECT_ID_CONSULTA=" SELECT * FROM CONSULTA WHERE ID = ? ";
+    	public static final String UPDATE_ALL = "UPDATE CONSULTA SET data_consulta = ?, valor_honorario = ?, area  = ?, descricao = ?, indicacao =? WHERE id = ?";
+    	
     	/*public static final String SELECT_ID_CONSULTA_FUNCIONARIO_ADAPTETER= "SELECT CON.DESCRICAO,CON.INDICACAO,FUN.NOME,FUN.NUMERO_OAB \r\n" + 
 														"FROM CONSULTA CON, FUNCIONARIO FUN\r\n" + 
 														"WHERE CON.FUNCIONARIO_ID  =FUN.ID \r\n" + 
@@ -158,6 +162,7 @@ public class SQLUtil {
 	    public static final String SELECT_TELEFONE_CLIENTE = "SELECT * FROM TELEFONE WHERE cliente_id = ?";
 	    public static final String SELECT_TELEFONE_TESTEMUNHA = "SELECT * FROM TELEFONE WHERE testemunha_id = ?";
 	    public static final String SELECT_NUMERO = "SELECT * FROM TELEFONE WHERE numero = ?";
+	    public static final String UPDATE_ALL = "UPDATE TELEFONE SET PREFIXO =?, NUMERO = ?,TIPO = ? WHERE ID = ?";
     }
     
     public static class Log {

@@ -12,7 +12,6 @@ import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.StatusAudiencia;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoAudiencia;
-import br.com.sga.entidade.enums.TipoCliente;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
@@ -96,6 +95,24 @@ public class DaoCommun implements IDaoCommun {
 			throw new DaoException("PROBLEMA AO SALVAR TESTEMUNHA - CONTATE O ADM");
 		}
 	}
+	
+	public void editarTestemunha(Testemunha testemunha) throws DaoException {
+		try {
+			EditarEndereco(testemunha.getEndereco());
+			editarContato(testemunha.getTelefone());
+			
+			connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			statement = connection.prepareStatement(SQLUtil.Testemunha.UPDATE_ALL);
+			statement.setString(1,testemunha.getNome());
+			statement.setInt(2,testemunha.getId());
+			statement.executeUpdate();
+			connection.close();
+			
+			
+		}catch (SQLException e) {
+			throw new DaoException("PROBLEMA AO EDITAR TESTEMUNHA - CONTATE ADM");
+		}
+	}
 
 	@Override
 	public void salvarVinculoFuncionario(Integer notificacao_id, Integer funcionario_id) throws DaoException {
@@ -135,6 +152,7 @@ public class DaoCommun implements IDaoCommun {
 			throw new DaoException("PROBLEMA AO SALVAR ENDERECO - Contate o ADM");
 		}
 	}
+	
 
 	@Override
 	public void salvarContato(Telefone telefone, int id, Tabela tabela) throws DaoException {
@@ -153,10 +171,32 @@ public class DaoCommun implements IDaoCommun {
 			this.connection.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new DaoException("PROBLEMA AO SALVAR ENDERECO - CONTATE O ADM");
+			throw new DaoException("PROBLEMA AO SALVAR CONTATO - CONTATE O ADM");
 		}
 
 	}
+	
+	public void editarContato(Telefone telefone) throws DaoException {
+		//SET PREFIXO ?, SET NUMERO = ? SET TIPO = ? 
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Telefone.UPDATE_ALL);
+			statement.setInt(1, telefone.getPrefixo());
+			statement.setInt(2, telefone.getNumero());
+			statement.setString(3, telefone.getTipo().toString());
+			statement.setInt(4, telefone.getId());
+			statement.executeUpdate();
+			this.connection.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO EDITAR TELEFONE - CONTATE O ADM");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+	
+	
 
 	@Override
 	public List<Telefone> getContatos(Integer id) throws DaoException {
@@ -188,6 +228,8 @@ public class DaoCommun implements IDaoCommun {
 		}
 
 	}
+	
+	
 
 	public Telefone getContatosTestemunha(Integer testemunha_id) throws DaoException {
 		try {
@@ -570,6 +612,8 @@ public class DaoCommun implements IDaoCommun {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO ATUALIZAR DADOS FINANCEIROS - CONTATE O ADM");
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 
 	}

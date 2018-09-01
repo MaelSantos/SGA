@@ -27,6 +27,7 @@ public interface IDaoCommun {
     //Telefone 
     public void salvarContato(Telefone telefone, int id,Tabela tabela) throws DaoException;
     public List<Telefone> getContatos(Integer id) throws DaoException;
+    public void editarContato(Telefone telefone) throws DaoException;
     
     //Partes
     public void salvarParte(Parte parte,Integer id, Tabela tabela)throws DaoException;
@@ -48,8 +49,11 @@ public interface IDaoCommun {
     
     //processo
     public void salvarAudiencia(Audiencia audiencia, Integer processo_id) throws DaoException;
+    public List<Audiencia> buscarAudienciaPorIdProcesso(int processo_id) throws DaoException;
+    // consulta
     public void salvarTestemunha(Testemunha entidade,Integer consulta_id) throws DaoException;
 	public List<Testemunha> getTestemunhas(int consulta_id) throws DaoException;
-	public List<Audiencia> buscarAudienciaPorIdProcesso(int processo_id) throws DaoException;
+	public void editarTestemunha(Testemunha entidade) throws DaoException;
+	
     
 }

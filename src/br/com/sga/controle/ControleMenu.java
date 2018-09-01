@@ -83,31 +83,31 @@ public class ControleMenu extends Controle {
 	public void actionButton(ActionEvent e) {
 		
 		if (e.getSource() == btnAgenda)
-			atualizarTela(App.changePane(Tela.AGENDA));
+			App.notificarOuvintes(Tela.AGENDA);
 		else if (e.getSource() == btnClientes)
-			atualizarTela(App.changePane(Tela.CLIENTES));
+			App.notificarOuvintes(Tela.CLIENTES);
 		else if (e.getSource() == btnProcessos)
-			atualizarTela(App.changePane(Tela.PROCESSOS));
+			App.notificarOuvintes(Tela.PROCESSOS);
 		else if (e.getSource() == btnDocumentos)
-			atualizarTela(App.changePane(Tela.DOCUMENTOS));
+			App.notificarOuvintes(Tela.DOCUMENTOS);
 		else if (e.getSource() == btnFinanceiro)
-			atualizarTela(App.changePane(Tela.FINANCEIRO));
+			App.notificarOuvintes(Tela.FINANCEIRO);
 		else if (e.getSource() == btnEstatisticas)
-			atualizarTela(App.changePane(Tela.ESTATISTICA));
+			App.notificarOuvintes(Tela.ESTATISTICA);
 		else if (e.getSource() == btnHistorico)
-			atualizarTela(App.changePane(Tela.HISTORICO));
+			App.notificarOuvintes(Tela.HISTORICO);
 		else if (e.getSource() == btnHome)
-			atualizarTela(App.changePane(Tela.HOME));
+			App.notificarOuvintes(Tela.HOME);
 		else if (e.getSource() == btnInformacoes)
-			atualizarTela(App.changePane(Tela.INFORMACOES));
+			App.notificarOuvintes(Tela.INFORMACOES);
 		else if (e.getSource() == btnPerfil)
-			atualizarTela(App.changePane(Tela.PERFIL));
+			App.notificarOuvintes(Tela.PERFIL);
 		else if (e.getSource() == btnConfiguracoes)
-			atualizarTela(App.changePane(Tela.CONFIGURACOES));
+			App.notificarOuvintes(Tela.CONFIGURACOES);
 		else if (e.getSource() == contratoButton)
-			atualizarTela(App.changePane(Tela.BUSCAR_CONTRATO));
+			App.notificarOuvintes(Tela.BUSCAR_CONTRATO);
 		else if (e.getSource() == consultaButton)
-			atualizarTela(App.changePane(Tela.CONSULTA));
+			App.notificarOuvintes(Tela.CONSULTA);
 		else if (e.getSource() == btnSair) {
 			funcionario = null;
 			App.changeStage(Tela.LOGIN);

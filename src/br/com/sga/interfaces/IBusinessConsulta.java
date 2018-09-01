@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Funcionario;
+import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.exceptions.BusinessException;

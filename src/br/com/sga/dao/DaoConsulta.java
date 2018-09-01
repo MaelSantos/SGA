@@ -58,7 +58,31 @@ public class DaoConsulta implements IDaoConsulta {
 	
 	@Override
 	public void editar(Consulta entidade) throws DaoException {
-
+		//DATA_CONSULTA = ?, VALOR_HONORARIO = ?, AREA  = ?, DESCRICAO = ?, INDICACAO ? WHERE ID = ?
+		try {
+			
+		
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Consulta.UPDATE_ALL);
+			this.statement.setDate(1, new Date(entidade.getData_consulta().getTime()));
+			this.statement.setFloat(2,entidade.getValor_honorario());
+			this.statement.setString(3,entidade.getArea().toString());
+			this.statement.setString(4,entidade.getDescricao());
+			this.statement.setString(5,entidade.getIndicacao());
+			this.statement.setInt(6,entidade.getId());
+			this.statement.executeUpdate();
+            this.connection.close();
+            
+            for(Testemunha testemunha : entidade.getTestemunhas())
+    			daoCommun.editarTestemunha(testemunha);
+            
+		}catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new DaoException("PROBLEMA AO EDITAR CONSULTA - CONTATE O ADM");
+        } catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
 	}
 
 	@Override
