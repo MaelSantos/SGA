@@ -58,26 +58,6 @@ public class BusinessProcesso implements IBusinessProcesso{
 		}
 	}
 
-	private void validar(Processo entidade) throws ValidacaoException{
-		
-		if(entidade.getTipo_processo() == null)
-			throw new ValidacaoException("INFORME O TIPO DE PROCESSO!!!");
-		if(entidade.getComarca() == null || entidade.getComarca().trim().equals(""))
-			throw new ValidacaoException("INFORME A COMARCA!!!");
-		if(entidade.getData_atuacao() == null)
-			throw new ValidacaoException("INFORME A DATA DE ATUAÇÃO!!!");
-		if(entidade.getNumero() == null)
-			throw new ValidacaoException("INFORME O NUMERO DO PROCESSO!!!");
-		if(entidade.getClasse_judicial() == null)
-			throw new ValidacaoException("INFORME A CLASSE JUDICIAL!!!");
-		if(entidade.getOrgao_julgador() == null)
-			throw new ValidacaoException("INFORME O ORGÃO JULGADOR!!!");
-		if(entidade.getFase() == null)
-			throw new ValidacaoException("INFORME A FASE!!!");
-		if(entidade.getContrato().getId() == null)
-			throw new ValidacaoException("SELECIONE UM CONTRATO!!!");
-	}
-
 	@Override
 	public List<ProcessoAdapter> buscarAllAdapter(String tipo) throws BusinessException {
 		try {
@@ -117,5 +97,26 @@ public class BusinessProcesso implements IBusinessProcesso{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+	
+	private void validar(Processo entidade) throws ValidacaoException{
+		
+		if(entidade.getCliente() == null)
+			throw new ValidacaoException("INFORME UM CLIENTE!!!");
+		if(entidade.getPartes() == null || entidade.getPartes().isEmpty())
+			throw new ValidacaoException("INFORME UMA PARTE!!!");
+		if(entidade.getTipo_processo() == null)
+			throw new ValidacaoException("INFORME O TIPO DE PROCESSO!!!");
+		if(entidade.getComarca() == null || entidade.getComarca().trim().equals(""))
+			throw new ValidacaoException("INFORME A COMARCA!!!");
+		if(entidade.getData_atuacao() == null)
+			throw new ValidacaoException("INFORME A DATA DE ATUAÇÃO!!!");
+		if(entidade.getClasse_judicial() == null || entidade.getClasse_judicial().trim().equals(""))
+			throw new ValidacaoException("INFORME A CLASSE JUDICIAL!!!");
+		if(entidade.getOrgao_julgador() == null || entidade.getOrgao_julgador().trim().equals(""))
+			throw new ValidacaoException("INFORME O ORGÃO JULGADOR!!!");
+		if(entidade.getFase() == null || entidade.getFase().trim().equals(""))
+			throw new ValidacaoException("INFORME A FASE!!!");
+	}
+
 	
 }

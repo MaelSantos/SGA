@@ -214,10 +214,15 @@ public class DaoCommun implements IDaoCommun {
 	}
 
 	@Override
-	public List<Parte> getPartes(Integer id) throws DaoException {
+	public List<Parte> getPartes(Integer id, Tabela tabela) throws DaoException {
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			
+			if(tabela == Tabela.CONTRATO)
 			this.statement = connection.prepareStatement(SQLUtil.Parte.SELECT_PARTE_CONTRATO_ID);
+			else if (tabela == Tabela.PROCESSO) {
+				this.statement = connection.prepareStatement(SQLUtil.Parte.SELECT_PARTE_PROCESSO_ID);
+			}
 			this.statement.setInt(1, id);
 
 			resultSet = this.statement.executeQuery();
@@ -232,7 +237,7 @@ public class DaoCommun implements IDaoCommun {
 				parte.setNome(resultSet.getString("nome"));
 				parte.setTipo_parte(TipoParte.getTipoParte(resultSet.getString("tipo_parte")));
 				parte.setTipo_participacao(TipoParticipacao.getValue(resultSet.getString("tipo_participacao")));
-				// parte.setSituacao(resultSet.getString("situacao"));
+//				 parte.setSituacao(resultSet.getString("situacao"));
 
 				partes.add(parte);
 
@@ -248,15 +253,18 @@ public class DaoCommun implements IDaoCommun {
 	}
 
 	@Override
-	public void salvarParte(Parte parte, Integer contrato_id) throws DaoException {
+	public void salvarParte(Parte parte, Integer id, Tabela tabela) throws DaoException {
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			this.statement = connection.prepareStatement(SQLUtil.Parte.INSERT_ALL);
+			if (tabela == Tabela.CONTRATO)
+				this.statement = connection.prepareStatement(SQLUtil.Parte.INSERT_ALL_CONTRATO);
+			else if (tabela == Tabela.PROCESSO)
+				this.statement = connection.prepareStatement(SQLUtil.Parte.INSERT_ALL_PROCESSO);
 			// nome,tipo_parte,tipo_participacao,contrato_id
+			statement.setString(1, parte.getNome());
 			statement.setString(2, parte.getTipo_parte().toString());
 			statement.setString(3, parte.getTipo_participacao().toString());
-			statement.setString(1, parte.getNome());
-			statement.setInt(4, contrato_id);
+			statement.setInt(4, id);
 			statement.execute();
 			this.connection.close();
 		} catch (SQLException ex) {

@@ -6,14 +6,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import br.com.sga.app.App;
-import br.com.sga.entidade.Contrato;
+import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
-import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.BusinessException;
@@ -27,8 +29,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class ControleCadastroProcesso extends Controle {
 
@@ -57,15 +64,48 @@ public class ControleCadastroProcesso extends Controle {
 	private TextField tfdOrgao;
 
 	@FXML
+	private Button btnAddParte;
+
+	@FXML
+	private TextField tfdNomeParte;
+
+	@FXML
+	private ComboBox<TipoParte> cbxTipoParte;
+
+	@FXML
+	private ComboBox<TipoParticipacao> cbxTipoParticipacao;
+
+	@FXML
+	private TableView<Parte> tblPartes;
+
+	@FXML
+	private TableColumn<Parte, String> colNome;
+
+	@FXML
+	private TableColumn<Parte, TipoParte> colTipoParte;
+
+	@FXML
+	private TableColumn<Parte, TipoParticipacao> colTipoParticipacao;
+
+	@FXML
 	private Button btnVoltar;
 
 	@FXML
 	private Button btnCadastrar;
 
+	@FXML
+	private TextField tfdBusca;
+	
+	@FXML
+	private Button btnBuscar;
+
+	@FXML
+	private Label lblCliente;
+
 	private IFachada fachada;
 	private Dialogo dialogo;
 	private Processo processo;
-	private Contrato contrato;
+	private Cliente cliente;
 	private Funcionario funcionario;
 
 	@Override
@@ -75,7 +115,48 @@ public class ControleCadastroProcesso extends Controle {
 		dialogo = Dialogo.getInstance();
 
 		cbxTipoProcesso.getItems().addAll(TipoProcesso.values());
+		cbxTipoParte.getItems().setAll(TipoParte.values());
+		cbxTipoParticipacao.getItems().setAll(TipoParticipacao.values());
 
+		colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		colTipoParte.setCellValueFactory(new PropertyValueFactory<>("tipo_parte"));
+		colTipoParticipacao.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
+		
+		cbxTipoParte.setButtonCell(new ListCell<TipoParte>() {
+	        @Override
+	        protected void updateItem(TipoParte item, boolean empty) {
+	            super.updateItem(item, empty) ;
+	            if (empty || item == null) {
+	                setText("Tipo de Parte");
+	            } else {
+	                setText(item.toString());
+	            }
+	        }
+	    });
+		cbxTipoParticipacao.setButtonCell(new ListCell<TipoParticipacao>() {
+	        @Override
+	        protected void updateItem(TipoParticipacao item, boolean empty) {
+	            super.updateItem(item, empty) ;
+	            if (empty || item == null) {
+	                setText("Tipo de Participação");
+	            } else {
+	                setText(item.toString());
+	            }
+	        }
+	    });
+		
+		cbxTipoProcesso.setButtonCell(new ListCell<TipoProcesso>() {
+	        @Override
+	        protected void updateItem(TipoProcesso item, boolean empty) {
+	            super.updateItem(item, empty) ;
+	            if (empty || item == null) {
+	                setText("Tipo de Processo");
+	            } else {
+	                setText(item.toString());
+	            }
+	        }
+	    });
+		
 	}
 
 	@Override
@@ -88,8 +169,8 @@ public class ControleCadastroProcesso extends Controle {
 			try {
 				processo = criarProcesso();
 				fachada.salvarEditarProcesso(processo);
-				App.notificarOuvintes(Tela.CADASTRO_PROCESSO, processo);
-				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvando...", "Salvo Com Seucesso");
+
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvo Com Sucesso", "");
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(),
 						"Novo Processo: " + processo.getNumero() + " - " + processo.getTipo_processo(),
 						StatusLog.CONCLUIDO);
@@ -103,20 +184,58 @@ public class ControleCadastroProcesso extends Controle {
 			} catch (ParseException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Nos Dados!",
-						"Erro Algum Dado Pode Estar Faltando ou esta incorreto!!!", e.getMessage());
+						"Algum Dado Pode Estar Faltando ou esta incorreto!!!", e.getMessage());
 			}
 
 			try {
-				fachada.salvarEditarLog(log);
+				if (log != null)
+					fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
 
 		}
+
+		else if(obj == btnBuscar)
+		{
+			try {
+				if(!tfdBusca.getText().trim().isEmpty())
+				{
+					ClienteAdapter adapter = dialogo.selecionar(fachada.buscarClienteAdapterPorBusca(tfdBusca.getText().trim()));
+					if(adapter != null)
+					{
+						cliente = fachada.buscarClientePorId(adapter.getId());
+						lblCliente.setText(adapter+"");
+						
+						if(tblPartes.getItems().isEmpty())
+							tblPartes.getItems().add(0, new Parte(TipoParte.ATIVO, TipoParticipacao.EXEQUENTE, cliente.getNome()));
+						else
+							tblPartes.getItems().set(0, new Parte(TipoParte.ATIVO, TipoParticipacao.EXEQUENTE, cliente.getNome()));
+						
+						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Busca Concluida Com Sucesso", "");
+					}				
+				}
+				else 
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Informe Algum Dado Para Pesquisa!!!", "");
+			} catch (BusinessException e) {
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Buscar Cliente!!!", e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		else if(obj == btnAddParte)
+		{
+			if(cbxTipoParte.getValue() != null || cbxTipoParticipacao.getValue() != null || !tfdNomeParte.getText().trim().equals(""))
+			{
+				tblPartes.getItems().add(new Parte(cbxTipoParte.getValue(), cbxTipoParticipacao.getValue(), tfdNomeParte.getText().trim()));
+				cbxTipoParte.getSelectionModel().clearSelection(); 
+				cbxTipoParticipacao.getSelectionModel().clearSelection(); 
+				tfdNomeParte.setText("");
+			}
+			else
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!!!", "Informe Todos os Dados", "");
+		}
 		if (obj == btnVoltar) {
-			contrato = null;
-			processo = null;
-			System.gc();
+			limparCampos();
 			App.notificarOuvintes(Tela.PROCESSOS);
 
 		}
@@ -125,15 +244,6 @@ public class ControleCadastroProcesso extends Controle {
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
-		if (tela == Tela.PROCESSOS)
-			if (object instanceof Contrato) {
-				Contrato contrato = (Contrato) object;
-
-				ContratoAdapter adapter = new ContratoAdapter();
-				adapter.setData_contrato(contrato.getData_contrato());
-				adapter.setNome_cliente(contrato.getConsulta().getCliente().getNome());
-				adapter.setValor_total(contrato.getValor_total());
-			}
 		if (object instanceof Funcionario) {
 			funcionario = (Funcionario) object;
 		}
@@ -146,9 +256,12 @@ public class ControleCadastroProcesso extends Controle {
 		processo.setClasse_judicial(tfdClasse.getText().trim());
 		processo.setComarca(tfdComarca.getText().trim());
 
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		Date data = df.parse(tfdData.getEditor().getText());
-		processo.setData_atuacao(data);
+		if(!tfdData.getEditor().getText().trim().isEmpty())
+		{
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			Date data = df.parse(tfdData.getEditor().getText());
+			processo.setData_atuacao(data);			
+		}
 
 		processo.setDescricao(tfdDescricao.getText().trim());
 		processo.setFase(tfdFase.getText().trim());
@@ -156,13 +269,15 @@ public class ControleCadastroProcesso extends Controle {
 		processo.setOrgao_julgador(tfdOrgao.getText().trim());
 		processo.setTipo_processo(cbxTipoProcesso.getValue());
 
-		processo.setContrato(contrato);
+		processo.setCliente(cliente);
+
+		processo.setPartes(tblPartes.getItems());
 
 		return processo;
 	}
 
 	private void limparCampos() {
-		
+
 		tfdClasse.setText("");
 		tfdComarca.setText("");
 		tfdData.getEditor().setText("");
@@ -170,9 +285,29 @@ public class ControleCadastroProcesso extends Controle {
 		tfdFase.setText("");
 		tfdNumero.setText("");
 		tfdOrgao.setText("");
+		tfdBusca.setText("");
+		lblCliente.setText("");
+		tfdNomeParte.setText("");
+		
+		cbxTipoParte.getSelectionModel().clearSelection();
+		cbxTipoParticipacao.getSelectionModel().clearSelection();
+		cbxTipoProcesso.getSelectionModel().clearSelection();
 
 		processo = null;
-		contrato = null;
+		cliente = null;
+
+		tblPartes.getItems().clear();
 
 	}
+
+	@FXML
+	void mouseEntered(MouseEvent event) {
+		((Button) (event.getSource())).setStyle("-fx-background-color : #386a78");
+	}
+
+	@FXML
+	void mouseExited(MouseEvent event) {
+		((Button) (event.getSource())).setStyle("-fx-background-color : #008B8B");
+	}
+	
 }

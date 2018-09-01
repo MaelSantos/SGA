@@ -95,9 +95,13 @@ public class ControleProcesso extends Controle {
 						log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 								"Buscar Processo: " + tfdBusca.getText().trim() + " - " + cbxTipo.getValue(),
 								StatusLog.SEM_RESULTADOS);
+
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Busca Concluida Com Sucesso", "");
+
 				} else
 					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!",
 							"Informe Um Dado Para Buscar!!!", "");
+				
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Buscar Processo!!!",
 						e.getMessage());
@@ -112,9 +116,7 @@ public class ControleProcesso extends Controle {
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
-		}
-		else if(obj == btnRemover)
-		{
+		} else if (obj == btnRemover) {
 			cbxTipo.getSelectionModel().clearSelection();
 			cbxTipo.setPromptText("Tipo");
 		}
@@ -129,7 +131,7 @@ public class ControleProcesso extends Controle {
 	void mouseExited(MouseEvent event) {
 		((Button) (event.getSource())).setStyle("-fx-background-color : #008B8B");
 	}
-	
+
 	public void init() {
 
 		fachada = Fachada.getInstance();
@@ -178,18 +180,18 @@ public class ControleProcesso extends Controle {
 		});
 
 		cbxTipo.getItems().setAll(TipoProcesso.values());
-		
+
 		cbxTipo.setButtonCell(new ListCell<TipoProcesso>() {
-	        @Override
-	        protected void updateItem(TipoProcesso item, boolean empty) {
-	            super.updateItem(item, empty) ;
-	            if (empty || item == null) {
-	                setText("Tipo");
-	            } else {
-	                setText(item.toString());
-	            }
-	        }
-	    });
+			@Override
+			protected void updateItem(TipoProcesso item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
 
 	}
 

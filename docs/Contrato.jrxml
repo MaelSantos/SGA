@@ -195,15 +195,4 @@
 			</line>
 		</band>
 	</detail>
-	<pageFooter>
-		<band height="47" splitType="Stretch">
-			<staticText>
-				<reportElement x="240" y="14" width="308" height="20" uuid="5c29ff1c-d8d0-40a1-ad57-254fa972506b"/>
-				<textElement>
-					<font fontName="Times New Roman" size="11"/>
-				</textElement>
-				<text><![CDATA[Gerado Pelo Sistema SGA - Sistema de Gerenciamento Advocatício]]></text>
-			</staticText>
-		</band>
-	</pageFooter>
 </jasperReport>
