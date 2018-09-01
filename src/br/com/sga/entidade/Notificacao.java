@@ -1,5 +1,6 @@
 package br.com.sga.entidade;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -112,7 +113,7 @@ public class Notificacao implements Comparable<Notificacao>{
 	
 	@Override
 	public String toString() {
-		return "Hora : "+ this.getAviso_data().toString() + " - "+ getDescricao() + " - "+"Prioridade : "+ this.getPrioridade().toString()+ " Estado : "+ this.getEstado().toString();
+		return "Hora : "+ new SimpleDateFormat("HH:mm:ss").format(aviso_data)+ " - "+ getDescricao() + " - "+"Prioridade : "+ this.getPrioridade().toString()+ " Estado : "+ this.getEstado().toString();
 	}
 	@Override
 	public int compareTo(Notificacao arg0) {
