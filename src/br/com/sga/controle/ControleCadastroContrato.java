@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.sga.app.App;
+import br.com.sga.business.BusinessUtil;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Financeiro;
@@ -197,11 +198,7 @@ public class ControleCadastroContrato extends Controle{
 					if (objeto.length() > 0 && tipo_pagamento != null && dia_pagamento != null
 							&& quantidade_parcelas != null) {
 
-						// pegando data da tela
-						LocalDate ld = dataContratoPicker.getValue();
-						Calendar c = Calendar.getInstance();
-						c.set(ld.getYear(), ld.getMonthValue(), ld.getDayOfMonth());
-						Date data_contrato = c.getTime();
+						Date data_contrato = BusinessUtil.toDate(dataContratoPicker);
 
 						// gerando as parecelas
 						List<Parcela> parcelas = new ArrayList<>();

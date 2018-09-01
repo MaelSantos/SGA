@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.sga.app.App;
+import br.com.sga.business.BusinessUtil;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
@@ -223,10 +224,8 @@ public class ControleCadastroConsulta extends Controle{
 						&& honorarioField.getText().trim().length() >0) {
 					try {
 						Area area = areaBox.getSelectionModel().getSelectedItem();
-						LocalDate ld = dataConsultaPicker.getValue();
-						Calendar c =  Calendar.getInstance();
-						c.set(ld.getYear(), ld.getMonthValue(), ld.getDayOfMonth());
-						Date data_consulta = c.getTime();
+						
+						Date data_consulta = BusinessUtil.toDate(dataConsultaPicker);
 						String descricao = descricaoArea.getText().trim();
 						String indicacao =  nomeIndicacaoField.getText().trim();
 						Float valor_honorario =  Float.parseFloat(honorarioField.getText().trim());

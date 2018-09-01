@@ -1,11 +1,10 @@
 package br.com.sga.controle;
 
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
+import br.com.sga.business.BusinessUtil;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Endereco;
@@ -16,6 +15,7 @@ import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.FuncionarioAdapter;
+import br.com.sga.entidade.enums.Area;
 import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
@@ -23,27 +23,27 @@ import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
+import br.com.sga.view.Alerta;
 import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 
 public class ControleDetalhesConsulta extends Controle {
 
-	@FXML
-	private ResourceBundle resources;
 
 	@FXML
-	private URL location;
+	private DatePicker dataConsultaPicker;
 
 	@FXML
-	private TextField dataConsultaField;
-
-	@FXML
-	private TextField areaField;
+	private ComboBox<Area> areaBox;
 
 	@FXML
 	private TextField indicacaoField;
@@ -59,6 +59,9 @@ public class ControleDetalhesConsulta extends Controle {
 
 	@FXML
 	private Button voltarButton;
+	
+	@FXML
+	private Button salvarEditButton;
 
 	@FXML
 	private TextField nomeFuncionarioField;
@@ -98,7 +101,10 @@ public class ControleDetalhesConsulta extends Controle {
 
 	@FXML
 	private TextField compField;
-
+	
+	@FXML
+	private FlowPane paneEdit;
+	
 	@FXML
 	private Button selectTestmunhaButton;
 
@@ -170,6 +176,47 @@ public class ControleDetalhesConsulta extends Controle {
 		}
 
 	}
+	
+	private Boolean editando = false;
+	
+	@FXML
+	public void editKeyTypedHandler(KeyEvent e) {
+		attEdit();
+	}
+	@FXML
+	public void editMouseCliked(MouseEvent e) {
+		System.out.println("n");
+		attEdit();
+	}
+	private void attEdit() {
+		if(!editando)
+			if(Alerta.getInstance().showConfirmacao("Edição","Confirmação de edição:","Tem certeza que deseja editar informações ?")) {
+				editando = true;
+				liberarCamposParaEdicao();
+			}
+	}
+	
+	private void liberarCamposParaEdicao() {
+		
+		paneEdit.setVisible(editando);
+		
+		honorarioField.setEditable(editando);
+		descricaoField.setEditable(editando);
+		indicacaoField.setEditable(editando);
+
+		nomeTestemunhaField.setEditable(editando);
+		telPreField.setEditable(editando);
+		telNumField.setEditable(editando);
+		ruaField.setEditable(editando);
+		numField.setEditable(editando);
+		bairroField.setEditable(editando);
+		cidadeField.setEditable(editando);
+		paisField.setEditable(editando);
+		compField.setEditable(editando);
+		cepField.setEditable(editando);
+		
+	}
+	
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
@@ -207,11 +254,11 @@ public class ControleDetalhesConsulta extends Controle {
 
 	private void limparCampos() {
 
-		dataConsultaField.setText("");
+		dataConsultaPicker.setValue(null);
 		honorarioField.setText("");
 		descricaoField.setText("");
 		indicacaoField.setText("");
-		areaField.setText("");
+		areaBox.setValue(null);
 
 		nomeTestemunhaField.setText("");
 		telPreField.setText("");
@@ -220,7 +267,7 @@ public class ControleDetalhesConsulta extends Controle {
 		numField.setText("");
 		bairroField.setText("");
 		cidadeField.setText("");
-		estadoBox.setPromptText("");
+		estadoBox.setValue(null);
 		paisField.setText("");
 		compField.setText("");
 		cepField.setText("");
@@ -231,7 +278,10 @@ public class ControleDetalhesConsulta extends Controle {
 	public void init() {
 		fachada = Fachada.getInstance();
 		dialogo = Dialogo.getInstance();
-		
+		areaBox.getItems().addAll(Area.values());
+		areaBox.setOpacity(1);
+		dataConsultaPicker.setOpacity(1);
+		estadoBox.setOpacity(1);
 		MaskFieldUtil.numericField(honorarioField);
 		MaskFieldUtil.numericField(telNumField);
 		MaskFieldUtil.numericField(telPreField);
@@ -252,12 +302,11 @@ public class ControleDetalhesConsulta extends Controle {
 			// funcionario advindos do consulta adapter
 			nomeFuncionarioField.setText(f.getNome());
 			numeroOabField.setText(f.getNumero());
-
-			dataConsultaField.setText(consulta.getData_consulta().toString());
+			dataConsultaPicker.setValue(BusinessUtil.toLocalDate(consulta.getData_consulta()));
 			honorarioField.setText(consulta.getValor_honorario() + "");
 			descricaoField.setText(consulta.getDescricao());
 			indicacaoField.setText(consulta.getIndicacao());
-			areaField.setText(consulta.getArea().toString());
+			areaBox.setValue(consulta.getArea());
 		} catch (BusinessException e) {
 			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 					"Buscar Consulta: Erro", StatusLog.ERRO);

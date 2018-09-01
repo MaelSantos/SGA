@@ -1,6 +1,9 @@
 package br.com.sga.view;
 
+import java.util.Optional;
+
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -35,6 +38,18 @@ public class Alerta extends Alert {
 		setContentText(content);
 		this.show();
 		
+	}
+	
+	public Boolean showConfirmacao(String titulo, String header, String content) {
+		setAlertType(AlertType.CONFIRMATION);
+		setTitle(titulo);
+		setHeaderText(header);
+		setContentText(content);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent() && result.get() == ButtonType.OK) {
+			return true;
+		}
+		return false;
 	}
 	
 }
