@@ -29,6 +29,7 @@ import br.com.sga.view.Alerta;
 import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -144,12 +145,12 @@ public class ControleDetalhesContrato extends Controle {
 							.salvarReceita(new Receita(Calendar.getInstance().getTime(), "Parcela", "pagamento parcela",
 									parcela.getValor(), false, TipoPagamento.A_VISTA, Calendar.getInstance().getTime()),
 									fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
-					Alerta.getInstance().showMensagem("Atualizado", "",
-							"Estado da parcela atualizado para\n CONCLUIDO");
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Atualizado", "Estado da parcela atualizado",
+							"CONCLUIDO");
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(),
 							"Editar Parcela: " + parcela.getEstado(), StatusLog.CONCLUIDO);
 				} catch (BusinessException | DaoException e) {
-					Alerta.getInstance().showMensagem("Erro", "", e.getMessage());
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro", "", e.getMessage());
 					e.printStackTrace();
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(),
 							"Editar Parcela: Erro", StatusLog.ERRO);
@@ -182,7 +183,7 @@ public class ControleDetalhesContrato extends Controle {
 				tipoParticiField.setText(parte.getTipo_participacao().toString());
 			}
 		} else
-			Alerta.getInstance().showMensagem("Alerta", "Ação invilida", "Não há contratos selecionados");
+			Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Ação invalida!!!", "Não há contratos selecionados");
 
 	}
 

@@ -150,7 +150,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Receita: "+receita.getCentro_custo(), StatusLog.CONCLUIDO);
 				} catch (BusinessException |DaoException e) {
 					e.printStackTrace();
-					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Receita", e.getMessage());
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Salvar Receita", e.getMessage());
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Receita: Erro", StatusLog.ERRO);
 				}
 				finally {
@@ -197,7 +197,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Despesa: "+despesa.getCentro_custo(), StatusLog.CONCLUIDO);
 				} catch (BusinessException | DaoException e) {
 					e.printStackTrace();
-					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Despesa", e.getMessage());
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Salvar Despesa", e.getMessage());
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Despesa: Erro", StatusLog.ERRO);
 				}
 				finally {

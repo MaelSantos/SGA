@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControleDetalhesProcesso extends Controle {
@@ -106,7 +107,7 @@ public class ControleDetalhesProcesso extends Controle {
 				processo = fachada.buscarProcessoPorId(adapter.getId());
 				modificarCampos();
 			} catch (BusinessException e) {
-				Alerta.getInstance().showMensagem("Erro!", "Erro Com o Processo!!!", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Com o Processo!!!", e.getMessage());
 				e.printStackTrace();
 			}
 
@@ -197,7 +198,7 @@ public class ControleDetalhesProcesso extends Controle {
 			}
 
 		} catch (Exception e) {
-			Alerta.getInstance().showMensagem("Erro!", "Erro Com o Processo!!!", e.getMessage());
+			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Com o Processo!!!", e.getMessage());
 		}
 
 	}

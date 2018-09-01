@@ -17,6 +17,7 @@ import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -107,7 +108,7 @@ public class ControleHome extends Controle {
 			
 		} catch (Exception e) {
 			
-			Alerta.getInstance().showMensagem("Erro!", "Erro Ao Carregar Notificações!!!", e.getMessage());
+			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Carregar Notificações!!!", e.getMessage());
 			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: Erro ", StatusLog.ERRO);
 			e.printStackTrace();
 		}

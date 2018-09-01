@@ -112,7 +112,7 @@ public class ControleCadastroUsuario extends Controle{
 					limparCampos();
 				}
 			} catch (BusinessException e) {
-				Alerta.getInstance().showMensagem("Erro!!!", "Erro ao Salvar!!!", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!!!", "Erro ao Salvar!!!", e.getMessage());
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Usuario: Erro", StatusLog.ERRO);
 			}
 			try {

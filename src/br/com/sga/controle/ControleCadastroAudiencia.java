@@ -33,6 +33,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class ControleCadastroAudiencia extends Controle {
 
@@ -106,7 +107,7 @@ public class ControleCadastroAudiencia extends Controle {
 			try {
 				Audiencia audiencia = criarAudiencia();
 				daoCommun.salvarAudiencia(audiencia, audiencia.getProcesso().getId());
-				Alerta.getInstance().showMensagem("Salvo", "", "Audiencia Cadastrada Com Sucesso");
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "", "Audiencia Cadastrada Com Sucesso");
 				App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, audiencia);
 				
 				notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
@@ -123,7 +124,7 @@ public class ControleCadastroAudiencia extends Controle {
 			} catch (ParseException | DaoException | BusinessException e) {
 				e.printStackTrace();
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: Erro", StatusLog.ERRO);
-				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Salvar Audiencia", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Salvar Audiencia", e.getMessage());
 			}
 			
 			try {

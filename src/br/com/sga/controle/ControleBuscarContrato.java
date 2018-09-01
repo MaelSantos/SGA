@@ -16,6 +16,7 @@ import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -86,7 +87,7 @@ public class ControleBuscarContrato extends Controle{
     		if(adapter != null) {
     			App.notificarOuvintes(Tela.DETALHES_CONTRATO,adapter);
     		}else {
-    			Alerta.getInstance().showMensagem("Alerta","","Não há nenhuma contrato selecionado ,\ncom isso não é possivel ver detalhes de contrato");
+    			Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta","","Não há nenhuma contrato selecionado ,\ncom isso não é possivel ver detalhes de contrato");
     		}
     	}
     		

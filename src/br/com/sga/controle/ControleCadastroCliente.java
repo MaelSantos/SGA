@@ -32,11 +32,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
-public class ControleCadastroCliente extends Controle{
+public class ControleCadastroCliente extends Controle {
 
 	@FXML
 	private ComboBox<TipoCliente> cbxTipoCliente;
@@ -49,9 +50,6 @@ public class ControleCadastroCliente extends Controle{
 
 	@FXML
 	private TextField tfdRg;
-
-	@FXML
-	private DatePicker tfdNascimento;
 
 	@FXML
 	private ComboBox<Sexo> cbxGenero;
@@ -96,13 +94,19 @@ public class ControleCadastroCliente extends Controle{
 	private TextField tfdResponsavel;
 
 	@FXML
+	private DatePicker tfdNascimento;
+
+	@FXML
+	private Label lblTelefoneResponsavel;
+
+	@FXML
+	private Label lblResponsavel;
+
+	@FXML
 	private TextField tfdRua;
 
 	@FXML
 	private TextField tfdNumero;
-
-	@FXML
-	private ComboBox<Estado> cbxEstado;
 
 	@FXML
 	private TextField tfdBairro;
@@ -111,17 +115,20 @@ public class ControleCadastroCliente extends Controle{
 	private TextField tfdCidade;
 
 	@FXML
-	private TextField tfdCep;
+	private TextField tfdPais;
 
 	@FXML
-	private TextField tfdPais;
+	private TextField tfdCep;
 
 	@FXML
 	private TextField tfdComplemento;
 
 	@FXML
+	private ComboBox<Estado> cbxEstado;
+
+	@FXML
 	private Button btnVoltar;
-	
+
 	@FXML
 	private Button btnCadastrar;
 
@@ -136,73 +143,75 @@ public class ControleCadastroCliente extends Controle{
 
 		Object obj = event.getSource();
 		Log log;
-			if(obj == btnAdd)
-			{
-				try {
-					
-					Telefone telefone = new Telefone(
-							Integer.parseInt(tfdTelefone.getText().trim()), 
-							Integer.parseInt(tfdPrefixo.getText().trim()), 
-							cbxTipoTelefone.getValue());
-					telefones.add(telefone);
-					
-					tfdTelefone.setText("");
-					tfdPrefixo.setText("");
-					
-					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Adicionado", "Telefone: "+telefone+" Adicionado", "");
-					
-				} catch (Exception e) {
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!!!", "Erro Ao Adicionar Telefone!!!", e.getMessage());
-				}
+		if (obj == btnAdd) {
+			try {
 
+				Telefone telefone = new Telefone(Integer.parseInt(tfdTelefone.getText().trim()),
+						Integer.parseInt(tfdPrefixo.getText().trim()), cbxTipoTelefone.getValue());
+				telefones.add(telefone);
+
+				tfdTelefone.setText("");
+				tfdPrefixo.setText("");
+
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Adicionado",
+						"Telefone: " + telefone + " Adicionado", "");
+
+			} catch (Exception e) {
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!!!", "Erro Ao Adicionar Telefone!!!",
+						e.getMessage());
 			}
-			if(obj == btnCadastrar)
-			{
-				try {
-					Cliente cliente = criarCliente();	
-					fachada.salvarEditarCliente(cliente);
-					telefones.clear();					
-					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvando...", "Salvo Com Sucesso", "Salvando...");
-					limparCampos();
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: "+cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
-				} catch (BusinessException e) {
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Cadastrar Cliente!!!", e.getMessage());
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Cliente: Erro", StatusLog.ERRO);
-					e.printStackTrace();
-				}
-				
-				try {
-					if(log != null)
+
+		}
+		if (obj == btnCadastrar) {
+			try {
+				Cliente cliente = criarCliente();
+				fachada.salvarEditarCliente(cliente);
+				telefones.clear();
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvando...", "Salvo Com Sucesso",
+						"Salvando...");
+				limparCampos();
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(),
+						"Novo Cliente: " + cliente.getCpf_cnpj(), StatusLog.CONCLUIDO);
+			} catch (BusinessException e) {
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Cadastrar Cliente!!!",
+						e.getMessage());
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(),
+						"Novo Cliente: Erro", StatusLog.ERRO);
+				e.printStackTrace();
+			}
+
+			try {
+				if (log != null)
 					fachada.salvarEditarLog(log);
-				} catch (BusinessException e) {
-					e.printStackTrace();
-				}
-				
+			} catch (BusinessException e) {
+				e.printStackTrace();
 			}
-			if(obj == btnVoltar)
-				App.notificarOuvintes(Tela.CLIENTES);
-			if(obj == cbxTipoCliente)
-			{
-				if(cbxTipoCliente.getValue() == TipoCliente.FISICO)
-				{
-					tfdResponsavel.setVisible(false);
-					tfdPrefixoResponsavel.setVisible(false);
-					cbxTelefoneResposavel.setVisible(false);
-					tfdTelefoneResponsavel.setVisible(false);
-				}
-				if(cbxTipoCliente.getValue() == TipoCliente.JURIDICO)
-				{
-					tfdResponsavel.setVisible(true);
-					tfdPrefixoResponsavel.setVisible(true);
-					cbxTelefoneResposavel.setVisible(true);
-					tfdTelefoneResponsavel.setVisible(true);
-				}
+
+		}
+		if (obj == btnVoltar)
+			App.notificarOuvintes(Tela.CLIENTES);
+		if (obj == cbxTipoCliente) {
+			if (cbxTipoCliente.getValue() == TipoCliente.FISICO) {
+				tfdResponsavel.setVisible(false);
+				tfdPrefixoResponsavel.setVisible(false);
+				cbxTelefoneResposavel.setVisible(false);
+				tfdTelefoneResponsavel.setVisible(false);
+				lblResponsavel.setVisible(false);
+				lblTelefoneResponsavel.setVisible(false);
 			}
+			if (cbxTipoCliente.getValue() == TipoCliente.JURIDICO) {
+				tfdResponsavel.setVisible(true);
+				tfdPrefixoResponsavel.setVisible(true);
+				cbxTelefoneResposavel.setVisible(true);
+				tfdTelefoneResponsavel.setVisible(true);
+				lblResponsavel.setVisible(true);
+				lblTelefoneResponsavel.setVisible(true);
+			}
+		}
 	}
 
-
 	private void limparCampos() {
-		
+
 		tfdBairro.setText("");
 		tfdCep.setText("");
 		tfdCidade.setText("");
@@ -228,13 +237,12 @@ public class ControleCadastroCliente extends Controle{
 
 		if (object instanceof Funcionario) {
 			this.funcionario = (Funcionario) object;
-			
+
 		}
-		
+
 	}
 
-	public Cliente criarCliente()
-	{
+	public Cliente criarCliente() {
 		Cliente cliente = new Cliente();
 
 		try {
@@ -252,9 +260,9 @@ public class ControleCadastroCliente extends Controle{
 			cliente.setResponsavel(tfdResponsavel.getText().trim());
 			cliente.setTipoCliente(TipoCliente.getTipo(cbxTipoCliente.getValue().toString()));
 
-			if(rbtSim.isSelected())
+			if (rbtSim.isSelected())
 				cliente.setFilhos(true);
-			else if(rbtNao.isSelected())
+			else if (rbtNao.isSelected())
 				cliente.setFilhos(false);
 
 			Endereco end = new Endereco();
@@ -272,12 +280,12 @@ public class ControleCadastroCliente extends Controle{
 
 			return cliente;
 		} catch (Exception e) {
-			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Ao Cadastrar!", "Informe Os Dados Do Cliente", e.getMessage());
+			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro Ao Cadastrar!", "Informe Os Dados Do Cliente",
+					e.getMessage());
 		}
 		return cliente;
 
 	}
-
 
 	@Override
 	public void init() {
@@ -299,10 +307,12 @@ public class ControleCadastroCliente extends Controle{
 		tfdPrefixoResponsavel.setVisible(false);
 		cbxTelefoneResposavel.setVisible(false);
 		tfdTelefoneResponsavel.setVisible(false);
+		lblResponsavel.setVisible(false);
+		lblTelefoneResponsavel.setVisible(false);
 
 		MaskFieldUtil.cpfCnpjField(tfdCpfCnpj);
 		MaskFieldUtil.numericField(tfdCep);
-		
+
 		tfdNascimento.setValue(LocalDate.of(1998, 1, 1));
 	}
 

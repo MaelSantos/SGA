@@ -266,7 +266,7 @@ public class ControleCadastroConsulta extends Controle{
 		else  if(event.getSource() == gerarDocumentoButton) {
 
 			if(consulta == null)
-				Alerta.getInstance().showMensagem("Erro!", "Ação Nescessaria!!!", "Salve Sua Consulta Antes!!!");
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Ação Nescessaria!!!", "Salve Sua Consulta Antes!!!");
 			else
 				App.notificarOuvintes(Tela.CADASTRO_CONSULTA, consulta);
 		}

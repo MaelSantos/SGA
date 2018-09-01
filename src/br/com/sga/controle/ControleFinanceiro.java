@@ -23,7 +23,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControleFinanceiro extends Controle {
@@ -175,17 +175,17 @@ public class ControleFinanceiro extends Controle {
 				lblDespesas.setText("Total De Despesas: "+total_despesas);
 				lblReceitas.setText("Total De Receitas: "+total_receita);
 
-				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso","");
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Cocluido", "Busca Concluida Com Sucesso","");
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Financeiro: "+lblData.getText(), StatusLog.CONCLUIDO);
 				
 			}catch (BusinessException | NumberFormatException e) {
 				e.printStackTrace();
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Financeiro: Erro - "+lblData.getText(), StatusLog.ERRO);
-				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Dados Financeiros!!!", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Buscar Dados Financeiros!!!", e.getMessage());
 			}
 			catch (NullPointerException e) {
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Financeiro: Erro - "+lblData.getText(), StatusLog.ERRO);
-				Alerta.getInstance().showMensagem("Erro!", "Preencha Todos os Dados !!!", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Preencha Todos os Dados !!!", e.getMessage());
 			}
 			
 			try {

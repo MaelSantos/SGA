@@ -1,12 +1,9 @@
 package br.com.sga.controle;
 
-import java.net.URL;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
 import br.com.sga.business.Validar;
-import br.com.sga.interfaces.Ouvinte;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.enums.EventoLog;
@@ -19,7 +16,6 @@ import br.com.sga.view.Alerta;
 import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -121,8 +117,8 @@ public class ControleEditarPerfil extends Controle {
 							"Editar Usuario - Erro: ", StatusLog.ERRO);
 				}
 			} else {
-				Alerta.getInstance().showMensagem("Alerta", "Senha invalida",
-						"A senha informada está errada, nada foi alterado.\nfavor tente editar novamente");
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Senha invalida",
+						"A senha informada está errada, nada foi alterado.\nPor favor tente editar novamente");
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(),
 						"Editar Usuario - Erro: ", StatusLog.ERRO);
 			}
@@ -152,7 +148,7 @@ public class ControleEditarPerfil extends Controle {
 		if (senhaAtual.length() > 0 && novaSenha.length() > 0 && confirmarSenha.length() > 0) {
 			String validacao = Validar.getInstance().validarSenha(novaSenha);
 			if (validacao != null) {
-				Alerta.getInstance().showMensagem("Erro", "", validacao);
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", validacao);
 				return false;
 			}
 			if (senhaAtual.equals(usuario.getSenha()))
@@ -160,12 +156,12 @@ public class ControleEditarPerfil extends Controle {
 					usuario.setSenha(novaSenha);
 					return true;
 				} else
-					Alerta.getInstance().showMensagem("Erro", "", "nova senha e sua confirmação não coincidem");
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "nova senha e sua confirmação não coincidem");
 			else
-				Alerta.getInstance().showMensagem("Erro", "", "Senha atual informada é diferente da original");
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Senha atual informada é diferente da original");
 			return false;
 		}
-		Alerta.getInstance().showMensagem("Erro", "", "Nada foi alterado, entradas de texto estão vazias");
+		Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Nada foi alterado, entradas de texto estão vazias");
 		return false;
 	}
 
@@ -175,7 +171,7 @@ public class ControleEditarPerfil extends Controle {
 			usuario.setLogin(login);
 			return true;
 		} else
-			Alerta.getInstance().showMensagem("Erro", "", "Nada foi alterado, entrada de texto esta vazia");
+			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro", "", "Nada foi alterado, entrada de texto esta vazia");
 		return false;
 	}
 
@@ -188,7 +184,7 @@ public class ControleEditarPerfil extends Controle {
 		if (email.length() > 0) {
 			// String validacao = ;
 			if (Validar.getInstance().isEmail(email)) {
-				Alerta.getInstance().showMensagem("", "", "FORMATO DO EMAIL INFORMADO ESTA INCORRETO");
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "", "", "FORMATO DO EMAIL INFORMADO ESTA INCORRETO");
 				return false;
 			}
 		}
@@ -201,7 +197,7 @@ public class ControleEditarPerfil extends Controle {
 				usuario.setEmail(email);
 			return true;
 		} else {
-			Alerta.getInstance().showMensagem("Erro", "", "Nada foi alterado, entradas de texto estão vazias");
+			Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "", "Nada foi alterado, entradas de texto estão vazias");
 			return false;
 		}
 

@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 
 public class ControleLogin implements Initializable {
@@ -56,7 +57,7 @@ public class ControleLogin implements Initializable {
 						"Login: Sistema", StatusLog.CONCLUIDO);
 
 			} catch (Exception e1) {
-				Alerta.getInstance().showMensagem("Dados Incorretos", "Login/Email Ou Senha Incorretos",
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Dados Incorretos", "Login/Email Ou Senha Incorretos",
 						e1.getMessage());
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.LOGIN, tfdLogin.getText().trim(),
 						"Login: Erro ", StatusLog.ERRO);

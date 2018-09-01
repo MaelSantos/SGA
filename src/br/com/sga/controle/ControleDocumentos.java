@@ -229,7 +229,7 @@ public class ControleDocumentos extends Controle {
 							"Gerar Documento: "+cbxTipo.getValue(), StatusLog.CONCLUIDO);
 
 				} else {
-					Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!",
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Gerar Documento!!!",
 							"Verifique Se Todos Os Dados Estão Corretos");
 
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
@@ -239,7 +239,7 @@ public class ControleDocumentos extends Controle {
 				e.printStackTrace();
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
 						"Gerar Documento: "+cbxTipo.getValue(), StatusLog.ERRO);
-				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Gerar Documento!!!",
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Gerar Documento!!!",
 						"Verifique Se Todos Os Dados Estão Corretos");
 			}
 
@@ -277,7 +277,7 @@ public class ControleDocumentos extends Controle {
 							"Buscar: " + cbxTipo.getValue() + " - Sem Resultados", StatusLog.SEM_RESULTADOS);
 				}
 			} catch (ValidacaoException e) {
-				Alerta.getInstance().showMensagem("Erro!", "Erro ao Carregar Arquivos!!!", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Carregar Arquivos!!!", e.getMessage());
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 						"Buscar: " + cbxTipo.getValue() + " - Erro", StatusLog.ERRO);
 			}

@@ -25,6 +25,7 @@ import br.com.sga.view.Calendario;
 import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -119,13 +120,13 @@ public class ControleAgenda extends Controle {
 				try {
 					fachada.salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade, cadastroNotificacao.getDescricaoArea().getText(), Andamento.PENDENTE, 
 							aviso_data, funcionarios));
-					Alerta.getInstance().showMensagem("Confirmação","","Nova notificação cadastrada com sucesso");
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Confirmação","","Nova notificação cadastrada com sucesso");
 					calendario.AtualizarMes();
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.SALVAR, funcionario.getNome(), "Nova Tarefa: "+aviso_data, StatusLog.CONCLUIDO);
 				} catch (BusinessException e) {
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.SALVAR, funcionario.getNome(), "Nova Tarefa:  Erro", StatusLog.ERRO);
 					e.printStackTrace();
-					Alerta.getInstance().showMensagem("Alerta","",e.getMessage());
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!","Erro Ao Cadastrar Tarefa!!!",e.getMessage());
 				}
 				
 				try {
@@ -137,7 +138,7 @@ public class ControleAgenda extends Controle {
 				}					
 				
 			}else
-				Alerta.getInstance().showMensagem("Alerta","","NADA FOI CADASTRADO");
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta","","NADA FOI CADASTRADO");
 		}
 
 

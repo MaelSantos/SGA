@@ -36,12 +36,5 @@ public class Alerta extends Alert {
 		this.show();
 		
 	}
-	public void showMensagem(String titulo, String header, String content)
-	{
-		setTitle(titulo);
-		setHeaderText(header);
-		setContentText(content);
-		this.show();
-	}
 	
 }

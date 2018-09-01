@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControleHistorico extends Controle {
@@ -156,7 +157,7 @@ public class ControleHistorico extends Controle {
 					lblData.setText("De: " + tfdDe.getEditor().getText().trim() + " - Até: "
 							+ tfdAte.getEditor().getText().trim() + " SEM RESULTADOS!!!");
 
-				Alerta.getInstance().showMensagem("Cocluido", "Busca Concluida Com Sucesso", "");
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Cocluido", "Busca Concluida Com Sucesso", "");
 				if (!(tblLogs.getItems().isEmpty()))
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 							"Buscar Historico: " + lblData.getText(), StatusLog.CONCLUIDO);
@@ -165,7 +166,7 @@ public class ControleHistorico extends Controle {
 							"Buscar Historico: " + lblData.getText(), StatusLog.SEM_RESULTADOS);
 			} catch (Exception e) {
 				e.printStackTrace();
-				Alerta.getInstance().showMensagem("Erro!", "Erro Ao Buscar Historico!!!", e.getMessage());
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Buscar Historico!!!", e.getMessage());
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 						"Buscar Historico: Erro - " + lblData.getText(), StatusLog.ERRO);
 			}
