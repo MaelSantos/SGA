@@ -1,13 +1,12 @@
 package br.com.sga.controle;
 
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 
+import br.com.sga.business.BusinessUtil;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.adapter.ContaAdapter;
@@ -21,6 +20,7 @@ import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -36,12 +36,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 
 public class ControleEstatistica extends Controle{
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private DatePicker dePicker;
@@ -67,6 +61,7 @@ public class ControleEstatistica extends Controle{
     @FXML
     private BarChart<String, Number> barChart;
     
+    @FXML
     private PieChart piechart;
    
     @FXML
@@ -84,19 +79,8 @@ public class ControleEstatistica extends Controle{
     		if(dePicker.getValue() != null && atePicker.getValue() != null) {
 	    		if(tipoBox.getSelectionModel().getSelectedItem() != null ) { 
 	    			
-	        		LocalDate ld = dePicker.getValue();
-	    	    	Date de = new Date();
-	    	    	Calendar c =  Calendar.getInstance();
-	    	    	c.setTime(de);
-	    	    	c.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth());
-	    	    	de = c.getTime();
-	    	    	
-	    	    	LocalDate ld2 = atePicker.getValue();
-	    	    	Date ate = new Date();
-	    	    	c.setTime(ate);
-	    	    	c.set(ld2.getYear(), ld2.getMonthValue()-1, ld2.getDayOfMonth());
-	    	    	ate  = c.getTime();
-	    	    	
+	    	    	Date de = BusinessUtil.toDate(dePicker);
+	    	    	Date ate = BusinessUtil.toDate(atePicker);
 	    	    	Log log = null;
 	    	    	try {
 	    	    		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
@@ -137,11 +121,11 @@ public class ControleEstatistica extends Controle{
     	}else if(event.getSource() == tipoBox) {
     		descricaoLabel.setText(tipoBox.getSelectionModel().getSelectedItem().toString().toLowerCase());
     	}else if(event.getSource() == graficoBox) {
-    		if(graficoBox.getSelectionModel().getSelectedItem() == TipoGrafico.BARRA) {
+    		if(graficoBox.getSelectionModel().getSelectedItem() == TipoGrafico.BARRA) 
     			graficosPane.getChildren().setAll(barChart);
-    		}else if(graficoBox.getSelectionModel().getSelectedItem() == TipoGrafico.PIZZA) {
+    		else if(graficoBox.getSelectionModel().getSelectedItem() == TipoGrafico.PIZZA) 
     			graficosPane.getChildren().setAll(piechart);
-    		}
+    		
     	}
 	    	
     }
@@ -153,7 +137,6 @@ public class ControleEstatistica extends Controle{
     	p.setName(tabela.toString());
     	for(ContaAdapter conta: contas) 
 		{
-    		System.out.println(conta);
     		c.setTime(conta.getMesAno());
 			p.getData().add(new XYChart.Data<String, Number>(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR),conta.getValorTotal()));
 		}
@@ -162,12 +145,14 @@ public class ControleEstatistica extends Controle{
     
     private void gerarGraficoPizza(List<ContaAdapter> contas,Tabela tabela) {
     	piechart.getData().clear();
-    	
     	Calendar c = Calendar.getInstance();
     	for(ContaAdapter conta: contas) { 
     		c.setTime(conta.getMesAno());
-			piechart.getData().add(new PieChart.Data(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR),conta.getValorTotal()));
+    		PieChart.Data  d = new PieChart.Data(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR),conta.getValorTotal());
+    		d.setName(c.get(Calendar.MONTH)+"/"+c.get(Calendar.YEAR)+" | "+conta.getValorTotal());
+    		piechart.getData().add(d);
     	}
+    
     }
     
 	@Override
@@ -185,7 +170,6 @@ public class ControleEstatistica extends Controle{
         graficoBox.getItems().addAll(TipoGrafico.values());
         tipoBox.getItems().addAll(TipoEstatistica.values());
         graficoBox.setValue(TipoGrafico.BARRA);
-        piechart = new PieChart();
         
 	}
 }
