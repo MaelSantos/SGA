@@ -19,8 +19,8 @@ public class Processo {
 	private String descricao; // descricao VARCHAR(255),
 	private String fase; // fase VARCHAR(255) NOT NULL,
 	private TipoProcesso tipo_processo; // tipo_processo VARCHAR(255) NOT NULL,
+	
 	private List<Audiencia> audiencias;
-
 	private Cliente cliente; // cliente_id INTEGER REFERENCES CLIENTE(id),
 	private List<Parte> partes;
 //	private Contrato contrato; // contrato_id INTEGER REFERENCES CONTRATO(id),

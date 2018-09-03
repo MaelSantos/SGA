@@ -782,4 +782,53 @@ public class DaoCommun implements IDaoCommun {
 
 	}
 
+	@Override
+	public void editarParte(Parte parte) throws DaoException{
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Parte.UPDATE_ALL);
+
+			// UPDATE PARTE SET TIPO_PARTE = ?, TIPO_PARTICIPACAO = ?, NOME = ? WHERE ID = ?
+			statement.setString(1, parte.getTipo_parte().toString());
+			statement.setString(2, parte.getTipo_participacao().toString());
+			statement.setString(3, parte.getNome());
+			statement.setInt(4, parte.getId());
+			statement.executeUpdate();
+
+			this.connection.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO ATUALIZAR PARTES - CONTATE O ADM");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Override
+	public void editarAudiencia(Audiencia audiencia) throws DaoException {
+		
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Audiencia.UPDATE_ALL);
+
+			// UPDATE AUDIENCIA SET TIPO = ?, DATA_AUDIENCIA = ?, STATUS = ?, VARA = ?, ORGAO = ? WHERE ID = ?
+			statement.setString(1, audiencia.getTipo().toString());
+			statement.setDate(2, new Date(audiencia.getData_audiencia().getTime()));
+			statement.setString(3, audiencia.getStatus().toString());
+			statement.setString(4, audiencia.getVara());
+			statement.setString(5, audiencia.getOrgao());
+			statement.setInt(6, audiencia.getId());
+			statement.executeUpdate();
+
+			this.connection.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO ATUALIZAR AUDIÊNCIAS - CONTATE O ADM");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }

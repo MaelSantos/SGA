@@ -205,8 +205,8 @@ public class ControleCliente extends Controle {
 				ContratoAdapter adapter;
 				try {
 					adapter = dialogo.selecionar(fachada.buscarContratoPorClienteAdapter(cliente.getCpf_cnpj()));
-					Contrato contrato = fachada.buscarContratoPorId(adapter.getId());
 					if (adapter != null) {
+						Contrato contrato = fachada.buscarContratoPorId(adapter.getId());
 						App.notificarOuvintes(Tela.DETALHES_CONTRATO, cliente);
 						App.notificarOuvintes(Tela.DETALHES_CONTRATO, contrato);
 					}
@@ -237,8 +237,8 @@ public class ControleCliente extends Controle {
 				try {
 					adapter = dialogo.selecionar(
 							fachada.buscarConsultaPorClienteAdapter(new String[] { cliente.getCpf_cnpj() }));
-					Consulta consulta = fachada.buscarConsultaPorId(adapter.getId());
 					if (adapter != null) {
+						Consulta consulta = fachada.buscarConsultaPorId(adapter.getId());
 						App.notificarOuvintes(Tela.DETALHES_CONSULTA, cliente);
 						App.notificarOuvintes(Tela.DETALHES_CONSULTA, consulta);
 					}

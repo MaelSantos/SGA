@@ -54,6 +54,9 @@ public interface IDaoCommun {
     public void salvarTestemunha(Testemunha entidade,Integer consulta_id) throws DaoException;
 	public List<Testemunha> getTestemunhas(int consulta_id) throws DaoException;
 	public void editarTestemunha(Testemunha entidade) throws DaoException;
+
+	public void editarParte(Parte parte) throws DaoException;
+	public void editarAudiencia(Audiencia audiencia) throws DaoException;
 	
     
 }

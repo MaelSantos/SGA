@@ -79,16 +79,6 @@ public class BusinessProcesso implements IBusinessProcesso{
 	}
 
 	@Override
-	public List<Processo> buscarPorIdContrato(int contrato_id) throws BusinessException {
-		try {
-			return daoProcesso.buscarPorIdContrato(contrato_id);
-		} catch (DaoException e) {
-			e.printStackTrace();
-			throw new BusinessException(e.getMessage());
-		}
-	}
-
-	@Override
 	public List<ProcessoAdapter> buscarPorBusca(String[] busca) throws BusinessException {
 		try {
 			return daoProcesso.buscarPorBusca(busca);
@@ -110,6 +100,8 @@ public class BusinessProcesso implements IBusinessProcesso{
 			throw new ValidacaoException("INFORME A COMARCA!!!");
 		if(entidade.getData_atuacao() == null)
 			throw new ValidacaoException("INFORME A DATA DE ATUAÇÃO!!!");
+		if(entidade.getDescricao() == null || entidade.getDescricao().trim().equals(""))
+			throw new ValidacaoException("INFORME A DESCRIÇÃO!!!");
 		if(entidade.getClasse_judicial() == null || entidade.getClasse_judicial().trim().equals(""))
 			throw new ValidacaoException("INFORME A CLASSE JUDICIAL!!!");
 		if(entidade.getOrgao_julgador() == null || entidade.getOrgao_julgador().trim().equals(""))

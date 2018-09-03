@@ -11,13 +11,14 @@ public class SQLUtil {
     	public static final String SELECT_TIPO = "SELECT p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase FROM PROCESSO p WHERE p.tipo_processo = ?";
     	public static final String SELECT_ID = "SELECT * FROM PROCESSO P WHERE P.ID = ?";
     	public static final String SELECT_ADAPTER_ID_CLIENTE = "select p.id,p.numero,p.data_atuacao,p.comarca,p.decisao from processo p WHERE p.cliente_id = ?";
-    	public static final String SELECT_ID_CONTRATO = "SELECT P.*,C.*,S.* FROM PROCESSO P, CONTRATO C, CONSULTA S, CLIENTE L, FUNCIONARIO F WHERE P.contrato_id = ? AND P.contrato_id = C.ID AND C.consulta_id = S.id AND S.funcionario_id = F.id AND S.cliente_id = L.id";
-    	public static final String BUSCA_POR_BUSCA = "SELECT pro.id,pro.numero,pro.data_atuacao,pro.comarca,pro.decisao,pro.fase,pro.contrato_id FROM (SELECT p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase,p.contrato_id, p.tipo_processo FROM PROCESSO p where p.numero ilike ? OR to_char(p.data_atuacao, 'dd-MM-yyyy')ilike ? OR p.fase ilike ? OR p.comarca ilike ? OR p.classe_judicial like ? OR p.orgao_julgador ilike ?) AS pro WHERE pro.tipo_processo ilike ?";
+    	public static final String BUSCA_POR_BUSCA = "SELECT pro.id,pro.numero,pro.data_atuacao,pro.comarca,pro.decisao,pro.fase FROM (SELECT p.id,p.numero,p.data_atuacao,p.comarca,p.decisao,p.fase, p.tipo_processo FROM PROCESSO p where p.numero ilike ? OR to_char(p.data_atuacao, 'dd-MM-yyyy')ilike ? OR p.fase ilike ? OR p.comarca ilike ? OR p.classe_judicial like ? OR p.orgao_julgador ilike ?) AS pro WHERE pro.tipo_processo ilike ?";
+		public static final String UPDATE_ALL = "UPDATE PROCESSO SET DATA_ATUACAO = ? , NUMERO = ?, CLASSE_JUDICIAL = ?, ORGAO_JULGADOR = ?, COMARCA = ?, DECISAO = ?, DESCRICAO = ?, FASE = ?, TIPO_PROCESSO = ? WHERE ID = ?";
     }
     
     public static class Audiencia{
     	public static final String INSERT_ALL = "INSERT INTO AUDIENCIA(data_audiencia,tipo,vara,orgao,status,processo_id) VALUES(?,?,?,?,?,?)";
     	public static final String SELECT_PROCESSO_ID = "SELECT A.* FROM AUDIENCIA A, PROCESSO P WHERE P.ID = ? AND P.ID=A.PROCESSO_ID";
+		public static final String UPDATE_ALL = "UPDATE AUDIENCIA SET TIPO = ?, DATA_AUDIENCIA = ?, STATUS = ?, VARA = ?, ORGAO = ? WHERE ID = ?";
     }
     
     public static class Parcela{
@@ -31,6 +32,7 @@ public class SQLUtil {
     	public static final String INSERT_ALL_PROCESSO = "INSERT INTO PARTE(nome,tipo_parte,tipo_participacao,processo_id) VALUES(?,?,?,?)";
     	public static final String SELECT_PARTE_CONTRATO_ID = "SELECT * FROM PARTE WHERE contrato_id = ?";
     	public static final String SELECT_PARTE_PROCESSO_ID = "SELECT * FROM PARTE WHERE processo_id = ?";
+		public static final String UPDATE_ALL = "UPDATE PARTE SET TIPO_PARTE = ?, TIPO_PARTICIPACAO = ?, NOME = ? WHERE ID = ?";
     }
 
     public static class Financeiro{

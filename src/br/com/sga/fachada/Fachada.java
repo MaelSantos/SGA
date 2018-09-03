@@ -280,10 +280,4 @@ public class Fachada implements IFachada {
 		return businessProcesso.buscaPorClienteAdapter(id_cliente);
 	}
 
-	@Override
-	public List<Processo> buscarProcessoPorIdContrato(int contrato_id) throws BusinessException {
-		return businessProcesso.buscarPorIdContrato(contrato_id);
-	}
-
-
 }

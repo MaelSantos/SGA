@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
@@ -54,8 +55,13 @@ public class DaoProcesso implements IDaoProcesso {
 			
 			for (Parte parte : entidade.getPartes())
 				daoCommun.salvarParte(parte, id_processo, Tabela.PROCESSO);
+			
+			if(entidade.getAudiencias() != null)
+				for(Audiencia audiencia : entidade.getAudiencias())
+					daoCommun.salvarAudiencia(audiencia, id_processo);
 
 			conexao.close();
+			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO SALVAR PROCESSO - CONTATE O ADM");
@@ -65,6 +71,49 @@ public class DaoProcesso implements IDaoProcesso {
 	@Override
 	public void editar(Processo entidade) throws DaoException {
 
+		//"UPDATE PROCESSO SET DATA_ATUACAO = ? , NUMERO = ?, CLASSE_JUDICIAL = ?, ORGAO_JULGADOR = ?, COMARCA = ?, DECISAO = ?, DESCRICAO = ?, FASE = ?, TIPO_PROCESSO = ? WHERE ID = ?";
+		try {
+			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = conexao.prepareStatement(SQLUtil.Processo.UPDATE_ALL);
+
+//			statement.setString(1,entidade.gets);
+			statement.setDate(1, new Date(entidade.getData_atuacao().getTime()));
+			statement.setString(2, entidade.getNumero());
+			statement.setString(3, entidade.getClasse_judicial());
+			statement.setString(4, entidade.getOrgao_julgador());
+			statement.setString(5, entidade.getComarca());
+			statement.setString(6, entidade.getDecisao());
+			statement.setString(7, entidade.getDescricao());
+			statement.setString(8, entidade.getFase());
+			statement.setString(9, entidade.getTipo_processo().toString());
+			statement.setInt(10,entidade.getId());
+			statement.executeUpdate();
+			this.conexao.close();
+			
+			if(entidade.getPartes() != null)
+				for(Parte parte : entidade.getPartes())
+				{
+					if(parte.getId() == null)
+						daoCommun.salvarParte(parte, entidade.getId(), Tabela.PROCESSO);
+					else
+						daoCommun.editarParte(parte);
+				}
+
+			if(entidade.getAudiencias() != null)
+				for(Audiencia audiencia : entidade.getAudiencias())
+				{
+					if(audiencia.getId() == null)
+						daoCommun.salvarAudiencia(audiencia, entidade.getId());
+					else
+						daoCommun.editarAudiencia(audiencia);
+				}
+	
+		}catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO EDITAR PROCESSO - CONTATE O ADM");
+		}
+		
+		
 	}
 
 	@Override
@@ -145,9 +194,6 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setComarca(resultSet.getString("comarca"));
 				processo.setDecisao(resultSet.getString("decisao"));
 
-				// int contrato_id = resultSet.getInt("contrato_id");
-				// processo.setPartes(daoCommun.getPartes(contrato_id));
-
 				processos.add(processo);
 			}
 
@@ -221,12 +267,7 @@ public class DaoProcesso implements IDaoProcesso {
 				processo.setComarca(resultSet.getString("comarca"));
 				processo.setDecisao(resultSet.getString("decisao"));
 
-				int contrato_id = resultSet.getInt("contrato_id");
-
 				processo.setPartes(daoCommun.getPartes(processo.getId(), Tabela.PROCESSO).toString());
-
-				System.out.println(contrato_id);
-				System.out.println(processo.getPartes());
 
 				processos.add(processo);
 			}
@@ -242,53 +283,6 @@ public class DaoProcesso implements IDaoProcesso {
 		}
 	}
 
-	@Override
-	public List<Processo> buscarPorIdContrato(int contrato_id) throws DaoException {
-		try {
-
-			this.conexao = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
-			this.statement = conexao.prepareStatement(SQLUtil.Processo.SELECT_ID_CONTRATO);
-			this.statement.setInt(1, contrato_id);
-
-			resultSet = this.statement.executeQuery();
-
-			Processo processo = null;
-			Cliente cliente = null;
-			List<Processo> processos = new ArrayList<>();
-
-			while (resultSet.next()) {
-
-				processo = new Processo();
-				processo.setId(resultSet.getInt(1));
-				processo.setNumero(resultSet.getString("numero"));
-				processo.setData_atuacao(resultSet.getDate("data_atuacao"));
-				processo.setComarca(resultSet.getString("comarca"));
-				processo.setDecisao(resultSet.getString("decisao"));
-				processo.setClasse_judicial(resultSet.getString("classe_judicial"));
-				processo.setDescricao(resultSet.getString("descricao"));
-				processo.setFase(resultSet.getString("fase"));
-				processo.setOrgao_julgador(resultSet.getString("orgao_julgador"));
-				processo.setTipo_processo(TipoProcesso.getTipo(resultSet.getString("tipo_processo")));
-
-				cliente = new Cliente();
-				cliente.setId(resultSet.getInt("cliente_id"));
-
-				processo.setCliente(cliente);
-
-				processos.add(processo);
-				return processos;
-
-			}
-			if (processos.isEmpty())
-				throw new DaoException("NENHUM PROCESSO CADASTRADO PARA ESSE CONTRATO!!!");
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			throw new DaoException("PROBLEMA AO BUSCAR PROCESSOS - CONTATE O ADM");
-		}
-		return null;
-
-	}
 
 	@Override
 	public List<ProcessoAdapter> buscarPorBusca(String[] busca) throws DaoException {

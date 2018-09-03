@@ -8,15 +8,20 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.sga.app.App;
+import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
+import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ClienteAdapter;
+import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.Prioridade;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.entidade.enums.TipoProcesso;
@@ -127,6 +132,16 @@ public class ControleCadastroProcesso extends Controle {
 				processo = criarProcesso();
 				fachada.salvarEditarProcesso(processo);
 
+				if(processo.getAudiencias() != null && !processo.getAudiencias().isEmpty())
+					for(Audiencia audiencia : processo.getAudiencias())
+					{
+						Notificacao notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
+								audiencia.getProcesso().getDescricao(), Andamento.PENDENTE, audiencia.getData_audiencia());
+
+						fachada.salvarEditarNotificacao(notificacao);
+						App.notificarOuvintes(Tela.CADASTRO_PROCESSO, notificacao);
+					}
+				
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvo Com Sucesso", "");
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(),
 						"Novo Processo: " + processo.getNumero() + " - " + processo.getTipo_processo(),

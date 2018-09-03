@@ -3,6 +3,7 @@ package br.com.sga.controle;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import br.com.sga.app.App;
@@ -67,15 +68,13 @@ public class ControleCadastroAudiencia extends Controle {
 	private Audiencia audiencia;
 	private Notificacao notificacao;
 	private Funcionario funcionario;
-		
+	private Processo processo;	
+	
 	@Override
 	public void atualizar(Tela tela, Object object) {
 		
 		if (object instanceof Processo) {
-			Processo processo = (Processo) object;
-			
-			audiencia = new Audiencia();
-			audiencia.setProcesso(processo);
+			processo = (Processo) object;
 			lblProcesso.setText("Processo: "+processo.toString());
 			
 		}
@@ -131,17 +130,20 @@ public class ControleCadastroAudiencia extends Controle {
 			Log log;
 			try {
 				Audiencia audiencia = criarAudiencia();
-				daoCommun.salvarAudiencia(audiencia, audiencia.getProcesso().getId());
+				if(processo.getId() != null)
+				{
+					daoCommun.salvarAudiencia(audiencia, audiencia.getProcesso().getId());
+					
+					notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
+							audiencia.getProcesso().getDescricao(), Andamento.PENDENTE, audiencia.getData_audiencia());
+					
+					fachada.salvarEditarNotificacao(notificacao);
+					App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, notificacao);
+					App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, audiencia);
+				}
+				
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "", "Audiencia Cadastrada Com Sucesso");
-				App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, audiencia);
-				
-				notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
-						audiencia.getProcesso().getDescricao(), Andamento.PENDENTE, audiencia.getData_audiencia());
-				
-				fachada.salvarEditarNotificacao(notificacao);
-				
-				App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, notificacao);
-				
+
 				limparCampos();
 				
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: "+audiencia.getTipo(), StatusLog.CONCLUIDO);
@@ -162,14 +164,11 @@ public class ControleCadastroAudiencia extends Controle {
 		}
 		if(obj == btnVoltar)
 		{
-			if(audiencia.getProcesso().getId() != null)
+			if(processo.getId() != null)
 				App.notificarOuvintes(Tela.DETALHES_PROCESSO);
 			else
 				App.notificarOuvintes(Tela.CADASTRO_PROCESSO);
-			
 		}
-		
-
 	}
 
 	private void limparCampos() {
@@ -185,6 +184,9 @@ public class ControleCadastroAudiencia extends Controle {
 
 	private Audiencia criarAudiencia() throws ParseException {
 		
+		audiencia = new Audiencia();
+		audiencia.setProcesso(processo);
+		
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = df.parse(tfdData.getEditor().getText());
 		audiencia.setData_audiencia(data);
@@ -193,6 +195,14 @@ public class ControleCadastroAudiencia extends Controle {
 		audiencia.setOrgao(tfdOrgao.getText().trim());
 		audiencia.setTipo(cbxTipo.getValue());
 		audiencia.setVara(tfdVara.getText().trim());
+		
+		if(processo.getAudiencias() != null)
+			processo.getAudiencias().add(audiencia);
+		else
+		{
+			processo.setAudiencias(new ArrayList<>());
+			processo.getAudiencias().add(audiencia);
+		}
 		
 		return audiencia;
 	}
