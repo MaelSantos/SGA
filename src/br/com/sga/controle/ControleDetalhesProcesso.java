@@ -68,7 +68,7 @@ public class ControleDetalhesProcesso extends Controle {
 
 	@FXML
 	private ComboBox<TipoProcesso> cbxTipo;
-	
+
 	@FXML
 	private TableView<Parte> tblAtivo;
 
@@ -107,7 +107,7 @@ public class ControleDetalhesProcesso extends Controle {
 
 	@FXML
 	private Button btnAddPartes;
-	
+
 	@FXML
 	private Button btnAdd;
 
@@ -120,7 +120,13 @@ public class ControleDetalhesProcesso extends Controle {
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
-		if (tela != Tela.CADASTRO_AUDIENCIA && tela != Tela.CADASTRO_PARTE && tela != Tela.CADASTRO_PROCESSO)
+		
+		if (object instanceof Funcionario) {
+			funcionario = (Funcionario) object;
+
+		}
+		else if (tela == Tela.DETALHES_PROCESSO)
+		{
 			if (object instanceof ProcessoAdapter) {
 				ProcessoAdapter adapter = (ProcessoAdapter) object;
 
@@ -136,25 +142,34 @@ public class ControleDetalhesProcesso extends Controle {
 
 			}
 
-		if (tela != Tela.CADASTRO_AUDIENCIA && tela != Tela.CADASTRO_PARTE && tela != Tela.CADASTRO_PROCESSO)
-			if (object instanceof Processo) {
+			else if (object instanceof Processo) {
 				voltar = false;
 				processo = (Processo) object;
 				modificarCampos();
 			}
+		}
 
-			else if (object instanceof Audiencia) {
-				Audiencia audiencia = (Audiencia) object;
+		else if (object instanceof Audiencia) {
+			Audiencia audiencia = (Audiencia) object;
 
+			if(audiencia.getProcesso() != null)
+			{
 				if (audiencia.getProcesso().getId() == processo.getId()) {
 					this.processo.getAudiencias().add(audiencia);
 					tblAudiencias.getItems().add(audiencia);
+				}				
+			}
+			else
+			{
+				for(int i = 0; i < tblAudiencias.getItems().size();i++)
+				{
+					if(tblAudiencias.getItems().get(i).getId() == audiencia.getId())
+					{
+						tblAudiencias.getItems().set(i, audiencia);
+						break;
+					}
 				}
 			}
-
-		if (object instanceof Funcionario) {
-			funcionario = (Funcionario) object;
-
 		}
 
 	}
@@ -196,14 +211,18 @@ public class ControleDetalhesProcesso extends Controle {
 
 		}
 		if(obj == btnAddPartes)
+		{
+			modificarProcesso();
 			App.notificarOuvintes(Tela.CADASTRO_PARTE, processo);
-		
+		}
+
 	}
 
 	@Override
 	public void init() {
 
 		fachada = Fachada.getInstance();
+		voltar = true;
 
 		colData.setCellValueFactory(new PropertyValueFactory<>("data_audiencia"));
 		colOrgao.setCellValueFactory(new PropertyValueFactory<>("orgao"));
@@ -215,9 +234,9 @@ public class ControleDetalhesProcesso extends Controle {
 
 		colTipo1.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
 		colTipo2.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
-		
+
 		cbxTipo.getItems().setAll(TipoProcesso.values());
-		
+
 		cbxTipo.setButtonCell(new ListCell<TipoProcesso>() {
 			@Override
 			protected void updateItem(TipoProcesso item, boolean empty) {
@@ -228,6 +247,12 @@ public class ControleDetalhesProcesso extends Controle {
 					setText(item.toString());
 				}
 			}
+		});
+
+		tblAudiencias.setOnMouseClicked(e -> {
+			if (e.getClickCount() > 1)
+				if (tblAudiencias.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, tblAudiencias.getSelectionModel().getSelectedItem());
 		});
 
 	}
@@ -269,7 +294,7 @@ public class ControleDetalhesProcesso extends Controle {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		processo.setComarca(tfdComarca.getText().trim());
 		processo.setDecisao(tfdDecisao.getText().trim());
 		processo.setDescricao(tfdDescricao.getText().trim());
@@ -283,9 +308,6 @@ public class ControleDetalhesProcesso extends Controle {
 
 		processo.setPartes(tblAtivo.getItems());
 		processo.getPartes().addAll(tblPassivo.getItems());
-
-
-
 	}
 
 }

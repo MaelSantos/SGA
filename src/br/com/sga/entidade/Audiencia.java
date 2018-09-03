@@ -75,10 +75,12 @@ public class Audiencia {
 	public void setProcesso(Processo processo) {
 		this.processo = processo;
 	}
-	
-	
-	
 
+	@Override
+	public String toString() {
+		return "ORGÃO [" + orgao + "] TIPO [" + tipo + "] DATA [" + data_audiencia + "]";
+	}
+	
 
 
 }

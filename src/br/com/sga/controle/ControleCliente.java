@@ -220,10 +220,12 @@ public class ControleCliente extends Controle {
 			if (cliente != null) {
 				ProcessoAdapter adapter;
 				try {
-					adapter = dialogo
-							.selecionar(fachada.buscaProcessoPorClienteAdapter(cliente.getId()));
+					
+					adapter = dialogo.selecionar(fachada.buscaProcessoPorClienteAdapter(cliente.getId()));
 					Processo processo = fachada.buscarProcessoPorId(adapter.getId());
+					processo.setCliente(fachada.buscarClientePorId(processo.getCliente().getId()));
 					App.notificarOuvintes(Tela.DETALHES_PROCESSO, processo);
+					
 				} catch (BusinessException e) {
 					e.printStackTrace();
 				}

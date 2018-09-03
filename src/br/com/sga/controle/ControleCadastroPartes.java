@@ -60,21 +60,22 @@ public class ControleCadastroPartes extends Controle {
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
-		
+
 		if (object instanceof Funcionario) {
 			funcionario = (Funcionario) object;
 		}
 
-		if (object instanceof Processo) {
-			processo = (Processo) object;
-			tblPartes.getItems().setAll(processo.getPartes());
-		}
-		
+		if(tela == Tela.CADASTRO_PARTE)
+			if (object instanceof Processo) {
+				processo = (Processo) object;
+				tblPartes.getItems().setAll(processo.getPartes());
+			}
+
 	}
 
 	@Override
 	public void init() {
-		
+
 		fachada = Fachada.getInstance();
 
 		cbxTipoParte.getItems().setAll(TipoParte.values());
@@ -107,40 +108,46 @@ public class ControleCadastroPartes extends Controle {
 			}
 		});
 
-		
+
 	}
 
 	@Override
 	public void actionButton(ActionEvent event) {
-		
+
 		Object obj = event.getSource();
 
 		if (obj == btnAddParte) {
 			if (cbxTipoParte.getValue() != null || cbxTipoParticipacao.getValue() != null
 					|| !tfdNomeParte.getText().trim().equals("")) {
-				
+
 				Parte parte = new Parte(cbxTipoParte.getValue(), cbxTipoParticipacao.getValue(), tfdNomeParte.getText().trim());
+				App.notificarOuvintes(Tela.CADASTRO_PARTE, parte);
 				
-				tblPartes.getItems().add(parte);				
+				tblPartes.getItems().add(parte);	
 				processo.getPartes().add(parte);
+
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Parte Adicionada Com Sucesso","");
 				
 				limparCampos();
-				
+
 			} else
 				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!!!", "Informe Todos os Dados","");
 		}
-		
+
 		else if (obj == btnSalvar) {
-			
+
 			processo.setPartes(tblPartes.getItems());
 			Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido!!!", "Partes Adicionar Ao Seu Processo!!!", "");
-			
+
 		}
 		else if(obj == btnVoltar)
 		{
-			App.notificarOuvintes(Tela.CADASTRO_PROCESSO, processo);
+			if(processo.getId() == null)
+				App.notificarOuvintes(Tela.CADASTRO_PROCESSO);
+			else 
+				App.notificarOuvintes(Tela.DETALHES_PROCESSO);
 		}
-	
+
 	}
 
 	private void limparCampos()
@@ -149,7 +156,7 @@ public class ControleCadastroPartes extends Controle {
 
 		cbxTipoParte.getSelectionModel().clearSelection();
 		cbxTipoParticipacao.getSelectionModel().clearSelection();
-		
+
 	}
-	
+
 }
