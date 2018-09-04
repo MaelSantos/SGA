@@ -24,7 +24,7 @@
          <top>
             <VBox alignment="CENTER" prefHeight="89.0" prefWidth="680.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Consulta de Processos" textFill="WHITE">
+                  <Label text="Processos" textFill="WHITE">
                      <font>
                         <Font name="Verdana Bold" size="24.0" />
                      </font>

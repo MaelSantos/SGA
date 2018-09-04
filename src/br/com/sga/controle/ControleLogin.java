@@ -69,7 +69,6 @@ public class ControleLogin implements Initializable {
 				if (log != null)
 					fachada.salvarEditarLog(log);
 			} catch (BusinessException e1) {
-				// TODO Bloco catch gerado automaticamente
 				e1.printStackTrace();
 			}
 		}
@@ -79,7 +78,6 @@ public class ControleLogin implements Initializable {
 				fachada.salvarEditarLog(new Log(new Date(System.currentTimeMillis()), EventoLog.ENCERRAR,
 						funcionario.getNome(), "Encerrando Sistema: ", StatusLog.CONCLUIDO));
 			} catch (BusinessException e1) {
-				// TODO Bloco catch gerado automaticamente
 				e1.printStackTrace();
 			}
 

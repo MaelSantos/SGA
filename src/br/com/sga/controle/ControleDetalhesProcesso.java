@@ -3,6 +3,8 @@ package br.com.sga.controle;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import br.com.sga.app.App;
@@ -27,14 +29,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class ControleDetalhesProcesso extends Controle {
-
 
 	@FXML
 	private TextField tfdFase;
@@ -171,7 +174,7 @@ public class ControleDetalhesProcesso extends Controle {
 				}
 			}
 		}
-
+	
 	}
 
 	@Override
@@ -254,16 +257,31 @@ public class ControleDetalhesProcesso extends Controle {
 				if (tblAudiencias.getSelectionModel().getSelectedItem() != null)
 					App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, tblAudiencias.getSelectionModel().getSelectedItem());
 		});
+		
+		colData.setCellFactory(coluna -> {
+			
+			return new TableCell<Audiencia, Date>() {
+				protected void updateItem(Date item, boolean empty) {
+					
+					super.updateItem(item, empty);
 
+					if (item == null || empty) {
+					setText(null);
+					} else {
+					setText(new SimpleDateFormat("dd/MM/yyyy").format(item));
+					}
+					}
+				};
+		});
+		
 	}
 
 	private void modificarCampos() {
 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		tfdAtuacao.getEditor().setText(df.format(processo.getData_atuacao()).toString());
+		tfdAtuacao.getEditor().setText(df.format(processo.getData_atuacao()));
 
 		tfdComarca.setText(processo.getComarca());
-		tfdDecisao.setText(processo.getDecisao());
 		tfdDescricao.setText(processo.getDescricao());
 		tfdFase.setText(processo.getFase());
 		cbxTipo.setValue(processo.getTipo_processo());
@@ -272,6 +290,11 @@ public class ControleDetalhesProcesso extends Controle {
 		tfdOrgao.setText(processo.getOrgao_julgador());
 		tfdUsuario.setText(processo.getCliente().getNome());
 
+		if(processo.getDecisao() != null)
+			tfdDecisao.setText(processo.getDecisao());
+		else
+			tfdDecisao.setText("");
+		
 		tblAudiencias.getItems().setAll(processo.getAudiencias());
 
 		tblAtivo.getItems().clear();
@@ -295,8 +318,8 @@ public class ControleDetalhesProcesso extends Controle {
 			e.printStackTrace();
 		}
 
-		processo.setComarca(tfdComarca.getText().trim());
 		processo.setDecisao(tfdDecisao.getText().trim());
+		processo.setComarca(tfdComarca.getText().trim());
 		processo.setDescricao(tfdDescricao.getText().trim());
 		processo.setFase(tfdFase.getText().trim());
 		processo.setTipo_processo(cbxTipo.getValue());

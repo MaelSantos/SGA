@@ -39,7 +39,6 @@ import javafx.scene.layout.FlowPane;
 
 public class ControleDetalhesConsulta extends Controle {
 
-
 	@FXML
 	private DatePicker dataConsultaPicker;
 
@@ -128,14 +127,26 @@ public class ControleDetalhesConsulta extends Controle {
 				App.notificarOuvintes(Tela.CONSULTA);
 			}
 		}else if(salvarEditButton == event.getSource()){
+			Log log;
+
 			try {
+				
+			log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Consulta: " + consulta, StatusLog.CONCLUIDO);
+				
 				editarConsulta();
 			}catch (Exception e) {
 				e.printStackTrace();
-				
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Consulta: " + consulta, StatusLog.ERRO);
 				Alerta.getInstance().showMensagem(AlertType.WARNING,"Falha ao editar consulta","",e.getMessage());
 			}
-			
+		
+				try {
+					if(log != null)
+						fachada.salvarEditarLog(log);
+				} catch (BusinessException e) {
+					// TODO Bloco catch gerado automaticamente
+					e.printStackTrace();
+				}
 		}
 		else if (selectConButton == event.getSource()) {
 			Log log = null;
@@ -150,8 +161,7 @@ public class ControleDetalhesConsulta extends Controle {
 					consulta.setId(consultaBasica.getId());
 					atualizarDadosConsulta();
 					
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-							"Buscar Consulta: " + busca, StatusLog.CONCLUIDO);					
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: " + busca, StatusLog.CONCLUIDO);					
 				}
 				else if(consultas.isEmpty())
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
@@ -167,7 +177,6 @@ public class ControleDetalhesConsulta extends Controle {
 				if (log != null)
 					fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
 
@@ -225,7 +234,7 @@ public class ControleDetalhesConsulta extends Controle {
 	private void editarConsulta () throws Exception {
 		if(dataConsultaPicker.getValue() == null || areaBox.getValue()== null || honorarioField.getText().trim().isEmpty() 
 				|| descricaoField.getText().trim().isEmpty() || indicacaoField.getText().trim().isEmpty())
-			throw new Exception("Há campos obrgatórios vazios imposibilitando a edição de consulta");
+			throw new Exception("Há campos obrigatórios vazios impossibilitando a edição da consulta");
 		consulta.setArea(areaBox.getValue());
 		consulta.setData_consulta(BusinessUtil.toDate(dataConsultaPicker));
 		consulta.setValor_honorario(Float.parseFloat(honorarioField.getText().trim()));

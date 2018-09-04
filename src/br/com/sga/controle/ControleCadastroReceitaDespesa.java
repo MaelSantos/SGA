@@ -131,7 +131,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					Date vencimento = df.parse(tfdVencimento.getEditor().getText().trim());
 					receita.setVencimento(vencimento);
 				} catch (ParseException e) {
-					// TODO Bloco catch gerado automaticamente
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "Formato da Data Errada!!!", "");
 					e.printStackTrace();
 				}
 				receita.setCentro_custo(tfdCentroCusto.getText().trim());
@@ -161,7 +161,6 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					if(log != null)
 						fachada.salvarEditarLog(log);
 				} catch (BusinessException e) {
-					// TODO Bloco catch gerado automaticamente
 					e.printStackTrace();
 				}
 				
@@ -178,7 +177,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					Date vencimento = df.parse(tfdVencimento.getEditor().getText().trim());
 					despesa.setVencimento(vencimento);
 				} catch (ParseException e) {
-					// TODO Bloco catch gerado automaticamente
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "Formato da Data Errada!!!", "");
 					e.printStackTrace();
 				}
 				despesa.setCentro_custo(tfdCentroCusto.getText().trim());
@@ -208,7 +207,6 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					if(log != null)
 						fachada.salvarEditarLog(log);
 				} catch (BusinessException e) {
-					// TODO Bloco catch gerado automaticamente
 					e.printStackTrace();
 				}
 			}

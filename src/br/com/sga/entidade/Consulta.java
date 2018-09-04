@@ -129,7 +129,7 @@ public class Consulta {
 	
 	@Override
 	public String toString() {
-		return "Area "+this.getArea()+" Data "+ this.getData_consulta().toString();
+		return "AREA ["+this.getArea()+"] DATA ["+ this.getData_consulta().toString()+"]";
 	}
 
 	

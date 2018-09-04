@@ -8,7 +8,6 @@ import br.com.sga.app.App;
 import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Contrato;
-import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.MaskFieldUtil;
@@ -130,7 +129,6 @@ public class ControleDetalhesContrato extends Controle {
 				if (log != null)
 					fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
-				// TODO Bloco catch gerado automaticamente
 				e.printStackTrace();
 			}
 
@@ -157,9 +155,9 @@ public class ControleDetalhesContrato extends Controle {
 				}
 
 				try {
-					fachada.salvarEditarLog(log);
+					if(log != null)
+						fachada.salvarEditarLog(log);
 				} catch (BusinessException e) {
-					// TODO Bloco catch gerado automaticamente
 					e.printStackTrace();
 				}
 			}

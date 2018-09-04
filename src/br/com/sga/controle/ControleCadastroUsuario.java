@@ -25,7 +25,6 @@ import javafx.scene.control.TextField;
 
 public class ControleCadastroUsuario extends Controle{
 
-
     @FXML
     private TextField cepField;
 

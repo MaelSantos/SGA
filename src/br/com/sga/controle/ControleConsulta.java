@@ -1,8 +1,10 @@
 package br.com.sga.controle;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import br.com.sga.app.App;
+import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
@@ -20,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -186,6 +189,24 @@ public class ControleConsulta extends Controle {
 				if (contratosTableView.getSelectionModel().getSelectedItem() != null)
 					App.notificarOuvintes(Tela.DETALHES_CONSULTA, contratosTableView.getSelectionModel().getSelectedItem());
 		});
+		
+		dataColumn.setCellFactory(coluna -> {
+			
+			return new TableCell<ConsultaAdapter, Date>() {
+				protected void updateItem(Date item, boolean empty) {
+					
+					super.updateItem(item, empty);
+
+					if (item == null || empty) {
+					setText(null);
+					} else {
+					setText(new SimpleDateFormat("dd/MM/yyyy").format(item));
+					}
+					}
+				};
+		});
+
+		
 		
 	}
 }

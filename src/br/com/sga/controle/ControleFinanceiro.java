@@ -1,9 +1,11 @@
 package br.com.sga.controle;
 
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 
 import br.com.sga.app.App;
+import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
@@ -21,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
@@ -145,6 +148,40 @@ public class ControleFinanceiro extends Controle {
 		colVencimento2.setCellValueFactory(
 				new PropertyValueFactory<>("vencimento"));
 
+		
+		colVencimento1.setCellFactory(coluna -> {
+			
+			return new TableCell<Receita, Date>() {
+				protected void updateItem(Date item, boolean empty) {
+					
+					super.updateItem(item, empty);
+
+					if (item == null || empty) {
+					setText(null);
+					} else {
+					setText(new SimpleDateFormat("dd/MM/yyyy").format(item));
+					}
+					}
+				};
+		});
+		colVencimento2.setCellFactory(coluna -> {
+			
+			return new TableCell<Despesa, Date>() {
+				protected void updateItem(Date item, boolean empty) {
+					
+					super.updateItem(item, empty);
+
+					if (item == null || empty) {
+					setText(null);
+					} else {
+					setText(new SimpleDateFormat("dd/MM/yyyy").format(item));
+					}
+					}
+				};
+		});
+
+
+		
 	}
 
 	@Override
