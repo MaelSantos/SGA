@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import br.com.sga.app.App;
 import br.com.sga.entidade.Audiencia;
@@ -93,17 +92,12 @@ public class ControleCadastroProcesso extends Controle {
 	private Processo processo;
 	private Cliente cliente;
 	private Funcionario funcionario;
-	
-	private List<Parte> partes;
 
 	@Override
 	public void init() {
 
 		fachada = Fachada.getInstance();
 		dialogo = Dialogo.getInstance();
-		partes = new ArrayList<>();
-		processo = new Processo();
-		processo.setPartes(partes);
 		
 		cbxTipoProcesso.getItems().addAll(TipoProcesso.values());
 		
@@ -181,17 +175,10 @@ public class ControleCadastroProcesso extends Controle {
 						cliente = fachada.buscarClientePorId(adapter.getId());
 						lblCliente.setText(adapter + "");
 
-						boolean add = true;
-						for(Parte p : partes)
-							if(p.getNome().equalsIgnoreCase(cliente.getNome()))
-								add = false;
-						if(add)
-							partes.add(0, new Parte(TipoParte.ATIVO, TipoParticipacao.EXEQUENTE, cliente.getNome()));
-
-						System.out.println(partes);
-						System.out.println(processo.getPartes());
-						System.out.println("add: "+add);
-
+						Parte parte = new Parte(TipoParte.ATIVO, TipoParticipacao.EXEQUENTE, cliente.getNome());
+						
+						adicionarParte(parte);
+								
 						log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 								"Busca Cliente: "+tfdBusca.getText().trim(), StatusLog.CONCLUIDO); 
 
@@ -222,7 +209,21 @@ public class ControleCadastroProcesso extends Controle {
 
 		}
 		else if(obj == btnAddPartes)
-			App.notificarOuvintes(Tela.CADASTRO_PARTE, processo);
+		{
+			if(processo != null)
+				if(processo.getPartes() != null)
+				{
+					if(processo.getPartes().size() > 0 || cliente != null)
+						App.notificarOuvintes(Tela.CADASTRO_PARTE, processo);
+					else
+						Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Selecione Primeiro Um Cliente Para Prosseguir!!!", "");					
+				}
+				else
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Selecione Primeiro Um Cliente Para Prosseguir!!!", "");
+			else
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Selecione Primeiro Um Cliente Para Prosseguir!!!", "");
+			
+		}
 		else if(obj == btnAddAudiencias)
 			App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, processo);
 	}
@@ -238,19 +239,10 @@ public class ControleCadastroProcesso extends Controle {
 			if (object instanceof Parte) {
 				Parte parte = (Parte) object;
 
-				boolean add = true ;
-				for(Parte p : partes)
-				{
-					if(p.getNome().equalsIgnoreCase(parte.getNome()))
-						add = false;
-				}
-				if(add)
-					partes.add(parte);
+				adicionarParte(parte);
 			}
 
 		}
-		else if(tela == Tela.CADASTRO_PROCESSO)
-			limparCampos();
 
 	}
 
@@ -264,8 +256,6 @@ public class ControleCadastroProcesso extends Controle {
 			Date data = df.parse(tfdData.getEditor().getText());
 			processo.setData_atuacao(data);
 		}
-
-		processo.setPartes(partes);
 		
 		processo.setDescricao(tfdDescricao.getText().trim());
 		processo.setFase(tfdFase.getText().trim());
@@ -293,11 +283,32 @@ public class ControleCadastroProcesso extends Controle {
 		cbxTipoProcesso.getSelectionModel().clearSelection();
 
 		processo = new Processo();
-		partes.clear();
+		processo.setPartes(new ArrayList<>());
 		cliente = null;
 
 	}
 
+	private void adicionarParte(Parte parte)
+	{
+		if(processo == null)
+			processo = new Processo();
+		if(processo.getPartes() == null)
+			processo.setPartes(new ArrayList<>());
+		
+		boolean add = true;
+		for(Parte p : processo.getPartes())
+			if(p.getNome().equalsIgnoreCase(parte.getNome()))
+				add = false;
+		if(add)
+		{
+			if(processo.getPartes().size() > 1 && parte.getNome().equalsIgnoreCase(cliente.getNome()))
+				processo.getPartes().set(0, parte);
+			else
+				processo.getPartes().add(parte);
+		}
+
+	}
+	
 	@FXML
 	void mouseEntered(MouseEvent event) {
 		((Button) (event.getSource())).setStyle("-fx-background-color : #386a78");

@@ -88,11 +88,6 @@
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Button>
-                <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#actionButton" text="Salvar ">
-                     <font>
-                        <Font name="Verdana" size="12.0" />
-                     </font>
-                  </Button>
               </buttons>
             </ButtonBar>
          </bottom>

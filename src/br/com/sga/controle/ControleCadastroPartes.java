@@ -1,5 +1,7 @@
 package br.com.sga.controle;
 
+import java.util.ArrayList;
+
 import br.com.sga.app.App;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Parte;
@@ -50,9 +52,6 @@ public class ControleCadastroPartes extends Controle {
 	@FXML
 	private Button btnVoltar;
 
-	@FXML
-	private Button btnSalvar;
-
 	private IFachada fachada;
 	private Funcionario funcionario;
 	private Processo processo;
@@ -66,10 +65,12 @@ public class ControleCadastroPartes extends Controle {
 
 		else if(tela == Tela.CADASTRO_PARTE)
 			if (object instanceof Processo) {
-				processo = (Processo) object;				
-				tblPartes.getItems().setAll(processo.getPartes());
+				processo = (Processo) object;
+				if(processo.getPartes() != null)
+					tblPartes.getItems().setAll(processo.getPartes());
+				else
+					processo.setPartes(new ArrayList<>());
 			}
-
 	}
 
 	@Override
@@ -139,12 +140,6 @@ public class ControleCadastroPartes extends Controle {
 				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!!!", "Informe Todos os Dados","");
 		}
 
-		else if (obj == btnSalvar) {
-
-			processo.setPartes(tblPartes.getItems());
-			Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido!!!", "Partes Adicionar Ao Seu Processo!!!", "");
-
-		}
 		else if(obj == btnVoltar)
 		{
 			if(processo.getId() == null)
