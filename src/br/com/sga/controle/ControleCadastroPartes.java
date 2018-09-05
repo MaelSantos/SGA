@@ -13,7 +13,6 @@ import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -65,9 +64,9 @@ public class ControleCadastroPartes extends Controle {
 			funcionario = (Funcionario) object;
 		}
 
-		if(tela == Tela.CADASTRO_PARTE)
+		else if(tela == Tela.CADASTRO_PARTE)
 			if (object instanceof Processo) {
-				processo = (Processo) object;
+				processo = (Processo) object;				
 				tblPartes.getItems().setAll(processo.getPartes());
 			}
 
@@ -117,14 +116,20 @@ public class ControleCadastroPartes extends Controle {
 		Object obj = event.getSource();
 
 		if (obj == btnAddParte) {
-			if (cbxTipoParte.getValue() != null || cbxTipoParticipacao.getValue() != null
-					|| !tfdNomeParte.getText().trim().equals("")) {
+			if (! (cbxTipoParte.getValue() == null || cbxTipoParticipacao.getValue() == null
+					|| tfdNomeParte.getText().trim().equals(""))) {
 
 				Parte parte = new Parte(cbxTipoParte.getValue(), cbxTipoParticipacao.getValue(), tfdNomeParte.getText().trim());
-				App.notificarOuvintes(Tela.CADASTRO_PARTE, parte);
 				
-				tblPartes.getItems().add(parte);	
-				processo.getPartes().add(parte);
+				tblPartes.getItems().add(parte);
+				App.notificarOuvintes(Tela.CADASTRO_PARTE, parte);
+//				if(processo.getPartes() != null)
+//					processo.getPartes().add(parte);
+//				else
+//				{
+//					processo.setPartes(new ArrayList<>());
+//					processo.getPartes().add(parte);
+//				}
 
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Parte Adicionada Com Sucesso","");
 				
@@ -146,6 +151,10 @@ public class ControleCadastroPartes extends Controle {
 				App.notificarOuvintes(Tela.CADASTRO_PROCESSO);
 			else 
 				App.notificarOuvintes(Tela.DETALHES_PROCESSO);
+			
+			limparCampos();
+			processo = null;
+			tblPartes.getItems().clear();
 		}
 
 	}
@@ -157,6 +166,7 @@ public class ControleCadastroPartes extends Controle {
 		cbxTipoParte.getSelectionModel().clearSelection();
 		cbxTipoParticipacao.getSelectionModel().clearSelection();
 
+		
 	}
 
 }

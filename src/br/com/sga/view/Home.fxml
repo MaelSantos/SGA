@@ -29,18 +29,17 @@
             </VBox>
          </top>
          <center>
-            <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+            <GridPane alignment="CENTER" prefHeight="334.0" prefWidth="680.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="254.0" minHeight="3.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints fillHeight="false" maxHeight="503.0" minHeight="10.0" prefHeight="305.0" />
-                  <RowConstraints fillHeight="false" maxHeight="503.0" minHeight="10.0" prefHeight="172.0" />
+                <RowConstraints maxHeight="254.0" minHeight="3.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints fillHeight="false" maxHeight="503.0" minHeight="10.0" prefHeight="416.0" valignment="TOP" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView fx:id="tblSemana" prefHeight="317.0" prefWidth="273.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
+                  <TableView fx:id="tblSemana" prefHeight="350.0" prefWidth="330.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="colDescricao1" prefWidth="75.0" text="Descrição" />
                         <TableColumn fx:id="colTipo1" prefWidth="75.0" text="Tipo" />
@@ -51,7 +50,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <TableView fx:id="tblAtrasados" prefHeight="317.0" prefWidth="286.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TableView fx:id="tblAtrasados" prefHeight="350.0" prefWidth="330.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="colDescricao2" prefWidth="75.0" text="Descrição" />
                         <TableColumn fx:id="colTipo2" prefWidth="75.0" text="Tipo" />
@@ -64,12 +63,12 @@
                   </TableView>
                   <Label text="Marcados Para Essa Semana:" textFill="WHITE">
                      <font>
-                        <Font name="Verdana" size="13.0" />
+                        <Font name="Verdana" size="14.0" />
                      </font>
                   </Label>
                   <Label text="Atrasados:" textFill="WHITE" GridPane.columnIndex="1">
                      <font>
-                        <Font name="Verdana" size="13.0" />
+                        <Font name="Verdana" size="14.0" />
                      </font>
                   </Label>
                </children>

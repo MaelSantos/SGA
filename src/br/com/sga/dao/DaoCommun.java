@@ -434,13 +434,17 @@ public class DaoCommun implements IDaoCommun {
 			this.statement = connection.prepareStatement(SQLUtil.Audiencia.INSERT_ALL);
 			// data_audiencia,tipo,vara,orgao,status,processo_id
 			statement.setDate(1, new Date(audiencia.getData_audiencia().getTime()));
-			statement.setString(2, audiencia.getTipo().name());
+			statement.setString(2, audiencia.getTipo().toString());
 			statement.setString(3, audiencia.getVara());
 			statement.setString(4, audiencia.getOrgao());
 			statement.setString(5, audiencia.getStatus().name());
 			statement.setInt(6, processo_id);
 			statement.execute();
 			this.connection.close();
+			
+			int id = getCurrentValorTabela(Tabela.AUDIENCIA);
+			audiencia.setId(id);
+			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO SALVAR AUDIENCIA - Contate o ADM");

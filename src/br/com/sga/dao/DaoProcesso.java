@@ -52,13 +52,19 @@ public class DaoProcesso implements IDaoProcesso {
 			statement.execute();
 
 			int id_processo = daoCommun.getCurrentValorTabela(Tabela.PROCESSO);
-			
+
 			for (Parte parte : entidade.getPartes())
-				daoCommun.salvarParte(parte, id_processo, Tabela.PROCESSO);
-			
+				if(parte.getId() == null)
+					daoCommun.salvarParte(parte, id_processo, Tabela.PROCESSO);
+				else
+					daoCommun.editarParte(parte);
+
 			if(entidade.getAudiencias() != null)
 				for(Audiencia audiencia : entidade.getAudiencias())
-					daoCommun.salvarAudiencia(audiencia, id_processo);
+					if(audiencia.getId() == null)
+						daoCommun.salvarAudiencia(audiencia, id_processo);
+					else
+						daoCommun.editarAudiencia(audiencia);
 
 			conexao.close();
 			

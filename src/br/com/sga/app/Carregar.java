@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -53,7 +52,7 @@ public class Carregar implements Initializable{
 					public void updateData()
 					{
 						updateMessage(texto);
-						porcentagem += 100/25; //porcentagem total dividido por quantidade de telas
+						porcentagem += 100/26; //porcentagem total dividido por quantidade de telas
 						updateProgress(porcentagem, 100);
 						System.out.println(contador++);
 						System.out.println(texto);
@@ -156,8 +155,10 @@ public class Carregar implements Initializable{
 							}catch (Exception e) {
 								e.printStackTrace();
 							}
+							
 							App.loginScene = new Scene(App.login);
 							App.menuScene = new Scene(App.menu);
+							
 							return null;
 						}catch (Exception e) {
 							e.printStackTrace();

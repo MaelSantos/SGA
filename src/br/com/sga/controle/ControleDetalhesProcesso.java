@@ -3,11 +3,11 @@ package br.com.sga.controle;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import br.com.sga.app.App;
+import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
@@ -16,13 +16,18 @@ import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
+import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.BusinessException;
+import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
+import br.com.sga.interfaces.IDaoCommun;
 import br.com.sga.view.Alerta;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,7 +40,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 public class ControleDetalhesProcesso extends Controle {
 
@@ -115,6 +119,7 @@ public class ControleDetalhesProcesso extends Controle {
 	private Button btnAdd;
 
 	private IFachada fachada;
+	private IDaoCommun daoCommun;
 	private Processo processo;
 	private Funcionario funcionario;
 
@@ -152,29 +157,29 @@ public class ControleDetalhesProcesso extends Controle {
 			}
 		}
 
-		else if (object instanceof Audiencia) {
-			Audiencia audiencia = (Audiencia) object;
-
-			if(audiencia.getProcesso() != null)
-			{
-				if (audiencia.getProcesso().getId() == processo.getId()) {
-					this.processo.getAudiencias().add(audiencia);
-					tblAudiencias.getItems().add(audiencia);
-				}				
-			}
-			else
-			{
-				for(int i = 0; i < tblAudiencias.getItems().size();i++)
-				{
-					if(tblAudiencias.getItems().get(i).getId() == audiencia.getId())
-					{
-						tblAudiencias.getItems().set(i, audiencia);
-						break;
-					}
-				}
+		else if(tela == Tela.CADASTRO_AUDIENCIA)
+		{
+			if (object instanceof Audiencia) {
+				Audiencia audiencia = (Audiencia) object;
+				
+				tblAudiencias.getItems().clear();
+				tblAudiencias.getItems().addAll(processo.getAudiencias());
+//				tblAudiencias.getItems().add(audiencia);
 			}
 		}
-	
+
+		if(tela == Tela.CADASTRO_PARTE)
+		{
+			if (object instanceof Parte) {
+				Parte parte = (Parte) object;
+				
+				if (parte.getTipo_parte() == TipoParte.ATIVO)
+					tblAtivo.getItems().add(parte);
+				if (parte.getTipo_parte() == TipoParte.PASSIVO)
+					tblPassivo.getItems().add(parte);
+			}			
+		}
+
 	}
 
 	@Override
@@ -184,22 +189,31 @@ public class ControleDetalhesProcesso extends Controle {
 
 		if (obj == btnAdd)
 			App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, processo);
-		if (obj == btnVoltar)
+		else if (obj == btnVoltar)
 		{
 			if(voltar)
 				App.notificarOuvintes(Tela.PROCESSOS);
 			else
 				App.notificarOuvintes(Tela.CLIENTES);
+			
+			processo = null;
+			tblAtivo.getItems().clear();
+			tblPassivo.getItems().clear();
+			tblAudiencias.getItems().clear();
 		}
-		if(obj == btnAtualizar)
+		else if(obj == btnAtualizar)
 		{
 			Log log;
 			try {
 				modificarProcesso();
 				fachada.salvarEditarProcesso(processo);
+				processo.setPartes(daoCommun.getPartes(processo.getId(), Tabela.PROCESSO));
+				processo.setAudiencias(daoCommun.buscarAudienciaPorIdProcesso(processo.getId()));
+				
+				modificarCampos();
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Processo "+processo, StatusLog.CONCLUIDO);
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Processo Atualizado", "");
-			} catch (BusinessException e) {
+			} catch (BusinessException | DaoException e) {
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Processo "+processo, StatusLog.ERRO);
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Atualizar Processo", e.getMessage());
 				e.printStackTrace();
@@ -213,7 +227,7 @@ public class ControleDetalhesProcesso extends Controle {
 			}
 
 		}
-		if(obj == btnAddPartes)
+		else if(obj == btnAddPartes)
 		{
 			modificarProcesso();
 			App.notificarOuvintes(Tela.CADASTRO_PARTE, processo);
@@ -225,6 +239,7 @@ public class ControleDetalhesProcesso extends Controle {
 	public void init() {
 
 		fachada = Fachada.getInstance();
+		daoCommun = DaoCommun.getInstance();
 		voltar = true;
 
 		colData.setCellValueFactory(new PropertyValueFactory<>("data_audiencia"));
@@ -295,6 +310,7 @@ public class ControleDetalhesProcesso extends Controle {
 		else
 			tfdDecisao.setText("");
 		
+		tblAudiencias.getItems().clear();
 		tblAudiencias.getItems().setAll(processo.getAudiencias());
 
 		tblAtivo.getItems().clear();
@@ -315,6 +331,7 @@ public class ControleDetalhesProcesso extends Controle {
 			Date data = df.parse(tfdAtuacao.getEditor().getText().trim());
 			processo.setData_atuacao(data);
 		} catch (ParseException e) {
+			Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "Formato da Data Esta Incorreto!!!", "");
 			e.printStackTrace();
 		}
 
@@ -329,8 +346,13 @@ public class ControleDetalhesProcesso extends Controle {
 
 		processo.setAudiencias(tblAudiencias.getItems());
 
-		processo.setPartes(tblAtivo.getItems());
-		processo.getPartes().addAll(tblPassivo.getItems());
+		if(processo.getPartes() == null)
+			processo.setPartes(new ArrayList<>());
+		ObservableList<Parte> partes = FXCollections.observableArrayList();
+		partes.addAll(tblAtivo.getItems());
+		partes.addAll(tblPassivo.getItems());
+		
+		processo.setPartes(partes);
 	}
 
 }

@@ -88,7 +88,7 @@ public class ControleCadastroAudiencia extends Controle {
 
 		}
 
-		if (object instanceof Audiencia) {
+		else if (object instanceof Audiencia) {
 			if(tela == Tela.CADASTRO_AUDIENCIA)
 			{
 				audiencia = (Audiencia) object;
@@ -148,60 +148,69 @@ public class ControleCadastroAudiencia extends Controle {
 		if(obj == btnCadastrar)
 		{
 			Log log = null;
-			try {
 
-				if(audiencia.getId() == null)
-				{
-					Audiencia audiencia = criarAudiencia();
-					if(processo.getId() != null)
+			if(cbxStatus.getSelectionModel().getSelectedItem() != null && cbxTipo.getSelectionModel().getSelectedItem() != null &&
+					!tfdData.getEditor().getText().trim().isEmpty() && !tfdOrgao.getText().trim().isEmpty() && !tfdVara.getText().trim().isEmpty())
+			{
+				try {
+
+					if(audiencia.getId() == null)
 					{
-						daoCommun.salvarAudiencia(audiencia, audiencia.getProcesso().getId());
+						Audiencia audiencia = criarAudiencia();
+						if(processo.getId() != null)
+						{
+							daoCommun.salvarAudiencia(audiencia, audiencia.getProcesso().getId());
 
-						notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
-								audiencia.getProcesso().getDescricao(), Andamento.PENDENTE, audiencia.getData_audiencia());
+							notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
+									audiencia.getProcesso().getDescricao(), Andamento.PENDENTE, audiencia.getData_audiencia());
 
-						fachada.salvarEditarNotificacao(notificacao);
-						App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, notificacao);
-						App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, audiencia);
+							fachada.salvarEditarNotificacao(notificacao);
+							App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, notificacao);
+							App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, audiencia);
 
-						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "", "Audiencia Cadastrada Com Sucesso");
-						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: "+audiencia.getTipo(), StatusLog.CONCLUIDO);
-						limparCampos();
-					}					
+							Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "", "Audiencia Cadastrada Com Sucesso");
+							log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: "+audiencia.getTipo(), StatusLog.CONCLUIDO);
+							limparCampos();
+						}
+						else
+						{
+							limparCampos();
+							Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Adicionado", "", "Audiencia Adicionada ao Seu Processo");
+						}
+					}
+					else
+					{
+						atualizarAudiencia();
+						daoCommun.editarAudiencia(audiencia);
+						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "", "Audiencia Atualizada Com Sucesso");
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Audiência: "+audiencia, StatusLog.CONCLUIDO);
+
+					}
+
+				} catch (ParseException | DaoException | BusinessException e) {
+					e.printStackTrace();
+					if(audiencia.getId() == null)
+					{
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: Erro", StatusLog.ERRO);
+						Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Salvar Audiencia", e.getMessage());
+					}
+					else
+					{
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Audiência: Erro", StatusLog.ERRO);
+						Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Atualizar Audiencia", e.getMessage());
+
+					}
 				}
-				else
-				{
-					atualizarAudiencia();
-					daoCommun.editarAudiencia(audiencia);
-					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "", "Audiencia Atualizada Com Sucesso");
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Audiência: "+audiencia, StatusLog.CONCLUIDO);
 
-				}
-
-
-
-			} catch (ParseException | DaoException | BusinessException e) {
-				e.printStackTrace();
-				if(audiencia.getId() == null)
-				{
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: Erro", StatusLog.ERRO);
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Salvar Audiencia", e.getMessage());
-				}
-				else
-				{
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Audiência: Erro", StatusLog.ERRO);
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Atualizar Audiencia", e.getMessage());
-
+				try {
+					if(log != null)
+						fachada.salvarEditarLog(log);
+				} catch (BusinessException e) {
+					e.printStackTrace();
 				}
 			}
-
-			try {
-				if(log != null)
-					fachada.salvarEditarLog(log);
-			} catch (BusinessException e) {
-				e.printStackTrace();
-			}
-
+			else
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "Informe todos os dados de sua audiência!!!", "");
 		}
 		if(obj == btnVoltar)
 		{
@@ -209,19 +218,20 @@ public class ControleCadastroAudiencia extends Controle {
 			if(processo != null)
 			{
 				if(processo.getId() != null)
-					App.notificarOuvintes(Tela.DETALHES_PROCESSO, audiencia);
+					App.notificarOuvintes(Tela.DETALHES_PROCESSO);
 				else
-					App.notificarOuvintes(Tela.CADASTRO_PROCESSO, audiencia);
+					App.notificarOuvintes(Tela.CADASTRO_PROCESSO);
 
 				processo = null;
 				audiencia = null;
+				limparCampos();
 			}
 			else if(audiencia != null)
 			{
 				if(audiencia.getId() != null)
-					App.notificarOuvintes(Tela.DETALHES_PROCESSO, audiencia);
+					App.notificarOuvintes(Tela.DETALHES_PROCESSO);
 				else
-					App.notificarOuvintes(Tela.CADASTRO_PROCESSO, audiencia);
+					App.notificarOuvintes(Tela.CADASTRO_PROCESSO);
 
 				processo = null;
 				audiencia = null;
@@ -237,7 +247,7 @@ public class ControleCadastroAudiencia extends Controle {
 		tfdVara.setText("");
 
 		cbxStatus.getSelectionModel().clearSelection();
-		cbxTipo.getSelectionModel().clearSelection();		
+		cbxTipo.getSelectionModel().clearSelection();
 	}
 
 	private Audiencia criarAudiencia() throws ParseException {
@@ -287,7 +297,7 @@ public class ControleCadastroAudiencia extends Controle {
 			Date data = df.parse(tfdData.getEditor().getText());
 			audiencia.setData_audiencia(data);
 		} catch (ParseException e) {
-			Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "Formato Da Data Incorreto!!!", "");
+			Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "Formato da Data Esta Incorreto!!!", "");
 			e.printStackTrace();
 		}
 

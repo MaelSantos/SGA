@@ -187,14 +187,14 @@ public class ControleCadastroProcesso extends Controle {
 								add = false;
 						if(add)
 							partes.add(0, new Parte(TipoParte.ATIVO, TipoParticipacao.EXEQUENTE, cliente.getNome()));
-						
+
 						System.out.println(partes);
 						System.out.println(processo.getPartes());
 						System.out.println("add: "+add);
-						
+
 						log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 								"Busca Cliente: "+tfdBusca.getText().trim(), StatusLog.CONCLUIDO); 
-						
+
 						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido",
 								"Busca Concluida Com Sucesso", "");
 					}
@@ -206,15 +206,15 @@ public class ControleCadastroProcesso extends Controle {
 						e.getMessage());
 				e.printStackTrace();
 			}
-			
-			
+
+
 			try {
 				if(log != null)
 					fachada.salvarEditarLog(log);
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
-			
+
 		} 
 		else if (obj == btnVoltar) {
 			limparCampos();
@@ -233,6 +233,25 @@ public class ControleCadastroProcesso extends Controle {
 		if (object instanceof Funcionario) {
 			funcionario = (Funcionario) object;
 		}
+		else if(tela == Tela.CADASTRO_PARTE)
+		{
+			if (object instanceof Parte) {
+				Parte parte = (Parte) object;
+
+				boolean add = true ;
+				for(Parte p : partes)
+				{
+					if(p.getNome().equalsIgnoreCase(parte.getNome()))
+						add = false;
+				}
+				if(add)
+					partes.add(parte);
+			}
+
+		}
+		else if(tela == Tela.CADASTRO_PROCESSO)
+			limparCampos();
+
 	}
 
 	private Processo criarProcesso() throws ParseException, BusinessException {
@@ -274,6 +293,7 @@ public class ControleCadastroProcesso extends Controle {
 		cbxTipoProcesso.getSelectionModel().clearSelection();
 
 		processo = new Processo();
+		partes.clear();
 		cliente = null;
 
 	}
