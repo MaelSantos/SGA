@@ -113,6 +113,8 @@ public class DaoUsuario implements IDaoUsuario{
             statement.executeUpdate();
             this.conexao.close();
             
+            daoCommun.EditarEndereco(entidade.getEndereco());
+            
 		}catch (PSQLException ex) {
 			throw new DaoException("EMAIL, LOGIN OU NUMERO OAB JÁ ESTÁ CADASTRATO");
 		}catch (SQLException ex) {

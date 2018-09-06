@@ -100,9 +100,9 @@ public class ControleEditarPerfil extends Controle {
 						senhaAtualField.setText("");
 						confirmarSenhaField.setText("");
 						novaSenhaField.setText("");
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(),
+								"Editar Usuario - Senha: ", StatusLog.CONCLUIDO);
 					}
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(),
-							"Editar Usuario - Senha: ", StatusLog.CONCLUIDO);
 				}
 				try {
 					fachada.salvarEditarUsuario(copiaFuncionario);

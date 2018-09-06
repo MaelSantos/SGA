@@ -56,10 +56,19 @@ public class BusinessUsuario implements IBusinessUsuario {
 	}
 
 	private void validarUsuario(Funcionario usuario) throws ValidacaoException, DaoException{
-		if(usuario.getLogin().trim().equals("") || usuario.getSenha().trim().equals(""))
-			throw new ValidacaoException("DADOS EM BRANCO!!!");
+		if(usuario.getLogin().trim().equals(""))
+			throw new ValidacaoException("LOGIN EM BRANCO!!!");
+		if(usuario.getSenha().trim().equals(""))
+			throw new ValidacaoException("SENHA EM BRANCO!!!");
 		if(usuario.getSenha().trim().length() < 8)
 			throw new ValidacaoException("SENHA MUITO CURTA!!!");
+		if(usuario.getNumero_oab().trim().equals(""))
+			throw new ValidacaoException("INFORME O NUMERO DA OAB!!!");
+		if (usuario.getNome().trim().equals(""))
+			throw new ValidacaoException("INFORME SEU NOME!!!");
+		if (usuario.getEndereco() == null)
+			throw new ValidacaoException("INFORME SEU ENDEREÇO!!!");
+		
 	}
 
 	@Override
