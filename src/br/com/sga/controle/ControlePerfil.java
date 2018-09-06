@@ -2,7 +2,6 @@ package br.com.sga.controle;
 
 import java.util.Date;
 
-import br.com.sga.business.Validar;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.enums.Estado;
@@ -139,13 +138,9 @@ public class ControlePerfil extends Controle {
 			
 			if (sucesso) {				
 				
-				senhaAtualField.setText("");
-				confirmarSenhaField.setText("");
-				novaSenhaField.setText("");
-				
 				Log log;
 				try {
-					funcionario.setSenha(novaSenhaField.getText().trim());
+
 					fachada.salvarEditarUsuario(copiaFuncionario);
 					
 					funcionario = copiaFuncionario;
@@ -219,24 +214,36 @@ public class ControlePerfil extends Controle {
 		novaSenha = novaSenhaField.getText().trim();
 		confirmarSenha = confirmarSenhaField.getText().trim();
 
-		if (senhaAtual.length() > 0 && novaSenha.length() > 0 && confirmarSenha.length() > 0) {
-			String validacao = Validar.getInstance().validarSenha(novaSenha);
-			if (validacao != null) {
-				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", validacao);
-				return false;
-			}
-			if (senhaAtual.equals(usuario.getSenha()))
+		if(senhaAtual.length() <= 0 && novaSenha.length() <= 0 && confirmarSenha.length() <= 0)
+		{
+			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Nada Foi Alterado, Entradas de Texto Estão Vazias");
+			return false;
+		}		
+		else if (senhaAtual.equals(usuario.getSenha()))
+		{
+			if (novaSenha.length() > 0 && confirmarSenha.length() > 0) {
+
 				if (novaSenha.equals(confirmarSenha)) {
 					usuario.setSenha(novaSenha);
 					return true;
-				} else
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "nova senha e sua confirmação não coincidem");
-			else
-				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Senha atual informada é diferente da original");
+				} else {
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Nova Senha e Sua Confirmação Não Coincidem");
+					return false;					
+				}
+					
+			}
+			else {
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Nova Senha ou Confirmação Estão Vazias");				
+				return false;
+			}
+
+		}
+		else
+		{
+			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Senha Atual Informada é Diferente da Original");
 			return false;
 		}
-		Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Nada foi alterado, entradas de texto estão vazias");
-		return false;
+				
 	}
 
 	
