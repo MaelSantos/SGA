@@ -11,15 +11,20 @@ import java.util.Map;
 
 import br.com.sga.dao.DaoCommun;
 import br.com.sga.entidade.Consulta;
+import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;
+import br.com.sga.entidade.adapter.DocumentoContratoAdapter;
 import br.com.sga.entidade.enums.EventoLog;
+import br.com.sga.entidade.enums.Instancia;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoDocumento;
+import br.com.sga.entidade.enums.TipoPagamento;
+import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
@@ -37,9 +42,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -54,34 +62,49 @@ import net.sf.jasperreports.view.JasperViewer;
 public class ControleDocumentos extends Controle {
 
 	@FXML
-	private ComboBox<TipoDocumento> cbxTipo;
+    private ComboBox<TipoDocumento> cbxTipo;
 
-	@FXML
-	private Button btnBuscar;
+    @FXML
+    private Button btnBuscar;
 
-	@FXML
-	private ProgressIndicator pgiDados;
+    @FXML
+    private Label lblDados;
 
-	@FXML
-	private Button btnGerar;
+    @FXML
+    private Button btnGerar;
 
-	@FXML
-	private FlowPane flowFinanceiro;
+    @FXML
+    private FlowPane flowFinanceiro;
 
-	@FXML
-	private DatePicker tfdDe;
+    @FXML
+    private DatePicker tfdDe;
 
-	@FXML
-	private DatePicker tfdAte;
+    @FXML
+    private DatePicker tfdAte;
 
-	@FXML
-	private FlowPane flowBusca;
+    @FXML
+    private VBox flowBusca;
 
-	@FXML
-	private TextField tfdBusca;
+    @FXML
+    private TextField tfdBusca;
 
-	@FXML
-	private Label lblDados;
+    @FXML
+    private Label lblContrato;
+
+    @FXML
+    private GridPane panelContrato;
+
+    @FXML
+    private TextField tfdComarca;
+
+    @FXML
+    private TextField tfdNumero;
+
+    @FXML
+    private ComboBox<Instancia> cbxInstancia;
+
+    @FXML
+    private ProgressIndicator pgiDados;
 
 	private String arquivo;
 	private IFachada fachada;
@@ -142,7 +165,31 @@ public class ControleDocumentos extends Controle {
 		dialogo = Dialogo.getInstance();
 
 		cbxTipo.getItems().setAll(TipoDocumento.values());
-
+		cbxInstancia.getItems().setAll(Instancia.values());
+		
+		cbxTipo.setButtonCell(new ListCell<TipoDocumento>() {
+			@Override
+			protected void updateItem(TipoDocumento item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo de Documento");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		cbxInstancia.setButtonCell(new ListCell<Instancia>() {
+			@Override
+			protected void updateItem(Instancia item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Instância");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		
 		service = new Service() {
 
 			@Override
@@ -306,14 +353,18 @@ public class ControleDocumentos extends Controle {
 
 			case FICHA:
 				arquivo = "Ficha.jrxml";
-				flowFinanceiro.setVisible(false);
 				flowBusca.setVisible(true);
+				flowFinanceiro.setVisible(false);
+				panelContrato.setVisible(false);
+				lblContrato.setVisible(false);
 				break;
 
 			case CONTRATO:
-				arquivo = "Contrato.jrxml";
+				arquivo = "ContratoBanco.jrxml";
 				flowFinanceiro.setVisible(false);
 				flowBusca.setVisible(true);
+				panelContrato.setVisible(true);
+				lblContrato.setVisible(true);
 				break;
 
 			default:
@@ -350,19 +401,31 @@ public class ControleDocumentos extends Controle {
 			case CONTRATO:
 				if(!tfdBusca.getText().isEmpty())
 				{
-					List<Processo> pro = new ArrayList<>();
-					
+					List<DocumentoContratoAdapter> list = new ArrayList<>();
 					ContratoAdapter adapter = dialogo.selecionar(fachada.buscarContratoPorClienteAdapter(tfdBusca.getText().trim()));
 					
-					Processo processo;
 					if(adapter != null && adapter.getId() != null)
 					{
-//						processo = dialogo.selecionar(fachada.buscarProcessoPorIdContrato(adapter.getId()));
-//						processo.getContrato().getConsulta().setFuncionario(fachada.buscarUsuarioPorId(processo.getContrato().getConsulta().getFuncionario().getId()));
-//						processo.setCliente(fachada.buscarClientePorId(processo.getContrato().getConsulta().getCliente().getId()));
-//						
-//						pro.add(processo);						
-						return pro;	
+						lblContrato.setText(adapter+"");
+						
+						if(!tfdComarca.getText().trim().isEmpty() || !tfdNumero.getText().trim().isEmpty() || cbxInstancia.getSelectionModel().getSelectedItem() != null)
+						{
+							DocumentoContratoAdapter contratoAdapter = new DocumentoContratoAdapter();
+							Contrato contrato = fachada.buscarContratoPorId(adapter.getId());
+							contratoAdapter.setContrato(contrato);
+							contratoAdapter.setComarca(tfdComarca.getText().trim());
+							contratoAdapter.setNumeroProcesso(tfdNumero.getText().trim());
+							contratoAdapter.setTipo(cbxInstancia.getValue());
+							
+							if(contrato.getTipo_pagamento() == TipoPagamento.DEPOSITO_EM_CONTA)
+								arquivo = "ContratoSem.jrxml";
+							else
+								arquivo = "ContratoBanco.jrxml";
+							return list;	
+						}
+						else
+							throw new ValidacaoException("INFORME TODOS OS DADOS");
+						
 					}
 					else
 						return null;

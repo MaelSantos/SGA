@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.sga.app.App;
-import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.adapter.ContratoAdapter;
@@ -60,20 +59,25 @@ public class ControleBuscarContrato extends Controle {
 	public void actionButton(ActionEvent event) {
 		if (event.getSource() == buscarButton) {
 			String busca = buscarField.getText().trim();
-			Log log;
+			Log log = null;
 			try {
-				contratosTableView.getItems().clear();
-				List<ContratoAdapter> contratos = fachada.buscarContratoPorClienteAdapter(busca);
-				contratosTableView.getItems().addAll(contratos);
-				if (!contratos.isEmpty())
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-							"Contrato Existente: " + busca, StatusLog.CONCLUIDO);
+				if(!busca.trim().isEmpty())
+				{
+					contratosTableView.getItems().clear();
+					List<ContratoAdapter> contratos = fachada.buscarContratoPorClienteAdapter(busca);
+					contratosTableView.getItems().addAll(contratos);
+					if (!contratos.isEmpty())
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+								"Contrato Existente: " + busca, StatusLog.CONCLUIDO);
+					else
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
+								"Contrato Existente: Não Encontrado - " + busca, StatusLog.SEM_RESULTADOS);
+					
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Busca Concluida Com Sucesso","");					
+				}
 				else
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
-							"Contrato Existente: Não Encontrado - " + busca, StatusLog.SEM_RESULTADOS);
-
-				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Busca Concluida Com Sucesso",
-						"");
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!","Informe um dado para pesquisa!!!", "");
+				
 
 			} catch (BusinessException e) {
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),

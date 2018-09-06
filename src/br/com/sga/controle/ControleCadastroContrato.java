@@ -138,7 +138,7 @@ public class ControleCadastroContrato extends Controle{
 			try {
 				String busca[] = { nomeClienteField.getText().trim() };
 
-				if (nomeClienteField.getText().trim().isEmpty()) {
+				if (!nomeClienteField.getText().trim().isEmpty()) {
 					List<ConsultaAdapter> consultas = Fachada.getInstance().buscarConsultaPorClienteAdapter(busca);
 					ConsultaAdapter consultaBasica = Dialogo.getInstance().selecionar(consultas);
 					consulta = new Consulta();
@@ -148,8 +148,8 @@ public class ControleCadastroContrato extends Controle{
 					consulta.setValor_honorario(consultaBasica.getValor_honorario());
 					dadosConsultaLabel.setText(consultaBasica.toString());
 				} else
-					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!",
-							"Informe um dado para pesquisa!!!", "");
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!","Informe um dado para pesquisa!!!", "");
+				
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro", "", e.getMessage());

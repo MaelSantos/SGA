@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.entidade.enums.TipoPagamento;
+import br.com.sga.entidade.enums.TipoParticipacao;
 
 public class Contrato {
 
@@ -69,6 +70,27 @@ public class Contrato {
 	public Contrato() {
 	}
 
+	
+	public String getInformacaoPartes()
+	{
+		String partes = "";
+		
+		for(int i = 0; i < this.partes.size(); i++)
+		{
+			Parte parte = this.partes.get(i);
+			
+			if(parte.getTipo_participacao() != TipoParticipacao.ADVOGADO)
+			{
+				if(i < this.partes.size()-1)
+					partes += parte.getNome()+", ";
+				else
+					partes += parte.getNome();
+			}
+			
+		}
+		
+		return partes;
+	}
 	
 	public Float getTaxa_juros() {
 		return taxa_juros;
@@ -178,13 +200,13 @@ public class Contrato {
 		this.partes = partes;
 	}
 	
-	@Override
-	public String toString() {
-		return "AREA: ["+area+"] - DATA: ["+data_contrato+"] - OBJETO: ["+objeto+"]";
-	}
 	
 	public void setValor_total(Float valor_total) {
 		this.valor_total = valor_total;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "AREA: ["+area+"] - DATA: ["+data_contrato+"] - OBJETO: ["+objeto+"]";
+	}
 }

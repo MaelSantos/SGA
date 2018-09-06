@@ -220,12 +220,10 @@ public class ControleHome extends Controle {
 		if(obj == tblAtrasados)
 		{
 			tblSemana.getSelectionModel().clearSelection();
-			System.out.println("Semana Sem foco");
 		}
 		else if(obj == tblSemana)
 		{
 			tblAtrasados.getSelectionModel().clearSelection();
-			System.out.println("Atrasados Sem foco");
 		}
 
     }

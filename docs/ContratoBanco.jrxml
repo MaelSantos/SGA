@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Contrato" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2df112d3-284a-4d80-9b9f-19e91ce97211">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="contrato" class="br.com.sga.entidade.Contrato"/>
+	<field name="tipo" class="br.com.sga.entidade.enums.Instancia"/>
+	<field name="numeroProcesso" class="java.lang.String"/>
+	<field name="comarca" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="67" splitType="Stretch">
+			<staticText>
+				<reportElement x="124" y="27" width="307" height="30" uuid="e27195c8-b31f-4f95-ba51-3b2ed061f9cd"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Times New Roman" size="11" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CONTRATO DE PRESTAÇÃO DE SERVIÇOS ADVOCATIVOS]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-4" y="57" width="552" height="1" uuid="faa454ee-5b0f-4adf-908c-a7f9dc94b761"/>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="10" width="552" height="40" uuid="ed0e4be0-72be-4d89-a7e7-e29e9df96f0c"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+$F{contrato}.getConsulta().getCliente().getNome()+"</b>, brasileiro(a),  "+$F{contrato}.getConsulta().getCliente().getEstado_civil()+", "+$F{contrato}.getConsulta().getCliente().getProfissao()+", inscrito(a) no CPF/MF sob o n° "+$F{contrato}.getConsulta().getCliente().getCpf_cnpj()+", e RG  "+$F{contrato}.getConsulta().getCliente().getRg()+" SSP/PE, residente e domiciliado(a) no(a) "+$F{contrato}.getConsulta().getCliente().getEndereco().getRua()+", "+$F{contrato}.getConsulta().getCliente().getEndereco().getBairro()+", "+$F{contrato}.getConsulta().getCliente().getEndereco().getCidade()+"/"+$F{contrato}.getConsulta().getCliente().getEndereco().getEstado()+", Cep "+$F{contrato}.getConsulta().getCliente().getEndereco().getCep()+" Denominado aqui <b>CONTRATANTE</b> e "]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="617">
+			<textField>
+				<reportElement x="1" y="-3" width="552" height="110" uuid="ab39166f-4d85-4fa4-a464-bd0734317087"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+$F{contrato}.getConsulta().getFuncionario().getNome()+"</b>, brasileiro(a) "+", advogado"+", inscrito(a) no OAB/PE sob o n° "+$F{contrato}.getConsulta().getFuncionario().getNumero_oab()+", com o escritório profissional á Rua  "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getRua()+" - "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getBairro()+", "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getCidade()+"/"+$F{contrato}.getConsulta().getFuncionario().getEndereco().getEstado()+", Cep "+$F{contrato}.getConsulta().getFuncionario().getEndereco().getCep()+", onde recebe intimações, denominado neste instrumento como <b>CONTRATADO</b>, as partes acima identificadas têm, entre si, justo e acertado o presente <b>Contrato de Honorários Advocatícios</b>, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="81" width="552" height="40" uuid="558ceea9-d12c-4c94-813d-6b6c34205fa0"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 1ª</b>. O Presente instrumento tem como <b>OBJETO</b> , a prestação de serviçoes advocatícios, na área "+$F{contrato}.getArea()+", a ser realizado em  "+$F{tipo}.toString()+", para <b>"+$F{contrato}.getObjeto()+"</b> no <b>Processo Nº "+$F{numeroProcesso}+"</b>, que tem como partes "+$F{contrato}.getInformacaoPartes()+"."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="127" width="552" height="120" uuid="9363ce17-4224-4d11-a839-ff378bead605"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 2ª</b>. As atividades inclusas na prestação de serviço objeto neste instrumento são todas aquelas inerentes à profissão, quais sejam: <br></br><br></br>a) Praticar quaisquer atos e medidas necessárias e inerentes à causa, em todas as repartições públicas da União, dos Estados ou dos Municípios, bem como órgãos a estes ligados direta ou indiretamente, seja por delegação, concessão ou outros meios, bem como de estabelecimentos particulares; <br></br><br></br>b) Praticar todos os atos inerentes ao exercício da advocacia e aqueles constantes no Estatuto da Ordem dos Advogados do Brasil, bem como os especificados no Instrumento Procuratório."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="255" width="552" height="57" uuid="75c50efb-023d-4552-ae80-980ea08e54e9"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 3ª</b>. Havendo necessidade de contratação de outros profissionais, no decurso do processo, o <b>CONTRATADO</b> elaborará substabelecimento, indicando escritório de seu conhecimento, restando facultado ao <b>CONTRATANTE</b> aceita-lo ou não. Aceitando, ficará sob responsabilidade, única e exclusivamente do <b>CONTRATANTE</b> no que concerne aos honorários e atividades a serem exercidas."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="315" width="552" height="30" uuid="11a34b6e-45f7-4b1e-bbce-e66736b31b20"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 4ª</b>. Todas as despesas efetuadas pelo <b>CONTRATADO</b>, ligadas diretamente ou indiretamente com o processo, incluindo-se, emolumentos, custas e despesas processuais, viagens, entre outros, ficarão a cargo dos <b>CONTRATANTES</b>."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="352" width="552" height="30" uuid="ad4b90a5-805f-4892-a3c7-b44c5f0aa526"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 5ª</b>. Todas as despesas serão acompanhadas de recibo, devidamente preparado e assinado pelo <b>CONTRATADO</b>."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="377" width="552" height="30" uuid="b1c8d4b8-d48b-4a88-aa02-2a13db17d3ab"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 6ª</b>. As partes acordam que facultará aos <b>CONTRATADOS</b>, o direito de realizar a cobrança dos honorários por todos os meios admitidos em direito."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="411" width="552" height="47" uuid="e627538b-fa04-4897-a145-0f3028b2c61b"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 7ª</b> Fica acordado entre as partes que, os honorários a titulo de prestação de serviços, estão estabelecidos no valor total de R$ "+$F{contrato}.getValor_total()+" a serem pagos da seguinte forma: "+$F{contrato}.getTipo_pagamento()+", deverão ser pagas até o dia "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="449" width="552" height="40" uuid="777caa8a-fd24-448d-aea8-85be39b8aa67"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dados Bancários para depósito dos honorários: "+$F{contrato}.getDados_banco()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="484" width="552" height="40" uuid="be3b8c23-853d-4bc6-9f14-5b8e436defac"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 8ª</b>. Deixando motivadamente, de ter o patrocínio deste causídico, os valores prestados inicialmente na propositura da ação reverter-se-á em favor do mesmo, sem prejuízos de posteriores cobranças judiciais, em face do <b>CONTRATANTE</b>."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="519" width="552" height="20" uuid="e70408ae-e588-49f5-822c-a1226ea62d52"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 9ª</b>. Os honorários de sucumbência pagos pelo vencido pertencem exclusivamente ao <b>CONTRATADO</b>."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="539" width="552" height="30" uuid="53397e70-d968-4948-8c0e-0dbc20acb033"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Parágrafo Único</b>. Caso haja morte ou incapacidade civil do <b>CONTRATADO</b>, seus sucessores ou representante legal receberão os honorários na proporção do trabalho realizado."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="572" width="552" height="40" uuid="969a471c-32ef-4cbc-82e2-225e5bed2630"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 10ª</b>. Havendo acordo entre o <b>CONTRATANTE</b> e a parte contrária, não prejudicará o recebimento dos honorários contratados e da sucumbência, caso em que os honorários contratados e da sucumbência, caso em que os honorários iniciais e finais serão pagos aos <b>CONTRATADOS</b>."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="339">
+			<textField>
+				<reportElement x="1" y="-1" width="552" height="30" uuid="b8933963-03f7-49f7-bb43-9fa9c7a4f3dc"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 11ª</b>. As partes estabelecem que havendo atraso no pagamento dos honorários, serão cobrados juros de mora na proporção de "+$F{contrato}.getTaxa_juros()+"% ao mês."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="34" width="552" height="30" uuid="40d27aa7-d9d6-4ffb-91bd-ad5d03fe8a5e"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 12ª</b>. Agindo o <b>CONTRATANTE</b> de forma dolosa ou culposa em face do <b>CONTRATADO</b>, restará facultado a este, rescindir o contrato substabelecendo sem reserva de iguais e se exonerando de todas as obrigações."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="62" width="552" height="39" uuid="7320ac73-0eff-4ec1-b3a0-b23c36f9daa8"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>Cláusula 13ª</b>. Para dirimir quaisquer controvêrsias oriundas do <b>CONTRATO</b>, as partes elegem o foro da comarca de "+$F{comarca}.toUpperCase()+"."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="99" width="552" height="30" uuid="6b92faa2-c53f-487a-b6f1-c7f86d1c05b2"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Por estarem assim justos e contratados, firmam o presente instrumento, em 02 (duas) vias de igual teor, juntamente com 02 (duas) testemunhas que a subscrevem."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="293" width="100" height="39" uuid="3dd7476c-a89d-4170-b24a-882fdcfe1efc"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NOME\nRG\nCPF"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="238" width="240" height="1" uuid="d7f9e74c-74da-4134-a7a3-fc6a48c95f06"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="239" width="100" height="44" uuid="88a8b110-8190-4bf9-bb75-424330a2bce7"/>
+				<textElement markup="styled">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NOME\nRG\nCPF"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="155" width="553" height="75" uuid="ca6cc87c-3814-4d26-b21e-a4848b5827ea"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+$F{contrato}.getConsulta().getCliente().getNome()+"</b><br></br>CONTRATANTE<br></br><br></br><b>"
++$F{contrato}.getConsulta().getFuncionario().getNome()+"</b><br></br>CONTRATADO"]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="1" y="131" width="100" height="30" uuid="abbbe67a-0dcf-4af3-bddc-8bccd553df39"/>
+				<textElement markup="html">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd  MMMM  yyyy").format(new Date())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="291" width="239" height="1" uuid="0fb58fe1-fc9a-4302-abb5-b0f7bcd1cca7"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>
