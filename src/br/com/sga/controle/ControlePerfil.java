@@ -150,7 +150,7 @@ public class ControlePerfil extends Controle {
 					confirmarSenhaField.setText("");
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario", StatusLog.CONCLUIDO);
 
-					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Usuário Atualizado", "");
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Senha Atualizada", "");
 				} catch (BusinessException e) {
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Usuario - Erro: ", StatusLog.ERRO);
 					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Atualizar Usuário ", e.getMessage());
@@ -216,7 +216,7 @@ public class ControlePerfil extends Controle {
 
 		if(senhaAtual.length() <= 0 && novaSenha.length() <= 0 && confirmarSenha.length() <= 0)
 		{
-			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Nada Foi Alterado, Entradas de Texto Estão Vazias");
+			Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "", "Nada Foi Alterado, Entradas de Texto Estão Vazias");
 			return false;
 		}		
 		else if (senhaAtual.equals(usuario.getSenha()))
@@ -227,13 +227,13 @@ public class ControlePerfil extends Controle {
 					usuario.setSenha(novaSenha);
 					return true;
 				} else {
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Nova Senha e Sua Confirmação Não Coincidem");
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "", "Nova Senha e Sua Confirmação Não Coincidem");
 					return false;					
 				}
 					
 			}
 			else {
-				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "", "Nova Senha ou Confirmação Estão Vazias");				
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "", "Nova Senha ou Confirmação Estão Vazias");				
 				return false;
 			}
 

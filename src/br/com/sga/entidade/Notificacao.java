@@ -16,6 +16,7 @@ public class Notificacao implements Comparable<Notificacao>{
 	private String descricao;
 	private Prioridade prioridade;
 	private Date aviso_data;
+	
 	private List<Funcionario> funcionarios;
 	
 	/**
@@ -66,8 +67,8 @@ public class Notificacao implements Comparable<Notificacao>{
 	
 	
 	public Notificacao() {
-		// TODO Stub de construtor gerado automaticamente
 	}
+	
 	public Prioridade getPrioridade() {
 		return prioridade;
 	}

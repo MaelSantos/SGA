@@ -104,6 +104,8 @@ public class SQLUtil {
     	public static final String SELECT_ADAPTER_DATA = "SELECT ID,TIPO,ESTADO,DATA_AVISO,DESCRICAO FROM NOTIFICACAO WHERE (CAST(data_aviso AS DATE)) BETWEEN ? AND ?";
     	public static final String SELECT_ADAPTER_ESTADO = "SELECT ID,TIPO,ESTADO,DATA_AVISO,DESCRICAO FROM NOTIFICACAO WHERE estado = ?";
     	public static final String UPDATE_ESTADO = "UPDATE NOTIFICACAO SET ESTADO = 'VENCIDO' WHERE CAST(data_aviso AS DATE) = ? AND ESTADO = 'PENDENTE'" ;
+		public static final String UPDATE_ALL = "UPDATE NOTIFICACAO SET tipo = ?, descricao = ?, prioridade = ?, estado = ?, data_aviso = ? WHERE ID = ?";
+		public static final String SELECT_ID = "SELECT * FROM NOTIFICACAO WHERE ID = ? ";
     }
    
     public static class VinculoFuncionario{

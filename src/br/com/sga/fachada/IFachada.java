@@ -79,6 +79,7 @@ public interface IFachada {
     public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorData(Date inicio, Date fim) throws BusinessException;
     public List<NotificacaoAdapter> BuscarNotificacaoAdapterPorEstado(String estado) throws BusinessException;
     public void validarNotificacoes(Date date) throws BusinessException;
+    public Notificacao buscarNotificacaoPorId(int id) throws BusinessException;
     
     //Log
     public void salvarEditarLog(Log entidade) throws BusinessException;

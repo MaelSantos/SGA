@@ -22,18 +22,19 @@ import br.com.sga.sql.SQLConnection;
 import br.com.sga.sql.SQLUtil;
 
 public class DaoNotificacao implements IDaoNotificacao {
-	
+
 	Connection  connection ;
 	ResultSet resultSet;
 	PreparedStatement statement;
 	DaoCommun daoCommun;
-	
+
 	public DaoNotificacao() {
 		daoCommun = DaoCommun.getInstance();
 	}	
-	
+
 	@Override
 	public void salvar(Notificacao entidade) throws DaoException {
+
 		try {
 			connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			statement = connection.prepareStatement(SQLUtil.Notificacao.INSERT_ALL);
@@ -44,69 +45,90 @@ public class DaoNotificacao implements IDaoNotificacao {
 			statement.setString(4,entidade.getEstado().toString());
 			statement.setTimestamp(5,new Timestamp(entidade.getAviso_data().getTime()));
 			statement.execute();
-			
+
 			//ter em mente que já peguei os funcionarios da quela notificacão a partir de um result set de funcionario
 			int notificacao_id = daoCommun.getCurrentValorTabela(Tabela.NOTIFICACAO);
 			connection.close();
-			
+
 			if(entidade.getFuncionarios() != null)
 				for(Funcionario f : entidade.getFuncionarios()) 
 					daoCommun.salvarVinculoFuncionario(notificacao_id,f.getId());
-			
+
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new DaoException("Erro ao salvar notificacao");
 		}
 	}
 
-	/*public static void main(String[] args) {
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.DAY_OF_MONTH,17);
-		c.set(Calendar.MONTH,6);
-		c.set(Calendar.YEAR,1998);
-		c.set(Calendar.HOUR,4);
-		c.set(Calendar.MINUTE,30);
-		
-		//Funcionario f1 = new Funcionario("Jose", "jose@gmail.com","jose5","1234","12345678");
-		//Funcionario f2 = new Funcionario("Jose2", "jose2@gmail.com","jose7","12342","123456728");
-		
-		DaoUsuario dao = new DaoUsuario();
-		try {
-		//	dao.salvar(f1);
-			//dao.salvar(f2);
-			
-			ArrayList<Funcionario> funcionariosComId = new ArrayList<>();
-			funcionariosComId.add(dao.buscarPorNome("Jose2"));
-			funcionariosComId.add(dao.buscarPorNome("Jose"));
-			System.out.println(funcionariosComId);
-			Notificacao n = new Notificacao("Alerta",Prioridade.ALTA,"mensagem de teste para alertas","ativa",c.getTime(),3, funcionariosComId);
-			new DaoNotificacao().salvar(n);
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-	}*/
-	
 	@Override
 	public void editar(Notificacao entidade) throws DaoException { 
-	
+
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Notificacao.UPDATE_ALL);
+
+			//			UPDATE NOTIFICACAO SET tipo = ?, descricao = ?, prioridade = ?, estado = ?, data_aviso = ? WHERE ID = ?
+
+			statement.setString(1,entidade.getTipoNotificacao().toString());
+			statement.setString(2,entidade.getDescricao());
+			statement.setString(3,entidade.getPrioridade().toString());
+			statement.setString(4,entidade.getEstado().toString());
+			statement.setTimestamp(5,new Timestamp(entidade.getAviso_data().getTime()));
+			statement.setInt(6, entidade.getId());
+
+			statement.executeUpdate();
+
+			this.connection.close();
+
+		}catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO ATUALIZAR NOTIFICAÇÃO - CONTATE O ADM");
+		}
+
+
 	}
-	
+
 	public void validarNotificacoes(Date date) throws DaoException  {
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			this.statement = connection.prepareStatement(SQLUtil.Notificacao.UPDATE_ESTADO);
-            statement.setDate(1,new java.sql.Date(date.getTime()));
-            statement.executeUpdate();
-            this.connection.close();
+			statement.setDate(1,new java.sql.Date(date.getTime()));
+			statement.executeUpdate();
+			this.connection.close();
 		}catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new DaoException("PROBLEMA AO VEERIFICAR NOTIFICAÇÕES ATRASADAS - CONTATE O ADM");
-        }
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO VEERIFICAR NOTIFICAÇÕES ATRASADAS - CONTATE O ADM");
+		}
 	}
-	
+
 	@Override
 	public Notificacao buscarPorId(int id) throws DaoException {
-		// TODO Stub de método gerado automaticamente
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Notificacao.SELECT_ID);
+			this.statement.setInt(1, id);
+
+			resultSet = this.statement.executeQuery();
+			Notificacao notificacao;
+
+			if (resultSet.next()) {
+				notificacao = new Notificacao();
+
+				notificacao.setId(resultSet.getInt("id"));
+				notificacao.setAviso_data(resultSet.getTimestamp("data_aviso"));
+				notificacao.setDescricao(resultSet.getString("descricao"));
+				notificacao.setEstado(Andamento.getTipo(resultSet.getString("estado")));
+				notificacao.setPrioridade(Prioridade.getTipo(resultSet.getString("prioridade")));
+				notificacao.setTipoNotificacao(TipoNotificacao.getTipo(resultSet.getString("tipo")));
+
+				this.connection.close();			
+
+				return notificacao;
+			}
+
+		} catch (Exception e) {
+			throw new DaoException(e.getMessage());
+		}
 		return null;
 	}
 

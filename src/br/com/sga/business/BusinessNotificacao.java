@@ -112,5 +112,15 @@ public class BusinessNotificacao implements IBusinessNotificacao{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public Notificacao buscarNotificacaoPorId(int id) throws BusinessException {
+		try {
+			return daoNotificacao.buscarPorId(id);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
+	}
 	
 }

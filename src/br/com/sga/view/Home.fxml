@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
@@ -35,11 +37,11 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="254.0" minHeight="3.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                <RowConstraints fillHeight="false" maxHeight="503.0" minHeight="10.0" prefHeight="416.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="254.0" minHeight="3.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                <RowConstraints fillHeight="false" maxHeight="503.0" minHeight="10.0" prefHeight="351.0" valignment="TOP" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView fx:id="tblSemana" prefHeight="350.0" prefWidth="330.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
+                  <TableView fx:id="tblSemana" onMouseClicked="#actionMouse" prefHeight="350.0" prefWidth="330.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="colDescricao1" prefWidth="75.0" text="Descrição" />
                         <TableColumn fx:id="colTipo1" prefWidth="75.0" text="Tipo" />
@@ -50,7 +52,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <TableView fx:id="tblAtrasados" prefHeight="350.0" prefWidth="330.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TableView fx:id="tblAtrasados" onMouseClicked="#actionMouse" prefHeight="350.0" prefWidth="330.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="colDescricao2" prefWidth="75.0" text="Descrição" />
                         <TableColumn fx:id="colTipo2" prefWidth="75.0" text="Tipo" />
@@ -83,6 +85,17 @@
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
+         <bottom>
+            <ButtonBar prefHeight="73.0" prefWidth="680.0" BorderPane.alignment="CENTER">
+              <buttons>
+                <Button fx:id="btnConcluir" mnemonicParsing="false" onAction="#actionButton" text="Marcar Como Concluído">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </Button>
+              </buttons>
+            </ButtonBar>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>

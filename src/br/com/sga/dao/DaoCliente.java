@@ -8,18 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.sga.business.BusinessCliente;
 import br.com.sga.entidade.Cliente;
-import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Endereco;
-import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoCliente;
-import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoCliente;
 import br.com.sga.interfaces.IDaoCommun;
@@ -98,7 +94,7 @@ public class DaoCliente implements IDaoCliente {
 			statement.setString(8,entidade.getProfissao());
 			statement.setBoolean(9,entidade.isFilhos());
 			statement.setString(10,entidade.getResponsavel());
-			statement.setString(11,entidade.getTipoCliente().name());
+			statement.setString(11,entidade.getTipoCliente().toString());
 			statement.setInt(12,entidade.getId());
 						
 			statement.executeUpdate();

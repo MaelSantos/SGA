@@ -280,4 +280,9 @@ public class Fachada implements IFachada {
 		return businessProcesso.buscaPorClienteAdapter(id_cliente);
 	}
 
+	@Override
+	public Notificacao buscarNotificacaoPorId(int id) throws BusinessException {
+		return businessNotificacao.buscarNotificacaoPorId(id);
+	}
+
 }

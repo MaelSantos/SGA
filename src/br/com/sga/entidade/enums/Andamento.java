@@ -2,7 +2,7 @@ package br.com.sga.entidade.enums;
 
 public enum Andamento{
 	
-	VENCIDO("VENCIDO"),CONCLUIDO("CONCLUÍDO"),PENDENTE("PENDENTE");
+	VENCIDO("VENCIDO"), CONCLUIDO("CONCLUÍDO"), PENDENTE("PENDENTE");
 	
 	private String value;
 	
