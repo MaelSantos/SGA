@@ -56,7 +56,7 @@ public class DaoNotificacao implements IDaoNotificacao {
 
 		}catch(SQLException e){
 			e.printStackTrace();
-			throw new DaoException("Erro ao salvar notificacao");
+			throw new DaoException("ERRO AO SALVAR NOTIFICAÇÃO - CONTATE O ADM");
 		}
 	}
 

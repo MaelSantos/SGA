@@ -145,16 +145,23 @@ public class ControleCadastroCliente extends Controle {
 		Log log;
 		if (obj == btnAdd) {
 			try {
-
-				Telefone telefone = new Telefone(Integer.parseInt(tfdTelefone.getText().trim()),
-						Integer.parseInt(tfdPrefixo.getText().trim()), cbxTipoTelefone.getValue());
-				telefones.add(telefone);
-
-				tfdTelefone.setText("");
-				tfdPrefixo.setText("");
-
-				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Adicionado",
-						"Telefone: " + telefone + " Adicionado", "");
+				
+				if(!tfdTelefone.getText().trim().isEmpty() && 
+						!tfdPrefixo.getText().trim().isEmpty() && 
+						cbxTipoTelefone.getSelectionModel().getSelectedItem() != null)
+				{
+					Telefone telefone = new Telefone(Integer.parseInt(tfdTelefone.getText().trim()),
+							Integer.parseInt(tfdPrefixo.getText().trim()), cbxTipoTelefone.getValue());
+					telefones.add(telefone);
+					
+					tfdTelefone.setText("");
+					tfdPrefixo.setText("");
+					
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Adicionado","Telefone: " + telefone + " Adicionado", "");
+					
+				}
+				else
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Dados Faltando","Informe Todos os Dados Nescessarios!!!", "");
 
 			} catch (Exception e) {
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!!!", "Erro Ao Adicionar Telefone!!!",

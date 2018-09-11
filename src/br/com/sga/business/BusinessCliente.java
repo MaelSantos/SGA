@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.sga.dao.DaoCliente;
 import br.com.sga.entidade.Cliente;
+import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
@@ -91,6 +92,30 @@ public class BusinessCliente implements IBussinessCliente {
 				throw new ValidacaoException("FORMATO DO EMAIL INFORMADO ESTA INCORRETO!!!");
 		if (!validador.isCPF(cliente.getCpf_cnpj()) && !validador.isCNPJ(cliente.getCpf_cnpj()))
 			throw new ValidacaoException("CPF/CNPJ NÃO EXISTENTE/ACEITO!!!");
+		if(cliente.getEndereco() == null)
+			throw new ValidacaoException("INFORME UM ENDEREÇO!!!");
+		
+		validarEndereco(cliente.getEndereco());
 	}
+
+	private void validarEndereco(Endereco endereco) throws ValidacaoException{
+		
+		if(endereco.getBairro() == null)
+			throw new ValidacaoException("INFORME O BAIRRO!!!");
+		if(endereco.getCep() == null)
+			throw new ValidacaoException("INFORME O CEP!!!");
+		if(endereco.getCidade() == null)
+			throw new ValidacaoException("INFORME A CIDADE!!!");
+		if(endereco.getEstado() == null)
+			throw new ValidacaoException("INFORME O ESTADO!!!");
+		if(endereco.getNumero() == null)
+			throw new ValidacaoException("INFORME O NUMERO!!!");
+		if(endereco.getPais() == null)
+			throw new ValidacaoException("INFORME O PAIS!!!");
+		if(endereco.getRua() == null)
+			throw new ValidacaoException("INFORME  A RUA!!!");
+	}
+	
+	
 
 }

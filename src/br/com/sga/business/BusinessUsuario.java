@@ -3,6 +3,7 @@ package br.com.sga.business;
 import java.util.List;
 
 import br.com.sga.dao.DaoUsuario;
+import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.exceptions.BusinessException;
@@ -69,8 +70,28 @@ public class BusinessUsuario implements IBusinessUsuario {
 		if (usuario.getEndereco() == null)
 			throw new ValidacaoException("INFORME SEU ENDEREÇO!!!");
 		
+		validarEndereco(usuario.getEndereco());
+		
 	}
 
+	private void validarEndereco(Endereco endereco) throws ValidacaoException{
+		
+		if(endereco.getBairro() == null)
+			throw new ValidacaoException("INFORME O BAIRRO!!!");
+		if(endereco.getCep() == null)
+			throw new ValidacaoException("INFORME O CEP!!!");
+		if(endereco.getCidade() == null)
+			throw new ValidacaoException("INFORME A CIDADE!!!");
+		if(endereco.getEstado() == null)
+			throw new ValidacaoException("INFORME O ESTADO!!!");
+		if(endereco.getNumero() == null)
+			throw new ValidacaoException("INFORME O NUMERO!!!");
+		if(endereco.getPais() == null)
+			throw new ValidacaoException("INFORME O PAIS!!!");
+		if(endereco.getRua() == null)
+			throw new ValidacaoException("INFORME  A RUA!!!");
+	}
+	
 	@Override
 	public Funcionario buscarPorLogin(String login, String senha) throws BusinessException {
 		try {

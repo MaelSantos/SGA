@@ -9,6 +9,7 @@ public class Financeiro {
 	private Float total_despesas; //total_despesa  FLOAT, 
 	private Float total_lucro; //total_lucro FLOAT,
 	private String ano_coberto; //ano_coberto VARCHAR(20) UNIQUE
+	
 	private List<Contrato> contratos;
 	private List<Receita> receitas;
 	private List<Despesa> despesas;

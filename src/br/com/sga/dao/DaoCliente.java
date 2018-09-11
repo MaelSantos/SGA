@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.postgresql.util.PSQLException;
+
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Endereco;
 import br.com.sga.entidade.Telefone;
@@ -67,7 +69,11 @@ public class DaoCliente implements IDaoCliente {
 			entidade.setId(id_cliente);
 			entidade.getEndereco().setId(id_endereco);
 
-		} catch (SQLException ex) {
+		}	catch (PSQLException e) {
+			e.printStackTrace();
+			throw new DaoException("CPF/CNPJ OU RG JÁ ESTÁ CADASTRATO");
+		}
+		catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO SALVAR CLIENTE - CONTATE O ADM");
 		}

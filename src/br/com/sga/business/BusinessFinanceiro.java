@@ -6,7 +6,6 @@ import java.util.List;
 import br.com.sga.dao.DaoCommun;
 import br.com.sga.dao.DaoFinanceiro;
 import br.com.sga.entidade.Financeiro;
-import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.adapter.ContaAdapter;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.exceptions.BusinessException;
@@ -46,14 +45,22 @@ public class BusinessFinanceiro implements IBusinessFinanceiro {
 
 	@Override
 	public Financeiro buscarPorId(int id) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		try {
+			return daoFinanceiro.buscarPorId(id);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Financeiro> buscarPorBusca(String busca) throws BusinessException {
-		// TODO Stub de método gerado automaticamente
-		return null;
+		try {
+			return daoFinanceiro.buscarPorBusca(busca);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	@Override

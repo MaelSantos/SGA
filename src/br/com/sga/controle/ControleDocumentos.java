@@ -14,7 +14,6 @@ import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
-import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.adapter.DocumentoContratoAdapter;
@@ -24,7 +23,6 @@ import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoDocumento;
 import br.com.sga.entidade.enums.TipoPagamento;
-import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.exceptions.ValidacaoException;
@@ -302,7 +300,9 @@ public class ControleDocumentos extends Controle {
 		if (obj == btnBuscar) {
 			Log log = null;
 			try {
+
 				list = carregarLista(cbxTipo.getValue());
+
 				if (!list.isEmpty()) {
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido!",
 							"Dados Carregados Com Sucesso!!!", "Pronto Para Gerar Arquivo");
