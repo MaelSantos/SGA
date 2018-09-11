@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
+import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.enums.Area;
@@ -95,6 +97,8 @@ public class DaoConsulta implements IDaoConsulta {
 		        statement.setInt(1,id);
 		        resultSet = statement.executeQuery();
 		        Consulta consulta = null;
+		        Cliente cliente = null;
+		        Funcionario funcionario = null;
 		        if(resultSet.next()) {
 		        	consulta = new Consulta();
 		        	consulta.setId(id);
@@ -104,6 +108,15 @@ public class DaoConsulta implements IDaoConsulta {
 		        	consulta.setValor_honorario(resultSet.getFloat("valor_honorario"));
 		        	consulta.setIndicacao(resultSet.getString("indicacao"));
 		        	consulta.setTestemunhas(testemunhas);
+		        	
+		        	cliente = new Cliente();
+		        	cliente.setId(resultSet.getInt("cliente_id"));
+		        	
+		        	funcionario = new Funcionario();
+		        	funcionario.setId(resultSet.getInt("funcionario_id"));
+		        	
+		        	consulta.setCliente(cliente);
+		        	consulta.setFuncionario(funcionario);
 		        }
 		        if(consulta == null){
 		        	throw new DaoException("Não existe consultas com esse id");

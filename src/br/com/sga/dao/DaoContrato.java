@@ -6,22 +6,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
-import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
-import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.adapter.ContratoAdapter;
-import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoPagamento;
-import br.com.sga.entidade.enums.TipoParte;
-import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoContrato;
 import br.com.sga.sql.SQLConnection;
@@ -99,6 +93,11 @@ public class DaoContrato implements IDaoContrato{
             	contrato.setDados_banco(resultSet.getString("dados_banco"));
             	contrato.setPartes(partes);
             	contrato.setParcelas(parcelas);
+            	
+            	Consulta consulta = new Consulta();
+            	consulta.setId(resultSet.getInt("consulta_id"));
+            	
+            	contrato.setConsulta(consulta);
             }
             this.connection.close();
             this.statement.close();

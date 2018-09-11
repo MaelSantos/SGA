@@ -60,49 +60,49 @@ import net.sf.jasperreports.view.JasperViewer;
 public class ControleDocumentos extends Controle {
 
 	@FXML
-    private ComboBox<TipoDocumento> cbxTipo;
+	private ComboBox<TipoDocumento> cbxTipo;
 
-    @FXML
-    private Button btnBuscar;
+	@FXML
+	private Button btnBuscar;
 
-    @FXML
-    private Label lblDados;
+	@FXML
+	private Label lblDados;
 
-    @FXML
-    private Button btnGerar;
+	@FXML
+	private Button btnGerar;
 
-    @FXML
-    private FlowPane flowFinanceiro;
+	@FXML
+	private FlowPane flowFinanceiro;
 
-    @FXML
-    private DatePicker tfdDe;
+	@FXML
+	private DatePicker tfdDe;
 
-    @FXML
-    private DatePicker tfdAte;
+	@FXML
+	private DatePicker tfdAte;
 
-    @FXML
-    private VBox flowBusca;
+	@FXML
+	private VBox flowBusca;
 
-    @FXML
-    private TextField tfdBusca;
+	@FXML
+	private TextField tfdBusca;
 
-    @FXML
-    private Label lblContrato;
+	@FXML
+	private Label lblContrato;
 
-    @FXML
-    private GridPane panelContrato;
+	@FXML
+	private GridPane panelContrato;
 
-    @FXML
-    private TextField tfdComarca;
+	@FXML
+	private TextField tfdComarca;
 
-    @FXML
-    private TextField tfdNumero;
+	@FXML
+	private TextField tfdNumero;
 
-    @FXML
-    private ComboBox<Instancia> cbxInstancia;
+	@FXML
+	private ComboBox<Instancia> cbxInstancia;
 
-    @FXML
-    private ProgressIndicator pgiDados;
+	@FXML
+	private ProgressIndicator pgiDados;
 
 	private String arquivo;
 	private IFachada fachada;
@@ -123,7 +123,7 @@ public class ControleDocumentos extends Controle {
 			funcionario = (Funcionario) object;
 		}
 
-		if (tela == Tela.CADASTRO_CONSULTA)
+		if (tela == Tela.CADASTRO_CONSULTA) {
 			if (object instanceof Consulta) {
 				Consulta consulta = (Consulta) object;
 
@@ -153,6 +153,19 @@ public class ControleDocumentos extends Controle {
 
 			}
 
+		} 
+//		else if (tela == Tela.DOCUMENTOS)
+//		{
+//			if (object instanceof Contrato) {
+//				Contrato contrato = (Contrato) object;
+//
+//				list = new ArrayList<Contrato>();
+//				
+//				
+//			}
+//
+//		}
+
 	}
 
 	@Override
@@ -164,7 +177,7 @@ public class ControleDocumentos extends Controle {
 
 		cbxTipo.getItems().setAll(TipoDocumento.values());
 		cbxInstancia.getItems().setAll(Instancia.values());
-		
+
 		cbxTipo.setButtonCell(new ListCell<TipoDocumento>() {
 			@Override
 			protected void updateItem(TipoDocumento item, boolean empty) {
@@ -187,7 +200,7 @@ public class ControleDocumentos extends Controle {
 				}
 			}
 		});
-		
+
 		service = new Service() {
 
 			@Override
@@ -271,7 +284,7 @@ public class ControleDocumentos extends Controle {
 					service.restart();
 
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
-							"Gerar Documento: "+cbxTipo.getValue(), StatusLog.CONCLUIDO);
+							"Gerar Documento: " + cbxTipo.getValue(), StatusLog.CONCLUIDO);
 
 				} else {
 					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Gerar Documento!!!",
@@ -283,7 +296,7 @@ public class ControleDocumentos extends Controle {
 			} catch (Exception e) {
 				e.printStackTrace();
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
-						"Gerar Documento: "+cbxTipo.getValue(), StatusLog.ERRO);
+						"Gerar Documento: " + cbxTipo.getValue(), StatusLog.ERRO);
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Gerar Documento!!!",
 						"Verifique Se Todos Os Dados Estão Corretos");
 			}
@@ -324,7 +337,9 @@ public class ControleDocumentos extends Controle {
 							"Buscar: " + cbxTipo.getValue() + " - Sem Resultados", StatusLog.SEM_RESULTADOS);
 				}
 			} catch (ValidacaoException e) {
-				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Carregar Arquivos!!!", e.getMessage());
+				e.printStackTrace();
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Carregar Arquivos!!!",
+						e.getMessage());
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
 						"Buscar: " + cbxTipo.getValue() + " - Erro", StatusLog.ERRO);
 			}
@@ -386,8 +401,7 @@ public class ControleDocumentos extends Controle {
 						Date.from(tfdDe.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
 						Date.from(tfdAte.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 			case FICHA:
-				if(!tfdBusca.getText().isEmpty())
-				{
+				if (!tfdBusca.getText().isEmpty()) {
 					List<Consulta> list = new ArrayList<Consulta>();
 					ConsultaAdapter con = dialogo.selecionar(
 							fachada.buscarConsultaPorClienteAdapter(new String[] { tfdBusca.getText().trim() }));
@@ -396,43 +410,48 @@ public class ControleDocumentos extends Controle {
 					consulta.setFuncionario(fachada.buscarUsuarioPorIdConsulta(consulta.getId()));
 					list.add(consulta);
 					return list;
-				}else
+				} else
 					throw new ValidacaoException("INFORME SUA BUSCA");
 			case CONTRATO:
-				if(!tfdBusca.getText().isEmpty())
-				{
+				if (!tfdBusca.getText().isEmpty()) {
 					List<DocumentoContratoAdapter> list = new ArrayList<>();
-					ContratoAdapter adapter = dialogo.selecionar(fachada.buscarContratoPorClienteAdapter(tfdBusca.getText().trim()));
-					
-					if(adapter != null && adapter.getId() != null)
-					{
-						lblContrato.setText(adapter+"");
-						
-						if(!tfdComarca.getText().trim().isEmpty() || !tfdNumero.getText().trim().isEmpty() || cbxInstancia.getSelectionModel().getSelectedItem() != null)
-						{
+					ContratoAdapter adapter = dialogo
+							.selecionar(fachada.buscarContratoPorClienteAdapter(tfdBusca.getText().trim()));
+
+					if (adapter != null && adapter.getId() != null) {
+						lblContrato.setText(adapter + "");
+
+						if (!tfdComarca.getText().trim().isEmpty() && !tfdNumero.getText().trim().isEmpty()
+								&& cbxInstancia.getSelectionModel().getSelectedItem() != null) {
 							DocumentoContratoAdapter contratoAdapter = new DocumentoContratoAdapter();
 							Contrato contrato = fachada.buscarContratoPorId(adapter.getId());
+							
+							Consulta consulta = fachada.buscarConsultaPorId(contrato.getConsulta().getId());
+							consulta.setCliente(fachada.buscarClientePorId(consulta.getCliente().getId()));
+							consulta.setFuncionario(fachada.buscarUsuarioPorId(consulta.getFuncionario().getId()));
+							contrato.setConsulta(consulta);
+							
 							contratoAdapter.setContrato(contrato);
 							contratoAdapter.setComarca(tfdComarca.getText().trim());
 							contratoAdapter.setNumeroProcesso(tfdNumero.getText().trim());
 							contratoAdapter.setTipo(cbxInstancia.getValue());
-							
-							if(contrato.getTipo_pagamento() == TipoPagamento.DEPOSITO_EM_CONTA)
+
+							if (contrato.getTipo_pagamento() == TipoPagamento.DEPOSITO_EM_CONTA)
 								arquivo = "ContratoSem.jrxml";
 							else
 								arquivo = "ContratoBanco.jrxml";
-							return list;	
-						}
-						else
+
+							list.add(contratoAdapter);
+							return list;
+						} else
 							throw new ValidacaoException("INFORME TODOS OS DADOS");
-						
-					}
-					else
+
+					} else
 						return null;
-					
-				}else
+
+				} else
 					throw new ValidacaoException("INFORME SUA BUSCA");
-				
+
 			default:
 			}
 		} catch (NullPointerException e) {

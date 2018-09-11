@@ -26,7 +26,7 @@
             <VBox alignment="TOP_CENTER" prefHeight="408.0" prefWidth="213.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <ComboBox fx:id="cbxTipo" onAction="#actionButton" prefWidth="150.0" promptText="Tipo de Documento" />
-                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionButton" prefWidth="150.0" text="Buscar Dados">
+                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#actionButton" prefWidth="150.0" text="Carregar Dados">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font></Button>
