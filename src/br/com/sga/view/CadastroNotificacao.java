@@ -1,6 +1,8 @@
 package br.com.sga.view;
 
 
+import java.time.LocalDate;
+
 import br.com.sga.entidade.enums.Prioridade;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -16,9 +18,9 @@ public class CadastroNotificacao extends VBox{
 	private TextArea descricaoArea;
 	private ComboBox<Prioridade> prioridadeBox;
 	private ComboBox<Integer> horaBox;
-	DatePicker dataPicker;
+	private DatePicker dataPicker;
 	
-	public CadastroNotificacao() {
+	public CadastroNotificacao(LocalDate date) {
 		
 		//prioridade da tarefa
 		prioridadeBox  = new ComboBox<>();
@@ -48,6 +50,7 @@ public class CadastroNotificacao extends VBox{
 		FlowPane horarioPane = new FlowPane();
 		dataPicker = new  DatePicker();
 		dataPicker.setPromptText("Data para aviso");
+		dataPicker.setValue(date);
 		horaBox = new ComboBox<>();
 		horaBox.setPromptText("Hora");
 		for(int i = 0 ; i <= 23 ; i++)

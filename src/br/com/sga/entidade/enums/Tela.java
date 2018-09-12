@@ -9,7 +9,8 @@ public enum Tela{
 	CADASTRO_CONTRATO("Cadastro Contrato"), CADASTRO_PROCESSO("Cadastro Processo"), CADASTRO_PARTE("Cadastro Parte"),
 	DETALHES_PROCESSO("Detalhes Processo"),BUSCAR_CONTRATO("Buscar Contrato"), CADASTRO_AUDIENCIA("Cadastro Audiência"),
 	CADASTRO_CONSULTA("Cadastro Consulta"),CADASTRO_RECEITA_DESPESA("Cadastro Receita Despesa"),CONSULTA("Consulta"),
-	DETALHES_CONSULTA("Detalhe Consulta"),DETALHES_CONTRATO("Detalhes Contrato"),ESTATISTICA("Estatística");
+	DETALHES_CONSULTA("Detalhe Consulta"),DETALHES_CONTRATO("Detalhes Contrato"),ESTATISTICA("Estatística"),
+	DETALHES_NOTIFICACAO("Detalhe Notificação");
 	
 	private String value;
 	

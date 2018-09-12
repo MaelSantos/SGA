@@ -91,7 +91,7 @@ public class ControleAgenda extends Controle {
 		}
 		else if(event.getSource() == cadastrarTarefaButton) {
 
-			CadastroNotificacao cadastroNotificacao = Dialogo.getInstance().cadastroNotificacaoDialog();
+			CadastroNotificacao cadastroNotificacao = Dialogo.getInstance().cadastroNotificacaoDialog(LocalDate.now());
 			Integer hora = cadastroNotificacao.getHoraBox().getSelectionModel().getSelectedItem();
 			Prioridade prioridade= cadastroNotificacao.getPrioridadeBox().getSelectionModel().getSelectedItem();
 			LocalDate ld = cadastroNotificacao.getDataPicker().getValue();
