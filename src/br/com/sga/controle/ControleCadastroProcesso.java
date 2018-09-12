@@ -123,23 +123,29 @@ public class ControleCadastroProcesso extends Controle {
 		if (obj == btnCadastrar) {
 			Log log = null;
 			try {
+				
 				processo = criarProcesso();
-				fachada.salvarEditarProcesso(processo);
 
 				if(processo.getAudiencias() != null && !processo.getAudiencias().isEmpty())
 					for(Audiencia audiencia : processo.getAudiencias())
 					{
-						Notificacao notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
-								audiencia.getProcesso().getDescricao(), Andamento.PENDENTE, audiencia.getData_audiencia());
-
-						fachada.salvarEditarNotificacao(notificacao);
-						App.notificarOuvintes(Tela.CADASTRO_PROCESSO, notificacao);
+						if(audiencia.getNotificacao() == null)
+						{
+							Notificacao notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
+									audiencia.getProcesso().getDescricao(), Andamento.PENDENTE, audiencia.getData_audiencia());
+							
+							
+							fachada.salvarEditarNotificacao(notificacao);
+							
+							audiencia.setNotificacao(notificacao);
+							App.notificarOuvintes(Tela.CADASTRO_PROCESSO, notificacao);							
+						}
 					}
 				
+				fachada.salvarEditarProcesso(processo);
+				
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "Salvo Com Sucesso", "");
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(),
-						"Novo Processo: " + processo.getNumero() + " - " + processo.getTipo_processo(),
-						StatusLog.CONCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(),"Novo Processo: " + processo.getNumero() + " - " + processo.getTipo_processo(),StatusLog.CONCLUIDO);
 				
 				limparCampos();
 				

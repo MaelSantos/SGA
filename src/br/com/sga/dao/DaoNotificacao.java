@@ -48,6 +48,8 @@ public class DaoNotificacao implements IDaoNotificacao {
 
 			//ter em mente que já peguei os funcionarios da quela notificacão a partir de um result set de funcionario
 			int notificacao_id = daoCommun.getCurrentValorTabela(Tabela.NOTIFICACAO);
+			entidade.setId(notificacao_id);
+			
 			connection.close();
 
 			if(entidade.getFuncionarios() != null)

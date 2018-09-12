@@ -159,18 +159,22 @@ public class ControleCadastroAudiencia extends Controle {
 						Audiencia audiencia = criarAudiencia();
 						if(processo.getId() != null)
 						{
-							daoCommun.salvarAudiencia(audiencia, audiencia.getProcesso().getId());
-
 							notificacao = new Notificacao(TipoNotificacao.AUDIENCIA, Prioridade.BAIXA,
 									audiencia.getProcesso().getDescricao(), Andamento.PENDENTE, audiencia.getData_audiencia());
-
+							
 							fachada.salvarEditarNotificacao(notificacao);
-							App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, notificacao);
-							App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, audiencia);
-
+							
+							audiencia.setNotificacao(notificacao);
+							
+							daoCommun.salvarAudiencia(audiencia, audiencia.getProcesso().getId());
+							
 							Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "", "Audiencia Cadastrada Com Sucesso");
 							log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Audiência: "+audiencia.getTipo(), StatusLog.CONCLUIDO);
+							
 							limparCampos();
+							
+							App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, notificacao);
+							App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, audiencia);
 						}
 						else
 						{
@@ -181,10 +185,18 @@ public class ControleCadastroAudiencia extends Controle {
 					else
 					{
 						atualizarAudiencia();
+						
+						Notificacao notificacao = fachada.buscarNotificacaoPorId(audiencia.getNotificacao().getId());
+						notificacao.setAviso_data(audiencia.getData_audiencia());
+						audiencia.setNotificacao(notificacao);
+						
+						fachada.salvarEditarNotificacao(notificacao);
 						daoCommun.editarAudiencia(audiencia);
+						
 						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Salvo", "", "Audiencia Atualizada Com Sucesso");
 						log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Audiência: "+audiencia, StatusLog.CONCLUIDO);
 
+						App.notificarOuvintes(Tela.CADASTRO_AUDIENCIA, notificacao);
 					}
 
 				} catch (ParseException | DaoException | BusinessException e) {

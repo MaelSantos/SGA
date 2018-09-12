@@ -23,6 +23,7 @@ import java.util.Calendar;
 import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Endereco;
+import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Receita;
@@ -153,7 +154,6 @@ public class DaoCommun implements IDaoCommun {
 		}
 	}
 	
-
 	@Override
 	public void salvarContato(Telefone telefone, int id, Tabela tabela) throws DaoException {
 
@@ -196,8 +196,6 @@ public class DaoCommun implements IDaoCommun {
 
 	}
 	
-	
-
 	@Override
 	public List<Telefone> getContatos(Integer id) throws DaoException {
 
@@ -229,8 +227,6 @@ public class DaoCommun implements IDaoCommun {
 
 	}
 	
-	
-
 	public Telefone getContatosTestemunha(Integer testemunha_id) throws DaoException {
 		try {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
@@ -439,6 +435,7 @@ public class DaoCommun implements IDaoCommun {
 			statement.setString(4, audiencia.getOrgao());
 			statement.setString(5, audiencia.getStatus().name());
 			statement.setInt(6, processo_id);
+			statement.setInt(7, audiencia.getNotificacao().getId());
 			statement.execute();
 			this.connection.close();
 			
@@ -760,8 +757,8 @@ public class DaoCommun implements IDaoCommun {
 			resultSet = this.statement.executeQuery();
 
 			List<Audiencia> audiencias = new ArrayList<>();
-			Audiencia audiencia;
-
+			Audiencia audiencia = null;
+			Notificacao notificacao = null;
 			while (resultSet.next()) {
 
 				audiencia = new Audiencia();
@@ -774,6 +771,10 @@ public class DaoCommun implements IDaoCommun {
 				audiencia.setTipo(TipoAudiencia.getValor(resultSet.getString("tipo")));
 				audiencia.setVara(resultSet.getString("vara"));
 
+				notificacao = new Notificacao();
+				notificacao.setId(resultSet.getInt("notificacao_id"));
+				audiencia.setNotificacao(notificacao);
+				
 				audiencias.add(audiencia);
 			}
 
@@ -824,7 +825,7 @@ public class DaoCommun implements IDaoCommun {
 			statement.setString(5, audiencia.getOrgao());
 			statement.setInt(6, audiencia.getId());
 			statement.executeUpdate();
-
+			
 			this.connection.close();
 
 		} catch (SQLException ex) {

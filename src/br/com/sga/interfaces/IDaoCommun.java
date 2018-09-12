@@ -32,6 +32,7 @@ public interface IDaoCommun {
     //Partes
     public void salvarParte(Parte parte,Integer id, Tabela tabela)throws DaoException;
     public List<Parte> getPartes(Integer id, Tabela tabela) throws DaoException;
+    public void editarParte(Parte parte) throws DaoException;
     
     //Parcela
     public void salvarParcela(Parcela parcela, Integer contrato_id) throws DaoException;
@@ -47,16 +48,16 @@ public interface IDaoCommun {
     public List<Despesa> getDespesaPorIntervalo(Date de, Date ate)throws DaoException;
     public List<ContaAdapter> getContaTotalMesPorIntervalo(Date de, Date ate,Tabela tabela) throws DaoException;
     
-    //processo
+    //audiencia
     public void salvarAudiencia(Audiencia audiencia, Integer processo_id) throws DaoException;
     public List<Audiencia> buscarAudienciaPorIdProcesso(int processo_id) throws DaoException;
+    public void editarAudiencia(Audiencia audiencia) throws DaoException;
+    
     // consulta
     public void salvarTestemunha(Testemunha entidade,Integer consulta_id) throws DaoException;
 	public List<Testemunha> getTestemunhas(int consulta_id) throws DaoException;
 	public void editarTestemunha(Testemunha entidade) throws DaoException;
 
-	public void editarParte(Parte parte) throws DaoException;
-	public void editarAudiencia(Audiencia audiencia) throws DaoException;
 	
     
 }

@@ -13,6 +13,7 @@ public class Audiencia {
 	private String orgao; //orgao VARCHAR(255) NOT NULL possivel enum
 	private TipoAudiencia tipo; //tipo VARCHAR(255) NOT NULL,  possivel enum
 	private Date data_audiencia; //data_audiencia DATE,
+	private Notificacao notificacao; //notificacao_id
 	
 	private Processo processo; //processo_id  INTEGER REFERENCES PROCESSO(id),
 	
@@ -79,6 +80,14 @@ public class Audiencia {
 	@Override
 	public String toString() {
 		return "ORGÃO [" + orgao + "] TIPO [" + tipo + "] DATA [" + data_audiencia + "]";
+	}
+
+	public Notificacao getNotificacao() {
+		return notificacao;
+	}
+
+	public void setNotificacao(Notificacao notificacao) {
+		this.notificacao = notificacao;
 	}
 	
 
