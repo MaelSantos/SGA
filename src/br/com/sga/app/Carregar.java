@@ -52,7 +52,7 @@ public class Carregar implements Initializable{
 					public void updateData()
 					{
 						updateMessage(texto);
-						porcentagem += 100/26; //porcentagem total dividido por quantidade de telas
+						porcentagem += 100/27; //porcentagem total dividido por quantidade de telas
 						updateProgress(porcentagem, 100);
 						System.out.println(contador++);
 						System.out.println(texto);
@@ -155,6 +155,9 @@ public class Carregar implements Initializable{
 							}catch (Exception e) {
 								e.printStackTrace();
 							}
+							
+							App.detalhesNotificacao = carregarArquivo("br/com/sga/view/DetalhesNotificacao.fxml");
+							updateData();
 							
 							App.loginScene = new Scene(App.login);
 							App.menuScene = new Scene(App.menu);
