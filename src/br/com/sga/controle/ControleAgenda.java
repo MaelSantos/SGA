@@ -59,10 +59,8 @@ public class ControleAgenda extends Controle {
 
 			calendario.AtualizarMes();
 		}
-		
-		if (object instanceof Funcionario) 
-			if(object != null) 
-				funcionario = (Funcionario) object;
+		else if (object instanceof Funcionario)  
+			funcionario = (Funcionario) object;
 	}
 
 	@Override
@@ -90,59 +88,63 @@ public class ControleAgenda extends Controle {
 			lblAno.setText(calendario.getCalendarioTitulo().getText());
 		}
 		else if(event.getSource() == cadastrarTarefaButton) {
-
-			CadastroNotificacao cadastroNotificacao = Dialogo.getInstance().cadastroNotificacaoDialog(LocalDate.now());
-			Integer hora = cadastroNotificacao.getHoraBox().getSelectionModel().getSelectedItem();
-			Prioridade prioridade= cadastroNotificacao.getPrioridadeBox().getSelectionModel().getSelectedItem();
-			LocalDate ld = cadastroNotificacao.getDataPicker().getValue();
-
-			if(hora != null && ld != null && prioridade != null) {
-				Calendar c =  Calendar.getInstance();
-				c.setTime(new Date());
-				c.set(Calendar.YEAR,ld.getYear());
-				c.set(Calendar.MONTH,ld.getMonthValue()-1);
-				c.set(Calendar.DAY_OF_MONTH,ld.getDayOfMonth());
-				c.set(Calendar.HOUR_OF_DAY,hora);
-				c.set(Calendar.SECOND,0);
-				c.set(Calendar.MILLISECOND,0);
-				c.set(Calendar.MINUTE,0);
-				Date aviso_data = c.getTime();
-				List<Funcionario> funcionarios = new ArrayList<>();
-				if(cadastroNotificacao.getApenasMinRadio().isSelected()) {
-					funcionarios.add(funcionario);
-				}else {
-					try {
-						funcionarios = fachada.buscarUsuarioPorBusca("%_%");
-					} catch (BusinessException e) {
-						e.printStackTrace();
-					}
-				}
-				Log log;
-				try {
-					fachada.salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade, cadastroNotificacao.getDescricaoArea().getText(), Andamento.PENDENTE, 
-							aviso_data, funcionarios));
-					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Confirmação","","Nova notificação cadastrada com sucesso");
-					calendario.AtualizarMes();
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Tarefa: "+aviso_data, StatusLog.CONCLUIDO);
-				} catch (BusinessException e) {
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Tarefa:  Erro", StatusLog.ERRO);
-					e.printStackTrace();
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!","Erro Ao Cadastrar Tarefa!!!",e.getMessage());
-				}
-				
-				try {
-					if(log != null)
-						fachada.salvarEditarLog(log);
-				} catch (BusinessException e) {
-					// TODO Bloco catch gerado automaticamente
-					e.printStackTrace();
-				}					
-				
-			}else
-				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta","","NADA FOI CADASTRADO");
+			
+			salvarNotificação(Dialogo.getInstance().cadastroNotificacaoDialog(LocalDate.now()));
+			
 		}
-
 
 	}
 
+	private void salvarNotificação(CadastroNotificacao cadastroNotificacao)
+	{
+		Integer hora = cadastroNotificacao.getHoraBox().getSelectionModel().getSelectedItem();
+		Prioridade prioridade= cadastroNotificacao.getPrioridadeBox().getSelectionModel().getSelectedItem();
+		LocalDate ld = cadastroNotificacao.getDataPicker().getValue();
+
+		if(hora != null && ld != null && prioridade != null) {
+			Calendar c =  Calendar.getInstance();
+			c.setTime(new Date());
+			c.set(Calendar.YEAR,ld.getYear());
+			c.set(Calendar.MONTH,ld.getMonthValue()-1);
+			c.set(Calendar.DAY_OF_MONTH,ld.getDayOfMonth());
+			c.set(Calendar.HOUR_OF_DAY,hora);
+			c.set(Calendar.SECOND,0);
+			c.set(Calendar.MILLISECOND,0);
+			c.set(Calendar.MINUTE,0);
+			Date aviso_data = c.getTime();
+			List<Funcionario> funcionarios = new ArrayList<>();
+			if(cadastroNotificacao.getApenasMinRadio().isSelected()) {
+				funcionarios.add(funcionario);
+			}else {
+				try {
+					funcionarios = fachada.buscarUsuarioPorBusca("%_%");
+				} catch (BusinessException e) {
+					e.printStackTrace();
+				}
+			}
+			Log log;
+			try {
+				fachada.salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade, cadastroNotificacao.getDescricaoArea().getText(), Andamento.PENDENTE, 
+						aviso_data, funcionarios));
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Confirmação","","Nova notificação cadastrada com sucesso");
+				calendario.AtualizarMes();
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Tarefa: "+aviso_data, StatusLog.CONCLUIDO);
+			} catch (BusinessException e) {
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Tarefa:  Erro", StatusLog.ERRO);
+				e.printStackTrace();
+				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!","Erro Ao Cadastrar Tarefa!!!",e.getMessage());
+			}
+			
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}					
+			
+		}
+//		else
+//			Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta","","NADA FOI CADASTRADO");
+	}
+	
 }

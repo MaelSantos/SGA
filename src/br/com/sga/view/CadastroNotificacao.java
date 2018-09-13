@@ -90,7 +90,4 @@ public class CadastroNotificacao extends VBox{
 		return horaBox;
 	}
 	
-	
-	
-	
 }
