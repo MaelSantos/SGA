@@ -93,6 +93,11 @@
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Button>
+                  <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#actionButton" text="Editar Notificação">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </Button>
               </buttons>
             </ButtonBar>
          </bottom>

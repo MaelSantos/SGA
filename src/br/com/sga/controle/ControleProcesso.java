@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import br.com.sga.app.App;
-import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.adapter.ProcessoAdapter;

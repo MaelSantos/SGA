@@ -4,16 +4,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import br.com.sga.app.App;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
+import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.enums.Andamento;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.Prioridade;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoNotificacao;
-import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
@@ -53,7 +54,8 @@ public class ControleDestalhesNotificacao extends Controle{
     private IFachada fachada;
     private Funcionario funcionario;
     private Notificacao notificacao;
-
+    private boolean voltar;
+    
     @FXML
     public void actionButton(ActionEvent event) {
 
@@ -68,43 +70,61 @@ public class ControleDestalhesNotificacao extends Controle{
 				fachada.salvarEditarNotificacao(notificacao);
 				
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Notificação Atualizada", "");
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Notifição "+notificacao, StatusLog.CONCLUIDO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Notificação "+notificacao, StatusLog.CONCLUIDO);
 				
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Atualizar Notificação!!!", e.getMessage());
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Notifição "+notificacao, StatusLog.ERRO);
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Notificação "+notificacao, StatusLog.ERRO);
 			}
     		
     		try {
     			if(log != null)
     				fachada.salvarEditarLog(log);
     		} catch (BusinessException e) {
-    			// TODO Bloco catch gerado automaticamente
     			e.printStackTrace();
     		}
 
     	}
     	
+    	else if(obj == btnVoltar)
+    	{
+    		if(voltar)
+    			App.notificarOuvintes(Tela.AGENDA, notificacao);
+    		else
+    			App.notificarOuvintes(Tela.HOME, notificacao);
+    	}
+    	
     }
 
-	@Override
-	public void atualizar(Tela tela, Object object) {
+    @Override
+    public void atualizar(Tela tela, Object object) {
 
 
-		if (object instanceof Funcionario) {
-			funcionario = (Funcionario) object;
-		}
-		else if(tela == Tela.DETALHES_NOTIFICACAO)
-		{
-			if (object instanceof Notificacao) 
-			{
-				notificacao = (Notificacao) object;
-				mudarCampos();
-			}
+    	if (object instanceof Funcionario) {
+    		funcionario = (Funcionario) object;
+    	}
+    	else if(tela == Tela.DETALHES_NOTIFICACAO)
+    	{
+    		if (object instanceof Notificacao) 
+    		{
+    			notificacao = (Notificacao) object;
+    			voltar = true;
+    			mudarCampos();
+    		}
+    		else if (object instanceof NotificacaoAdapter) {
+    			NotificacaoAdapter adapter = (NotificacaoAdapter) object;
+    			try {
+    				notificacao = fachada.buscarNotificacaoPorId(adapter.getId());
+    				voltar = false;
+    				mudarCampos();
+    			} catch (BusinessException e) {
+    				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro com a Notificação!!!", e.getMessage());
+    				e.printStackTrace();
+    			}
+    		}
 
-		}
-
+    	}
 
 	}
 

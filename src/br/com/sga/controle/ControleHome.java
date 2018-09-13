@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import br.com.sga.app.App;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
@@ -62,8 +63,10 @@ public class ControleHome extends Controle {
 	@FXML
 	private Button btnConcluir;
 
+	@FXML
+	private Button btnEditar;
+	
 	private IFachada fachada;
-
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
@@ -157,6 +160,17 @@ public class ControleHome extends Controle {
 			};
 		});
 
+		tblSemana.setOnMouseClicked(e -> {
+			if (e.getClickCount() > 1)
+				if (tblSemana.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.DETALHES_NOTIFICACAO, tblSemana.getSelectionModel().getSelectedItem());
+		});
+		
+		tblAtrasados.setOnMouseClicked(e -> {
+			if (e.getClickCount() > 1)
+				if (tblAtrasados.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.DETALHES_NOTIFICACAO, tblAtrasados.getSelectionModel().getSelectedItem());
+		});
 
 	}
 
@@ -208,6 +222,15 @@ public class ControleHome extends Controle {
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Atualizar Notificação!!!", e.getMessage());
 				e.printStackTrace();
 			}
+		}
+		else if(obj == btnEditar)
+		{
+			if(tblAtrasados.getSelectionModel().getSelectedItem() != null)
+				App.notificarOuvintes(Tela.DETALHES_NOTIFICACAO, tblAtrasados.getSelectionModel().getSelectedItem());
+			else if(tblSemana.getSelectionModel().getSelectedItem() != null)
+				App.notificarOuvintes(Tela.DETALHES_NOTIFICACAO, tblSemana.getSelectionModel().getSelectedItem());
+			else 
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Por Favor Selecione Uma Notificação!!!", "");
 		}
 
 	}
