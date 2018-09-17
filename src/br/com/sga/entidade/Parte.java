@@ -9,7 +9,6 @@ public class Parte {
 	private TipoParte tipo_parte; //tipo_parte VARCHAR(255) NOT NULL,
 	private TipoParticipacao tipo_participacao; //tipo_participacao VARCHAR(255) NOT NULL,
 	private String nome; //nome VARCHAR(255)
-	private String situacao; //situacao VARCHAR(255)
 
 	private Contrato contrato; //contrato_id INTEGER REFERENCES CONTRATO(id),	
 	
@@ -57,14 +56,6 @@ public class Parte {
 	@Override
 	public String toString() {
 		return "Tipo: ["+tipo_parte+"] Nome: ["+nome+"]";
-	}
-
-	public String getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
 	}
 
 	public Contrato getContrato() {

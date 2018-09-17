@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
@@ -20,9 +22,9 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleDetalhesContrato">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
-            <Insets bottom="50.0" left="10.0" right="10.0" top="20.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <center>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
@@ -44,27 +46,12 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <TextField fx:id="dataField" promptText="Data" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="areaField" promptText="Area" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="tipoPagaField" prefHeight="23.0" prefWidth="174.0" promptText="Tipo pagamento" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Label text="Area" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label text="Área" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Tipo pagamento" textFill="WHITE" GridPane.rowIndex="3">
+                        <Label text="Tipo de Pagamento" textFill="WHITE" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
@@ -105,12 +92,15 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Label text="Dados banco" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <Label fx:id="lblBanco" text="Dados banco" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="bancoField" prefHeight="200.0" prefWidth="200.0" promptText="dados informados sobre o banco" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+                        <TextArea fx:id="bancoField" prefHeight="200.0" prefWidth="200.0" promptText="Dados informados sobre o banco" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+                        <DatePicker fx:id="dataField" promptText="Data" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="areaField" prefWidth="150.0" promptText="Área" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="tipoPagaField" onAction="#actionButton" prefWidth="150.0" promptText="Tipo de Pagamento" GridPane.rowIndex="4" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -172,7 +162,7 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Label text="Tipo da parcela" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label text="Tipo da Parcela" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
@@ -182,12 +172,8 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tipoParcelaField" promptText="Tipo" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
-                        <ComboBox fx:id="andamentoBox" onAction="#actionButton" prefWidth="150.0" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="andamentoBox" onAction="#actionButton" prefWidth="150.0" promptText="Andamento" GridPane.rowIndex="4" />
+                        <TextField fx:id="tipoParcelaField" promptText="Tipo da Parcela" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <Separator prefWidth="200.0" />
@@ -219,31 +205,23 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Tipo da parte" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Label text="Tipo da Parte" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tipoParteField" promptText="Tipo da parte" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
                         <Button fx:id="selectParteButton" mnemonicParsing="false" onAction="#actionButton" prefWidth="160.0" text="Selecione uma parte" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Button>
-                        <Label text="Tipo participação" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <Label text="Tipo de Participação" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tipoParticiField" promptText="Participação" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
+                        <ComboBox fx:id="tipoParteField" prefWidth="150.0" promptText="Tipo da Parte" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="tipoParticiField" prefWidth="150.0" promptText="Tipo de Participação" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>
@@ -271,6 +249,17 @@
                </BorderPane.margin>
             </FlowPane>
          </top>
+         <bottom>
+            <ButtonBar prefHeight="67.0" prefWidth="680.0" BorderPane.alignment="CENTER">
+              <buttons>
+                <Button fx:id="btnAtualizar" mnemonicParsing="false" onAction="#actionButton" text="Atualizar Dados">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </Button>
+              </buttons>
+            </ButtonBar>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>

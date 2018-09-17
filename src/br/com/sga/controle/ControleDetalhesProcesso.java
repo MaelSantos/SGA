@@ -160,7 +160,7 @@ public class ControleDetalhesProcesso extends Controle {
 		else if(tela == Tela.CADASTRO_AUDIENCIA)
 		{
 			if (object instanceof Audiencia) {
-				Audiencia audiencia = (Audiencia) object;
+//				Audiencia audiencia = (Audiencia) object;
 				
 				tblAudiencias.getItems().clear();
 				tblAudiencias.getItems().addAll(processo.getAudiencias());

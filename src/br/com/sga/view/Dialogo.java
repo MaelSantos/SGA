@@ -3,21 +3,12 @@ package br.com.sga.view;
 import java.lang.reflect.Field;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
 import br.com.sga.app.App;
-import br.com.sga.entidade.Funcionario;
-import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
-import br.com.sga.entidade.enums.Andamento;
-import br.com.sga.entidade.enums.EventoLog;
-import br.com.sga.entidade.enums.Prioridade;
-import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
-import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import javafx.collections.FXCollections;
@@ -116,8 +107,8 @@ public class Dialogo {
 
 		ButtonType loginButtonType = new ButtonType("Confirmar", ButtonData.OK_DONE);
 		ButtonType btpEditar = new ButtonType("Editar", ButtonData.YES);
-		ButtonType btpCadastrar = new ButtonType("Cadastrar", ButtonData.RIGHT);
-		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, btpEditar, btpCadastrar, ButtonType.CANCEL);
+//		ButtonType btpCadastrar = new ButtonType("Cadastrar", ButtonData.RIGHT);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, btpEditar, ButtonType.CANCEL);
 
 		Optional<ButtonType> optional = dialog.showAndWait();
 
@@ -129,61 +120,61 @@ public class Dialogo {
 				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!",
 						"Selecione Uma Notificação Antes de Proseguir", "");
 		}
-		else if (optional.isPresent() && optional.get().getButtonData() == ButtonData.RIGHT) {
-			
-			CadastroNotificacao cadastroNotificacao = cadastroNotificacaoDialog(date);
-			
-			Integer hora = cadastroNotificacao.getHoraBox().getSelectionModel().getSelectedItem();
-			Prioridade prioridade= cadastroNotificacao.getPrioridadeBox().getSelectionModel().getSelectedItem();
-			LocalDate ld = cadastroNotificacao.getDataPicker().getValue();
-
-			if(hora != null && ld != null && prioridade != null) {
-				Calendar c =  Calendar.getInstance();
-				c.setTime(new java.util.Date());
-				c.set(Calendar.YEAR,ld.getYear());
-				c.set(Calendar.MONTH,ld.getMonthValue()-1);
-				c.set(Calendar.DAY_OF_MONTH,ld.getDayOfMonth());
-				c.set(Calendar.HOUR_OF_DAY,hora);
-				c.set(Calendar.SECOND,0);
-				c.set(Calendar.MILLISECOND,0);
-				c.set(Calendar.MINUTE,0);
-				java.util.Date aviso_data = c.getTime();
-				List<Funcionario> funcionarios = new ArrayList<>();
-				if(cadastroNotificacao.getApenasMinRadio().isSelected()) {
-//					funcionarios.add(funcionario);
-				}else {
-					try {
-						funcionarios = Fachada.getInstance().buscarUsuarioPorBusca("%_%");
-					} catch (BusinessException e) {
-						e.printStackTrace();
-					}
-				}
-				Log log;
-				try {
-					Fachada.getInstance().salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade, cadastroNotificacao.getDescricaoArea().getText(), Andamento.PENDENTE, 
-							aviso_data, funcionarios));
-					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Confirmação","","Nova notificação cadastrada com sucesso");
-//					calendario.AtualizarMes();
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, "", "Nova Tarefa: "+aviso_data, StatusLog.CONCLUIDO);
-				} catch (BusinessException e) {
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, "", "Nova Tarefa:  Erro", StatusLog.ERRO);
-					e.printStackTrace();
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!","Erro Ao Cadastrar Tarefa!!!",e.getMessage());
-				}
-				
-				try {
-					if(log != null)
-						Fachada.getInstance().salvarEditarLog(log);
-				} catch (BusinessException e) {
-					e.printStackTrace();
-				}					
-				
-			}
-
-			
-			return null;
-			
-		}
+//		else if (optional.isPresent() && optional.get().getButtonData() == ButtonData.RIGHT) {
+//			
+//			CadastroNotificacao cadastroNotificacao = cadastroNotificacaoDialog(date);
+//			
+//			Integer hora = cadastroNotificacao.getHoraBox().getSelectionModel().getSelectedItem();
+//			Prioridade prioridade= cadastroNotificacao.getPrioridadeBox().getSelectionModel().getSelectedItem();
+//			LocalDate ld = cadastroNotificacao.getDataPicker().getValue();
+//
+//			if(hora != null && ld != null && prioridade != null) {
+//				Calendar c =  Calendar.getInstance();
+//				c.setTime(new java.util.Date());
+//				c.set(Calendar.YEAR,ld.getYear());
+//				c.set(Calendar.MONTH,ld.getMonthValue()-1);
+//				c.set(Calendar.DAY_OF_MONTH,ld.getDayOfMonth());
+//				c.set(Calendar.HOUR_OF_DAY,hora);
+//				c.set(Calendar.SECOND,0);
+//				c.set(Calendar.MILLISECOND,0);
+//				c.set(Calendar.MINUTE,0);
+//				java.util.Date aviso_data = c.getTime();
+//				List<Funcionario> funcionarios = new ArrayList<>();
+//				if(cadastroNotificacao.getApenasMinRadio().isSelected()) {
+////					funcionarios.add(funcionario);
+//				}else {
+//					try {
+//						funcionarios = Fachada.getInstance().buscarUsuarioPorBusca("%_%");
+//					} catch (BusinessException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//				Log log;
+//				try {
+//					Fachada.getInstance().salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade, cadastroNotificacao.getDescricaoArea().getText(), Andamento.PENDENTE, 
+//							aviso_data, funcionarios));
+//					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Confirmação","","Nova notificação cadastrada com sucesso");
+////					calendario.AtualizarMes();
+//					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, "", "Nova Tarefa: "+aviso_data, StatusLog.CONCLUIDO);
+//				} catch (BusinessException e) {
+//					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, "", "Nova Tarefa:  Erro", StatusLog.ERRO);
+//					e.printStackTrace();
+//					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!","Erro Ao Cadastrar Tarefa!!!",e.getMessage());
+//				}
+//				
+//				try {
+//					if(log != null)
+//						Fachada.getInstance().salvarEditarLog(log);
+//				} catch (BusinessException e) {
+//					e.printStackTrace();
+//				}					
+//				
+//			}
+//
+//			
+//			return null;
+//			
+//		}
 		else if (optional.isPresent() && optional.get().getButtonData() == ButtonData.OK_DONE) {
 			
 			return view.getSelectionModel().getSelectedItem();
