@@ -9,7 +9,6 @@ import java.util.List;
 
 import br.com.sga.app.App;
 import br.com.sga.dao.DaoCommun;
-import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Funcionario;
@@ -27,7 +26,6 @@ import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoParticipacao;
-import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
@@ -42,7 +40,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -184,20 +181,31 @@ public class ControleDetalhesContrato extends Controle {
 		} 
 		else if(event.getSource() == btnAtualizar)
 		{
+			Log log;
 			try {
 				atualizarDados();
 				fachada.salvarEditarContrato(contrato);
-				DaoCommun.getInstance().editarParcela(parcela);
-				DaoCommun.getInstance().editarParte(parte);
-				
+				if(parcela != null)
+					DaoCommun.getInstance().editarParcela(parcela);
+				if(parte != null)
+					DaoCommun.getInstance().editarParte(parte);
+
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Cocluido", "Dados Atualizados", "");
 				
-			} catch (BusinessException | DaoException e) {
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Contrato: " + contrato, StatusLog.CONCLUIDO);
 				
+			} catch (BusinessException | DaoException e) {
+				log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Contrato: " + contrato, StatusLog.ERRO);
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Atualizar Dados ", e.getMessage());
 				e.printStackTrace();
 			}
 			
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
 			
 		}else if (contrato != null) {
 			if (selectParcelaButton == event.getSource()) {
@@ -260,15 +268,21 @@ public class ControleDetalhesContrato extends Controle {
 		if(contrato.getTipo_pagamento() == TipoPagamento.DEPOSITO_EM_CONTA)
 			contrato.setDados_banco(bancoField.getText().trim());
 		
-		parcela.setEstado(andamentoBox.getValue());
-		parcela.setJuros(Float.parseFloat(jurosField.getText().trim()));
-		parcela.setMulta(Float.parseFloat(multaField.getText().trim()));
-		parcela.setTipo(tipoParcelaField.getText().trim());
-		parcela.setValor(Float.parseFloat(valorField.getText().trim()));
+		if(parcela != null)
+		{
+			parcela.setEstado(andamentoBox.getValue());
+			parcela.setJuros(Float.parseFloat(jurosField.getText().trim()));
+			parcela.setMulta(Float.parseFloat(multaField.getText().trim()));
+			parcela.setTipo(tipoParcelaField.getText().trim());
+			parcela.setValor(Float.parseFloat(valorField.getText().trim()));			
+		}
+		if(parte != null)
+		{
+			parte.setNome(nomeParteField.getText().trim());
+			parte.setTipo_parte(tipoParteField.getValue());
+			parte.setTipo_participacao(tipoParticiField.getValue());			
+		}
 		
-		parte.setNome(nomeParteField.getText().trim());
-		parte.setTipo_parte(tipoParteField.getValue());
-		parte.setTipo_participacao(tipoParticiField.getValue());
 	}
 	
 	@Override

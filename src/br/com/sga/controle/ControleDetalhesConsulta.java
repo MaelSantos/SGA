@@ -144,7 +144,6 @@ public class ControleDetalhesConsulta extends Controle {
 					if(log != null)
 						fachada.salvarEditarLog(log);
 				} catch (BusinessException e) {
-					// TODO Bloco catch gerado automaticamente
 					e.printStackTrace();
 				}
 		}
