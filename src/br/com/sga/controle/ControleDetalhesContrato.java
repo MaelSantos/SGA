@@ -134,8 +134,13 @@ public class ControleDetalhesContrato extends Controle {
 				// ContratoAdapter adapter = dialogo.selecao(contratos,"Selecione
 				// Contrato","Selecione um contrato para mais detalhes");
 				ContratoAdapter adapter = dialogo.selecionar(contratos);
-				contrato.setId(adapter.getId());
-				atualizarDadosContrato();
+				
+				if(adapter != null)
+				{
+					contrato.setId(adapter.getId());
+					atualizarDadosContrato();
+					
+				}
 			} catch (BusinessException e) {
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(), "Buscar Consulta: Erro", StatusLog.ERRO);
 				e.printStackTrace();
@@ -207,7 +212,21 @@ public class ControleDetalhesContrato extends Controle {
 				e.printStackTrace();
 			}
 			
-		}else if (contrato != null) {
+		}
+		else if(event.getSource() == tipoPagaField)
+		{
+			if(tipoPagaField.getValue() == TipoPagamento.DEPOSITO_EM_CONTA)
+			{
+				bancoField.setVisible(true);
+				lblBanco.setVisible(true);
+			}
+			else
+			{
+				bancoField.setVisible(false);
+				lblBanco.setVisible(false);
+			}
+		}
+		else if (contrato != null) {
 			if (selectParcelaButton == event.getSource()) {
 				// parcela = dialogo.selecao(contrato.getParcelas(),"Selecione
 				// Parcelas","Selecione uma parcela para mais detalhes");
@@ -244,6 +263,17 @@ public class ControleDetalhesContrato extends Controle {
 			tipoPagaField.setValue(contrato.getTipo_pagamento());
 			objetofField.setText(contrato.getObjeto());
 
+			if(contrato.getTipo_pagamento() == TipoPagamento.DEPOSITO_EM_CONTA)
+			{
+				bancoField.setVisible(true);
+				lblBanco.setVisible(true);
+			}
+			else
+			{
+				bancoField.setVisible(false);
+				lblBanco.setVisible(false);
+			}
+			
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
