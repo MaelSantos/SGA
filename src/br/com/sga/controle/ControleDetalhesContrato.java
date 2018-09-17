@@ -58,7 +58,7 @@ public class ControleDetalhesContrato extends Controle {
 	private Label lblBanco;
 
 	@FXML
-	private TextArea bancoField;
+	private TextField bancoField;
 
 	@FXML
 	private DatePicker dataField;
@@ -233,8 +233,8 @@ public class ControleDetalhesContrato extends Controle {
 				parcela = dialogo.selecionar(contrato.getParcelas());
 				valorField.setText(parcela.getValor() + "");
 				tipoParcelaField.setText(parcela.getTipo());
-				jurosField.setText(parcela.getJuros() + "");
-				multaField.setText(parcela.getMulta() + "");
+//				jurosField.setText(parcela.getJuros() + "");
+//				multaField.setText(parcela.getMulta() + "");
 				andamentoBox.setValue(parcela.getEstado());
 
 			} else if (selectParteButton == event.getSource()) {
@@ -262,6 +262,8 @@ public class ControleDetalhesContrato extends Controle {
 			bancoField.setText(contrato.getDados_banco());
 			tipoPagaField.setValue(contrato.getTipo_pagamento());
 			objetofField.setText(contrato.getObjeto());
+			jurosField.setText(contrato.getTaxa_juros() + "");
+			multaField.setText(contrato.getTaxa_multa() + "");
 
 			if(contrato.getTipo_pagamento() == TipoPagamento.DEPOSITO_EM_CONTA)
 			{
@@ -294,6 +296,8 @@ public class ControleDetalhesContrato extends Controle {
 		contrato.setValor_total(Float.parseFloat(valorTotalField.getText().trim()));
 		contrato.setTipo_pagamento(tipoPagaField.getValue()); 
 		contrato.setObjeto(objetofField.getText().trim());
+		contrato.setTaxa_juros(Float.parseFloat(jurosField.getText().trim()));
+		contrato.setTaxa_multa(Float.parseFloat(multaField.getText().trim()));
 		
 		if(contrato.getTipo_pagamento() == TipoPagamento.DEPOSITO_EM_CONTA)
 			contrato.setDados_banco(bancoField.getText().trim());
@@ -310,7 +314,7 @@ public class ControleDetalhesContrato extends Controle {
 		{
 			parte.setNome(nomeParteField.getText().trim());
 			parte.setTipo_parte(tipoParteField.getValue());
-			parte.setTipo_participacao(tipoParticiField.getValue());			
+			parte.setTipo_participacao(tipoParticiField.getValue());
 		}
 		
 	}

@@ -55,17 +55,40 @@ public class DaoContrato implements IDaoContrato{
 				daoCommun.salvarParte(parte, contrato_id, Tabela.CONTRATO);
 			for(Parcela parcela : entidade.getParcelas())
 				daoCommun.salvarParcela(parcela, contrato_id);
-			
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO SALVAR CONTRATO - CONTATE O ADM");
 		}
 	}
-	
+
 	@Override
 	public void editar(Contrato entidade) throws DaoException {
-		// TODO Stub de método gerado automaticamente
-		
+
+		//UPDATE CONTRATO SET objeto = ?, valor_total = ?, tipo_pagamento  = ?, taxa_juros = ?, taxa_multa = ?, data_contrato = ?, area = ?, dados_banco = ? WHERE id = ?
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Contrato.UPDATE_ALL);
+			
+			statement.setString(1, entidade.getObjeto());
+			statement.setFloat(2, entidade.getValor_total());
+			statement.setString(3, entidade.getTipo_pagamento().toString());
+			statement.setFloat(4, entidade.getTaxa_juros());
+			statement.setFloat(5, entidade.getTaxa_multa());
+			statement.setDate(6, new Date(entidade.getData_contrato().getTime()));
+			statement.setString(7, entidade.getArea().toString());
+			statement.setString(8, entidade.getDados_banco());
+			statement.setInt(9,entidade.getId());
+			
+			statement.executeUpdate();
+			this.connection.close();
+
+		}catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO EDITAR CONTRATO - CONTATE O ADM");
+		}
+
+
 	}
 
 	@Override
@@ -88,6 +111,8 @@ public class DaoContrato implements IDaoContrato{
             	contrato.setData_contrato(resultSet.getDate("data_contrato"));
             	contrato.setValor_total(resultSet.getFloat("valor_total"));
             	contrato.setObjeto(resultSet.getString("objeto"));
+            	contrato.setTaxa_juros(resultSet.getFloat("taxa_juros"));
+            	contrato.setTaxa_multa(resultSet.getFloat("taxa_multa"));
             	contrato.setTipo_pagamento(TipoPagamento.getTipoPagamento(resultSet.getString("tipo_pagamento")));
             	contrato.setArea(Area.getArea(resultSet.getString("area")));
             	contrato.setDados_banco(resultSet.getString("dados_banco"));

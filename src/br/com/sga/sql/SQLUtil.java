@@ -68,6 +68,7 @@ public class SQLUtil {
     			+ "where clie.id = cons.cliente_id and cons.id = cont.consulta_id and (unaccent(clie.nome) ilike unaccent(?) or unaccent(clie.email) ilike unaccent(?) "
     			+ "or clie.cpf_cnpj = ? or clie.rg = ?)";
     	public static final String SELECT_CONTRATO_ADAPTER = "SELECT C.id,D.nome,C.data_contrato,C.valor_total FROM CONTRATO C, CLIENTE D, CONSULTA E WHERE C.CONSULTA_ID = E.ID AND D.ID = E.CLIENTE_ID";
+		public static final String UPDATE_ALL = "UPDATE CONTRATO SET objeto = ?, valor_total = ?, tipo_pagamento  = ?, taxa_juros = ?, taxa_multa = ?, data_contrato = ?, area = ?, dados_banco = ? WHERE id = ?";
     }
     
     public static class Testemunha{

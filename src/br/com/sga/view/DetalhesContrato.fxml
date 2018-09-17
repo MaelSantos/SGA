@@ -7,7 +7,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -27,7 +26,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <center>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="492.0" prefWidth="680.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <FlowPane alignment="CENTER_RIGHT" columnHalignment="CENTER" hgap="5.0" prefHeight="30.0" />
                   <Separator prefWidth="200.0" />
@@ -76,7 +75,14 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                           <children>
+                              <TextField fx:id="multaField" promptText="Multa">
+                                 <font>
+                                    <Font name="Verdana" size="12.0" />
+                                 </font>
+                              </TextField>
+                           </children></FlowPane>
                         <Label text="Dados do contrato Selecionado" textFill="WHITE" GridPane.columnSpan="2">
                            <font>
                               <Font name="Verdana" size="13.0" />
@@ -92,15 +98,34 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="lblBanco" text="Dados banco" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <Label fx:id="lblBanco" text="Dados Banco" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="bancoField" prefHeight="200.0" prefWidth="200.0" promptText="Dados informados sobre o banco" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="2" />
                         <DatePicker fx:id="dataField" promptText="Data" GridPane.rowIndex="2" />
                         <ComboBox fx:id="areaField" prefWidth="150.0" promptText="Área" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <ComboBox fx:id="tipoPagaField" onAction="#actionButton" prefWidth="150.0" promptText="Tipo de Pagamento" GridPane.rowIndex="4" />
+                        <TextField fx:id="bancoField" promptText="Dados Banco" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Label text="Juros" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="jurosField" promptText="Juros" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </TextField>
+                        <Label text="Multa" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Verdana" size="13.0" />
+                           </font>
+                        </Label>
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -116,8 +141,6 @@
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
@@ -137,43 +160,26 @@
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Juros" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="jurosField" promptText="Juros" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
                         <Button fx:id="selectParcelaButton" mnemonicParsing="false" onAction="#actionButton" prefWidth="160.0" text="Selecione Parcela" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Button>
-                        <Label text="Multa" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Verdana" size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="multaField" promptText="Multa" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </TextField>
                         <Label text="Tipo da Parcela" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <Label text="Andamento" textFill="WHITE" GridPane.rowIndex="3">
+                        <Label text="Andamento" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="andamentoBox" onAction="#actionButton" prefWidth="150.0" promptText="Andamento" GridPane.rowIndex="4" />
-                        <TextField fx:id="tipoParcelaField" promptText="Tipo da Parcela" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="andamentoBox" onAction="#actionButton" prefWidth="150.0" promptText="Andamento" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <TextField fx:id="tipoParcelaField" promptText="Tipo da Parcela" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font></TextField>
                      </children>
                   </GridPane>
                   <Separator prefWidth="200.0" />

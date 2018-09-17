@@ -117,9 +117,7 @@ public class DaoProcesso implements IDaoProcesso {
 		}catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new DaoException("PROBLEMA AO EDITAR PROCESSO - CONTATE O ADM");
-		}
-		
-		
+		}		
 	}
 
 	@Override
