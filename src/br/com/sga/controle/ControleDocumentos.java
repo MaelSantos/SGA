@@ -437,9 +437,9 @@ public class ControleDocumentos extends Controle {
 							contratoAdapter.setTipo(cbxInstancia.getValue());
 
 							if (contrato.getTipo_pagamento() == TipoPagamento.DEPOSITO_EM_CONTA)
-								arquivo = "ContratoSem.jrxml";
-							else
 								arquivo = "ContratoBanco.jrxml";
+							else
+								arquivo = "ContratoSem.jrxml";
 
 							list.add(contratoAdapter);
 							return list;
