@@ -5,7 +5,6 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import br.com.sga.app.App;
-import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Despesa;
 import br.com.sga.entidade.Financeiro;
 import br.com.sga.entidade.Funcionario;
@@ -35,6 +34,9 @@ public class ControleFinanceiro extends Controle {
 	@FXML
 	private Label lblData;
 
+	@FXML
+	private Button btnVisualizar;
+	
 	@FXML
 	private Button btnBuscar;
 
@@ -180,7 +182,17 @@ public class ControleFinanceiro extends Controle {
 				};
 		});
 
-
+		tblReceitas.setOnMouseClicked(e -> {
+			if (e.getClickCount() > 1)
+				if (tblReceitas.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.CADASTRO_RECEITA_DESPESA, tblReceitas.getSelectionModel().getSelectedItem());
+		});
+		
+		tblDespesas.setOnMouseClicked(e -> {
+			if (e.getClickCount() > 1)
+				if (tblDespesas.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.CADASTRO_RECEITA_DESPESA, tblDespesas.getSelectionModel().getSelectedItem());
+		});
 		
 	}
 
@@ -234,7 +246,16 @@ public class ControleFinanceiro extends Controle {
 			}
 			
 		}
-		if(obj == btnAddReceita)
+		else if(obj == btnVisualizar)
+		{
+			if(tblReceitas.getSelectionModel().getSelectedItem() != null)
+				App.notificarOuvintes(Tela.CADASTRO_RECEITA_DESPESA, tblReceitas.getSelectionModel().getSelectedItem());
+			else if(tblDespesas.getSelectionModel().getSelectedItem() != null)
+				App.notificarOuvintes(Tela.CADASTRO_RECEITA_DESPESA, tblDespesas.getSelectionModel().getSelectedItem());
+			else 
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Por Favor Selecione Uma Despesa ou uma Receita!!!", "");
+		}
+		else if(obj == btnAddReceita)
 			App.notificarOuvintes(Tela.CADASTRO_RECEITA_DESPESA, financeiro);
 
 	}
@@ -248,5 +269,21 @@ public class ControleFinanceiro extends Controle {
 	void mouseExited(MouseEvent event) {
 		((Button) (event.getSource())).setStyle("-fx-background-color : #008B8B");
 	}
+
+	@FXML
+    void actionMouse(MouseEvent event) {
+		
+		Object obj = event.getSource();
+		
+		if(obj == tblReceitas)
+		{
+			tblDespesas.getSelectionModel().clearSelection();
+		}
+		else if(obj == tblDespesas)
+		{
+			tblReceitas.getSelectionModel().clearSelection();
+		}
+
+    }
 	
 }

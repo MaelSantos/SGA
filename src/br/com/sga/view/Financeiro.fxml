@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.DatePicker?>
@@ -46,6 +47,18 @@
          <bottom>
             <ButtonBar prefHeight="73.0" prefWidth="680.0" BorderPane.alignment="CENTER">
                <buttons>
+                  <Button fx:id="btnVisualizar" mnemonicParsing="false" onAction="#actionButton" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-background-color: #008B8B;">
+                     <cursor>
+                        <Cursor fx:constant="DISAPPEAR" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                           <image>
+                              <Image url="@../../../../../res/icones/icons8_Edit_Property_50px_1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button fx:id="btnAddReceita" mnemonicParsing="false" onAction="#actionButton" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" style="-fx-background-color: #008B8B;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0">
@@ -100,7 +113,7 @@
                         <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TableView fx:id="tblReceitas" prefHeight="283.0" prefWidth="335.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
+                        <TableView fx:id="tblReceitas" onKeyPressed="#actionMouse" prefHeight="283.0" prefWidth="335.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
                           <columns>
                             <TableColumn fx:id="colValor1" prefWidth="75.0" text="Valor" />
                               <TableColumn fx:id="colTipo1" prefWidth="75.0" text="Tipo De Pagamento" />
@@ -112,7 +125,7 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <TableView fx:id="tblDespesas" prefHeight="272.0" prefWidth="335.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TableView fx:id="tblDespesas" onKeyPressed="#actionMouse" prefHeight="272.0" prefWidth="335.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                           <columns>
                               <TableColumn fx:id="colValor2" prefWidth="75.0" text="Valor" />
                             <TableColumn fx:id="colCentroCusto" prefWidth="75.0" text="Centro Custo" />

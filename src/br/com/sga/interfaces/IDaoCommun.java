@@ -47,6 +47,8 @@ public interface IDaoCommun {
     public List<Receita> getReceitaPorIntervalo(Date de, Date ate)throws DaoException;
     public List<Despesa> getDespesaPorIntervalo(Date de, Date ate)throws DaoException;
     public List<ContaAdapter> getContaTotalMesPorIntervalo(Date de, Date ate,Tabela tabela) throws DaoException;
+    public void editarDespesa(Despesa despesa) throws DaoException;;
+    public void editarReceita(Receita receita) throws DaoException;;
     
     //audiencia
     public void salvarAudiencia(Audiencia audiencia, Integer processo_id) throws DaoException;

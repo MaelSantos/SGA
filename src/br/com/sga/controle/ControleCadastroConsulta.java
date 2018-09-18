@@ -20,6 +20,7 @@ import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoTelefone;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
@@ -31,6 +32,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -300,6 +302,42 @@ public class ControleCadastroConsulta extends Controle{
 		MaskFieldUtil.numericField(telefoneNumeroField);
 		MaskFieldUtil.numericField(telefonePreField);
 		MaskFieldUtil.numericField(cepField);
+		
+		tipoTelefoneBox.setButtonCell(new ListCell<TipoTelefone>() {
+			@Override
+			protected void updateItem(TipoTelefone item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		
+		estadoBox.setButtonCell(new ListCell<Estado>() {
+			@Override
+			protected void updateItem(Estado item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Estado");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		
+		areaBox.setButtonCell(new ListCell<Area>() {
+			@Override
+			protected void updateItem(Area item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Área");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
 	}
 
 	private void limparCamposTestemunha() {
@@ -313,6 +351,9 @@ public class ControleCadastroConsulta extends Controle{
 		cepField.setText("");
 		paisField.setText("");
 		complementoField.setText("");
+		
+		tipoTelefoneBox.getSelectionModel().clearSelection();
+		estadoBox.getSelectionModel().clearSelection();
 	}
 	private void limparCamposConsulta() {
 		dadoClienteField.setText("");
@@ -322,6 +363,9 @@ public class ControleCadastroConsulta extends Controle{
 		descricaoArea.setText("");
 		nomeIndicacaoField.setText("");
 		honorarioField.setText("");
+		
+		areaBox.getSelectionModel().clearSelection();
+		
 		System.gc();
 
 	}

@@ -21,6 +21,7 @@ import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoCliente;
+import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoTelefone;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
@@ -33,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -237,6 +239,13 @@ public class ControleCadastroCliente extends Controle {
 		tfdRua.setText("");
 		tfdTelefone.setText("");
 		tfdTelefoneResponsavel.setText("");
+		
+		cbxEstado.getSelectionModel().clearSelection();
+		cbxEstado_civil.getSelectionModel().clearSelection();
+		cbxGenero.getSelectionModel().clearSelection();
+		cbxTelefoneResposavel.getSelectionModel().clearSelection();
+		cbxTipoCliente.getSelectionModel().clearSelection();
+		cbxTipoTelefone.getSelectionModel().clearSelection();
 	}
 
 	@Override
@@ -321,6 +330,73 @@ public class ControleCadastroCliente extends Controle {
 		MaskFieldUtil.numericField(tfdCep);
 
 		tfdNascimento.setValue(LocalDate.of(1998, 1, 1));
+		
+		cbxEstado.setButtonCell(new ListCell<Estado>() {
+			@Override
+			protected void updateItem(Estado item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Estado");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		cbxEstado_civil.setButtonCell(new ListCell<EstadoCivil>() {
+			@Override
+			protected void updateItem(EstadoCivil item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Estado Civil");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		cbxGenero.setButtonCell(new ListCell<Sexo>() {
+			@Override
+			protected void updateItem(Sexo item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Gênero");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		cbxTelefoneResposavel.setButtonCell(new ListCell<TipoTelefone>() {
+			@Override
+			protected void updateItem(TipoTelefone item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		cbxTipoCliente.setButtonCell(new ListCell<TipoCliente>() {
+			@Override
+			protected void updateItem(TipoCliente item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo Cliente");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		cbxTipoTelefone.setButtonCell(new ListCell<TipoTelefone>() {
+			@Override
+			protected void updateItem(TipoTelefone item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
 	}
 
 }

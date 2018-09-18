@@ -40,6 +40,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -61,7 +62,7 @@ public class ControleCadastroContrato extends Controle{
 	private Label dadosConsultaLabel;
 
 	@FXML
-	private ComboBox<String> tipoPagamamentoBox;
+	private ComboBox<TipoPagamento> tipoPagamamentoBox;
 
 	@FXML
 	private TextArea dadosBancoArea;
@@ -182,8 +183,7 @@ public class ControleCadastroContrato extends Controle{
 			Float taxa_multa = Float.parseFloat(multaField.getText());
 			Integer quantidade_parcelas = quantidadeParcelasBox.getSelectionModel().getSelectedItem();
 			Integer dia_pagamento = diaPagamentoBox.getSelectionModel().getSelectedItem();
-			TipoPagamento tipo_pagamento = TipoPagamento
-					.getTipoPagamento(tipoPagamamentoBox.getSelectionModel().getSelectedItem());
+			TipoPagamento tipo_pagamento = tipoPagamamentoBox.getSelectionModel().getSelectedItem();
 			String objeto = objetoField.getText().trim();
 
 			// pegando dados do banco caso seja diferente de a vista
@@ -270,6 +270,12 @@ public class ControleCadastroContrato extends Controle{
 		dataContratoPicker.setValue(LocalDate.now());
 		consulta = null;
 		dadosConsultaLabel.setText("");
+		
+		diaPagamentoBox.getSelectionModel().clearSelection();
+		quantidadeParcelasBox.getSelectionModel().clearSelection();
+		tipoPagamamentoBox.getSelectionModel().clearSelection();
+		tipoParteBox.getSelectionModel().clearSelection();
+		tipoParticipcaoBox.getSelectionModel().clearSelection();
 
 	}
 
@@ -286,9 +292,8 @@ public class ControleCadastroContrato extends Controle{
 	@Override
 	public void init() {
 		fachada = Fachada.getInstance();
-		for (TipoPagamento tipo : TipoPagamento.values())
-			tipoPagamamentoBox.getItems().add(tipo.toString());
 
+		tipoPagamamentoBox.getItems().addAll(TipoPagamento.values());
 		tipoParteBox.getItems().addAll(TipoParte.values());
 		tipoParticipcaoBox.getItems().addAll(TipoParticipacao.values());
 
@@ -301,10 +306,6 @@ public class ControleCadastroContrato extends Controle{
 		tipoParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("tipo_parte"));
 		tipoParticipacaoParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
 
-		// nomeParteTableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		// tipoParteTableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(tipoParteBox.getItems()));
-		// tipoParticipacaoParteTableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(tipoParticipcaoBox.getItems()));
-
 		parteTableView.setItems(FXCollections.observableArrayList());
 		dataContratoPicker.setValue(LocalDate.now());
 
@@ -312,6 +313,65 @@ public class ControleCadastroContrato extends Controle{
 		MaskFieldUtil.numericField(jurosField);
 		MaskFieldUtil.numericField(multaField);
 
+		diaPagamentoBox.setButtonCell(new ListCell<Integer>() {
+			@Override
+			protected void updateItem(Integer item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Dia Para Pagamento");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		
+		quantidadeParcelasBox.setButtonCell(new ListCell<Integer>() {
+			@Override
+			protected void updateItem(Integer item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Quantidade de Parcelas");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		
+		tipoPagamamentoBox.setButtonCell(new ListCell<TipoPagamento>() {
+			@Override
+			protected void updateItem(TipoPagamento item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo de Pagamento");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		
+		tipoParteBox.setButtonCell(new ListCell<TipoParte>() {
+			@Override
+			protected void updateItem(TipoParte item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo da Parte");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		
+		tipoParticipcaoBox.setButtonCell(new ListCell<TipoParticipacao>() {
+			@Override
+			protected void updateItem(TipoParticipacao item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo de Participação");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
 		
 	}
 

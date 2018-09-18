@@ -836,4 +836,64 @@ public class DaoCommun implements IDaoCommun {
 		}
 	}
 
+	@Override
+	public void editarDespesa(Despesa despesa) throws DaoException {
+		
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Despesa.UPDATE_ALL);
+
+			// UPDATE DESPESA SET data_retirada = ?, status = ? , centro_custo = ?, descricao = ?, valor = ?, tipo_gasto = ?, vencimento where id = ?
+			statement.setDate(1, new Date(despesa.getData_retirada().getTime()));
+			statement.setBoolean(2, despesa.getStatus());
+			statement.setString(3, despesa.getCentro_custo());
+			statement.setString(4, despesa.getDescricao());
+			statement.setFloat(5, despesa.getValor());
+			statement.setString(6, despesa.getTipo_gasto().toString());
+			statement.setDate(7, new Date(despesa.getVencimento().getTime()));
+			statement.setInt(8, despesa.getId());
+			statement.executeUpdate();
+			
+			this.connection.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO ATUALIZAR DESPESA - CONTATE O ADM");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		
+	}
+
+	@Override
+	public void editarReceita(Receita receita) throws DaoException {
+		
+		try {
+			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
+			this.statement = connection.prepareStatement(SQLUtil.Receita.UPDATE_ALL);
+
+			// UPDATE RECEITA SET data_entrada = ?, centro_custo = ?, descricao = ?, valor = ?, status = ? , tipo_pagamento = ?, vencimento where id = ?
+			statement.setDate(1, new Date(receita.getData_entrada().getTime()));
+			statement.setString(2, receita.getCentro_custo());
+			statement.setString(3, receita.getDescricao());
+			statement.setFloat(4, receita.getValor());
+			statement.setBoolean(5, receita.getStatus());
+			statement.setString(6, receita.getTipo_pagamento().toString());
+			statement.setDate(7, new Date(receita.getVencimento().getTime()));
+			statement.setInt(8, receita.getId());
+			statement.executeUpdate();
+			
+			this.connection.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new DaoException("PROBLEMA AO ATUALIZAR RECEITA - CONTATE O ADM");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		
+	}
+
 }

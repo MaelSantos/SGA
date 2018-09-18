@@ -78,7 +78,7 @@
                                     <Font name="Verdana Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="areaBox" layoutX="75.0" layoutY="264.0" onAction="#actionButton" prefHeight="25.0" prefWidth="165.0" promptText="Area" />
+                              <ComboBox fx:id="areaBox" layoutX="75.0" layoutY="264.0" onAction="#actionButton" prefHeight="25.0" prefWidth="165.0" promptText="Área" />
                               <TextArea fx:id="descricaoArea" layoutX="75.0" layoutY="300.0" prefHeight="106.0" prefWidth="545.0" promptText="Campo destinado a adição de descrição da consulta">
                                  <font>
                                     <Font name="Verdana" size="12.0" />

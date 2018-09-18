@@ -30,6 +30,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 
 public class ControleCadastroReceitaDespesa extends Controle{
@@ -65,7 +66,6 @@ public class ControleCadastroReceitaDespesa extends Controle{
 	private Financeiro financeiro;
 	private Receita receita;
 	private Despesa despesa;
-	private int financeiro_id;
 	private IFachada fachada;
 	private IDaoCommun daoCommun;
 
@@ -73,17 +73,31 @@ public class ControleCadastroReceitaDespesa extends Controle{
 	public void atualizar(Tela tela, Object object) {
 		
 		if (object instanceof Financeiro) {
-			Financeiro financeiro = (Financeiro) object;
-			
-			this.financeiro = financeiro;
-			financeiro_id = financeiro.getId();
-			System.out.println(financeiro_id);
-		}
-		if (object instanceof Funcionario) {
-			funcionario = (Funcionario) object;
-			
-		}
+			financeiro = (Financeiro) object;
 
+			btnAdd.setText("Adicionar");
+			limparCampos();
+		}
+		else if (object instanceof Funcionario) {
+			funcionario = (Funcionario) object;
+		}
+		else if(tela == Tela.CADASTRO_RECEITA_DESPESA)
+		{
+			if (object instanceof Receita) {
+				receita = (Receita) object;
+				despesa = null;
+				btnAdd.setText("Salvar");
+				mudarCampos();
+				
+			}
+			else if (object instanceof Despesa) {
+				despesa = (Despesa) object;
+				receita = null;
+				btnAdd.setText("Salvar");
+				mudarCampos();
+			}
+			
+		}
 	}
 
 	@Override
@@ -95,6 +109,30 @@ public class ControleCadastroReceitaDespesa extends Controle{
 		daoCommun = DaoCommun.getInstance();
 		
 		MaskFieldUtil.numericField(tfdValor);
+		
+		cbxTipo.setButtonCell(new ListCell<String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
+		
+		cbxTipoPagamentoGasto.setButtonCell(new ListCell<TipoPagamento>() {
+			@Override
+			protected void updateItem(TipoPagamento item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText("Tipo Pagamento");
+				} else {
+					setText(item.toString());
+				}
+			}
+		});
 	}
 
 	@Override
@@ -118,99 +156,99 @@ public class ControleCadastroReceitaDespesa extends Controle{
 		}
 		if(obj == btnAdd)
 		{
-			Log log;
+			Log log = null;
 			if(cbxTipo.getValue().equals("RECEITA"))
 			{
-				receita = new Receita();
 				try {
+				if(receita == null)
+				{
+					receita = new Receita();
+					despesa = null;
+					mudarDados();					
 					
-					DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-					Date data = df.parse(tfdEntradaRetirada.getEditor().getText().trim());
-					receita.setData_entrada(data);
-					
-					Date vencimento = df.parse(tfdVencimento.getEditor().getText().trim());
-					receita.setVencimento(vencimento);
-				} catch (ParseException e) {
-					Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "Formato da Data Errada!!!", "");
-					e.printStackTrace();
-				}
-				receita.setCentro_custo(tfdCentroCusto.getText().trim());
-				receita.setDescricao(tfdDescricao.getText().trim());
-				receita.setStatus(true);
-				receita.setTipo_pagamento(cbxTipoPagamentoGasto.getValue());
-				receita.setValor(Float.parseFloat(tfdValor.getText().trim()));
-				
-				try {
-					//financeiro.getReceitas().add(receita);
-					//fachada.salvarEditarFinanceiro(financeiro);
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTime(receita.getData_entrada());
 					daoCommun.salvarReceita(receita,  fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Salvo!", "", "Adicionado Com Sucesso");
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Receita: "+receita.getCentro_custo(), StatusLog.CONCLUIDO);
-				} catch (BusinessException |DaoException e) {
-					e.printStackTrace();
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Salvar Receita", e.getMessage());
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Receita: Erro", StatusLog.ERRO);
-				}
-				finally {
+					
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Receita: "+receita, StatusLog.CONCLUIDO);
+					
 					limparCampos();
 				}
-				
-				try {
-					if(log != null)
-						fachada.salvarEditarLog(log);
-				} catch (BusinessException e) {
-					e.printStackTrace();
+				else if(receita.getId() != null)
+				{
+					despesa = null;
+					mudarDados();
+					daoCommun.editarReceita(receita);
+					log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Receita: "+receita, StatusLog.CONCLUIDO);
+					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido!", "Receita Atualizada", "");
 				}
 				
+				} catch (BusinessException |DaoException e) {
+					e.printStackTrace();
+					if(receita.getId() == null)
+					{
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Receita: Erro", StatusLog.ERRO);
+						Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Salvar Receita", e.getMessage());
+						
+					}
+					else
+					{
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Receita: Erro", StatusLog.ERRO);
+						Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Editar Receita", e.getMessage());
+					}
+					
+				}
 			}
 			if(cbxTipo.getValue().equals("DESPESA"))
 			{
-				despesa = new Despesa();
-				try {
-					
-					DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-					Date data = df.parse(tfdEntradaRetirada.getEditor().getText().trim());
-					despesa.setData_retirada(data);
-					
-					Date vencimento = df.parse(tfdVencimento.getEditor().getText().trim());
-					despesa.setVencimento(vencimento);
-				} catch (ParseException e) {
-					Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "Formato da Data Errada!!!", "");
-					e.printStackTrace();
-				}
-				despesa.setCentro_custo(tfdCentroCusto.getText().trim());
-				despesa.setDescricao(tfdDescricao.getText().trim());
-				despesa.setStatus(true);
-				despesa.setTipo_gasto(cbxTipoPagamentoGasto.getValue());
-				despesa.setValor(Float.parseFloat(tfdValor.getText().trim()));
 
 				try {
-					//financeiro.getDespesas().add(despesa);
-					//fachada.salvarEditarFinanceiro(financeiro);
-					Calendar calendar = Calendar.getInstance();
-					calendar.setTime(despesa.getData_retirada());
-					daoCommun.salvarDespesa(despesa, fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
-					Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Salvo!", "", "Adicionado Com Sucesso");
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Despesa: "+despesa.getCentro_custo(), StatusLog.CONCLUIDO);
+					
+					if(despesa == null)
+					{
+						despesa = new Despesa();
+						receita = null;
+						mudarDados();					
+						
+						Calendar calendar = Calendar.getInstance();
+						calendar.setTime(despesa.getData_retirada());
+						daoCommun.salvarDespesa(despesa, fachada.buscarFinanceiroPorAno(Calendar.getInstance().get(Calendar.YEAR)).getId());
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Despesa: "+despesa, StatusLog.CONCLUIDO);
+						Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Salvo!", "Adicionado Com Sucesso", "");
+						limparCampos();
+					}
+					else if(despesa.getId() != null)
+					{
+						mudarDados();
+						receita = null;
+						daoCommun.editarDespesa(despesa);
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Despesa: "+despesa, StatusLog.CONCLUIDO);
+						Alerta.getInstance().showMensagem(AlertType.INFORMATION,"Concluido", "Despesa Atualizada", "");
+					}
 				} catch (BusinessException | DaoException e) {
 					e.printStackTrace();
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Salvar Despesa", e.getMessage());
-					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Novo Despesa: Erro", StatusLog.ERRO);
-				}
-				finally {
-					limparCampos();
-				}
-				
-				try {
-					if(log != null)
-						fachada.salvarEditarLog(log);
-				} catch (BusinessException e) {
-					e.printStackTrace();
-				}
+					if(despesa.getId() == null)
+					{
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Despesa: Erro", StatusLog.ERRO);
+						Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Salvar Despesa", e.getMessage());
+						
+					}
+					else
+					{
+						log = new Log(new Date(System.currentTimeMillis()), EventoLog.EDITAR, funcionario.getNome(), "Editar Despesa: Erro", StatusLog.ERRO);
+						Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Editar Despesa", e.getMessage());
+					}
+					
+				}				
 			}
 			
+			try {
+				if(log != null)
+					fachada.salvarEditarLog(log);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
 			
 		}
 		if(obj == btnVoltar)
@@ -219,11 +257,84 @@ public class ControleCadastroReceitaDespesa extends Controle{
 
 	private void limparCampos()
 	{
+		cbxTipo.getSelectionModel().clearSelection();
+		cbxTipoPagamentoGasto.getSelectionModel().clearSelection();
 		tfdCentroCusto.setText("");
 		tfdDescricao.setText("");
 		tfdEntradaRetirada.getEditor().setText("");
 		tfdValor.setText("");
 		tfdVencimento.getEditor().setText("");
+	}
+	
+	private void mudarCampos()
+	{
+		if(despesa != null)
+		{
+			cbxTipo.setValue("DESPESA");
+			cbxTipoPagamentoGasto.setValue(despesa.getTipo_gasto());
+			tfdCentroCusto.setText(despesa.getCentro_custo());
+			tfdDescricao.setText(despesa.getDescricao());
+			tfdValor.setText(despesa.getValor()+"");
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			tfdEntradaRetirada.getEditor().setText(df.format(despesa.getData_retirada()));
+			tfdVencimento.getEditor().setText(df.format(despesa.getVencimento()));
+		}
+		else if(receita != null)
+		{
+			cbxTipo.setValue("RECEITA");
+			cbxTipoPagamentoGasto.setValue(receita.getTipo_pagamento());
+			tfdCentroCusto.setText(receita.getCentro_custo());
+			tfdDescricao.setText(receita.getDescricao());
+			tfdValor.setText(receita.getValor()+"");
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			tfdEntradaRetirada.getEditor().setText(df.format(receita.getData_entrada()));
+			tfdVencimento.getEditor().setText(df.format(receita.getVencimento()));
+		}
+	}
+	
+	private void mudarDados()
+	{
+		if(despesa != null)
+		{
+			try {
+				
+				DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+				Date data = df.parse(tfdEntradaRetirada.getEditor().getText().trim());
+				despesa.setData_retirada(data);
+				
+				Date vencimento = df.parse(tfdVencimento.getEditor().getText().trim());
+				despesa.setVencimento(vencimento);
+			} catch (ParseException e) {
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "Formato da Data Errada!!!", "");
+				e.printStackTrace();
+			}
+			despesa.setCentro_custo(tfdCentroCusto.getText().trim());
+			despesa.setDescricao(tfdDescricao.getText().trim());
+			despesa.setStatus(true);
+			despesa.setTipo_gasto(cbxTipoPagamentoGasto.getValue());
+			despesa.setValor(Float.parseFloat(tfdValor.getText().trim()));
+
+		}
+		else if(receita != null)
+		{
+			try {
+				
+				DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+				Date data = df.parse(tfdEntradaRetirada.getEditor().getText().trim());
+				receita.setData_entrada(data);
+				
+				Date vencimento = df.parse(tfdVencimento.getEditor().getText().trim());
+				receita.setVencimento(vencimento);
+			} catch (ParseException e) {
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Erro!", "Formato da Data Errada!!!", "");
+				e.printStackTrace();
+			}
+			receita.setCentro_custo(tfdCentroCusto.getText().trim());
+			receita.setDescricao(tfdDescricao.getText().trim());
+			receita.setStatus(true);
+			receita.setTipo_pagamento(cbxTipoPagamentoGasto.getValue());
+			receita.setValor(Float.parseFloat(tfdValor.getText().trim()));			
+		}
 	}
 	
 }
