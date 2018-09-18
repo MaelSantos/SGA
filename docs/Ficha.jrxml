@@ -159,7 +159,7 @@
 				<textElement>
 					<font fontName="Verdana"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cliente}.getNascimento().toString()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd /MM/yyyy").format($F{cliente}.getNascimento())]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="5" y="61" width="124" height="30" uuid="f41eeb21-8f6b-4c04-9739-b6321716b3fa"/>

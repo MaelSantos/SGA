@@ -307,7 +307,7 @@ public class DaoCliente implements IDaoCliente {
 
 			resultSet = this.statement.executeQuery();
 			Cliente cliente;
-			Endereco end;
+			Endereco endereco;
 			if (resultSet.next()) {
 				cliente = new Cliente();
 //				nome; nascimento; cpf_cnpj; genero; rg; email; estado_civil; profissao; filhos; responsavel; tipo; id_endereco;	
@@ -323,15 +323,13 @@ public class DaoCliente implements IDaoCliente {
 				cliente.setFilhos(resultSet.getBoolean("filhos"));
 				cliente.setResponsavel(resultSet.getString("responsavel"));
 				cliente.setTipoCliente(TipoCliente.getTipo(resultSet.getString("tipo")));
-//				end = new Endereco();
 
-				end = daoCommun.getEndereco(cliente.getId());
-				
-				cliente.setEndereco(end);
+				endereco = daoCommun.getEndereco(resultSet.getInt("id_endereco"));
+				cliente.setEndereco(endereco);
 				
 				List<Telefone> list = daoCommun.getContatos(cliente.getId());
 				cliente.setTelefones(list);
-				this.conexao.close();			
+				this.conexao.close();
 				
 				return cliente;
 			}

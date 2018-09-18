@@ -9,15 +9,9 @@ import java.util.List;
 
 import org.postgresql.util.PSQLException;
 
-import br.com.sga.entidade.Cliente;
-import br.com.sga.entidade.Consulta;
-import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Funcionario;
-import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.FuncionarioAdapter;
 import br.com.sga.entidade.enums.Tabela;
-import br.com.sga.entidade.enums.TipoParticipacao;
-import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoUsuario;
 import br.com.sga.sql.SQLConnection;
@@ -194,7 +188,9 @@ public class DaoUsuario implements IDaoUsuario{
             List<Funcionario> lista = new ArrayList<>();
             while(resultSet.next()) {
             	lista.add(new Funcionario(resultSet.getInt("id"), resultSet.getString("nome"), resultSet.getString("email"), 
-            			resultSet.getString("login"), resultSet.getString("senha"), resultSet.getString("numero_oab")));
+            			resultSet.getString("login"), resultSet.getString("senha"), resultSet.getString("numero_oab"),
+            			daoCommun.getEndereco(resultSet.getInt("endereco_id"))));
+            	
             }if(lista.isEmpty()){
             	throw new DaoException("Não existe usuarios com esses dados");
             }
@@ -225,7 +221,8 @@ public class DaoUsuario implements IDaoUsuario{
             			resultSet.getString("email"), 
             			resultSet.getString("login"), 
             			resultSet.getString("senha"), 
-            			resultSet.getString("numero_oab"));
+            			resultSet.getString("numero_oab"),
+            			daoCommun.getEndereco(resultSet.getInt("endereco_id")));
             }else {
             	throw new DaoException("Não existe funcionario para essa consulta");
             }

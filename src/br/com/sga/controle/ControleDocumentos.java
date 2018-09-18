@@ -407,6 +407,10 @@ public class ControleDocumentos extends Controle {
 							fachada.buscarConsultaPorClienteAdapter(new String[] { tfdBusca.getText().trim() }));
 					consulta = fachada.buscarConsultaPorId(con.getId());
 					consulta.setCliente(fachada.buscarClientePorIdConsulta(consulta.getId()));
+					
+					System.out.println("Cliente: "+consulta.getCliente());
+					System.out.println("Endereço: "+consulta.getCliente().getEndereco());
+					
 					consulta.setFuncionario(fachada.buscarUsuarioPorIdConsulta(consulta.getId()));
 					list.add(consulta);
 					return list;

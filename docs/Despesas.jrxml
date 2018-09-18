@@ -55,7 +55,7 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="36" splitType="Stretch">
+		<band height="34" splitType="Stretch">
 			<frame>
 				<reportElement x="227" y="0" width="575" height="14" uuid="2a3d298d-90eb-4db1-919a-c9b2ed28c222"/>
 			</frame>
@@ -130,7 +130,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Verdana" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{data_retirada}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{data_retirada})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="154" y="5" width="111" height="30" uuid="87b82baa-20cb-4281-91bc-ce1fa8f2f592">
@@ -175,7 +175,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Verdana" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{vencimento})]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="34" width="795" height="1" uuid="7d7f2452-6049-40a8-a01c-2b6b27ec495f"/>
