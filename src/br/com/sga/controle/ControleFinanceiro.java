@@ -180,20 +180,7 @@ public class ControleFinanceiro extends Controle {
 					}
 					}
 				};
-		});
-
-		tblReceitas.setOnMouseClicked(e -> {
-			if (e.getClickCount() > 1)
-				if (tblReceitas.getSelectionModel().getSelectedItem() != null)
-					App.notificarOuvintes(Tela.CADASTRO_RECEITA_DESPESA, tblReceitas.getSelectionModel().getSelectedItem());
-		});
-		
-		tblDespesas.setOnMouseClicked(e -> {
-			if (e.getClickCount() > 1)
-				if (tblDespesas.getSelectionModel().getSelectedItem() != null)
-					App.notificarOuvintes(Tela.CADASTRO_RECEITA_DESPESA, tblDespesas.getSelectionModel().getSelectedItem());
-		});
-		
+		});		
 	}
 
 	@Override
@@ -278,12 +265,20 @@ public class ControleFinanceiro extends Controle {
 		if(obj == tblReceitas)
 		{
 			tblDespesas.getSelectionModel().clearSelection();
+			
+			if (event.getClickCount() > 1)
+				if (tblReceitas.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.CADASTRO_RECEITA_DESPESA, tblReceitas.getSelectionModel().getSelectedItem());
 		}
 		else if(obj == tblDespesas)
 		{
 			tblReceitas.getSelectionModel().clearSelection();
-		}
 
+			if (event.getClickCount() > 1)
+				if (tblDespesas.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.CADASTRO_RECEITA_DESPESA, tblDespesas.getSelectionModel().getSelectedItem());
+		}		
+		
     }
 	
 }

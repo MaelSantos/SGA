@@ -65,7 +65,7 @@ public class ControleHome extends Controle {
 
 	@FXML
 	private Button btnEditar;
-	
+
 	private IFachada fachada;
 
 	@Override
@@ -105,7 +105,7 @@ public class ControleHome extends Controle {
 			Date primeiro = resolvePrimeiroUltimo(new Date(), true);
 
 			Date ultimo = resolvePrimeiroUltimo(new Date(), false);
-			
+
 			tblAtrasados.getItems().setAll(fachada.BuscarNotificacaoAdapterPorEstado(Andamento.VENCIDO.toString()));
 			tblSemana.getItems().setAll(fachada.BuscarNotificacaoAdapterPorData(primeiro, ultimo));
 
@@ -159,19 +159,6 @@ public class ControleHome extends Controle {
 				}
 			};
 		});
-
-		tblSemana.setOnMouseClicked(e -> {
-			if (e.getClickCount() > 1)
-				if (tblSemana.getSelectionModel().getSelectedItem() != null)
-					App.notificarOuvintes(Tela.DETALHES_NOTIFICACAO, tblSemana.getSelectionModel().getSelectedItem());
-		});
-		
-		tblAtrasados.setOnMouseClicked(e -> {
-			if (e.getClickCount() > 1)
-				if (tblAtrasados.getSelectionModel().getSelectedItem() != null)
-					App.notificarOuvintes(Tela.DETALHES_NOTIFICACAO, tblAtrasados.getSelectionModel().getSelectedItem());
-		});
-
 	}
 
 	@Override
@@ -182,38 +169,38 @@ public class ControleHome extends Controle {
 		if(obj == btnConcluir)
 		{
 			try {
-				
+
 				Notificacao notificacao = null;
 				NotificacaoAdapter adapter = null;
-				
+
 				if(tblAtrasados.getSelectionModel().getSelectedItem() != null)
 				{
 					adapter = tblAtrasados.getSelectionModel().getSelectedItem();
 					notificacao = fachada.buscarNotificacaoPorId(adapter.getId());
-					
+
 					tblAtrasados.getItems().remove(adapter);
 				}
 				else if (tblSemana.getSelectionModel().getSelectedItem() != null)
 				{
 					adapter = tblSemana.getSelectionModel().getSelectedItem();
 					notificacao = fachada.buscarNotificacaoPorId(adapter.getId());
-					
+
 					Date primeiro = resolvePrimeiroUltimo(new Date(), true);
 
 					Date ultimo = resolvePrimeiroUltimo(new Date(), false);
 
 					System.out.println("Primeiro: "+primeiro+" Ultimo: "+ultimo);
-					
+
 					tblSemana.getItems().setAll(fachada.BuscarNotificacaoAdapterPorData(primeiro, ultimo));
 					tblAtrasados.getItems().setAll(fachada.BuscarNotificacaoAdapterPorEstado(Andamento.VENCIDO.toString()));
-					
+
 				}
-				
+
 				if(notificacao != null)
 				{
 					notificacao.setEstado(Andamento.CONCLUIDO);
 					adapter.setEstado(Andamento.CONCLUIDO);
-					
+
 					fachada.salvarEditarNotificacao(notificacao);
 					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "Notificação Atualizada", "");	
 
@@ -236,21 +223,30 @@ public class ControleHome extends Controle {
 	}
 
 	@FXML
-    void actionMouse(MouseEvent event) {
-		
+	void actionMouse(MouseEvent event) {
+
 		Object obj = event.getSource();
-		
+
 		if(obj == tblAtrasados)
 		{
 			tblSemana.getSelectionModel().clearSelection();
+
+			if (event.getClickCount() > 1)
+				if (tblAtrasados.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.DETALHES_NOTIFICACAO, tblAtrasados.getSelectionModel().getSelectedItem());
 		}
 		else if(obj == tblSemana)
 		{
 			tblAtrasados.getSelectionModel().clearSelection();
+
+			if (event.getClickCount() > 1)
+				if (tblSemana.getSelectionModel().getSelectedItem() != null)
+					App.notificarOuvintes(Tela.DETALHES_NOTIFICACAO, tblSemana.getSelectionModel().getSelectedItem());
 		}
 
-    }
-	
+
+	}
+
 	public Date resolvePrimeiroUltimo(Date data, boolean isPrimeiro)
 	{
 		GregorianCalendar calendar = new GregorianCalendar();

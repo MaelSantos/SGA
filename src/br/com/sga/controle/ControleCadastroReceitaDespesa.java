@@ -17,6 +17,7 @@ import br.com.sga.entidade.Receita;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
+import br.com.sga.entidade.enums.TipoFinanceiro;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
@@ -30,6 +31,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 
@@ -42,7 +44,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 	private Button btnAdd;
 
 	@FXML
-	private ComboBox<String> cbxTipo;
+	private ComboBox<TipoFinanceiro> cbxTipo;
 
 	@FXML
 	private ComboBox<TipoPagamento> cbxTipoPagamentoGasto;
@@ -61,6 +63,9 @@ public class ControleCadastroReceitaDespesa extends Controle{
 	
 	@FXML
 	private TextField tfdDescricao;
+	
+	@FXML
+	private Label lblTipo;
 
 	private Funcionario funcionario;
 	private Financeiro financeiro;
@@ -76,6 +81,8 @@ public class ControleCadastroReceitaDespesa extends Controle{
 			financeiro = (Financeiro) object;
 
 			btnAdd.setText("Adicionar");
+			cbxTipo.setVisible(true);
+			lblTipo.setVisible(true);
 			limparCampos();
 		}
 		else if (object instanceof Funcionario) {
@@ -87,6 +94,8 @@ public class ControleCadastroReceitaDespesa extends Controle{
 				receita = (Receita) object;
 				despesa = null;
 				btnAdd.setText("Salvar");
+				cbxTipo.setVisible(false);
+				lblTipo.setVisible(false);
 				mudarCampos();
 				
 			}
@@ -94,6 +103,8 @@ public class ControleCadastroReceitaDespesa extends Controle{
 				despesa = (Despesa) object;
 				receita = null;
 				btnAdd.setText("Salvar");
+				cbxTipo.setVisible(false);
+				lblTipo.setVisible(false);
 				mudarCampos();
 			}
 			
@@ -103,16 +114,16 @@ public class ControleCadastroReceitaDespesa extends Controle{
 	@Override
 	public void init() {
 
-		cbxTipo.getItems().addAll("RECEITA","DESPESA");
+		cbxTipo.getItems().addAll(TipoFinanceiro.values());
 		cbxTipoPagamentoGasto.getItems().addAll(TipoPagamento.values());		
 		fachada = Fachada.getInstance();
 		daoCommun = DaoCommun.getInstance();
 		
 		MaskFieldUtil.numericField(tfdValor);
 		
-		cbxTipo.setButtonCell(new ListCell<String>() {
+		cbxTipo.setButtonCell(new ListCell<TipoFinanceiro>() {
 			@Override
-			protected void updateItem(String item, boolean empty) {
+			protected void updateItem(TipoFinanceiro item, boolean empty) {
 				super.updateItem(item, empty);
 				if (empty || item == null) {
 					setText("Tipo");
@@ -142,12 +153,12 @@ public class ControleCadastroReceitaDespesa extends Controle{
 
 		if(obj == cbxTipo)
 		{
-			if(cbxTipo.getValue().equals("RECEITA"))
+			if(cbxTipo.getValue() == TipoFinanceiro.RECEITA)
 			{
 				tfdEntradaRetirada.setPromptText("Data De Entrada");
 				cbxTipoPagamentoGasto.setPromptText("Tipo De Pagamento");
 			}
-			if(cbxTipo.getValue().equals("DESPESA"))
+			if(cbxTipo.getValue() == TipoFinanceiro.DESPESA)
 			{
 				
 				tfdEntradaRetirada.setPromptText("Data De Retirada");
@@ -157,7 +168,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 		if(obj == btnAdd)
 		{
 			Log log = null;
-			if(cbxTipo.getValue().equals("RECEITA"))
+			if(cbxTipo.getValue() == TipoFinanceiro.RECEITA)
 			{
 				try {
 				if(receita == null)
@@ -200,7 +211,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 					
 				}
 			}
-			if(cbxTipo.getValue().equals("DESPESA"))
+			if(cbxTipo.getValue() == TipoFinanceiro.DESPESA)
 			{
 
 				try {
@@ -270,7 +281,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 	{
 		if(despesa != null)
 		{
-			cbxTipo.setValue("DESPESA");
+			cbxTipo.setValue(TipoFinanceiro.DESPESA);
 			cbxTipoPagamentoGasto.setValue(despesa.getTipo_gasto());
 			tfdCentroCusto.setText(despesa.getCentro_custo());
 			tfdDescricao.setText(despesa.getDescricao());
@@ -281,7 +292,7 @@ public class ControleCadastroReceitaDespesa extends Controle{
 		}
 		else if(receita != null)
 		{
-			cbxTipo.setValue("RECEITA");
+			cbxTipo.setValue(TipoFinanceiro.RECEITA);
 			cbxTipoPagamentoGasto.setValue(receita.getTipo_pagamento());
 			tfdCentroCusto.setText(receita.getCentro_custo());
 			tfdDescricao.setText(receita.getDescricao());
