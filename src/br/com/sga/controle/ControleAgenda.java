@@ -89,13 +89,13 @@ public class ControleAgenda extends Controle {
 		}
 		else if(event.getSource() == cadastrarTarefaButton) {
 			
-			salvarNotificação(Dialogo.getInstance().cadastroNotificacaoDialog(LocalDate.now()));
+			salvarNotificao(Dialogo.getInstance().cadastroNotificacaoDialog(LocalDate.now()));
 			
 		}
 
 	}
 
-	private void salvarNotificação(CadastroNotificacao cadastroNotificacao)
+	private void salvarNotificao(CadastroNotificacao cadastroNotificacao)
 	{
 		Integer hora = cadastroNotificacao.getHoraBox().getSelectionModel().getSelectedItem();
 		Prioridade prioridade= cadastroNotificacao.getPrioridadeBox().getSelectionModel().getSelectedItem();
@@ -126,7 +126,7 @@ public class ControleAgenda extends Controle {
 			try {
 				fachada.salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade, cadastroNotificacao.getDescricaoArea().getText(), Andamento.PENDENTE, 
 						aviso_data, funcionarios));
-				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Confirmação","","Nova notificação cadastrada com sucesso");
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Confirmaï¿½ï¿½o","","Nova notificaï¿½ï¿½o cadastrada com sucesso");
 				calendario.AtualizarMes();
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(), "Nova Tarefa: "+aviso_data, StatusLog.CONCLUIDO);
 			} catch (BusinessException e) {

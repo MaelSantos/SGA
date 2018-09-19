@@ -125,8 +125,8 @@ public class ControleCadastroContrato extends Controle{
 	@FXML
 	public
 	void actionButton(ActionEvent event) {
-		// condição para tirar da tela quando não for necessário o campo para add
-		// informações do banco
+		// condiï¿½ï¿½o para tirar da tela quando nï¿½o for necessï¿½rio o campo para add
+		// informaï¿½ï¿½es do banco
 		if (voltarButton == event.getSource()) {
 			App.notificarOuvintes(Tela.BUSCAR_CONTRATO);
 		} else if (event.getSource() == tipoPagamamentoBox) {
@@ -134,6 +134,13 @@ public class ControleCadastroContrato extends Controle{
 				quantidadeParcelasBox.setVisible(true);
 			else
 				quantidadeParcelasBox.setVisible(false);
+			if(tipoPagamamentoBox.getValue().equals(TipoPagamento.DEPOSITO_EM_CONTA))
+				dadosBancoArea.setVisible(true);
+			else
+			{
+				dadosBancoArea.setText("");
+				dadosBancoArea.setVisible(false);
+			}
 		} else if (event.getSource() == buscarConsultaButton) {
 
 			try {
@@ -149,7 +156,7 @@ public class ControleCadastroContrato extends Controle{
 					consulta.setValor_honorario(consultaBasica.getValor_honorario());
 					dadosConsultaLabel.setText(consultaBasica.toString());
 				} else
-					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!","Informe um dado para pesquisa!!!", "");
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Aï¿½ï¿½o Nescessaria!","Informe um dado para pesquisa!!!", "");
 				
 			} catch (BusinessException e) {
 				e.printStackTrace();
@@ -166,7 +173,7 @@ public class ControleCadastroContrato extends Controle{
 				parteTableView.getItems().add(new Parte(tipo_parte, tipo_participacao, nome));
 			} else
 				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta", "",
-						"Não foi possivel adicionar parte:\nHá campos obrigatorios vazios");
+						"Nï¿½o foi possivel adicionar parte:\nHï¿½ campos obrigatorios vazios");
 
 		else if (gerarDocumentoButton == event.getSource()) {
 		} else if (salvarContratoButton == event.getSource())
@@ -188,7 +195,7 @@ public class ControleCadastroContrato extends Controle{
 
 			// pegando dados do banco caso seja diferente de a vista
 			String dados_banco = "";
-			if (tipo_pagamento != TipoPagamento.A_VISTA)
+			if (tipo_pagamento == TipoPagamento.DEPOSITO_EM_CONTA)
 				dados_banco = dadosBancoArea.getText().trim();
 			else
 				quantidade_parcelas = 1;
@@ -217,17 +224,17 @@ public class ControleCadastroContrato extends Controle{
 									Prioridade.MEDIA, "Parcela de contrato ", Andamento.PENDENTE,
 									parcela.getVencimento(), fachada.buscarUsuarioPorBusca("%_%")));
 
-						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Confirmação", "",
+						Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Confirmaï¿½ï¿½o", "",
 								"Contrato salvo com sucesso");
 						log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, funcionario.getNome(),
 								"Novo Contrato: " + contrato.getArea(), StatusLog.CONCLUIDO);
 						limparCampos();
 					} else
 						Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta", "",
-								"Há campos obrigatorios vazios ou não selecionados");
+								"Hï¿½ campos obrigatorios vazios ou nï¿½o selecionados");
 				} else
 					Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta", "",
-							"Nenhuma data selecionada : possivelmente a data escolhida é invalida");
+							"Nenhuma data selecionada : possivelmente a data escolhida ï¿½ invalida");
 			} else
 				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta", "",
 						"Nenhuma consulta com o cliente foi selecionada");
@@ -366,7 +373,7 @@ public class ControleCadastroContrato extends Controle{
 			protected void updateItem(TipoParticipacao item, boolean empty) {
 				super.updateItem(item, empty);
 				if (empty || item == null) {
-					setText("Tipo de Participação");
+					setText("Tipo de Participaï¿½ï¿½o");
 				} else {
 					setText(item.toString());
 				}
