@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.com.sga.entidade.enums.Area;
 import br.com.sga.entidade.enums.TipoPagamento;
-import br.com.sga.entidade.enums.TipoParticipacao;
 
 public class Contrato {
 
@@ -78,15 +77,10 @@ public class Contrato {
 		for(int i = 0; i < this.partes.size(); i++)
 		{
 			Parte parte = this.partes.get(i);
-			
-			if(parte.getTipo_participacao() != TipoParticipacao.ADVOGADO)
-			{
-				if(i < this.partes.size()-1)
-					partes += parte.getNome()+", ";
-				else
-					partes += parte.getNome();
-			}
-			
+			if(i < this.partes.size()-1)
+				partes += parte.getNome()+", ";
+			else
+				partes += parte.getNome();
 		}
 		
 		return partes;

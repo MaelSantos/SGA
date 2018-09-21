@@ -25,7 +25,6 @@ import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
-import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.fachada.Fachada;
@@ -40,7 +39,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class ControleDetalhesContrato extends Controle {
@@ -95,9 +93,6 @@ public class ControleDetalhesContrato extends Controle {
 
 	@FXML
 	private ComboBox<TipoParte> tipoParteField;
-
-	@FXML
-	private ComboBox<TipoParticipacao> tipoParticiField;
 
 	@FXML
 	private Button voltarButton;
@@ -238,15 +233,14 @@ public class ControleDetalhesContrato extends Controle {
 				andamentoBox.setValue(parcela.getEstado());
 
 			} else if (selectParteButton == event.getSource()) {
-				// Parte parte = dialogo.selecao(contrato.getPartes(),"Seleção de
+				// Parte parte = dialogo.selecao(contrato.getPartes(),"Seleï¿½ï¿½o de
 				// parte","Selecione uma das partes para mais detalhes ");
 				parte = dialogo.selecionar(contrato.getPartes());
 				nomeParteField.setText(parte.getNome());
 				tipoParteField.setValue(parte.getTipo_parte());
-				tipoParticiField.setValue(parte.getTipo_participacao());
 			}
 		} else
-			Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Ação invalida!!!", "Não há contratos selecionados");
+			Alerta.getInstance().showMensagem(AlertType.WARNING, "Aï¿½ï¿½o Nescessaria!", "Aï¿½ï¿½o invalida!!!", "Nï¿½o hï¿½ contratos selecionados");
 		
 	}
 
@@ -314,7 +308,6 @@ public class ControleDetalhesContrato extends Controle {
 		{
 			parte.setNome(nomeParteField.getText().trim());
 			parte.setTipo_parte(tipoParteField.getValue());
-			parte.setTipo_participacao(tipoParticiField.getValue());
 		}
 		
 	}
@@ -366,7 +359,6 @@ public class ControleDetalhesContrato extends Controle {
 
 		nomeParteField.setText("");
 		tipoParteField.getSelectionModel().clearSelection();
-		tipoParticiField.getSelectionModel().clearSelection();
 	}
 
 	@Override
@@ -378,8 +370,6 @@ public class ControleDetalhesContrato extends Controle {
 		areaField.getItems().setAll(Area.values());
 		tipoPagaField.getItems().setAll(TipoPagamento.values());
 		tipoParteField.getItems().setAll(TipoParte.values());
-		tipoParticiField.getItems().setAll(TipoParticipacao.values());
-		
 		andamentoBox.setButtonCell(new ListCell<Andamento>() {
 			@Override
 			protected void updateItem(Andamento item, boolean empty) {
@@ -397,7 +387,7 @@ public class ControleDetalhesContrato extends Controle {
 			protected void updateItem(Area item, boolean empty) {
 				super.updateItem(item, empty);
 				if (empty || item == null) {
-					setText("Área");
+					setText("ï¿½rea");
 				} else {
 					setText(item.toString());
 				}
@@ -426,19 +416,6 @@ public class ControleDetalhesContrato extends Controle {
 				}
 			}
 		});
-		
-		tipoParticiField.setButtonCell(new ListCell<TipoParticipacao>() {
-			@Override
-			protected void updateItem(TipoParticipacao item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText("Tipo de Participação");
-				} else {
-					setText(item.toString());
-				}
-			}
-		});
-		
 		
 		MaskFieldUtil.numericField(valorField);
 		MaskFieldUtil.numericField(valorTotalField);

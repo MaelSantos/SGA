@@ -14,7 +14,6 @@ import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.enums.TipoAudiencia;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
-import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.entidade.enums.TipoTelefone;
 
 import java.util.ArrayList;
@@ -127,7 +126,7 @@ public class DaoCommun implements IDaoCommun {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DaoException("PROBLEMA AO SALVAR VINCULO FUNCIONARIO/NOTIFICAÇÃO CONTATE ADM");
+			throw new DaoException("PROBLEMA AO SALVAR VINCULO FUNCIONARIO/NOTIFICAï¿½ï¿½O CONTATE ADM");
 		}
 	}
 
@@ -257,7 +256,7 @@ public class DaoCommun implements IDaoCommun {
 			this.connection = SQLConnection.getConnectionInstance(SQLConnection.NOME_BD_CONNECTION_POSTGRESS);
 			
 			if(tabela == Tabela.CONTRATO)
-			this.statement = connection.prepareStatement(SQLUtil.Parte.SELECT_PARTE_CONTRATO_ID);
+				this.statement = connection.prepareStatement(SQLUtil.Parte.SELECT_PARTE_CONTRATO_ID);
 			else if (tabela == Tabela.PROCESSO) {
 				this.statement = connection.prepareStatement(SQLUtil.Parte.SELECT_PARTE_PROCESSO_ID);
 			}
@@ -274,9 +273,6 @@ public class DaoCommun implements IDaoCommun {
 				parte.setId(resultSet.getInt("id"));
 				parte.setNome(resultSet.getString("nome"));
 				parte.setTipo_parte(TipoParte.getTipoParte(resultSet.getString("tipo_parte")));
-				parte.setTipo_participacao(TipoParticipacao.getValue(resultSet.getString("tipo_participacao")));
-//				 parte.setSituacao(resultSet.getString("situacao"));
-
 				partes.add(parte);
 
 			}
@@ -301,8 +297,7 @@ public class DaoCommun implements IDaoCommun {
 			// nome,tipo_parte,tipo_participacao,contrato_id
 			statement.setString(1, parte.getNome());
 			statement.setString(2, parte.getTipo_parte().toString());
-			statement.setString(3, parte.getTipo_participacao().toString());
-			statement.setInt(4, id);
+			statement.setInt(3, id);
 			statement.execute();
 			this.connection.close();
 		} catch (SQLException ex) {
@@ -795,9 +790,8 @@ public class DaoCommun implements IDaoCommun {
 
 			// UPDATE PARTE SET TIPO_PARTE = ?, TIPO_PARTICIPACAO = ?, NOME = ? WHERE ID = ?
 			statement.setString(1, parte.getTipo_parte().toString());
-			statement.setString(2, parte.getTipo_participacao().toString());
-			statement.setString(3, parte.getNome());
-			statement.setInt(4, parte.getId());
+			statement.setString(2, parte.getNome());
+			statement.setInt(3, parte.getId());
 			statement.executeUpdate();
 
 			this.connection.close();
@@ -830,7 +824,7 @@ public class DaoCommun implements IDaoCommun {
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new DaoException("PROBLEMA AO ATUALIZAR AUDIÊNCIAS - CONTATE O ADM");
+			throw new DaoException("PROBLEMA AO ATUALIZAR AUDIï¿½NCIAS - CONTATE O ADM");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

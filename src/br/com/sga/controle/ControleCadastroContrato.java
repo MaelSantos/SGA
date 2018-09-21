@@ -24,7 +24,6 @@ import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoParte;
-import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.exceptions.BusinessException;
@@ -82,8 +81,6 @@ public class ControleCadastroContrato extends Controle{
 	@FXML
 	private TableColumn<Parte, TipoParte> tipoParteTableColumn;
 
-	@FXML
-	private TableColumn<Parte, TipoParticipacao> tipoParticipacaoParteTableColumn;
 
 	@FXML
 	private Button addParteButton;
@@ -94,8 +91,6 @@ public class ControleCadastroContrato extends Controle{
 	@FXML
 	private ComboBox<TipoParte> tipoParteBox;
 
-	@FXML
-	private ComboBox<TipoParticipacao> tipoParticipcaoBox;
 
 	@FXML
 	private Button gerarDocumentoButton;
@@ -142,7 +137,7 @@ public class ControleCadastroContrato extends Controle{
 				dadosBancoArea.setVisible(false);
 			}
 		} else if (event.getSource() == buscarConsultaButton) {
-
+			parteTableView.getItems().clear();
 			try {
 				String busca[] = { nomeClienteField.getText().trim() };
 
@@ -154,6 +149,7 @@ public class ControleCadastroContrato extends Controle{
 					consulta.setArea(consultaBasica.getArea());
 					consulta.setData_consulta(consultaBasica.getData());
 					consulta.setValor_honorario(consultaBasica.getValor_honorario());
+					parteTableView.getItems().add(new Parte(TipoParte.ATIVO,consultaBasica.getNome_cliente()));
 					dadosConsultaLabel.setText(consultaBasica.toString());
 				} else
 					Alerta.getInstance().showMensagem(AlertType.WARNING, "A��o Nescessaria!","Informe um dado para pesquisa!!!", "");
@@ -165,12 +161,10 @@ public class ControleCadastroContrato extends Controle{
 
 		} else if (addParteButton == event.getSource())
 			if (nomeParteField.getText().trim().length() > 1
-					&& tipoParteBox.getSelectionModel().getSelectedItem() != null
-					&& tipoParticipcaoBox.getSelectionModel().getSelectedItem() != null) {
+					&& tipoParteBox.getSelectionModel().getSelectedItem() != null) {
 				String nome = nomeParteField.getText().trim();
 				TipoParte tipo_parte = tipoParteBox.getSelectionModel().getSelectedItem();
-				TipoParticipacao tipo_participacao = tipoParticipcaoBox.getSelectionModel().getSelectedItem();
-				parteTableView.getItems().add(new Parte(tipo_parte, tipo_participacao, nome));
+				parteTableView.getItems().add(new Parte(tipo_parte,nome));
 			} else
 				Alerta.getInstance().showMensagem(AlertType.WARNING, "Alerta", "",
 						"N�o foi possivel adicionar parte:\nH� campos obrigatorios vazios");
@@ -212,7 +206,7 @@ public class ControleCadastroContrato extends Controle{
 						for (int i = 0; i < quantidade_parcelas; i++)
 							parcelas.add(new Parcela((Float) (valor_total / quantidade_parcelas), "CONTRATO",
 									dia_pagamento));
-
+						
 						Contrato contrato = new Contrato(objeto, valor_total, tipo_pagamento, data_contrato,
 								consulta.getArea(), dados_banco, parteTableView.getItems(), parcelas, taxa_multa,
 								taxa_juros, consulta, financeiro);
@@ -282,7 +276,6 @@ public class ControleCadastroContrato extends Controle{
 		quantidadeParcelasBox.getSelectionModel().clearSelection();
 		tipoPagamamentoBox.getSelectionModel().clearSelection();
 		tipoParteBox.getSelectionModel().clearSelection();
-		tipoParticipcaoBox.getSelectionModel().clearSelection();
 
 	}
 
@@ -302,7 +295,6 @@ public class ControleCadastroContrato extends Controle{
 
 		tipoPagamamentoBox.getItems().addAll(TipoPagamento.values());
 		tipoParteBox.getItems().addAll(TipoParte.values());
-		tipoParticipcaoBox.getItems().addAll(TipoParticipacao.values());
 
 		for (int i = 1; i <= 28; i++)
 			diaPagamentoBox.getItems().add(i);
@@ -311,7 +303,6 @@ public class ControleCadastroContrato extends Controle{
 
 		nomeParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		tipoParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("tipo_parte"));
-		tipoParticipacaoParteTableColumn.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
 
 		parteTableView.setItems(FXCollections.observableArrayList());
 		dataContratoPicker.setValue(LocalDate.now());
@@ -362,18 +353,6 @@ public class ControleCadastroContrato extends Controle{
 				super.updateItem(item, empty);
 				if (empty || item == null) {
 					setText("Tipo da Parte");
-				} else {
-					setText(item.toString());
-				}
-			}
-		});
-		
-		tipoParticipcaoBox.setButtonCell(new ListCell<TipoParticipacao>() {
-			@Override
-			protected void updateItem(TipoParticipacao item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText("Tipo de Participa��o");
 				} else {
 					setText(item.toString());
 				}

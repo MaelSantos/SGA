@@ -2,7 +2,7 @@ package br.com.sga.sql;
 
 public class SQLUtil {
 
-    public static final String URL_POSTGRES = "jdbc:postgresql://localhost:5432/SGA";
+    public static final String URL_POSTGRES = "jdbc:postgresql://localhost:5432/sga";
     public static final String USUARIO_POSTGRES = "postgres";
     public static final String SENHA_POSTGRES = "admin";
     
@@ -28,11 +28,11 @@ public class SQLUtil {
     }
     
     public static class Parte{
-    	public static final String INSERT_ALL_CONTRATO = "INSERT INTO PARTE(nome,tipo_parte,tipo_participacao,contrato_id) VALUES(?,?,?,?)";
-    	public static final String INSERT_ALL_PROCESSO = "INSERT INTO PARTE(nome,tipo_parte,tipo_participacao,processo_id) VALUES(?,?,?,?)";
+    	public static final String INSERT_ALL_CONTRATO = "INSERT INTO PARTE(nome,tipo_parte,contrato_id) VALUES(?,?,?)";
+    	public static final String INSERT_ALL_PROCESSO = "INSERT INTO PARTE(nome,tipo_parte,processo_id) VALUES(?,?,?)";
     	public static final String SELECT_PARTE_CONTRATO_ID = "SELECT * FROM PARTE WHERE contrato_id = ?";
     	public static final String SELECT_PARTE_PROCESSO_ID = "SELECT * FROM PARTE WHERE processo_id = ?";
-		public static final String UPDATE_ALL = "UPDATE PARTE SET TIPO_PARTE = ?, TIPO_PARTICIPACAO = ?, NOME = ? WHERE ID = ?";
+		public static final String UPDATE_ALL = "UPDATE PARTE SET TIPO_PARTE = ?, NOME = ? WHERE ID = ?";
     }
 
     public static class Financeiro{

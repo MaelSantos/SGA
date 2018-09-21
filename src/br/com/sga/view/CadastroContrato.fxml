@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroContrato">
+<AnchorPane style="-fx-background-color: #008B8B;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.sga.controle.ControleCadastroContrato">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -124,8 +124,10 @@
                                 <columns>
                                   <TableColumn fx:id="nomeParteTableColumn" prefWidth="303.0" text="Nome" />
                                   <TableColumn fx:id="tipoParteTableColumn" minWidth="0.0" prefWidth="146.0" text="Tipo parte" />
-                                    <TableColumn fx:id="tipoParticipacaoParteTableColumn" prefWidth="161.0" text="Tipo participação" />
                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                               <Button fx:id="addParteButton" layoutX="504.0" layoutY="528.0" mnemonicParsing="false" onAction="#actionButton" text="Adicionar parte">
                                  <font>
@@ -138,7 +140,6 @@
                                  </font>
                               </TextField>
                               <ComboBox fx:id="tipoParteBox" layoutX="346.0" layoutY="527.0" prefWidth="150.0" promptText="Tipo da Parte" />
-                              <ComboBox fx:id="tipoParticipcaoBox" layoutX="159.0" layoutY="527.0" onAction="#actionButton" prefHeight="25.0" prefWidth="184.0" promptText="Tipo de Participação" />
                               <Button fx:id="gerarDocumentoButton" layoutX="61.0" layoutY="755.0" mnemonicParsing="false" onAction="#actionButton" text="Gerar documento para impreção">
                                  <font>
                                     <Font name="Verdana" size="12.0" />

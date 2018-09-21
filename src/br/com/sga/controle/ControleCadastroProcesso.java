@@ -22,7 +22,6 @@ import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.entidade.enums.TipoParte;
-import br.com.sga.entidade.enums.TipoParticipacao;
 import br.com.sga.entidade.enums.TipoProcesso;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
@@ -181,7 +180,7 @@ public class ControleCadastroProcesso extends Controle {
 						cliente = fachada.buscarClientePorId(adapter.getId());
 						lblCliente.setText(adapter + "");
 
-						Parte parte = new Parte(TipoParte.ATIVO, TipoParticipacao.EXEQUENTE, cliente.getNome());
+						Parte parte = new Parte(TipoParte.ATIVO,cliente.getNome());
 						
 						adicionarParte(parte);
 								
@@ -192,7 +191,7 @@ public class ControleCadastroProcesso extends Controle {
 								"Busca Concluida Com Sucesso", "");
 					}
 				} else
-					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!",
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Aï¿½ï¿½o Nescessaria!",
 							"Informe Algum Dado Para Pesquisa!!!", "");
 			} catch (BusinessException e) {
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Buscar Cliente!!!",
@@ -222,12 +221,12 @@ public class ControleCadastroProcesso extends Controle {
 					if(processo.getPartes().size() > 0 || cliente != null)
 						App.notificarOuvintes(Tela.CADASTRO_PARTE, processo);
 					else
-						Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Selecione Primeiro Um Cliente Para Prosseguir!!!", "");					
+						Alerta.getInstance().showMensagem(AlertType.WARNING, "Aï¿½ï¿½o Nescessaria!", "Selecione Primeiro Um Cliente Para Prosseguir!!!", "");					
 				}
 				else
-					Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Selecione Primeiro Um Cliente Para Prosseguir!!!", "");
+					Alerta.getInstance().showMensagem(AlertType.WARNING, "Aï¿½ï¿½o Nescessaria!", "Selecione Primeiro Um Cliente Para Prosseguir!!!", "");
 			else
-				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!", "Selecione Primeiro Um Cliente Para Prosseguir!!!", "");
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Aï¿½ï¿½o Nescessaria!", "Selecione Primeiro Um Cliente Para Prosseguir!!!", "");
 			
 		}
 		else if(obj == btnAddAudiencias)
