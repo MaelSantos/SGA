@@ -250,8 +250,8 @@ public class ControleDetalhesProcesso extends Controle {
 		colParticipantes1.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		colParticipantes2.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
-		colTipo1.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
-		colTipo2.setCellValueFactory(new PropertyValueFactory<>("tipo_participacao"));
+		colTipo1.setCellValueFactory(new PropertyValueFactory<>("tipo_parte"));
+		colTipo2.setCellValueFactory(new PropertyValueFactory<>("tipo_parte"));
 
 		cbxTipo.getItems().setAll(TipoProcesso.values());
 

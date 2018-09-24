@@ -93,7 +93,7 @@
                       <TableColumn fx:id="colNumero" prefWidth="75.0" text="Numero" />
                       <TableColumn fx:id="colComarca" prefWidth="75.0" text="Comarca" />
                         <TableColumn fx:id="colPartes" prefWidth="75.0" text="Partes" />
-                        <TableColumn fx:id="colAndamento" prefWidth="75.0" text="Andamento" />
+                        <TableColumn fx:id="colAndamento" prefWidth="75.0" text="Decisão" />
                         <TableColumn fx:id="colData" prefWidth="75.0" text="Data" />
                     </columns>
                      <columnResizePolicy>
