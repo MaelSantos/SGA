@@ -61,7 +61,7 @@
                <children>
                   <ImageView fitHeight="559.0" fitWidth="622.0" opacity="0.5" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../../../res/SGA%20-%20Nome.png" />
+                        <Image url="@image/SGA%20-%20Nome.png" />
                      </image>
                   </ImageView>
                   <AnchorPane fx:id="pane" />
@@ -86,7 +86,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Megaphone_50px.png" />
+                                    <Image url="@image/icon/icons8_Megaphone_50px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -104,7 +104,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Schedule_50px.png" />
+                                    <Image url="@image/icon/icons8_Schedule_50px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -122,7 +122,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_People_50px.png" />
+                                    <Image url="@image/icon/icons8_People_50px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -140,7 +140,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Briefcase_50px.png" />
+                                    <Image url="@image/icon/icons8_Briefcase_50px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -161,7 +161,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Purchase_Order_50px.png" />
+                                    <Image url="@image/icon/icons8_Purchase_Order_50px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -179,7 +179,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Courthouse_50px.png" />
+                                    <Image url="@image/icon/icons8_Courthouse_50px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -197,7 +197,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Documents_50px.png" />
+                                    <Image url="@image/icon/icons8_Documents_50px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -215,7 +215,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Fund_Accounting_50px.png" />
+                                    <Image url="@image/icon/icons8_Fund_Accounting_50px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -233,7 +233,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Increase_50px.png" />
+                                    <Image url="@image/icon/icons8_Increase_50px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -251,7 +251,7 @@
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Historical_50px.png" />
+                                    <Image url="@image/icon/icons8_Historical_50px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -268,7 +268,7 @@
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="RIGHT_TO_LEFT">
                                        <image>
-                                          <Image url="@../../../../../res/icones/icons8_Info_50px_2.png" />
+                                          <Image url="@image/icon/icons8_Info_50px_2.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

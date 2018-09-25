@@ -47,7 +47,7 @@
                      <center>
                         <ImageView fitHeight="179.0" fitWidth="412.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../res/SGA%20-%20Nome.png" />
+                              <Image url="@image/SGA%20-%20Nome.png" />
                            </image>
                         </ImageView>
                      </center>

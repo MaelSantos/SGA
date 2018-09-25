@@ -55,7 +55,7 @@
          <top>
             <ImageView fx:id="imgLogo" cache="true" fitHeight="300.0" pickOnBounds="true" preserveRatio="true" smooth="false" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../../../../../res/SGA%20-%20Nome.png" />
+                  <Image url="@image/SGA%20-%20Nome.png" />
                </image>
             </ImageView>
          </top>

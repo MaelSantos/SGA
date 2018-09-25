@@ -6,9 +6,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="src" path="docs"/>
+	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="lib" path="lib/controlsfx-9.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-42.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils-1.8.2.jar"/>

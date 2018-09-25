@@ -315,7 +315,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../res/icones/icons8_Back_To_50px.png" />
+                              <Image url="@image/icon/icons8_Back_To_50px.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>

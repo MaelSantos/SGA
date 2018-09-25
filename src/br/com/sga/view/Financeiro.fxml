@@ -54,7 +54,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0">
                            <image>
-                              <Image url="@../../../../../res/icones/icons8_Edit_Property_50px_1.png" />
+                              <Image url="@image/icon/icons8_Edit_Property_50px_1.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -63,7 +63,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0">
                            <image>
-                              <Image url="@../../../../../res/icones/icons8_Add_List_50px.png" />
+                              <Image url="@image/icon/icons8_Add_List_50px.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -95,7 +95,7 @@
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Search_50px_2.png" />
+                                    <Image url="@image/icon/icons8_Search_50px_2.png" />
                                  </image>
                               </ImageView>
                            </graphic>

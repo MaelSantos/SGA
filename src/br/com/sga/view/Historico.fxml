@@ -64,7 +64,7 @@
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0">
                                  <image>
-                                    <Image url="@../../../../../res/icones/icons8_Search_50px_2.png" />
+                                    <Image url="@image/icon/icons8_Search_50px_2.png" />
                                  </image>
                               </ImageView>
                            </graphic>
