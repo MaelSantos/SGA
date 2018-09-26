@@ -1,13 +1,13 @@
 package br.com.sga.dao;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.Dom4JDriver;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 import com.thoughtworks.xstream.security.NoTypePermission;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
@@ -20,32 +20,19 @@ public class DaoXml implements IDaoXml {
 
 	private static DaoXml instance;
 	private XStream xStream;
-	private File file;
-	private OutputStream stream;
 	
 	private String ip;
 
 	private DaoXml() {
 
 		xStream = new XStream(new Dom4JDriver());
-		xStream.alias("ip", String.class);
+		xStream.alias("string", String.class);
 		xStream.autodetectAnnotations(true);
 		XStream.setupDefaultSecurity(xStream);
 		xStream.allowTypes(new Class[] { 
 				String.class
 		});
-		xStream.addPermission(NoTypePermission.NONE);
-		xStream.addPermission(NullPermission.NULL);
-		xStream.addPermission(PrimitiveTypePermission.PRIMITIVES);
 		
-		file = new File("res/ip.xml");
-		try {
-			stream = new FileOutputStream(file);
-		} catch (FileNotFoundException e) {
-			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro No Arquivo de IP", "Contate o ADM");
-			e.printStackTrace();
-		}
-
 		ip = buscarIP();
 		
 	}
@@ -57,8 +44,10 @@ public class DaoXml implements IDaoXml {
 	}
 
 	@Override
-	public String SalvarEditarIP(String ip) {
+	public synchronized String SalvarEditarIP(String ip) {
 
+		File file = new File("res/ip.xml");
+		
 		try {
 			if(!file.exists())
 				file.createNewFile();
@@ -67,8 +56,10 @@ public class DaoXml implements IDaoXml {
 				file.delete();
 				file.createNewFile();
 			}
-
-			xStream.toXML("jdbc:postgresql://"+ip+":5432/SGA", stream);	
+			
+			OutputStream stream = new FileOutputStream(file);
+			xStream.toXML("jdbc:postgresql://"+ip+":5432/SGA", stream);
+			this.ip = ip;
 
 		} catch (IOException e) {
 			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Modificar IP", "");
@@ -79,25 +70,24 @@ public class DaoXml implements IDaoXml {
 	}
 
 	@Override
-	public String buscarIP() {
+	public synchronized String buscarIP() {
 
 		String ip = null;
-
+		
+		File file = new File("res/ip.xml");
+		
 		try {
 			if(!file.exists())
 				file.createNewFile();
 			else
-			{
 				ip = (String) xStream.fromXML(file);
-				this.ip = ip;
-			}
-		} catch (IOException e) {
-			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Buscar IP", "");
+		} catch (Exception e) {
+//			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Buscar IP", "");
 			e.printStackTrace();
 		}
 
-		if(ip == null)
-			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Arquivo de IP Encontrasse Vazio", "Contate o ADM");
+//		if(ip == null)
+//			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Arquivo de IP Vazio", "Contate o ADM");
 		
 		return ip;
 	}
