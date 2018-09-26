@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import br.com.sga.dao.DaoXml;
+
 
 public class SQLConnection {
 
@@ -24,7 +26,7 @@ public class SQLConnection {
                     case NOME_BD_CONNECTION_POSTGRESS: {
 
                         conexao = DriverManager.getConnection(
-                                SQLUtil.URL_POSTGRES,
+                                DaoXml.getInstance().getIp(),
                                 SQLUtil.USUARIO_POSTGRES,
                                 SQLUtil.SENHA_POSTGRES
                         );

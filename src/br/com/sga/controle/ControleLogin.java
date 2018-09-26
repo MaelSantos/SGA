@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import br.com.sga.app.App;
+import br.com.sga.dao.DaoXml;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.enums.EventoLog;
@@ -13,6 +14,7 @@ import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
+import br.com.sga.interfaces.IDaoXml;
 import br.com.sga.sql.SQLUtil;
 import br.com.sga.view.Alerta;
 import br.com.sga.view.Dialogo;
@@ -46,8 +48,9 @@ public class ControleLogin implements Initializable {
 	private ImageView imgLogo;
 
 	private IFachada fachada;
-	private Funcionario funcionario;
 	private Dialogo dialogo;
+	private IDaoXml daoXml;
+	private Funcionario funcionario;
 	private String usuario;
 
 	@FXML
@@ -84,19 +87,18 @@ public class ControleLogin implements Initializable {
 		}
 		else if(obj == btnConfigurar)
 		{
-			String ip = dialogo.dialogoDeEntradaText("Configurar IP", "IP atual: "+SQLUtil.IP, "Escolha Um Novo IP");
+			String ip = dialogo.dialogoDeEntradaText("Configurar IP", "IP atual: "+daoXml.getIp(), "Escolha Um Novo IP");
 			
 			if(!ip.trim().isEmpty())
 			{
-				SQLUtil.IP = ip;
-				SQLUtil.URL_POSTGRES = "jdbc:postgresql://"+ip+":5432/SGA";
+				
 				System.out.println("Retorno: "+ip);
-				System.out.println("URL: "+SQLUtil.URL_POSTGRES);
+				daoXml.SalvarEditarIP(ip);
 				
 				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "IP Alterado Para: "+ip, "");
 			}
 			else
-				Alerta.getInstance().showMensagem(AlertType.WARNING, "Nada Alterado", "Nada Foi Modificado: IP Atual: "+SQLUtil.IP, "Informe Algum Dado!!!");
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Nada Alterado", "Nada Foi Modificado: IP Atual: "+daoXml.getIp(), "Informe Algum Dado!!!");
 		}
 		else if (obj == btnSair) {
 			try {
@@ -115,6 +117,7 @@ public class ControleLogin implements Initializable {
 		
 		fachada = Fachada.getInstance();
 		dialogo = Dialogo.getInstance();
+		daoXml = DaoXml.getInstance();
 		
 		usuario = "";
 	}
