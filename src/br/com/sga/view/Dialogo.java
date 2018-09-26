@@ -11,6 +11,7 @@ import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
+import br.com.sga.sql.SQLUtil;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -120,61 +121,7 @@ public class Dialogo {
 				Alerta.getInstance().showMensagem(AlertType.WARNING, "Ação Nescessaria!",
 						"Selecione Uma Notificação Antes de Proseguir", "");
 		}
-//		else if (optional.isPresent() && optional.get().getButtonData() == ButtonData.RIGHT) {
-//			
-//			CadastroNotificacao cadastroNotificacao = cadastroNotificacaoDialog(date);
-//			
-//			Integer hora = cadastroNotificacao.getHoraBox().getSelectionModel().getSelectedItem();
-//			Prioridade prioridade= cadastroNotificacao.getPrioridadeBox().getSelectionModel().getSelectedItem();
-//			LocalDate ld = cadastroNotificacao.getDataPicker().getValue();
-//
-//			if(hora != null && ld != null && prioridade != null) {
-//				Calendar c =  Calendar.getInstance();
-//				c.setTime(new java.util.Date());
-//				c.set(Calendar.YEAR,ld.getYear());
-//				c.set(Calendar.MONTH,ld.getMonthValue()-1);
-//				c.set(Calendar.DAY_OF_MONTH,ld.getDayOfMonth());
-//				c.set(Calendar.HOUR_OF_DAY,hora);
-//				c.set(Calendar.SECOND,0);
-//				c.set(Calendar.MILLISECOND,0);
-//				c.set(Calendar.MINUTE,0);
-//				java.util.Date aviso_data = c.getTime();
-//				List<Funcionario> funcionarios = new ArrayList<>();
-//				if(cadastroNotificacao.getApenasMinRadio().isSelected()) {
-////					funcionarios.add(funcionario);
-//				}else {
-//					try {
-//						funcionarios = Fachada.getInstance().buscarUsuarioPorBusca("%_%");
-//					} catch (BusinessException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//				Log log;
-//				try {
-//					Fachada.getInstance().salvarEditarNotificacao(new Notificacao(TipoNotificacao.TAREFA, prioridade, cadastroNotificacao.getDescricaoArea().getText(), Andamento.PENDENTE, 
-//							aviso_data, funcionarios));
-//					Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Confirmação","","Nova notificação cadastrada com sucesso");
-////					calendario.AtualizarMes();
-//					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, "", "Nova Tarefa: "+aviso_data, StatusLog.CONCLUIDO);
-//				} catch (BusinessException e) {
-//					log = new Log(new Date(System.currentTimeMillis()), EventoLog.CADASTRAR, "", "Nova Tarefa:  Erro", StatusLog.ERRO);
-//					e.printStackTrace();
-//					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!","Erro Ao Cadastrar Tarefa!!!",e.getMessage());
-//				}
-//				
-//				try {
-//					if(log != null)
-//						Fachada.getInstance().salvarEditarLog(log);
-//				} catch (BusinessException e) {
-//					e.printStackTrace();
-//				}					
-//				
-//			}
-//
-//			
-//			return null;
-//			
-//		}
+
 		else if (optional.isPresent() && optional.get().getButtonData() == ButtonData.OK_DONE) {
 			
 			return view.getSelectionModel().getSelectedItem();
@@ -226,6 +173,5 @@ public class Dialogo {
 		if (result.isPresent())
 			return table.getSelectionModel().getSelectedItem();
 		return null;
-	}
-
+	}	
 }

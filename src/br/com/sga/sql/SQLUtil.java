@@ -2,7 +2,8 @@ package br.com.sga.sql;
 
 public class SQLUtil {
 
-    public static final String URL_POSTGRES = "jdbc:postgresql://localhost:5432/sga";
+	public static String IP = "localhost";
+    public static String URL_POSTGRES = "jdbc:postgresql://"+IP+":5432/SGA";
     public static final String USUARIO_POSTGRES = "postgres";
     public static final String SENHA_POSTGRES = "admin";
     
@@ -173,7 +174,6 @@ public class SQLUtil {
     }
     
     public static class Log {
-    	
     	
     	public static final String INSERT_ALL = "INSERT INTO LOG(data, evento, remetente, destinatario, status) VALUES (?, ?, ?, ?, ?)";
     	public static final String SELECT_DATA_INTERVALO = "SELECT * FROM LOG WHERE (data BETWEEN ? AND ?) AND evento ilike ? AND status ilike ?";

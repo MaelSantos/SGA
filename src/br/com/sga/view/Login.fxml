@@ -41,6 +41,11 @@
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Button>
+                  <Button fx:id="btnConfigurar" mnemonicParsing="false" onAction="#actionButton" prefHeight="32.0" prefWidth="111.0" text="Configurar IP">
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font>
+                  </Button>
                   <Button fx:id="btnSair" mnemonicParsing="false" onAction="#actionButton" prefHeight="32.0" prefWidth="111.0" text="Sair">
                      <font>
                         <Font name="Verdana" size="12.0" />

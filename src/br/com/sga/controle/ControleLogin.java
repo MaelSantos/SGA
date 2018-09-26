@@ -13,7 +13,9 @@ import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
+import br.com.sga.sql.SQLUtil;
 import br.com.sga.view.Alerta;
+import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,6 +34,9 @@ public class ControleLogin implements Initializable {
 	private Button btnEntrar;
 
 	@FXML
+	private Button btnConfigurar;
+	
+	@FXML
 	private Button btnSair;
 
 	@FXML
@@ -42,14 +47,19 @@ public class ControleLogin implements Initializable {
 
 	private IFachada fachada;
 	private Funcionario funcionario;
+	private Dialogo dialogo;
+	private String usuario;
 
 	@FXML
 	private void actionButton(ActionEvent e) {
-		if (e.getSource() == btnEntrar) {
+		
+		Object obj = e.getSource();
+		
+		if (obj == btnEntrar) {
 			Log log;
 			try {
 				funcionario = fachada.buscarPorLogin(tfdLogin.getText(), tfdSenha.getText());
-
+				usuario = funcionario.getNome();
 				App.changeStage(Tela.MENU);
 				App.notificarOuvintes(Tela.MENU, funcionario);
 
@@ -72,11 +82,26 @@ public class ControleLogin implements Initializable {
 				e1.printStackTrace();
 			}
 		}
-
-		if (e.getSource() == btnSair) {
+		else if(obj == btnConfigurar)
+		{
+			String ip = dialogo.dialogoDeEntradaText("Configurar IP", "IP atual: "+SQLUtil.IP, "Escolha Um Novo IP");
+			
+			if(!ip.trim().isEmpty())
+			{
+				SQLUtil.IP = ip;
+				SQLUtil.URL_POSTGRES = "jdbc:postgresql://"+ip+":5432/SGA";
+				System.out.println("Retorno: "+ip);
+				System.out.println("URL: "+SQLUtil.URL_POSTGRES);
+				
+				Alerta.getInstance().showMensagem(AlertType.INFORMATION, "Concluido", "IP Alterado Para: "+ip, "");
+			}
+			else
+				Alerta.getInstance().showMensagem(AlertType.WARNING, "Nada Alterado", "Nada Foi Modificado: IP Atual: "+SQLUtil.IP, "Informe Algum Dado!!!");
+		}
+		else if (obj == btnSair) {
 			try {
 				fachada.salvarEditarLog(new Log(new Date(System.currentTimeMillis()), EventoLog.ENCERRAR,
-						funcionario.getNome(), "Encerrando Sistema: ", StatusLog.CONCLUIDO));
+						usuario, "Encerrando Sistema: ", StatusLog.CONCLUIDO));
 			} catch (BusinessException e1) {
 				e1.printStackTrace();
 			}
@@ -87,8 +112,11 @@ public class ControleLogin implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		fachada = Fachada.getInstance();
 		
+		fachada = Fachada.getInstance();
+		dialogo = Dialogo.getInstance();
+		
+		usuario = "";
 	}
 
 }
