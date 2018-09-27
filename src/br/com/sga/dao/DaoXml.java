@@ -16,9 +16,9 @@ public class DaoXml implements IDaoXml {
 
 	private static DaoXml instance;
 	private XStream xStream;
+	private File file;
 	
 	private String ip;
-
 	private DaoXml() {
 
 		xStream = new XStream(new Dom4JDriver());
@@ -28,6 +28,8 @@ public class DaoXml implements IDaoXml {
 		xStream.allowTypes(new Class[] { 
 				String.class
 		});
+		
+		file = new File(getClass().getClassLoader().getResource("ip.xml").getFile());
 		
 		ip = buscarIP();
 		
@@ -42,7 +44,6 @@ public class DaoXml implements IDaoXml {
 	@Override
 	public synchronized String SalvarEditarIP(String ip) {
 
-		File file = new File("res/ip.xml");
 		
 		try {
 			if(!file.exists())
@@ -69,8 +70,6 @@ public class DaoXml implements IDaoXml {
 	public synchronized String buscarIP() {
 
 		String ip = null;
-		
-		File file = new File("res/ip.xml");
 		
 		try {
 			if(!file.exists())
