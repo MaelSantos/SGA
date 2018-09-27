@@ -6,6 +6,7 @@ public class SQLUtil {
 //    public static String URL_POSTGRES = "jdbc:postgresql://"+IP+":5432/SGA";
     public static final String USUARIO_POSTGRES = "postgres";
     public static final String SENHA_POSTGRES = "admin";
+//    public static final String SENHA_POSTGRES = "81540106";
     
     public static class Processo{
     	public static final String INSERT_ALL = "INSERT INTO PROCESSO(numero,tipo_processo,fase,descricao,decisao,comarca,orgao_julgador,classe_judicial,data_atuacao,status, cliente_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)";

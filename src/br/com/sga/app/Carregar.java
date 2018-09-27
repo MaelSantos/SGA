@@ -139,7 +139,7 @@ public class Carregar implements Initializable{
 							
 							try {
 								Fachada.getInstance().validarNotificacoes(Calendar.getInstance().getTime());
-							}catch(BusinessException e ) {
+							}catch(Exception e ) {
 								e.printStackTrace();
 							}
 							

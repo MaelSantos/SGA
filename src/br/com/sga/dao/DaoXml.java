@@ -56,7 +56,7 @@ public class DaoXml implements IDaoXml {
 			
 			OutputStream stream = new FileOutputStream(file);
 			xStream.toXML("jdbc:postgresql://"+ip+":5432/SGA", stream);
-			this.ip = ip;
+			this.ip = "jdbc:postgresql://"+ip+":5432/SGA";
 
 		} catch (IOException e) {
 			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro ao Modificar IP", "");

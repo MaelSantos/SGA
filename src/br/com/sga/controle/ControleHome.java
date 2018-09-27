@@ -99,7 +99,7 @@ public class ControleHome extends Controle {
 		colTipo2.setCellValueFactory(
 				new PropertyValueFactory<>("tipoNotificacao"));
 
-		Log log;
+//		Log log;
 		try {
 
 			Date primeiro = resolvePrimeiroUltimo(new Date(), true);
@@ -109,24 +109,24 @@ public class ControleHome extends Controle {
 			tblAtrasados.getItems().setAll(fachada.BuscarNotificacaoAdapterPorEstado(Andamento.VENCIDO.toString()));
 			tblSemana.getItems().setAll(fachada.BuscarNotificacaoAdapterPorData(primeiro, ultimo));
 
-			if(tblAtrasados.getItems().isEmpty() && tblSemana.getItems().isEmpty())
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: Nada Encontrado", StatusLog.SEM_RESULTADOS);
-			else
-				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: ", StatusLog.CONCLUIDO);
+//			if(tblAtrasados.getItems().isEmpty() && tblSemana.getItems().isEmpty())
+//				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: Nada Encontrado", StatusLog.SEM_RESULTADOS);
+//			else
+//				log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: ", StatusLog.CONCLUIDO);
 
 		} catch (Exception e) {
 
-			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Carregar Notificações!!!", e.getMessage());
-			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: Erro ", StatusLog.ERRO);
+//			Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Carregar Notificações!!!", e.getMessage());
+//			log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, "Sistema", "Buscar Tarefas Da Semana e Atrasadas: Erro ", StatusLog.ERRO);
 			e.printStackTrace();
 		}
 
-		try {
-			if(log != null)
-				fachada.salvarEditarLog(log);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			if(log != null)
+//				fachada.salvarEditarLog(log);
+//		} catch (BusinessException e) {
+//			e.printStackTrace();
+//		}
 
 		colData1.setCellFactory(coluna -> {
 

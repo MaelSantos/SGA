@@ -1,5 +1,6 @@
 package br.com.sga.view;
 import javafx.scene.Node;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -100,9 +101,10 @@ public class DateItem extends AnchorPane {
 	
 	public boolean compare()
 	{
-		for(java.util.Date d : dates)
-			if(d.toString().equals(date.toString()))
-				return true;
+		if(dates != null )
+			for(java.util.Date d : dates)
+				if(d.toString().equals(date.toString()))
+					return true;
 		return false;
 	}
 	
@@ -110,8 +112,7 @@ public class DateItem extends AnchorPane {
 	{
 		try {
 			dates = Fachada.getInstance().BuscarAllDataPorMes(correnteMesAno.getMonthValue(), correnteMesAno.getYear());
-		} catch (BusinessException e) {
-			// TODO Bloco catch gerado automaticamente
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
