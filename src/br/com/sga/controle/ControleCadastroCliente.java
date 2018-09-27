@@ -21,7 +21,6 @@ import br.com.sga.entidade.enums.Sexo;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoCliente;
-import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.entidade.enums.TipoTelefone;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;

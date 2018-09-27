@@ -3,7 +3,6 @@ package br.com.sga.fachada;
 import java.util.Date;
 import java.util.List;
 
-import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Cliente;
 import br.com.sga.entidade.Consulta;
 import br.com.sga.entidade.Contrato;
@@ -13,9 +12,7 @@ import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Processo;
-import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.adapter.ClienteAdapter;
-import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.entidade.adapter.FuncionarioAdapter;
@@ -24,7 +21,6 @@ import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.entidade.adapter.ContaAdapter;
 import br.com.sga.exceptions.BusinessException;
-import br.com.sga.exceptions.DaoException;
 
 public interface IFachada {
 	

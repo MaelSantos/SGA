@@ -6,7 +6,6 @@ import br.com.sga.entidade.Contrato;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.adapter.ContratoAdapter;
 import br.com.sga.exceptions.BusinessException;
-import br.com.sga.exceptions.DaoException;
 
 public interface IBusinessContrato {
 

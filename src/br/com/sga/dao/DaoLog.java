@@ -9,10 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.sga.entidade.Log;
-import br.com.sga.entidade.Telefone;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
-import br.com.sga.entidade.enums.Tabela;
 import br.com.sga.exceptions.DaoException;
 import br.com.sga.interfaces.IDaoLog;
 import br.com.sga.sql.SQLConnection;

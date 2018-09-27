@@ -11,7 +11,6 @@ import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
-import br.com.sga.sql.SQLUtil;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;

@@ -6,20 +6,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.sql.Date;
-import java.time.DayOfWeek;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import br.com.sga.app.App;
-import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
-import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;

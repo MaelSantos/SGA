@@ -20,7 +20,6 @@ import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.Parcela;
 import br.com.sga.entidade.Processo;
-import br.com.sga.entidade.Testemunha;
 import br.com.sga.entidade.adapter.ClienteAdapter;
 import br.com.sga.entidade.adapter.ConsultaAdapter;
 import br.com.sga.entidade.adapter.ContratoAdapter;

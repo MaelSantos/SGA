@@ -1,7 +1,6 @@
 package br.com.sga.controle;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import br.com.sga.entidade.enums.Estado;
 import br.com.sga.entidade.enums.EventoLog;
 import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
-import br.com.sga.entidade.enums.TipoPagamento;
 import br.com.sga.entidade.enums.TipoTelefone;
 import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
@@ -163,7 +161,6 @@ public class ControleCadastroConsulta extends Controle{
 		}
 		else  if(event.getSource() == buscarClienteButton) 
 		{
-			Log log;
 			try {
 				List<Cliente> clientes = null;
 				if(!dadoClienteField.getText().trim().isEmpty())

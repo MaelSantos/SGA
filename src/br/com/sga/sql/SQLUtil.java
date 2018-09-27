@@ -2,8 +2,8 @@ package br.com.sga.sql;
 
 public class SQLUtil {
 
-	public static String IP = "localhost";
-    public static String URL_POSTGRES = "jdbc:postgresql://"+IP+":5432/SGA";
+//	public static String IP = "localhost";
+//    public static String URL_POSTGRES = "jdbc:postgresql://"+IP+":5432/SGA";
     public static final String USUARIO_POSTGRES = "postgres";
     public static final String SENHA_POSTGRES = "admin";
     

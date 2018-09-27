@@ -10,10 +10,6 @@ import javafx.scene.text.Text;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.List;
-
-import br.com.sga.entidade.Notificacao;
-import br.com.sga.fachada.Fachada;
 
 public class Calendario {
 
@@ -22,6 +18,7 @@ public class Calendario {
 	private Text calendarioTitulo;
 	public static YearMonth correnteMesAno;
 	
+	@SuppressWarnings("static-access")
 	public Calendario(YearMonth MesAno) {
 		
 		setCorrenteMesAno(MesAno);
@@ -138,6 +135,7 @@ public class Calendario {
 		return correnteMesAno;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setCorrenteMesAno(YearMonth correnteMesAno) {
 		this.correnteMesAno = correnteMesAno;
 	}

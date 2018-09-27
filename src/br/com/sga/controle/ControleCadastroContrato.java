@@ -118,14 +118,13 @@ public class ControleCadastroContrato extends Controle{
 	private Funcionario funcionario;
 
 	@FXML
-	public
-	void actionButton(ActionEvent event) {
+	public void actionButton(ActionEvent event) {
 		// condi��o para tirar da tela quando n�o for necess�rio o campo para add
 		// informa��es do banco
 		if (voltarButton == event.getSource()) {
 			App.notificarOuvintes(Tela.BUSCAR_CONTRATO);
 		} else if (event.getSource() == tipoPagamamentoBox) {
-			if (!tipoPagamamentoBox.getSelectionModel().getSelectedItem().equals(TipoPagamento.A_VISTA.toString()))
+			if (!tipoPagamamentoBox.getSelectionModel().getSelectedItem().equals(TipoPagamento.A_VISTA))
 				quantidadeParcelasBox.setVisible(true);
 			else
 				quantidadeParcelasBox.setVisible(false);

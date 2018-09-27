@@ -26,7 +26,7 @@ public class SQLConnection {
                     case NOME_BD_CONNECTION_POSTGRESS: {
 
                         conexao = DriverManager.getConnection(
-                                SQLUtil.URL_POSTGRES,
+                                DaoXml.getInstance().getIp(),
                                 SQLUtil.USUARIO_POSTGRES,
                                 SQLUtil.SENHA_POSTGRES
                         );

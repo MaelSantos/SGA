@@ -4,14 +4,11 @@ import java.util.ArrayList;
 
 import br.com.sga.app.App;
 import br.com.sga.dao.DaoCommun;
-import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Parte;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoParte;
 import br.com.sga.exceptions.DaoException;
-import br.com.sga.fachada.Fachada;
-import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,18 +47,18 @@ public class ControleCadastroPartes extends Controle {
 	@FXML
 	private Button btnVoltar;
 	
-	private IFachada fachada;
-	private Funcionario funcionario;
+//	private IFachada fachada;
+//	private Funcionario funcionario;
 	private Processo processo;
 
 	@Override
 	public void atualizar(Tela tela, Object object) {
 
-		if (object instanceof Funcionario) {
-			funcionario = (Funcionario) object;
-		}
+//		if (object instanceof Funcionario) {
+//			funcionario = (Funcionario) object;
+//		}
 
-		else if(tela == Tela.CADASTRO_PARTE)
+		if(tela == Tela.CADASTRO_PARTE)
 			if (object instanceof Processo) {
 				processo = (Processo) object;
 				if(processo.getPartes() != null)
@@ -74,7 +71,7 @@ public class ControleCadastroPartes extends Controle {
 	@Override
 	public void init() {
 
-		fachada = Fachada.getInstance();
+//		fachada = Fachada.getInstance();
 		
 		cbxTipoParte.getItems().setAll(TipoParte.values());
 

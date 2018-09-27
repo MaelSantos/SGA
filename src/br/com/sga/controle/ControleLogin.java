@@ -15,7 +15,6 @@ import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.interfaces.IDaoXml;
-import br.com.sga.sql.SQLUtil;
 import br.com.sga.view.Alerta;
 import br.com.sga.view.Dialogo;
 import javafx.event.ActionEvent;

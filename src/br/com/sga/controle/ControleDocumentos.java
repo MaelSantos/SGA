@@ -111,7 +111,7 @@ public class ControleDocumentos extends Controle {
 	private List<? extends Object> list;
 
 	private double porcentagem = 0;
-	private Service service;
+	private Service<?> service;
 
 	private Funcionario funcionario;
 	private Consulta consulta;
@@ -201,12 +201,12 @@ public class ControleDocumentos extends Controle {
 			}
 		});
 
-		service = new Service() {
+		service = new Service<Object>() {
 
 			@Override
-			protected Task createTask() {
+			protected Task<Object> createTask() {
 
-				return new Task() {
+				return new Task<Object>() {
 
 					public void update() {
 						updateMessage("Gerando Arquivo...");
@@ -214,6 +214,7 @@ public class ControleDocumentos extends Controle {
 						updateProgress(porcentagem, 100);
 					}
 
+					@SuppressWarnings("deprecation")
 					@Override
 					protected Object call() throws Exception {
 						updateTitle("Preparando Arquivo...");

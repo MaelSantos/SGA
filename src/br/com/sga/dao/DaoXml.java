@@ -7,10 +7,6 @@ import java.io.OutputStream;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.Dom4JDriver;
-import com.thoughtworks.xstream.security.AnyTypePermission;
-import com.thoughtworks.xstream.security.NoTypePermission;
-import com.thoughtworks.xstream.security.NullPermission;
-import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 import br.com.sga.interfaces.IDaoXml;
 import br.com.sga.view.Alerta;

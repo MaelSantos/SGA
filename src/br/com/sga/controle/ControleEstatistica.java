@@ -1,7 +1,6 @@
 package br.com.sga.controle;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +19,6 @@ import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;

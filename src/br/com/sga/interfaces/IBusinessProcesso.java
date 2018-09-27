@@ -5,7 +5,6 @@ import java.util.List;
 import br.com.sga.entidade.Processo;
 import br.com.sga.entidade.adapter.ProcessoAdapter;
 import br.com.sga.exceptions.BusinessException;
-import br.com.sga.exceptions.DaoException;
 
 public interface IBusinessProcesso {
 

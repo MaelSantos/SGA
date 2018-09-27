@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 
-import br.com.sga.entidade.Audiencia;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.Log;
 import br.com.sga.entidade.enums.EventoLog;
@@ -16,7 +15,6 @@ import br.com.sga.fachada.IFachada;
 import br.com.sga.view.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
