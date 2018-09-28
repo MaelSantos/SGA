@@ -69,22 +69,22 @@
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfdNome" editable="false" GridPane.columnIndex="1">
+                        <TextField fx:id="tfdNome" GridPane.columnIndex="1">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfdEmail" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="tfdEmail" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfdLogin" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="tfdLogin" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfdNumeroOab" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <TextField fx:id="tfdNumeroOab" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
