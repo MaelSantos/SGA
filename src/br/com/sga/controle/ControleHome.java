@@ -6,12 +6,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import br.com.sga.app.App;
-import br.com.sga.entidade.Log;
 import br.com.sga.entidade.Notificacao;
 import br.com.sga.entidade.adapter.NotificacaoAdapter;
 import br.com.sga.entidade.enums.Andamento;
-import br.com.sga.entidade.enums.EventoLog;
-import br.com.sga.entidade.enums.StatusLog;
 import br.com.sga.entidade.enums.Tela;
 import br.com.sga.entidade.enums.TipoNotificacao;
 import br.com.sga.exceptions.BusinessException;

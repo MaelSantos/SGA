@@ -2,7 +2,7 @@ package br.com.sga.entidade.enums;
 
 public enum Instancia {
 
-	INSTANCIA_1("1° Instância"), INSTANCIA_2("3° Instância"), INSTANCIA_3("3° Instância");
+	INSTANCIA_1("1° Instância"), INSTANCIA_2("2° Instância"), INSTANCIA_3("3° Instância");
 	
 	private String valor;
 	

@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import br.com.sga.entidade.enums.Tela;
-import br.com.sga.exceptions.BusinessException;
 import br.com.sga.fachada.Fachada;
 import br.com.sga.view.Alerta;
 import javafx.concurrent.Service;
