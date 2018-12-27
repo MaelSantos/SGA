@@ -194,7 +194,7 @@ public class ControleDocumentos extends Controle {
 			protected void updateItem(Instancia item, boolean empty) {
 				super.updateItem(item, empty);
 				if (empty || item == null) {
-					setText("Instância");
+					setText("InstÃ¢ncia");
 				} else {
 					setText(item.toString());
 				}
@@ -226,7 +226,7 @@ public class ControleDocumentos extends Controle {
 						JasperDesign desenho = JRXmlLoader.load(inputStream);
 						update();
 						System.out.println("Carregou designer");
-						// compila o relatório
+						// compila o relatï¿½rio
 						JasperReport relatorio = JasperCompileManager.compileReport(desenho);
 						update();
 						System.out.println("Compilou");
@@ -289,7 +289,7 @@ public class ControleDocumentos extends Controle {
 
 				} else {
 					Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Gerar Documento!!!",
-							"Verifique Se Todos Os Dados Estão Corretos");
+							"Verifique Se Todos Os Dados Estï¿½o Corretos");
 
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
 							"Gerar Documento: Sem Resultados", StatusLog.SEM_RESULTADOS);
@@ -299,7 +299,7 @@ public class ControleDocumentos extends Controle {
 				log = new Log(new Date(System.currentTimeMillis()), EventoLog.GERAR, funcionario.getNome(),
 						"Gerar Documento: " + cbxTipo.getValue(), StatusLog.ERRO);
 				Alerta.getInstance().showMensagem(AlertType.ERROR, "Erro!", "Erro Ao Gerar Documento!!!",
-						"Verifique Se Todos Os Dados Estão Corretos");
+						"Verifique Se Todos Os Dados Estï¿½o Corretos");
 			}
 
 			try {
@@ -328,10 +328,10 @@ public class ControleDocumentos extends Controle {
 							"Buscar: " + cbxTipo.getValue(), StatusLog.CONCLUIDO);
 
 				} else {
-					Alerta.getInstance().showMensagem(AlertType.ERROR, "Não Encontrado!", "Dados Não Encontrados!!!",
+					Alerta.getInstance().showMensagem(AlertType.ERROR, "Nï¿½o Encontrado!", "Dados Nï¿½o Encontrados!!!",
 							"Tente Novamente Procurando Por Outros Dados!!!");
 
-					lblDados.setText("Dados Não Encontrados");
+					lblDados.setText("Dados Nï¿½o Encontrados");
 					lblDados.setTextFill(Paint.valueOf("#FF0000"));
 
 					log = new Log(new Date(System.currentTimeMillis()), EventoLog.BUSCAR, funcionario.getNome(),
@@ -410,7 +410,7 @@ public class ControleDocumentos extends Controle {
 					consulta.setCliente(fachada.buscarClientePorIdConsulta(consulta.getId()));
 					
 					System.out.println("Cliente: "+consulta.getCliente());
-					System.out.println("Endereço: "+consulta.getCliente().getEndereco());
+					System.out.println("Endereï¿½o: "+consulta.getCliente().getEndereco());
 					
 					consulta.setFuncionario(fachada.buscarUsuarioPorIdConsulta(consulta.getId()));
 					list.add(consulta);
@@ -470,7 +470,7 @@ public class ControleDocumentos extends Controle {
 			throw new ValidacaoException(e.getMessage());
 		}
 
-		throw new ValidacaoException("Dados Não Encontrados!!! - Tente Procurar Informando Outro Dado");
+		throw new ValidacaoException("Dados Nï¿½o Encontrados!!! - Tente Procurar Informando Outro Dado");
 	}
 
 	@SuppressWarnings("deprecation")
@@ -482,7 +482,7 @@ public class ControleDocumentos extends Controle {
 		System.out.println(inputStream);
 		JasperDesign desenho = JRXmlLoader.load(inputStream);
 
-		// compila o relatório
+		// compila o relatï¿½rio
 		JasperReport relatorio = JasperCompileManager.compileReport(desenho);
 
 		/* Convert List to JRBeanCollectionDataSource */

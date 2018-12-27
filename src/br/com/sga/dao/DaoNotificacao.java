@@ -99,7 +99,7 @@ public class DaoNotificacao implements IDaoNotificacao {
 			this.connection.close();
 		}catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new DaoException("PROBLEMA AO VEERIFICAR NOTIFICAÇÕES ATRASADAS - CONTATE O ADM");
+			throw new DaoException("PROBLEMA AO VERIFICAR NOTIFICAÇÕES ATRASADAS - CONTATE O ADM");
 		}
 	}
 
