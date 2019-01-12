@@ -1,8 +1,5 @@
 package br.com.sga.controle;
 
-import org.controlsfx.control.Notifications;
-import org.controlsfx.control.textfield.TextFields;
-
 import br.com.sga.app.App;
 import br.com.sga.entidade.Funcionario;
 import br.com.sga.entidade.enums.Tela;
@@ -144,7 +141,7 @@ public class ControleMenu extends Controle {
 
 	@Override
 	public void init() {
-		TextFields.bindAutoCompletion(tfdPesquisar, Tela.values());
+//		TextFields.bindAutoCompletion(tfdPesquisar, Tela.values());
 
 	}
 
@@ -157,14 +154,14 @@ public class ControleMenu extends Controle {
 					/*
 					 * Timeline oneMinuteTimeline = new Timeline(new KeyFrame(Duration.seconds(5),
 					 * event -> {
-					 * Notifications.create().title("Olá!").text("teste").action().position(Pos.
+					 * Notifications.create().title("Olï¿½!").text("teste").action().position(Pos.
 					 * BOTTOM_RIGHT).showInformation(); }));
 					 * oneMinuteTimeline.setCycleCount(Timeline.INDEFINITE); // Executar
 					 * indefinidamente. oneMinuteTimeline.play();
 					 */
 
-					Notifications.create().title("Olá!").text("Bem vindo " + ((Funcionario) object).getNome()).action()
-							.position(Pos.BOTTOM_RIGHT).showInformation();
+//					Notifications.create().title("Olï¿½!").text("Bem vindo " + ((Funcionario) object).getNome()).action()
+//							.position(Pos.BOTTOM_RIGHT).showInformation();
 				}
 				this.funcionario = (Funcionario) object;
 				String nome_completo = funcionario.getNome();

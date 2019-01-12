@@ -29,7 +29,12 @@ public class DaoXml implements IDaoXml {
 				String.class
 		});
 		
-		file = new File(getClass().getClassLoader().getResource("ip.xml").getFile());
+		try {			
+			file = new File(getClass().getClassLoader().getResource("ip.xml").getFile());
+		} catch (Exception e) {
+			file = new File("res/ip.xml");
+		}
+		
 		
 		ip = buscarIP();
 		
